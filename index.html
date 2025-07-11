@@ -627,7 +627,7 @@
                     let chatHistory = [];
                     chatHistory.push({ role: "user", parts: [{ text: `As an AI expert for an AI agency named solidiA, suggest a concise and innovative AI solution (2-3 sentences) for the following business problem: "${prompt}". Focus on how AI can directly solve it and then mention a relevant solidiA service.` }] });
                     const payload = { contents: chatHistory };
-                    const apiKey = ""; // If you want to use models other than gemini-2.0-flash or imagen-3.0-generate-002, provide an API key here. Otherwise, leave this as-is.
+                    const apiKey = "AIzaSyCVqJGBnJIgNb73heK3RIclkIA0ujSR7XY"; // TU CLAVE API DE GEMINI
                     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
                     const response = await fetch(apiUrl, {
