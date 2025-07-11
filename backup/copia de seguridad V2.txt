@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>solidiA - Artificial Intelligence Agency</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            background-color: #0d1117; /* Dark background for AI theme */
+            color: #e0e0e0;
+            display: flex;
+            flex-direction: column; /* Stack children vertically */
+            min-height: 100vh; /* Ensure body takes full viewport height */
+        }
+
+        canvas {
+            position: fixed; /* Changed from absolute for better background coverage across scroll */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0; /* Send canvas to background */
+            background-color: transparent;
+        }
+
+        /* Navigation Bar - Removed absolute positioning to be part of normal flow */
+        nav {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.7); /* Slightly more opaque for contrast */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            display: flex; /* To center the dropdown */
+            justify-content: center;
+            border-radius: 0 0 0.5rem 0.5rem; /* Rounded bottom corners */
+            z-index: 10; /* Higher z-index than main-container */
+        }
+
+        .main-container {
+            position: relative; /* Keep relative for z-index and internal positioning */
+            z-index: 5; /* Above canvas, below nav/footer */
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            max-width: 95%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            overflow-y: auto; /* Allow scrolling for content if it exceeds available space */
+            flex-grow: 1; /* Allow it to grow and fill available space between nav and footer */
+            margin: 1.5rem auto; /* Vertical margin and horizontal centering */
+        }
+
+        h1 {
+            font-size: 3.5rem; /* Larger font for agency name */
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, #4CAF50, #2196F3); /* Gradient text */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            p {
+                font-size: 1rem;
+            }
+            .main-container {
+                padding: 1rem;
+            }
+        }
+
+        /* Dropdown specific styles */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #1a202c; /* Darker background for dropdown */
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.6);
+            z-index: 100;
+            border-radius: 0.5rem;
+            top: 100%; /* Position below the button */
+            left: 50%;
+            transform: translateX(-50%); /* Center the dropdown */
+        }
+
+        .dropdown-content a {
+            color: #e0e0e0;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            border-radius: 0.5rem;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #2d3748; /* Lighter hover background */
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Footer specific styles - Removed absolute positioning to be part of normal flow */
+        footer {
+            width: 100%;
+            background-color: #1a202c; /* Darker background for footer */
+            padding: 2rem;
+            text-align: center;
+            border-radius: 0.5rem 0.5rem 0 0; /* Rounded top corners */
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5); /* Shadow for top edge */
+            z-index: 10; /* Higher z-index than main-container */
+        }
+        footer .footer-section {
+            margin-bottom: 1.5rem;
+        }
+        footer h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #4CAF50; /* Green accent */
+            margin-bottom: 1rem;
+        }
+        footer ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        footer ul li a {
+            color: #a0aec0; /* Lighter grey for links */
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        footer ul li a:hover {
+            color: #2196F3; /* Blue hover for links */
+        }
+        footer .social-icons a {
+            margin: 0 0.75rem;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="networkCanvas"></canvas>
+
+    <!-- Navigation Bar -->
+    <nav class="bg-gray-900 bg-opacity-70 shadow-lg flex justify-center rounded-b-xl">
+        <div class="relative inline-block text-left dropdown">
+            <button class="bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:scale-105">
+                Navigate <span class="ml-2">&#9660;</span>
+            </button>
+            <div class="dropdown-content">
+                <a href="#" data-section="our-services">Home</a>
+                <a href="#" data-section="who-we-are">Who We Are</a>
+                <a href="#" data-section="our-services">Our Services</a>
+                <a href="#" data-section="careers">Careers</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container" id="mainContent">
+        <!-- Who We Are Section -->
+        <div id="who-we-are-section" class="content-section hidden w-full max-w-4xl bg-gray-800 bg-opacity-60 p-6 rounded-xl shadow-lg text-left">
+            <h2 class="text-3xl font-bold text-white mb-4 text-center">Who We Are</h2>
+            <p class="text-gray-300 text-base leading-relaxed mb-8 text-center">
+                At solidiA, our strength lies in our diverse and expert team, dedicated to pushing the boundaries of Artificial Intelligence. Meet the key individuals driving our innovation and client success.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Profile 1: CEO & Lead AI Strategist -->
+                <div class="bg-gray-700 bg-opacity-70 p-4 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <img src="https://placehold.co/120x120/4CAF50/ffffff?text=CEO" alt="Profile Picture" class="rounded-full w-24 h-24 object-cover mb-3 border-2 border-blue-400">
+                    <h3 class="text-xl font-semibold text-white mb-1">Dr. Alex Rivera</h3>
+                    <p class="text-blue-300 text-sm font-medium mb-2">CEO & Lead AI Strategist</p>
+                    <p class="text-gray-300 text-xs">Visionary leader guiding solidiA's strategic direction and fostering key client partnerships to deliver groundbreaking AI solutions.</p>
+                </div>
+                <!-- Profile 2: CTO & Head of R&D -->
+                <div class="bg-gray-700 bg-opacity-70 p-4 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <img src="https://placehold.co/120x120/2196F3/ffffff?text=CTO" alt="Profile Picture" class="rounded-full w-24 h-24 object-cover mb-3 border-2 border-green-400">
+                    <h3 class="text-xl font-semibold text-white mb-1">Dr. Lena Chen</h3>
+                    <p class="text-blue-300 text-sm font-medium mb-2">CTO & Head of R&D</p>
+                    <p class="text-gray-300 text-xs">Oversees all technological development and research initiatives, ensuring solidiA remains at the cutting edge of AI innovation.</p>
+                </div>
+                <!-- Profile 3: Head of Solutions Architecture -->
+                <div class="bg-gray-700 bg-opacity-70 p-4 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <img src="https://placehold.co/120x120/9C27B0/ffffff?text=Arch" alt="Profile Picture" class="rounded-full w-24 h-24 object-cover mb-3 border-2 border-purple-400">
+                    <h3 class="text-xl font-semibold text-white mb-1">Ing. Marco Rossi</h3>
+                    <p class="text-blue-300 text-sm font-medium mb-2">Head of Solutions Architecture</p>
+                    <p class="text-gray-300 text-xs">Designs robust and scalable AI solutions, translating complex client needs into technically sound and effective implementations.</p>
+                </div>
+                <!-- Profile 4: Lead Data Scientist & ML Engineer -->
+                <div class="bg-gray-700 bg-opacity-70 p-4 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <img src="https://placehold.co/120x120/FFC107/ffffff?text=Data" alt="Profile Picture" class="rounded-full w-24 h-24 object-cover mb-3 border-2 border-yellow-400">
+                    <h3 class="text-xl font-semibold text-white mb-1">Dr. Anya Sharma</h3>
+                    <p class="text-blue-300 text-sm font-medium mb-2">Lead Data Scientist & ML Engineer</p>
+                    <p class="text-gray-300 text-xs">Drives the core AI development, from data analysis and model building to deployment and optimization of machine learning systems.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Our Services Section (Now includes Home content) -->
+        <div id="our-services-section" class="content-section hidden w-full max-w-4xl bg-gray-800 bg-opacity-60 p-6 rounded-xl shadow-lg">
+            <!-- Agency Name and Slogan (Moved from Home Section) -->
+            <div>
+                <h1 class="text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 rounded-lg p-2">solidiA</h1>
+                <p class="text-xl text-gray-300 mb-6">Connecting the future with Artificial Intelligence</p>
+                <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mb-8"> <!-- Added margin-bottom -->
+                    <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105" onclick="showSection('our-services')">
+                        Our Services
+                    </button>
+                    <button class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
+                        Contact Us
+                    </button>
+                </div>
+            </div>
+
+            <!-- New: AI Solution Brainstormer Section -->
+            <div class="w-full bg-gray-700 bg-opacity-70 p-6 rounded-xl shadow-md mb-8">
+                <h2 class="text-3xl font-bold text-white mb-4 text-center">✨ AI Solution Brainstormer ✨</h2>
+                <p class="text-gray-300 text-sm mb-4">
+                    Describe your business challenge below, and our AI will suggest how solidiA can help solve it with intelligent solutions.
+                </p>
+                <textarea id="businessProblemInput" class="w-full p-3 rounded-lg bg-gray-800 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500 mb-4" rows="4" placeholder="E.g., 'We need to automate customer support inquiries' or 'How can AI improve our sales forecasting?'"></textarea>
+                <button id="generateSolutionBtn" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
+                    Generate AI Solution Idea
+                </button>
+                <div id="solutionOutput" class="mt-6 p-4 bg-gray-800 rounded-lg text-left text-gray-200 border border-gray-600 hidden">
+                    <p class="text-sm italic text-gray-400 mb-2">AI Suggested Solution:</p>
+                    <div id="solutionText" class="whitespace-pre-wrap"></div>
+                    <div id="loadingIndicator" class="hidden flex justify-center items-center mt-4">
+                        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+                        <span class="ml-3 text-blue-400">Thinking...</span>
+                    </div>
+                </div>
+
+                <!-- New: Contact Form after Solution -->
+                <div id="contactFormContainer" class="mt-8 p-6 bg-gray-800 rounded-lg shadow-lg hidden">
+                    <h3 class="text-2xl font-bold text-white mb-4 text-center">Ready to discuss your solution?</h3>
+                    <p class="text-gray-300 text-sm mb-6 text-center">
+                        Leave your details and a solidiA expert will contact you shortly to explore your needs in depth.
+                    </p>
+                    <form id="contactForm" class="space-y-4 text-left">
+                        <div>
+                            <label for="clientName" class="block text-gray-300 text-sm font-bold mb-2">Your Name:</label>
+                            <input type="text" id="clientName" class="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500" placeholder="John Doe" required>
+                        </div>
+                        <div>
+                            <label for="clientEmail" class="block text-gray-300 text-sm font-bold mb-2">Your Email:</label>
+                            <input type="email" id="clientEmail" class="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500" placeholder="john.doe@example.com" required>
+                        </div>
+                        <div>
+                            <label for="clientPhone" class="block text-gray-300 text-sm font-bold mb-2">Phone Number (Optional):</label>
+                            <input type="tel" id="clientPhone" class="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500" placeholder="+1 555 123 4567">
+                        </div>
+                        <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 mt-4">
+                            Request a Call
+                        </button>
+                    </form>
+                    <div id="contactConfirmation" class="mt-4 p-3 bg-blue-900 text-white rounded-lg hidden">
+                        Thank you! Your request has been received. A solidiA expert will contact you soon.
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="text-3xl font-bold text-white mb-6 text-center">Our Services</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Service: Automations with Informative Windows -->
+                <div class="bg-gray-700 bg-opacity-70 p-5 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <svg class="w-12 h-12 text-blue-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-1-3m-6.964-1.24A6.002 6.002 0 0012 16a6.002 6.002 0 005.214-2.24m-10.428 0a6.002 6.002 0 0110.428 0M10 10V6a2 2 0 114 0v4m-4 0h4"></path></svg>
+                    <h3 class="text-xl font-semibold text-white mb-2">Automations with Informative Windows</h3>
+                    <p class="text-gray-300 text-sm">We implement intelligent automation solutions that interact with users through personalized windows and notifications, enhancing efficiency and user experience.</p>
+                </div>
+
+                <!-- Service: Custom Software -->
+                <div class="bg-gray-700 bg-opacity-70 p-5 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <svg class="w-12 h-12 text-green-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5l7 7-7 7"></path></svg>
+                    <h3 class="text-xl font-semibold text-white mb-2">Custom Software Development</h3>
+                    <p class="text-gray-300 text-sm">We develop tailor-made software, specifically designed to meet your business's unique needs, integrating AI for more powerful and adaptable solutions.</p>
+                </div>
+
+                <!-- Service: Secure Cloud Services -->
+                <div class="bg-gray-700 bg-opacity-70 p-5 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <svg class="w-12 h-12 text-purple-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg>
+                    <h3 class="text-xl font-semibold text-white mb-2">Secure Cloud Services</h3>
+                    <p class="text-gray-300 text-sm">We offer robust and secure cloud infrastructure and services, ensuring the protection of your data and the scalability of your AI-powered operations.</p>
+                </div>
+
+                <!-- Service: Website Creation -->
+                <div class="bg-gray-700 bg-opacity-70 p-5 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <svg class="w-12 h-12 text-yellow-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                    <h3 class="text-xl font-semibold text-white mb-2">Website Creation</h3>
+                    <p class="text-gray-300 text-sm">We design and develop modern, functional websites, optimized with AI to enhance user experience and SEO performance.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Careers Section (Initially Hidden) -->
+        <div id="careers-section" class="content-section hidden w-full max-w-4xl bg-gray-800 bg-opacity-60 p-6 rounded-xl shadow-lg text-left">
+            <h2 class="text-3xl font-bold text-white mb-4 text-center">Careers</h2>
+            <p class="text-gray-300 text-base leading-relaxed mb-8 text-center">
+                Join solidiA and be part of a dynamic team at the forefront of Artificial Intelligence innovation. We are always looking for talented individuals who are passionate about technology, problem-solving, and making a real impact. Explore our key roles:
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Career Profile 1: AI/Machine Learning Engineer -->
+                <div class="bg-gray-700 bg-opacity-70 p-4 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <img src="https://placehold.co/120x120/FF5722/ffffff?text=AI+Eng" alt="AI Engineer Profile Picture" class="rounded-full w-24 h-24 object-cover mb-3 border-2 border-red-400">
+                    <h3 class="text-xl font-semibold text-white mb-1">AI/Machine Learning Engineer</h3>
+                    <p class="text-blue-300 text-sm font-medium mb-2">Develop & Implement AI Models</p>
+                    <p class="text-gray-300 text-xs">Design, build, and deploy cutting-edge AI and machine learning models, transforming complex data into intelligent solutions.</p>
+                </div>
+                <!-- Career Profile 2: Data Scientist -->
+                <div class="bg-gray-700 bg-opacity-70 p-4 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <img src="https://placehold.co/120x120/00BCD4/ffffff?text=Data+Sci" alt="Data Scientist Profile Picture" class="rounded-full w-24 h-24 object-cover mb-3 border-2 border-teal-400">
+                    <h3 class="text-xl font-semibold text-white mb-1">Data Scientist</h3>
+                    <p class="text-blue-300 text-sm font-medium mb-2">Analyze & Interpret Data</p>
+                    <p class="text-gray-300 text-xs">Extract insights from vast datasets, develop predictive models, and guide data-driven strategies for our clients.</p>
+                </div>
+                <!-- Career Profile 3: Cloud Solutions Architect -->
+                <div class="bg-gray-700 bg-opacity-70 p-4 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <img src="https://placehold.co/120x120/607D8B/ffffff?text=Cloud+Arch" alt="Cloud Architect Profile Picture" class="rounded-full w-24 h-24 object-cover mb-3 border-2 border-gray-400">
+                    <h3 class="text-xl font-semibold text-white mb-1">Cloud Solutions Architect</h3>
+                    <p class="text-blue-300 text-sm font-medium mb-2">Design & Manage Cloud Infrastructure</p>
+                    <p class="text-gray-300 text-xs">Architect and manage scalable, secure cloud environments essential for deploying and operating our AI solutions.</p>
+                </div>
+                <!-- Career Profile 4: AI Project Manager -->
+                <div class="bg-gray-700 bg-opacity-70 p-4 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <img src="https://placehold.co/120x120/FFEB3B/000000?text=PM" alt="Project Manager Profile Picture" class="rounded-full w-24 h-24 object-cover mb-3 border-2 border-yellow-400">
+                    <h3 class="text-xl font-semibold text-white mb-1">AI Project Manager</h3>
+                    <p class="text-blue-300 text-sm font-medium mb-2">Lead AI Project Lifecycle</p>
+                    <p class="text-gray-300 text-xs">Oversee the planning, execution, and delivery of AI projects, ensuring seamless communication and successful outcomes for clients.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 bg-opacity-70 shadow-lg rounded-t-xl">
+        <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-left p-4">
+            <!-- Footer Section 1: Quick Links -->
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#" onclick="showSection('our-services')">Home</a></li>
+                    <li><a href="#" onclick="showSection('who-we-are')">Who We Are</a></li>
+                    <li><a href="#" onclick="showSection('our-services')">Our Services</a></li>
+                    <li><a href="#" onclick="showSection('careers')">Careers</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+
+            <!-- Footer Section 2: Contact Info -->
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p class="text-gray-400">Email: info@solidiA.com</p>
+                <p class="text-gray-400">Phone: +1 (123) 456-7890</p>
+                <p class="text-gray-400">Address: 123 AI Avenue, Tech City, TX 78901</p>
+            </div>
+
+            <!-- Footer Section 3: Social Media -->
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="flex justify-center md:justify-start space-x-6 social-icons">
+                    <a href="#" class="text-gray-400 hover:text-blue-500 transition duration-300 ease-in-out">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33V22C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-blue-400 transition duration-300 ease-in-out">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.007-.532A8.318 8.318 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 014 9.659v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.188 11.644 11.644 0 008.29 20.25z" />
+                        </svg>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-blue-600 transition duration-300 ease-in-out">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.47 2.906 8.22 6.899 9.59v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33V22C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="mt-8 text-gray-500 text-sm">
+            &copy; 2025 solidiA. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        const canvas = document.getElementById('networkCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let particles = [];
+        const numParticles = 100; // Number of particles/nodes
+        const maxDistance = 120; // Max distance for lines between particles
+        const mouseRadius = 150; // Radius around mouse for interaction
+
+        let mouse = {
+            x: null,
+            y: null,
+            radius: mouseRadius
+        };
+
+        // Function to set canvas dimensions
+        function setCanvasSize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        // Particle class
+        class Particle {
+            constructor(x, y, directionX, directionY, size, color) {
+                this.x = x;
+                this.y = y;
+                this.directionX = directionX;
+                this.directionY = directionY;
+                this.size = size;
+                this.color = color;
+            }
+
+            // Method to draw particle
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+
+            // Method to update particle position and connect to others
+            update() {
+                // Bounce off edges
+                if (this.x + this.size > canvas.width || this.x - this.size < 0) {
+                    this.directionX = -this.directionX;
+                }
+                if (this.y + this.size > canvas.height || this.y - this.size < 0) {
+                    this.directionY = -this.directionY;
+                }
+
+                this.x += this.directionX;
+                this.y += this.directionY;
+
+                // Mouse interaction - Adjusted for smoother touch
+                let dx = mouse.x - this.x;
+                let dy = mouse.y - this.y;
+                let distance = Math.sqrt(dx * dx + dy * dy);
+
+                // If within mouse radius, gently push particles away
+                if (distance < mouse.radius + this.size) {
+                    const pushStrength = 2; // Further reduced for even smoother interaction
+                    if (mouse.x < this.x && this.x < canvas.width - this.size * pushStrength) {
+                        this.x += pushStrength;
+                    }
+                    if (mouse.x > this.x && this.x > this.size * pushStrength) {
+                        this.x -= pushStrength;
+                    }
+                    if (mouse.y < this.y && this.y < canvas.height - this.size * pushStrength) {
+                        this.y += pushStrength;
+                    }
+                    if (mouse.y > this.y && this.y > this.size * pushStrength) {
+                        this.y -= pushStrength;
+                    }
+                }
+
+                this.draw();
+            }
+        }
+
+        // Create particles
+        function init() {
+            particles = [];
+            for (let i = 0; i < numParticles; i++) {
+                let size = (Math.random() * 3) + 1; // Particle size between 1 and 4
+                let x = (Math.random() * ((canvas.width - size * 2) - (size * 2)) + size * 2);
+                let y = (Math.random() * ((canvas.height - size * 2) - (size * 2)) + size * 2);
+                let directionX = (Math.random() * 0.5) - 0.25; // Speed between -0.25 and 0.25
+                let directionY = (Math.random() * 0.5) - 0.25;
+                let color = '#888888'; // Greyish color for nodes
+                particles.push(new Particle(x, y, directionX, directionY, size, color));
+            }
+        }
+
+        // Connect particles with lines
+        function connect() {
+            let opacityValue = 1;
+            for (let a = 0; a < particles.length; a++) {
+                for (let b = a; b < particles.length; b++) {
+                    let distance = ((particles[a].x - particles[b].x) * (particles[a].x - particles[b].x)) +
+                                   ((particles[a].y - particles[b].y) * (particles[a].y - particles[b].y));
+                    if (distance < (maxDistance * maxDistance)) {
+                        opacityValue = 1 - (distance / (maxDistance * maxDistance));
+                        ctx.strokeStyle = `rgba(0, 150, 255, ${opacityValue})`; // Blue lines with varying opacity
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[a].x, particles[a].y);
+                        ctx.lineTo(particles[b].x, particles[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+            }
+            connect();
+        }
+
+        // --- Section Switching Logic ---
+        const sections = document.querySelectorAll('.content-section');
+        const dropdownLinks = document.querySelectorAll('.dropdown-content a');
+
+        function showSection(id) {
+            sections.forEach(section => {
+                section.classList.add('hidden'); // Hide all sections
+            });
+            document.getElementById(`${id}-section`).classList.remove('hidden'); // Show the selected section
+        }
+
+        // Attach click event listeners to dropdown links
+        dropdownLinks.forEach(link => {
+            link.addEventListener('click', (event) => {
+                event.preventDefault(); // Prevent default link behavior
+                const sectionId = event.target.dataset.section;
+                showSection(sectionId);
+            });
+        });
+
+        // Gemini API Integration and Contact Form Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const businessProblemInput = document.getElementById('businessProblemInput');
+            const generateSolutionBtn = document.getElementById('generateSolutionBtn');
+            const solutionOutput = document.getElementById('solutionOutput');
+            const solutionText = document.getElementById('solutionText');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const contactFormContainer = document.getElementById('contactFormContainer');
+            const contactForm = document.getElementById('contactForm');
+            const contactConfirmation = document.getElementById('contactConfirmation');
+
+            generateSolutionBtn.addEventListener('click', async () => {
+                const prompt = businessProblemInput.value.trim();
+                if (!prompt) {
+                    solutionOutput.classList.remove('hidden');
+                    solutionText.textContent = 'Please enter a business problem to get a solution idea.';
+                    contactFormContainer.classList.add('hidden'); // Hide form if no prompt
+                    return;
+                }
+
+                // Show loading indicator, clear previous output and hide form
+                solutionOutput.classList.remove('hidden');
+                solutionText.textContent = '';
+                loadingIndicator.classList.remove('hidden');
+                contactFormContainer.classList.add('hidden'); // Hide form when generating new solution
+                contactConfirmation.classList.add('hidden'); // Hide confirmation message
+                generateSolutionBtn.disabled = true; // Disable button during loading
+
+                try {
+                    let chatHistory = [];
+                    chatHistory.push({ role: "user", parts: [{ text: `As an AI expert for an AI agency named solidiA, suggest a concise and innovative AI solution (2-3 sentences) for the following business problem: "${prompt}". Focus on how AI can directly solve it and mention a relevant solidiA service.` }] });
+                    const payload = { contents: chatHistory };
+                    const apiKey = ""; // If you want to use models other than gemini-2.0-flash or imagen-3.0-generate-002, provide an API key here. Otherwise, leave this as-is.
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await response.json();
+
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const text = result.candidates[0].content.parts[0].text;
+                        solutionText.textContent = text;
+                        contactFormContainer.classList.remove('hidden'); // Show contact form after solution
+                    } else {
+                        solutionText.textContent = 'Could not generate a solution. Please try again.';
+                        console.error('Gemini API response structure unexpected:', result);
+                    }
+                } catch (error) {
+                    solutionText.textContent = 'An error occurred while generating the solution. Please try again later.';
+                    console.error('Error calling Gemini API:', error);
+                } finally {
+                    loadingIndicator.classList.add('hidden');
+                    generateSolutionBtn.disabled = false; // Re-enable button
+                }
+            });
+
+            // Handle Contact Form Submission
+            contactForm.addEventListener('submit', async (event) => { // Added async here
+                event.preventDefault(); // Prevent default form submission
+
+                const clientName = document.getElementById('clientName').value;
+                const clientEmail = document.getElementById('clientEmail').value;
+                const clientPhone = document.getElementById('clientPhone').value;
+
+                const formData = {
+                    name: clientName,
+                    email: clientEmail,
+                    phone: clientPhone,
+                    solution_idea: solutionText.textContent // Include the generated solution idea
+                };
+
+                // Show loading indicator for form submission (optional, but good UX)
+                contactForm.querySelector('button[type="submit"]').disabled = true;
+                contactForm.querySelector('button[type="submit"]').textContent = 'Sending...';
+
+                try {
+                    // Send data to your VPS backend
+                    const backendUrl = '/api/contact'; // This is the endpoint on your VPS
+                    const response = await fetch(backendUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(formData),
+                    });
+
+                    if (response.ok) {
+                        contactConfirmation.textContent = 'Thank you! Your request has been received. A solidiA expert will contact you soon.';
+                        contactConfirmation.classList.remove('hidden');
+                        contactConfirmation.classList.remove('bg-red-700'); // Remove error styling if present
+                        contactConfirmation.classList.add('bg-blue-900'); // Add success styling
+                        contactForm.reset(); // Clear the form
+                        contactFormContainer.classList.add('hidden'); // Hide the form after successful submission
+                    } else {
+                        const errorData = await response.json();
+                        contactConfirmation.textContent = `Error submitting form: ${errorData.message || 'Unknown error'}`;
+                        contactConfirmation.classList.remove('hidden');
+                        contactConfirmation.classList.remove('bg-blue-900'); // Remove success styling
+                        contactConfirmation.classList.add('bg-red-700'); // Add error styling
+                        console.error('Backend submission error:', errorData);
+                    }
+                } catch (error) {
+                    contactConfirmation.textContent = 'An error occurred while sending your request. Please try again.';
+                    contactConfirmation.classList.remove('hidden');
+                    contactConfirmation.classList.remove('bg-blue-900');
+                    contactConfirmation.classList.add('bg-red-700');
+                    console.error('Network or other error during form submission:', error);
+                } finally {
+                    contactForm.querySelector('button[type="submit"]').disabled = false;
+                    contactForm.querySelector('button[type="submit"]').textContent = 'Request a Call';
+                }
+            });
+        });
+
+
+        // Event listeners for canvas and window
+        window.addEventListener('resize', () => {
+            setCanvasSize();
+            init(); // Re-initialize particles on resize
+        });
+
+        window.addEventListener('mousemove', (event) => {
+            mouse.x = event.x;
+            mouse.y = event.y;
+        });
+
+        window.addEventListener('touchmove', (event) => {
+            if (event.touches.length > 0) {
+                mouse.x = event.touches[0].clientX;
+                mouse.y = event.touches[0].clientY;
+            }
+        });
+
+        window.addEventListener('mouseout', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        window.addEventListener('touchend', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        // Initialize and start animation when window loads
+        window.onload = function () {
+            setCanvasSize();
+            init();
+            animate();
+            showSection('our-services'); // Show the "Our Services" section (which now includes Home) by default
+        };
+
+    </script>
+</body>
+</html>
