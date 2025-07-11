@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>solidiA - Artificial Intelligence Agency</title>
+    <!-- Meta Description for SEO -->
+    <meta name="description" content="solidiA: Your AI agency in Melbourne. Connecting the future with innovative Artificial Intelligence solutions: custom software, automation, secure cloud, and web development. Explore AI ideas with our Brainstormer!">
+    
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
@@ -273,19 +276,22 @@
                     <p class="text-gray-300 text-sm mb-6 text-center">
                         Leave your details and a solidiA expert will contact you shortly to explore your needs in depth.
                     </p>
-                    <form id="contactForm" class="space-y-4 text-left">
+                    <!-- MODIFICACIÓN CLAVE AQUÍ: Añadir action y method="POST" con la URL de Formspree -->
+                    <form id="contactForm" action="https://formspree.io/f/mzzgnjzw" method="POST" class="space-y-4 text-left">
                         <div>
                             <label for="clientName" class="block text-gray-300 text-sm font-bold mb-2">Your Name:</label>
-                            <input type="text" id="clientName" class="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500" placeholder="John Doe" required>
+                            <input type="text" id="clientName" name="name" class="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500" placeholder="John Doe" required>
                         </div>
                         <div>
                             <label for="clientEmail" class="block text-gray-300 text-sm font-bold mb-2">Your Email:</label>
-                            <input type="email" id="clientEmail" class="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500" placeholder="john.doe@example.com" required>
+                            <input type="email" id="clientEmail" name="email" class="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500" placeholder="john.doe@example.com" required>
                         </div>
                         <div>
                             <label for="clientPhone" class="block text-gray-300 text-sm font-bold mb-2">Phone Number (Optional):</label>
-                            <input type="tel" id="clientPhone" class="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500" placeholder="+1 555 123 4567">
+                            <input type="tel" id="clientPhone" name="phone" class="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500" placeholder="+1 555 123 4567">
                         </div>
+                        <!-- Campo oculto para incluir la idea de solución de la IA -->
+                        <input type="hidden" id="solutionIdeaHidden" name="solution_idea">
                         <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 mt-4">
                             Request a Call
                         </button>
@@ -605,6 +611,7 @@
             const contactFormContainer = document.getElementById('contactFormContainer');
             const contactForm = document.getElementById('contactForm');
             const contactConfirmation = document.getElementById('contactConfirmation');
+            const solutionIdeaHidden = document.getElementById('solutionIdeaHidden'); // Referencia al campo oculto
 
             generateSolutionBtn.addEventListener('click', async () => {
                 const prompt = businessProblemInput.value.trim();
@@ -643,6 +650,7 @@
                         result.candidates[0].content.parts.length > 0) {
                         const text = result.candidates[0].content.parts[0].text;
                         solutionText.textContent = text;
+                        solutionIdeaHidden.value = text; // Asignar la solución al campo oculto
                         contactFormContainer.classList.remove('hidden'); // Show contact form after solution
                     } else {
                         solutionText.textContent = 'Could not generate a solution. Please try again.';
@@ -661,53 +669,42 @@
             contactForm.addEventListener('submit', async (event) => { // Added async here
                 event.preventDefault(); // Prevent default form submission
 
-                const clientName = document.getElementById('clientName').value;
-                const clientEmail = document.getElementById('clientEmail').value;
-                const clientPhone = document.getElementById('clientPhone').value;
+                const form = event.target;
+                const formData = new FormData(form); // Recoger todos los campos del formulario
 
-                const formData = {
-                    name: clientName,
-                    email: clientEmail,
-                    phone: clientPhone,
-                    solution_idea: solutionText.textContent // Include the generated solution idea
-                };
-
-                // Show loading indicator for form submission (optional, but good UX)
                 contactForm.querySelector('button[type="submit"]').disabled = true;
                 contactForm.querySelector('button[type="submit"]').textContent = 'Sending...';
 
                 try {
-                    // Send data to your VPS backend
-                    const backendUrl = '/api/contact'; // This is the endpoint on your VPS
-                    const response = await fetch(backendUrl, {
-                        method: 'POST',
+                    const response = await fetch(form.action, {
+                        method: form.method,
+                        body: formData,
                         headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(formData),
+                            'Accept': 'application/json' // Importante para que Formspree responda con JSON y no redirija
+                        }
                     });
 
                     if (response.ok) {
                         contactConfirmation.textContent = 'Thank you! Your request has been received. A solidiA expert will contact you soon.';
                         contactConfirmation.classList.remove('hidden');
-                        contactConfirmation.classList.remove('bg-red-700'); // Remove error styling if present
-                        contactConfirmation.classList.add('bg-blue-900'); // Add success styling
-                        contactForm.reset(); // Clear the form
-                        contactFormContainer.classList.add('hidden'); // Hide the form after successful submission
+                        contactConfirmation.classList.remove('bg-red-700');
+                        contactConfirmation.classList.add('bg-blue-900');
+                        form.reset(); // Limpiar el formulario
+                        contactFormContainer.classList.add('hidden'); // Ocultar el formulario
                     } else {
                         const errorData = await response.json();
-                        contactConfirmation.textContent = `Error submitting form: ${errorData.message || 'Unknown error'}`;
+                        contactConfirmation.textContent = `Error submitting form: ${errorData.errors ? errorData.errors.map(e => e.message).join(', ') : 'Unknown error'}`;
                         contactConfirmation.classList.remove('hidden');
-                        contactConfirmation.classList.remove('bg-blue-900'); // Remove success styling
-                        contactConfirmation.classList.add('bg-red-700'); // Add error styling
-                        console.error('Backend submission error:', errorData);
+                        contactConfirmation.classList.remove('bg-blue-900');
+                        contactConfirmation.classList.add('bg-red-700');
+                        console.error('Formspree error:', errorData);
                     }
                 } catch (error) {
                     contactConfirmation.textContent = 'An error occurred while sending your request. Please try again.';
                     contactConfirmation.classList.remove('hidden');
                     contactConfirmation.classList.remove('bg-blue-900');
                     contactConfirmation.classList.add('bg-red-700');
-                    console.error('Network or other error during form submission:', error);
+                    console.error('Network error during form submission:', error);
                 } finally {
                     contactForm.querySelector('button[type="submit"]').disabled = false;
                     contactForm.querySelector('button[type="submit"]').textContent = 'Request a Call';
@@ -755,3 +752,4 @@
     </script>
 </body>
 </html>
+>
