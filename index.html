@@ -180,6 +180,21 @@
         footer .social-icons a {
             margin: 0 0.75rem;
         }
+
+        /* Custom styles for solution item animation */
+        .main-solution-item {
+            transition: opacity 1000ms ease-in-out, transform 1000ms ease-in-out;
+        }
+
+        .main-solution-item.opacity-0 {
+            opacity: 0;
+            transform: translateY(20px); /* Start slightly below */
+        }
+
+        .main-solution-item.opacity-100 {
+            opacity: 1;
+            transform: translateY(0); /* Slide up to original position */
+        }
     </style>
 </head>
 <body>
@@ -190,6 +205,7 @@
         <a href="#" onclick="showSection('our-services')">Home</a>
         <a href="#" onclick="showSection('who-we-are')">Who We Are</a>
         <a href="#" onclick="showSection('our-services')">Our Services</a>
+        <a href="#" onclick="showSection('our-ai')">Our AI</a> <!-- New link for Our AI section -->
         <a href="#" onclick="showSection('careers')">Careers</a>
         <a href="#" onclick="showSection('privacy-policy')">Privacy Policy</a>
     </nav>
@@ -232,71 +248,42 @@
                     <p class="text-blue-300 text-sm font-medium mb-2">Lead Data Scientist & ML Engineer</p>
                     <p class="text-gray-300 text-xs">Drives the core AI development, from data analysis and model building to deployment and optimization of machine learning systems.</p>
                 </div>
+                <!-- New Profile: Byron Yepes - Automation Developer -->
+                <div class="bg-gray-700 bg-opacity-70 p-4 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <img src="https://placehold.co/120x120/663399/ffffff?text=Byron" alt="Byron Yepes Profile Picture" class="rounded-full w-24 h-24 object-cover mb-3 border-2 border-indigo-400" loading="lazy">
+                    <h3 class="text-xl font-semibold text-white mb-1">Byron Yepes</h3>
+                    <p class="text-blue-300 text-sm font-medium mb-2">Automation Developer</p>
+                    <p class="text-gray-300 text-xs">Specializes in building robust and efficient automation workflows, particularly with n8n, to streamline business processes.</p>
+                </div>
             </div>
         </div>
 
         <!-- Our Services Section (Now includes Home content) -->
         <div id="our-services" class="content-section hidden w-full max-w-4xl bg-gray-800 bg-opacity-60 p-6 rounded-xl shadow-lg">
-            <!-- Agency Name and Slogan (Moved from Home Section) -->
-            <div>
-                <h1 class="text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 rounded-lg p-2">solid AI</h1>
-                <p class="text-xl text-gray-300 mb-6">Connecting the future with Artificial Intelligence</p>
-                <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mb-8"> <!-- Added margin-bottom -->
-                    <!-- Removed "Our Services" button as it's the current section -->
-                    <button class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105" onclick="window.open('https://wa.me/61424840127', '_blank')">
-                        WhatsApp Us
-                    </button>
+            <!-- Agency Logo -->
+            <div class="flex justify-center mb-6">
+                <img src="logo/logo.png" alt="solid AI Logo" class="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg h-auto rounded-lg" onerror="this.onerror=null;this.src='https://placehold.co/400x150/0d1117/e0e0e0?text=solid+AI+Logo';" loading="lazy">
+            </div>
+            <p class="text-xl text-gray-300 mb-6">Connecting the future with Artificial Intelligence</p>
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mb-8"> <!-- Added margin-bottom -->
+                <button class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105" onclick="window.open('https://wa.me/61424840127', '_blank')">
+                    WhatsApp Us
+                </button>
+            </div>
+
+            <!-- Three Main Solutions (Animated PNG Content) -->
+            <div class="relative w-full max-w-xl mx-auto h-96 overflow-hidden mb-10 flex items-center justify-center">
+                <div id="solution1" class="main-solution-item absolute inset-0 bg-gray-700 bg-opacity-70 p-4 rounded-lg shadow-md flex flex-col items-center justify-center text-center opacity-100">
+                    <img src="slides/slide1.png" alt="Intelligent Workflow Automation with n8n" class="w-full h-full object-contain rounded-lg" onerror="this.onerror=null;this.src='https://placehold.co/400x250/4CAF50/ffffff?text=Slide+1';" loading="lazy">
+                </div>
+                <div id="solution2" class="main-solution-item absolute inset-0 bg-gray-700 bg-opacity-70 p-4 rounded-lg shadow-md flex flex-col items-center justify-center text-center opacity-0 hidden">
+                    <img src="slides/slide2.png" alt="AI-Powered Content & Communication Automation via n8n" class="w-full h-full object-contain rounded-lg" onerror="this.onerror=null;this.src='https://placehold.co/400x250/2196F3/ffffff?text=Slide+2';" loading="lazy">
+                </div>
+                <div id="solution3" class="main-solution-item absolute inset-0 bg-gray-700 bg-opacity-70 p-4 rounded-lg shadow-md flex flex-col items-center justify-center text-center opacity-0 hidden">
+                    <img src="slides/slide3.png" alt="Data-Driven Operational Insights with n8n Integrations" class="w-full h-full object-contain rounded-lg" onerror="this.onerror=null;this.src='https://placehold.co/400x250/9C27B0/ffffff?text=Slide+3';" loading="lazy">
                 </div>
             </div>
             
-            <!-- New: AI Solution Brainstormer Section -->
-            <div id="ai-brainstormer-section" class="w-full bg-gray-700 bg-opacity-70 p-6 rounded-xl shadow-md mb-8">
-                <h2 class="text-3xl font-bold text-white mb-4 text-center">Free Quote</h2>
-                <p class="text-gray-300 text-sm mb-4">
-                    Describe your business challenge below, and our AI will suggest how solid AI can help solve it with intelligent solutions and response in less than 24 hours.
-                </p>
-                <textarea id="businessProblemInput" class="w-full p-3 rounded-lg bg-gray-800 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500 mb-4" rows="4" placeholder="E.g., 'We need to automate customer support inquiries' or 'How can AI improve our sales forecasting?'"></textarea>
-                <button id="generateSolutionBtn" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
-                    Generate AI Solution Idea
-                </button>
-                <div id="solutionOutput" class="mt-6 p-4 bg-gray-800 rounded-lg text-left text-gray-200 border border-gray-600 hidden">
-                    <p class="text-sm italic text-gray-400 mb-2">AI Suggested Solution:</p>
-                    <div id="solutionText" class="whitespace-pre-wrap"></div>
-                    <div id="loadingIndicator" class="hidden flex justify-center items-center mt-4">
-                        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
-                        <span class="ml-3 text-blue-400">Thinking...</span>
-                    </div>
-                </div>
-
-                <div id="contactFormContainer" class="mt-8 p-6 bg-gray-800 rounded-lg shadow-lg hidden">
-                    <h3 class="text-2xl font-bold text-white mb-4 text-center">Ready to discuss your solution?</h3>
-                    <p class="text-gray-300 text-sm mb-6 text-center">
-                        Leave your details and a solid AI expert will contact you shortly to explore your needs in depth.
-                    </p>
-                    <form id="contactForm" action="https://formspree.io/f/mzzgnjzw" method="POST" class="space-y-4 text-left">
-                        <div>
-                            <label for="clientName" class="block text-gray-300 text-sm font-bold mb-2">Your Name:</label>
-                            <input type="text" id="clientName" name="name" class="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500" placeholder="John Doe" required>
-                        </div>
-                        <div>
-                            <label for="clientEmail" class="block text-gray-300 text-sm font-bold mb-2">Your Email:</label>
-                            <input type="email" id="clientEmail" name="email" class="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500" placeholder="john.doe@example.com" required>
-                        </div>
-                        <div>
-                            <label for="clientPhone" class="block text-gray-300 text-sm font-bold mb-2">Phone Number (Optional):</label>
-                            <input type="tel" id="clientPhone" name="phone" class="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500" placeholder="+1 555 123 4567">
-                        </div>
-                        <input type="hidden" id="solutionIdeaHidden" name="solution_idea">
-                        <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 mt-4">
-                            Request a Call
-                        </button>
-                    </form>
-                    <div id="contactConfirmation" class="mt-4 p-3 bg-blue-900 text-white rounded-lg hidden">
-                        Thank you! Your request has been received. A solid AI expert will contact you soon.
-                    </div>
-                </div>
-            </div>
-
             <!-- Intro Question Section - MOVED HERE, CENTRADO, y con campos de usuario -->
             <div id="intro-question" class="w-full max-w-2xl bg-gray-700 bg-opacity-70 p-8 rounded-xl shadow-lg text-center flex flex-col items-center justify-center mb-8 mx-auto">
                 <h2 class="text-4xl font-bold text-white mb-6">Do you know what you need?</h2>
@@ -350,6 +337,61 @@
                     <svg class="w-12 h-12 text-yellow-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
                     <h3 class="text-xl font-semibold text-white mb-2">Website Creation</h3>
                     <p class="text-gray-300 text-sm">We design and develop modern, functional websites, optimized with AI to enhance user experience and SEO performance.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Our AI Section (Now contains the Brainstormer) -->
+        <div id="our-ai" class="content-section hidden w-full max-w-4xl bg-gray-800 bg-opacity-60 p-6 rounded-xl shadow-lg">
+            <h2 class="text-3xl font-bold text-white mb-4 text-center">Let's Build a Solution Together</h2>
+            <p class="text-gray-300 text-base leading-relaxed mb-8 text-center">
+                Describe your business challenge below, and our AI will suggest how solid AI can help solve it with intelligent solutions. You can then submit your idea for a personalized consultation.
+            </p>
+            <!-- AI Solution Brainstormer Section -->
+            <div id="ai-brainstormer-section" class="w-full bg-gray-700 bg-opacity-70 p-6 rounded-xl shadow-md mb-8">
+                <h3 class="text-2xl font-bold text-white mb-4 text-center">Get Your AI Solution Idea</h3>
+                <p class="text-gray-300 text-sm mb-4">
+                    Describe your business challenge here, and our AI will suggest how solid AI can help solve it with intelligent solutions.
+                </p>
+                <textarea id="businessProblemInput" class="w-full p-3 rounded-lg bg-gray-800 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500 mb-4" rows="4" placeholder="E.g., 'We need to automate customer support inquiries' or 'How can AI improve our sales forecasting?'"></textarea>
+                <button id="generateSolutionBtn" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
+                    Generate AI Solution Idea
+                </button>
+                <div id="solutionOutput" class="mt-6 p-4 bg-gray-800 rounded-lg text-left text-gray-200 border border-gray-600 hidden">
+                    <p class="text-sm italic text-gray-400 mb-2">AI Suggested Solution:</p>
+                    <div id="solutionText" class="whitespace-pre-wrap"></div>
+                    <div id="loadingIndicator" class="hidden flex justify-center items-center mt-4">
+                        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+                        <span class="ml-3 text-blue-400">Thinking...</span>
+                    </div>
+                </div>
+
+                <div id="contactFormContainer" class="mt-8 p-6 bg-gray-800 rounded-lg shadow-lg hidden">
+                    <h3 class="text-2xl font-bold text-white mb-4 text-center">Ready to discuss your solution?</h3>
+                    <p class="text-gray-300 text-sm mb-6 text-center">
+                        Leave your details and a solid AI expert will contact you shortly to explore your needs in depth.
+                    </p>
+                    <form id="contactForm" action="https://formspree.io/f/mzzgnjzw" method="POST" class="space-y-4 text-left">
+                        <div>
+                            <label for="clientName" class="block text-gray-300 text-sm font-bold mb-2">Your Name:</label>
+                            <input type="text" id="clientName" name="name" class="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500" placeholder="John Doe" required>
+                        </div>
+                        <div>
+                            <label for="clientEmail" class="block text-gray-300 text-sm font-bold mb-2">Your Email:</label>
+                            <input type="email" id="clientEmail" name="email" class="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500" placeholder="john.doe@example.com" required>
+                        </div>
+                        <div>
+                            <label for="clientPhone" class="block text-gray-300 text-sm font-bold mb-2">Phone Number (Optional):</label>
+                            <input type="tel" id="clientPhone" name="phone" class="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500" placeholder="+1 555 123 4567">
+                        </div>
+                        <input type="hidden" id="solutionIdeaHidden" name="solution_idea">
+                        <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 mt-4">
+                            Request a Call
+                        </button>
+                    </form>
+                    <div id="contactConfirmation" class="mt-4 p-3 bg-blue-900 text-white rounded-lg hidden">
+                        Thank you! Your request has been received. A solid AI expert will contact you soon.
+                    </div>
                 </div>
             </div>
         </div>
@@ -421,6 +463,7 @@
                     <li><a href="#" onclick="showSection('our-services')">Home</a></li>
                     <li><a href="#" onclick="showSection('who-we-are')">Who We Are</a></li>
                     <li><a href="#" onclick="showSection('our-services')">Our Services</a></li>
+                    <li><a href="#" onclick="showSection('our-ai')">Our AI</a> <!-- New link in footer for Our AI -->
                     <li><a href="#" onclick="showSection('careers')">Careers</a></li>
                     <li><a href="#" onclick="showSection('privacy-policy')">Privacy Policy</a></li>
                 </ul>
@@ -459,20 +502,52 @@
         </div>
     </footer>
 
+    <!-- Floating Chatbot Button -->
+    <div id="chatbot-button-container" class="fixed bottom-8 right-8 z-50">
+        <button id="openChatbotBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 flex items-center space-x-2">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+            <span>Free Quote / Appointment</span>
+        </button>
+    </div>
+
+    <!-- Floating Chatbot Window -->
+    <div id="chatbot-window" class="fixed bottom-24 right-8 z-50 bg-gray-800 bg-opacity-95 p-6 rounded-xl shadow-2xl w-80 max-h-[calc(100vh-10rem)] overflow-y-auto hidden transform scale-95 opacity-0 transition-all duration-300 ease-in-out origin-bottom-right">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-xl font-bold text-white">Quick Inquiry</h3>
+            <button id="closeChatbotBtn" class="text-gray-400 hover:text-white transition duration-300">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        <p class="text-gray-300 text-sm mb-4">Assign an appointment or get a free quote. We'll get back to you in less than 24 hours!</p>
+        <form id="chatbotForm" action="https://formspree.io/f/mzzgnjzw" method="POST" class="space-y-3 text-left">
+            <div>
+                <label for="chatbotName" class="block text-gray-300 text-sm font-bold mb-1">Your Name:</label>
+                <input type="text" id="chatbotName" name="name" class="w-full p-2 rounded-lg bg-gray-700 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500 text-sm" placeholder="John Doe" required>
+            </div>
+            <div>
+                <label for="chatbotEmail" class="block text-gray-300 text-sm font-bold mb-1">Your Email:</label>
+                <input type="email" id="chatbotEmail" name="email" class="w-full p-2 rounded-lg bg-gray-700 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500 text-sm" placeholder="john.doe@example.com" required>
+            </div>
+            <div>
+                <label for="chatbotMessage" class="block text-gray-300 text-sm font-bold mb-1">Your Message/Problem:</label>
+                <textarea id="chatbotMessage" name="message" class="w-full p-2 rounded-lg bg-gray-700 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500 text-sm" rows="3" placeholder="I'd like to automate... / I need a quote for..."></textarea>
+            </div>
+            <button type="submit" id="sendChatbotInquiryBtn" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 text-sm mt-4">
+                Send Inquiry
+            </button>
+        </form>
+        <div id="chatbotConfirmation" class="mt-4 p-3 bg-blue-900 text-white rounded-lg text-sm hidden">
+            Thank you! Your inquiry has been received.
+        </div>
+    </div>
+
     <script>
         const canvas = document.getElementById('networkCanvas');
         const ctx = canvas.getContext('2d');
 
         let particles = [];
-        const numParticles = 100; // Number of particles/nodes
-        const maxDistance = 120; // Max distance for lines between particles
-        const mouseRadius = 150; // Radius around mouse for interaction
-
-        let mouse = {
-            x: null,
-            y: null,
-            radius: mouseRadius
-        };
+        const numParticles = 200; // Number of particles
+        const maxDistance = 100; // Max distance for lines between particles
 
         // Function to set canvas dimensions
         function setCanvasSize() {
@@ -499,7 +574,7 @@
                 ctx.fill();
             }
 
-            // Method to update particle position and connect to others
+            // Method to update particle position (random drift)
             update() {
                 // Bounce off edges
                 if (this.x + this.size > canvas.width || this.x - this.size < 0) {
@@ -512,27 +587,10 @@
                 this.x += this.directionX;
                 this.y += this.directionY;
 
-                // Mouse interaction - Adjusted for smoother touch
-                let dx = mouse.x - this.x;
-                let dy = mouse.y - this.y;
-                let distance = Math.sqrt(dx * dx + dy * dy);
-
-                // If within mouse radius, gently push particles away
-                if (distance < mouse.radius + this.size) {
-                    const pushStrength = 2; // Further reduced for even smoother interaction
-                    if (mouse.x < this.x && this.x < canvas.width - this.size * pushStrength) {
-                        this.x += pushStrength;
-                    }
-                    if (mouse.x > this.x && this.x > this.size * pushStrength) {
-                        this.x -= pushStrength;
-                    }
-                    if (mouse.y < this.y && this.y < canvas.height - this.size * pushStrength) {
-                        this.y += pushStrength;
-                    }
-                    // FIX: Changed 'the.size' to 'this.size'
-                    if (mouse.y > this.y && this.y > this.size * pushStrength) {
-                        this.y -= pushStrength;
-                    }
+                // Occasionally slightly change direction for more organic movement
+                if (Math.random() < 0.005) { // Small chance to change direction
+                    this.directionX = (Math.random() * 0.5) - 0.25;
+                    this.directionY = (Math.random() * 0.5) - 0.25;
                 }
 
                 this.draw();
@@ -543,9 +601,9 @@
         function init() {
             particles = [];
             for (let i = 0; i < numParticles; i++) {
-                let size = (Math.random() * 3) + 1; // Particle size between 1 and 4
-                let x = (Math.random() * ((canvas.width - size * 2) - (size * 2)) + size * 2);
-                let y = (Math.random() * ((canvas.height - size * 2) - (size * 2)) + size * 2);
+                let size = (Math.random() * 2) + 1; // Particle size between 1 and 3
+                let x = (Math.random() * canvas.width);
+                let y = (Math.random() * canvas.height);
                 let directionX = (Math.random() * 0.5) - 0.25; // Speed between -0.25 and 0.25
                 let directionY = (Math.random() * 0.5) - 0.25;
                 let color = '#888888'; // Greyish color for nodes
@@ -574,9 +632,10 @@
         }
 
         // Animation loop
-        function animate() {
+        function animate(timestamp) {
             requestAnimationFrame(animate);
             ctx.clearRect(0, 0, canvas.width, canvas.height);
+
             for (let i = 0; i < particles.length; i++) {
                 particles[i].update();
             }
@@ -616,8 +675,75 @@
             }
         }
 
+        // --- Solutions Carousel Logic ---
+        let solutionItems;
+        let currentSolutionIndex = 0;
+        const solutionDisplayTime = 15000; // 15 seconds
+
+        function animateSolutions() {
+            if (!solutionItems || solutionItems.length === 0) {
+                solutionItems = document.querySelectorAll('.main-solution-item');
+                if (solutionItems.length === 0) {
+                    console.warn('No solution items found for animation.');
+                    return;
+                }
+                // Ensure only the first is visible initially
+                solutionItems.forEach((item, index) => {
+                    if (index === 0) {
+                        item.classList.remove('hidden', 'opacity-0');
+                        item.classList.add('opacity-100');
+                    } else {
+                        item.classList.add('hidden', 'opacity-0');
+                        item.classList.remove('opacity-100');
+                    }
+                });
+            }
+
+            // Hide the current solution
+            solutionItems[currentSolutionIndex].classList.remove('opacity-100');
+            solutionItems[currentSolutionIndex].classList.add('opacity-0');
+            // After transition, hide it completely
+            setTimeout(() => {
+                solutionItems[currentSolutionIndex].classList.add('hidden');
+
+                // Move to the next solution
+                currentSolutionIndex = (currentSolutionIndex + 1) % solutionItems.length;
+
+                // Show the next solution
+                solutionItems[currentSolutionIndex].classList.remove('hidden');
+                // Force reflow to ensure transition plays
+                void solutionItems[currentSolutionIndex].offsetWidth; 
+                solutionItems[currentSolutionIndex].classList.remove('opacity-0');
+                solutionItems[currentSolutionIndex].classList.add('opacity-100');
+
+                // Schedule the next animation
+                setTimeout(animateSolutions, solutionDisplayTime);
+            }, 1000); // This timeout should match the CSS transition duration
+        }
+
+
         // Gemini API Integration and Contact Form Logic
         document.addEventListener('DOMContentLoaded', () => {
+            // Intro Inquiry elements
+            const introProblemInput = document.getElementById('introProblemInput');
+            const introNameInput = document.getElementById('introClientName');
+            const introEmailInput = document.getElementById('introClientEmail');
+            const introPhoneInput = document.getElementById('introClientPhone');
+            const sendIntroInquiryBtn = document.getElementById('sendIntroInquiryBtn');
+            const introConfirmation = document.getElementById('introConfirmation');
+
+            // Floating Chatbot elements
+            const openChatbotBtn = document.getElementById('openChatbotBtn');
+            const closeChatbotBtn = document.getElementById('closeChatbotBtn');
+            const chatbotWindow = document.getElementById('chatbot-window');
+            const chatbotForm = document.getElementById('chatbotForm');
+            const chatbotNameInput = document.getElementById('chatbotName');
+            const chatbotEmailInput = document.getElementById('chatbotEmail');
+            const chatbotMessageInput = document.getElementById('chatbotMessage');
+            const sendChatbotInquiryBtn = document.getElementById('sendChatbotInquiryBtn');
+            const chatbotConfirmation = document.getElementById('chatbotConfirmation');
+
+            // AI Brainstormer elements (re-introduced)
             const businessProblemInput = document.getElementById('businessProblemInput');
             const generateSolutionBtn = document.getElementById('generateSolutionBtn');
             const solutionOutput = document.getElementById('solutionOutput');
@@ -626,20 +752,15 @@
             const contactFormContainer = document.getElementById('contactFormContainer');
             const contactForm = document.getElementById('contactForm');
             const contactConfirmation = document.getElementById('contactConfirmation');
-            const solutionIdeaHidden = document.getElementById('solutionIdeaHidden'); // Referencia al campo oculto
+            const solutionIdeaHidden = document.getElementById('solutionIdeaHidden');
 
-            // Intro Inquiry elements
-            const introMessageInput = document.getElementById('introMessageInput');
-            const introNameInput = document.getElementById('introNameInput');
-            const introEmailInput = document.getElementById('introEmailInput');
-            const introPhoneInput = document.getElementById('introPhoneInput');
-            const sendIntroInquiryBtn = document.getElementById('sendIntroInquiryBtn');
-            const introConfirmation = document.getElementById('introConfirmation');
 
             // Handle Intro Inquiry Submission
             if (sendIntroInquiryBtn) { // Check if the element exists
-                sendIntroInquiryBtn.addEventListener('click', async () => {
-                    const inquiryText = introMessageInput.value.trim(); // Use introMessageInput
+                sendIntroInquiryBtn.addEventListener('click', async (event) => { // Added event parameter
+                    event.preventDefault(); // Prevent default form submission
+
+                    const inquiryText = introProblemInput.value.trim(); // Use introProblemInput
                     const introName = introNameInput.value.trim();
                     const introEmail = introEmailInput.value.trim();
                     const introPhone = introPhoneInput.value.trim();
@@ -656,7 +777,7 @@
                     formData.append('name', introName);
                     formData.append('email', introEmail);
                     formData.append('phone', introPhone);
-                    formData.append('message', inquiryText); // Use introMessageInput content
+                    formData.append('message', inquiryText); // Use introProblemInput content
 
                     sendIntroInquiryBtn.disabled = true;
                     sendIntroInquiryBtn.textContent = 'Sending...';
@@ -675,7 +796,7 @@
                             introConfirmation.textContent = 'Thank you! Your inquiry has been received. We will contact you soon.';
                             introConfirmation.classList.remove('hidden', 'bg-red-700');
                             introConfirmation.classList.add('bg-blue-900');
-                            introMessageInput.value = ''; // Clear the textarea
+                            introProblemInput.value = ''; // Clear the textarea
                             introNameInput.value = '';
                             introEmailInput.value = '';
                             introPhoneInput.value = '';
@@ -698,131 +819,187 @@
                 });
             }
 
+            // Chatbot button click to open window
+            if (openChatbotBtn) {
+                openChatbotBtn.addEventListener('click', () => {
+                    chatbotWindow.classList.remove('hidden', 'opacity-0', 'scale-95');
+                    chatbotWindow.classList.add('opacity-100', 'scale-100');
+                });
+            }
 
-            generateSolutionBtn.addEventListener('click', async () => {
-                const prompt = businessProblemInput.value.trim();
-                if (!prompt) {
-                    solutionOutput.classList.remove('hidden');
-                    solutionText.textContent = 'Please enter a business problem to get a solution idea.';
-                    contactFormContainer.classList.add('hidden'); // Hide form if no prompt
-                    return;
-                }
+            // Chatbot close button click to close window
+            if (closeChatbotBtn) {
+                closeChatbotBtn.addEventListener('click', () => {
+                    chatbotWindow.classList.remove('opacity-100', 'scale-100');
+                    chatbotWindow.classList.add('opacity-0', 'scale-95');
+                    setTimeout(() => {
+                        chatbotWindow.classList.add('hidden');
+                    }, 300); // Match transition duration
+                });
+            }
 
-                // Show loading indicator, clear previous output and hide form
-                solutionOutput.classList.remove('hidden');
-                solutionText.textContent = '';
-                loadingIndicator.classList.remove('hidden');
-                contactFormContainer.classList.add('hidden'); // Hide form when generating new solution
-                contactConfirmation.classList.add('hidden'); // Hide confirmation message
-                generateSolutionBtn.disabled = true; // Disable button during loading
+            // Handle Chatbot Form Submission
+            if (chatbotForm) {
+                chatbotForm.addEventListener('submit', async (event) => {
+                    event.preventDefault();
 
-                try {
-                    let chatHistory = [];
-                    chatHistory.push({ role: "user", parts: [{ text: `As an AI expert for an AI agency named solidiA, suggest a concise and innovative AI solution (2-3 sentences) for the following business problem: "${prompt}". Focus on how AI can directly solve it and then mention a relevant solidiA service.` }] });
-                    const payload = { contents: chatHistory };
-                    const apiKey = "AIzaSyCVqJGBnJIgNb73heK3RIclkIA0ujSR7XY"; // TU CLAVE API DE GEMINI
-                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+                    const formData = new FormData();
+                    formData.append('inquiry_type', 'Floating Chatbot Inquiry');
+                    formData.append('name', chatbotNameInput.value.trim());
+                    formData.append('email', chatbotEmailInput.value.trim());
+                    formData.append('message', chatbotMessageInput.value.trim());
 
-                    const response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
+                    sendChatbotInquiryBtn.disabled = true;
+                    sendChatbotInquiryBtn.textContent = 'Sending...';
+                    chatbotConfirmation.classList.add('hidden'); // Hide previous messages
 
-                    const result = await response.json();
+                    try {
+                        const response = await fetch("https://formspree.io/f/mzzgnjzw", {
+                            method: 'POST',
+                            body: formData,
+                            headers: {
+                                'Accept': 'application/json'
+                            }
+                        });
 
-                    if (result.candidates && result.candidates.length > 0 &&
-                        result.candidates[0].content && result.candidates[0].content.parts &&
-                        result.candidates[0].content.parts.length > 0) {
-                        const text = result.candidates[0].content.parts[0].text;
-                        solutionText.textContent = text;
-                        solutionIdeaHidden.value = text; // Asignar la solución al campo oculto
-                        contactFormContainer.classList.remove('hidden'); // Show contact form after solution
-                    } else {
-                        solutionText.textContent = 'Could not generate a solution. Please try again.';
-                        console.error('Gemini API response structure unexpected:', result);
-                    }
-                } catch (error) {
-                    solutionText.textContent = 'An error occurred while generating the solution. Please try again later.';
-                    console.error('Error calling Gemini API:', error);
-                } finally {
-                    loadingIndicator.classList.add('hidden');
-                    generateSolutionBtn.disabled = false; // Re-enable button
-                }
-            });
-
-            // Handle Contact Form Submission (main form)
-            contactForm.addEventListener('submit', async (event) => {
-                event.preventDefault();
-
-                const form = event.target;
-                const formData = new FormData(form);
-
-                contactForm.querySelector('button[type="submit"]').disabled = true;
-                contactForm.querySelector('button[type="submit"]').textContent = 'Sending...';
-
-                try {
-                    const response = await fetch(form.action, {
-                        method: form.method,
-                        body: formData,
-                        headers: {
-                            'Accept': 'application/json'
+                        if (response.ok) {
+                            chatbotConfirmation.textContent = 'Thank you! Your inquiry has been received.';
+                            chatbotConfirmation.classList.remove('hidden', 'bg-red-700');
+                            chatbotConfirmation.classList.add('bg-blue-900');
+                            chatbotForm.reset(); // Clear the form
+                        } else {
+                            const errorData = await response.json();
+                            chatbotConfirmation.textContent = `Error sending inquiry: ${errorData.errors ? errorData.errors.map(e => e.message).join(', ') : 'Unknown error'}`;
+                            chatbotConfirmation.classList.remove('hidden', 'bg-blue-900');
+                            chatbotConfirmation.classList.add('bg-red-700');
+                            console.error('Formspree chatbot inquiry error:', errorData);
                         }
-                    });
+                    } catch (error) {
+                        chatbotConfirmation.textContent = 'An error occurred while sending your inquiry. Please try again.';
+                        chatbotConfirmation.classList.remove('hidden', 'bg-blue-900');
+                        chatbotConfirmation.classList.add('bg-red-700');
+                        console.error('Network error during chatbot form submission:', error);
+                    } finally {
+                        sendChatbotInquiryBtn.disabled = false;
+                        sendChatbotInquiryBtn.textContent = 'Send Inquiry';
+                    }
+                });
+            }
 
-                    if (response.ok) {
-                        contactConfirmation.textContent = 'Thank you! Your request has been received. A solid AI expert will contact you soon.';
-                        contactConfirmation.classList.remove('hidden', 'bg-red-700');
-                        contactConfirmation.classList.add('bg-blue-900');
-                        form.reset();
-                        contactFormContainer.classList.add('hidden');
-                    } else {
-                        const errorData = await response.json();
-                        contactConfirmation.textContent = `Error submitting form: ${errorData.errors ? errorData.errors.map(e => e.message).join(', ') : 'Unknown error'}`;
+            // Handle AI Brainstormer Logic (re-introduced)
+            if (generateSolutionBtn) {
+                generateSolutionBtn.addEventListener('click', async () => {
+                    const prompt = businessProblemInput.value.trim();
+                    if (!prompt) {
+                        solutionOutput.classList.remove('hidden');
+                        solutionText.textContent = 'Please enter a business problem to get a solution idea.';
+                        contactFormContainer.classList.add('hidden'); // Hide form if no prompt
+                        return;
+                    }
+
+                    // Show loading indicator, clear previous output and hide form
+                    solutionOutput.classList.remove('hidden');
+                    solutionText.textContent = '';
+                    loadingIndicator.classList.remove('hidden');
+                    contactFormContainer.classList.add('hidden'); // Hide form when generating new solution
+                    contactConfirmation.classList.add('hidden'); // Hide confirmation message
+                    generateSolutionBtn.disabled = true; // Disable button during loading
+
+                    try {
+                        let chatHistory = [];
+                        // Prompt in English, focused on solid AI and n8n
+                        chatHistory.push({ role: "user", parts: [{ text: `As an AI expert for an AI agency named solid AI, suggest a concise and innovative AI solution (2-3 sentences) for the following business problem, specifically mentioning how n8n automations can be leveraged: "${prompt}". Focus on how AI and n8n can directly solve it and then mention a relevant solid AI service.` }] });
+                        const payload = { contents: chatHistory };
+                        const apiKey = "AIzaSyCVqJGBnJIgNb73heK3RIclkIA0ujSR7XY"; // YOUR GEMINI API KEY
+                        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                        const response = await fetch(apiUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+
+                        const result = await response.json();
+
+                        if (result.candidates && result.candidates.length > 0 &&
+                            result.candidates[0].content && result.candidates[0].content.parts &&
+                            result.candidates[0].content.parts.length > 0) {
+                            const text = result.candidates[0].content.parts[0].text;
+                            solutionText.textContent = text;
+                            solutionIdeaHidden.value = text; // Assign solution to hidden field
+                            contactFormContainer.classList.remove('hidden'); // Show contact form after solution
+                        } else {
+                            solutionText.textContent = 'Could not generate a solution. Please try again.';
+                            console.error('Gemini API response structure unexpected:', result);
+                        }
+                    } catch (error) {
+                        solutionText.textContent = 'An error occurred while generating the solution. Please try again later.';
+                        console.error('Error calling Gemini API:', error);
+                    } finally {
+                        loadingIndicator.classList.add('hidden');
+                        generateSolutionBtn.disabled = false; // Re-enable button
+                    }
+                });
+            }
+
+            // Handle Contact Form Submission (for Brainstormer follow-up)
+            if (contactForm) {
+                contactForm.addEventListener('submit', async (event) => {
+                    event.preventDefault();
+
+                    const form = event.target;
+                    const formData = new FormData(form);
+
+                    contactForm.querySelector('button[type="submit"]').disabled = true;
+                    contactForm.querySelector('button[type="submit"]').textContent = 'Sending...';
+
+                    try {
+                        const response = await fetch(form.action, {
+                            method: form.method,
+                            body: formData,
+                            headers: {
+                                'Accept': 'application/json'
+                            }
+                        });
+
+                        if (response.ok) {
+                            contactConfirmation.textContent = 'Thank you! Your request has been received. A solid AI expert will contact you soon.';
+                            contactConfirmation.classList.remove('hidden', 'bg-red-700');
+                            contactConfirmation.classList.add('bg-blue-900');
+                            form.reset();
+                            contactFormContainer.classList.add('hidden'); // Hide form after successful submission
+                        } else {
+                            const errorData = await response.json();
+                            contactConfirmation.textContent = `Error submitting form: ${errorData.errors ? errorData.errors.map(e => e.message).join(', ') : 'Unknown error'}`;
+                            contactConfirmation.classList.remove('hidden', 'bg-blue-900');
+                            contactConfirmation.classList.add('bg-red-700');
+                            console.error('Formspree error:', errorData);
+                        }
+                    } catch (error) {
+                        contactConfirmation.textContent = 'An error occurred while sending your request. Please try again.';
                         contactConfirmation.classList.remove('hidden', 'bg-blue-900');
                         contactConfirmation.classList.add('bg-red-700');
-                        console.error('Formspree error:', errorData);
+                        console.error('Network error during form submission:', error);
+                    } finally {
+                        contactForm.querySelector('button[type="submit"]').disabled = false;
+                        contactForm.querySelector('button[type="submit"]').textContent = 'Request a Call';
                     }
-                } catch (error) {
-                    contactConfirmation.textContent = 'An error occurred while sending your request. Please try again.';
-                    contactConfirmation.classList.remove('hidden', 'bg-blue-900');
-                    contactConfirmation.classList.add('bg-red-700');
-                    console.error('Network error during form submission:', error);
-                } finally {
-                    contactForm.querySelector('button[type="submit"]').disabled = false;
-                    contactForm.querySelector('button[type="submit"]').textContent = 'Request a Call';
-                }
-            });
+                });
+            }
         });
 
 
         // Event listeners for canvas and window
         window.addEventListener('resize', () => {
             setCanvasSize();
-            init();
+            init(); // Re-initialize particles on resize
         });
 
-        window.addEventListener('mousemove', (event) => {
-            mouse.x = event.x;
-            mouse.y = event.y;
-        });
-
-        window.addEventListener('touchmove', (event) => {
-            if (event.touches.length > 0) {
-                mouse.x = event.touches[0].clientX;
-                mouse.y = event.touches[0].clientY;
-            }
-        });
-
-        window.addEventListener('mouseout', () => {
-            mouse.x = null;
-            mouse.y = null;
-        });
-
-        window.addEventListener('touchend', () => {
-            mouse.x = null;
-            mouse.y = null;
-        });
+        // Removed mouse and touch event listeners for particle interaction
+        // window.addEventListener('mousemove', (event) => { ... });
+        // window.addEventListener('touchmove', (event) => { ... });
+        // window.addEventListener('mouseout', () => { ... });
+        // window.addEventListener('touchend', () => { ... });
 
         // Initialize and start animation when window loads
         window.onload = function () {
@@ -830,6 +1007,7 @@
             init();
             animate();
             showSection('our-services'); // Show the "Our Services" section (which now includes Home) by default
+            animateSolutions(); // Start the solution carousel animation
         };
 
     </script>
