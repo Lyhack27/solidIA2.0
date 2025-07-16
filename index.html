@@ -262,7 +262,7 @@
         <div id="our-services" class="content-section hidden w-full max-w-4xl bg-gray-800 bg-opacity-60 p-6 rounded-xl shadow-lg">
             <!-- Agency Logo -->
             <div class="flex justify-center mb-6">
-                <img src="logo/logo.png" alt="solid AI Logo" class="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg h-auto rounded-lg" onerror="this.onerror=null;this.src='https://placehold.co/400x150/0d1117/e0e0e0?text=solid+AI+Logo';" loading="lazy">
+                <img src="logo/logo.png" alt="solid AI Logo" class="w-48 h-auto mx-auto rounded-lg" onerror="this.onerror=null;this.src='https://placehold.co/192x72/0d1117/e0e0e0?text=solid+AI+Logo';" loading="lazy">
             </div>
             <p class="text-xl text-gray-300 mb-6">Connecting the future with Artificial Intelligence</p>
             <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mb-8"> <!-- Added margin-bottom -->
@@ -687,38 +687,49 @@
                     console.warn('No solution items found for animation.');
                     return;
                 }
-                // Ensure only the first is visible initially
+                // Initialize visibility: ensure only the first is visible and others are hidden
                 solutionItems.forEach((item, index) => {
                     if (index === 0) {
-                        item.classList.remove('hidden', 'opacity-0');
-                        item.classList.add('opacity-100');
+                        item.classList.remove('hidden'); // Ensure it's not hidden
+                        item.classList.add('opacity-100'); // Ensure it's visible
                     } else {
-                        item.classList.add('hidden', 'opacity-0');
-                        item.classList.remove('opacity-100');
+                        item.classList.add('hidden'); // Ensure it's hidden
+                        item.classList.remove('opacity-100'); // Ensure it's not visible
+                        item.classList.add('opacity-0'); // Ensure it's transparent
                     }
                 });
             }
 
-            // Hide the current solution
-            solutionItems[currentSolutionIndex].classList.remove('opacity-100');
-            solutionItems[currentSolutionIndex].classList.add('opacity-0');
-            // After transition, hide it completely
+            const currentSlide = solutionItems[currentSolutionIndex];
+            const nextIndex = (currentSolutionIndex + 1) % solutionItems.length;
+            const nextSlide = solutionItems[nextIndex];
+
+            // 1. Start fading out the current slide
+            currentSlide.classList.remove('opacity-100');
+            currentSlide.classList.add('opacity-0');
+            console.log(`Fading out slide ${currentSolutionIndex + 1}`); // Debugging log
+
+            // 2. After the fade-out transition, hide the current slide and show the next
             setTimeout(() => {
-                solutionItems[currentSolutionIndex].classList.add('hidden');
+                currentSlide.classList.add('hidden'); // Make current slide display: none
+                console.log(`Slide ${currentSolutionIndex + 1} is now hidden.`); // Debugging log
 
-                // Move to the next solution
-                currentSolutionIndex = (currentSolutionIndex + 1) % solutionItems.length;
+                // Prepare next slide to appear
+                nextSlide.classList.remove('hidden'); // Make next slide display: block/flex
+                // Force reflow to ensure the browser registers the display change before applying opacity
+                void nextSlide.offsetWidth; 
+                
+                // Start fading in the next slide
+                nextSlide.classList.remove('opacity-0');
+                nextSlide.classList.add('opacity-100');
+                console.log(`Fading in slide ${nextIndex + 1}`); // Debugging log
 
-                // Show the next solution
-                solutionItems[currentSolutionIndex].classList.remove('hidden');
-                // Force reflow to ensure transition plays
-                void solutionItems[currentSolutionIndex].offsetWidth; 
-                solutionItems[currentSolutionIndex].classList.remove('opacity-0');
-                solutionItems[currentSolutionIndex].classList.add('opacity-100');
+                // Update the index for the next cycle
+                currentSolutionIndex = nextIndex;
 
-                // Schedule the next animation
-                setTimeout(animateSolutions, solutionDisplayTime);
-            }, 1000); // This timeout should match the CSS transition duration
+                // 3. Schedule the next animation cycle after the display time
+                setTimeout(animateSolutions, solutionDisplayTime); // This is the time the slide is fully visible
+            }, 1000); // This delay matches the CSS transition duration for opacity (1 second)
         }
 
 
