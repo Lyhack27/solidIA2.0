@@ -262,7 +262,7 @@
         <div id="our-services" class="content-section hidden w-full max-w-4xl bg-gray-800 bg-opacity-60 p-6 rounded-xl shadow-lg">
             <!-- Agency Logo -->
             <div class="flex justify-center mb-6">
-                <img src="logo/logo.png" alt="solid AI Logo" class="w-48 h-auto mx-auto rounded-lg" onerror="this.onerror=null;this.src='https://placehold.co/192x72/0d1117/e0e0e0?text=solid+AI+Logo';" loading="lazy">
+                <img src="logo/logo.png" alt="solid AI Logo" class="w-32 h-auto mx-auto rounded-lg" onerror="this.onerror=null;this.src='https://placehold.co/128x48/0d1117/e0e0e0?text=solid+AI+Logo';" loading="lazy">
             </div>
             <p class="text-xl text-gray-300 mb-6">Connecting the future with Artificial Intelligence</p>
             <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mb-8"> <!-- Added margin-bottom -->
@@ -271,16 +271,10 @@
                 </button>
             </div>
 
-            <!-- Three Main Solutions (Animated PNG Content) -->
+            <!-- Single Main Solution (Static GIF Content) -->
             <div class="relative w-full max-w-xl mx-auto h-96 overflow-hidden mb-10 flex items-center justify-center">
                 <div id="solution1" class="main-solution-item absolute inset-0 bg-gray-700 bg-opacity-70 p-4 rounded-lg shadow-md flex flex-col items-center justify-center text-center opacity-100">
-                    <img src="slides/slide1.png" alt="Intelligent Workflow Automation with n8n" class="w-full h-full object-contain rounded-lg" onerror="this.onerror=null;this.src='https://placehold.co/400x250/4CAF50/ffffff?text=Slide+1';" loading="lazy">
-                </div>
-                <div id="solution2" class="main-solution-item absolute inset-0 bg-gray-700 bg-opacity-70 p-4 rounded-lg shadow-md flex flex-col items-center justify-center text-center opacity-0 hidden">
-                    <img src="slides/slide2.png" alt="AI-Powered Content & Communication Automation via n8n" class="w-full h-full object-contain rounded-lg" onerror="this.onerror=null;this.src='https://placehold.co/400x250/2196F3/ffffff?text=Slide+2';" loading="lazy">
-                </div>
-                <div id="solution3" class="main-solution-item absolute inset-0 bg-gray-700 bg-opacity-70 p-4 rounded-lg shadow-md flex flex-col items-center justify-center text-center opacity-0 hidden">
-                    <img src="slides/slide3.png" alt="Data-Driven Operational Insights with n8n Integrations" class="w-full h-full object-contain rounded-lg" onerror="this.onerror=null;this.src='https://placehold.co/400x250/9C27B0/ffffff?text=Slide+3';" loading="lazy">
+                    <img src="slides/slide1.gif" alt="Intelligent Workflow Automation with n8n" class="w-full h-full object-contain rounded-lg" onerror="this.onerror=null;this.src='https://placehold.co/400x250/4CAF50/ffffff?text=Slide+1';" loading="lazy">
                 </div>
             </div>
             
@@ -529,6 +523,10 @@
                 <input type="email" id="chatbotEmail" name="email" class="w-full p-2 rounded-lg bg-gray-700 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500 text-sm" placeholder="john.doe@example.com" required>
             </div>
             <div>
+                <label for="chatbotBusinessType" class="block text-gray-300 text-sm font-bold mb-1">What type of business do you have?</label>
+                <input type="text" id="chatbotBusinessType" name="business_type" class="w-full p-2 rounded-lg bg-gray-700 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500 text-sm" placeholder="e.g., Retail, Finance, Healthcare" required>
+            </div>
+            <div>
                 <label for="chatbotMessage" class="block text-gray-300 text-sm font-bold mb-1">Your Message/Problem:</label>
                 <textarea id="chatbotMessage" name="message" class="w-full p-2 rounded-lg bg-gray-700 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500 text-sm" rows="3" placeholder="I'd like to automate... / I need a quote for..."></textarea>
             </div>
@@ -676,61 +674,7 @@
         }
 
         // --- Solutions Carousel Logic ---
-        let solutionItems;
-        let currentSolutionIndex = 0;
-        const solutionDisplayTime = 15000; // 15 seconds
-
-        function animateSolutions() {
-            if (!solutionItems || solutionItems.length === 0) {
-                solutionItems = document.querySelectorAll('.main-solution-item');
-                if (solutionItems.length === 0) {
-                    console.warn('No solution items found for animation.');
-                    return;
-                }
-                // Initialize visibility: ensure only the first is visible and others are hidden
-                solutionItems.forEach((item, index) => {
-                    if (index === 0) {
-                        item.classList.remove('hidden'); // Ensure it's not hidden
-                        item.classList.add('opacity-100'); // Ensure it's visible
-                    } else {
-                        item.classList.add('hidden'); // Ensure it's hidden
-                        item.classList.remove('opacity-100'); // Ensure it's not visible
-                        item.classList.add('opacity-0'); // Ensure it's transparent
-                    }
-                });
-            }
-
-            const currentSlide = solutionItems[currentSolutionIndex];
-            const nextIndex = (currentSolutionIndex + 1) % solutionItems.length;
-            const nextSlide = solutionItems[nextIndex];
-
-            // 1. Start fading out the current slide
-            currentSlide.classList.remove('opacity-100');
-            currentSlide.classList.add('opacity-0');
-            console.log(`Fading out slide ${currentSolutionIndex + 1}`); // Debugging log
-
-            // 2. After the fade-out transition, hide the current slide and show the next
-            setTimeout(() => {
-                currentSlide.classList.add('hidden'); // Make current slide display: none
-                console.log(`Slide ${currentSolutionIndex + 1} is now hidden.`); // Debugging log
-
-                // Prepare next slide to appear
-                nextSlide.classList.remove('hidden'); // Make next slide display: block/flex
-                // Force reflow to ensure the browser registers the display change before applying opacity
-                void nextSlide.offsetWidth; 
-                
-                // Start fading in the next slide
-                nextSlide.classList.remove('opacity-0');
-                nextSlide.classList.add('opacity-100');
-                console.log(`Fading in slide ${nextIndex + 1}`); // Debugging log
-
-                // Update the index for the next cycle
-                currentSolutionIndex = nextIndex;
-
-                // 3. Schedule the next animation cycle after the display time
-                setTimeout(animateSolutions, solutionDisplayTime); // This is the time the slide is fully visible
-            }, 1000); // This delay matches the CSS transition duration for opacity (1 second)
-        }
+        // Removed carousel logic as only one slide is desired and GIF playback is automatic.
 
 
         // Gemini API Integration and Contact Form Logic
@@ -750,6 +694,7 @@
             const chatbotForm = document.getElementById('chatbotForm');
             const chatbotNameInput = document.getElementById('chatbotName');
             const chatbotEmailInput = document.getElementById('chatbotEmail');
+            const chatbotBusinessTypeInput = document.getElementById('chatbotBusinessType'); // New input
             const chatbotMessageInput = document.getElementById('chatbotMessage');
             const sendChatbotInquiryBtn = document.getElementById('sendChatbotInquiryBtn');
             const chatbotConfirmation = document.getElementById('chatbotConfirmation');
@@ -858,6 +803,7 @@
                     formData.append('inquiry_type', 'Floating Chatbot Inquiry');
                     formData.append('name', chatbotNameInput.value.trim());
                     formData.append('email', chatbotEmailInput.value.trim());
+                    formData.append('business_type', chatbotBusinessTypeInput.value.trim()); // Add new field
                     formData.append('message', chatbotMessageInput.value.trim());
 
                     sendChatbotInquiryBtn.disabled = true;
@@ -1018,7 +964,7 @@
             init();
             animate();
             showSection('our-services'); // Show the "Our Services" section (which now includes Home) by default
-            animateSolutions(); // Start the solution carousel animation
+            // Removed animateSolutions() call as only one static slide is desired.
         };
 
     </script>
