@@ -204,8 +204,8 @@
     <nav class="bg-gray-900 bg-opacity-70 shadow-lg">
         <a href="#" onclick="showSection('our-services')">Home</a>
         <a href="#" onclick="showSection('who-we-are')">Who We Are</a>
-        <a href="#" onclick="showSection('our-services')">Our Services</a>
-        <a href="#" onclick="showSection('our-ai')">Our AI</a> <!-- New link for Our AI section -->
+        <a href="#" onclick="showSection('our-services-detail')">Our Services</a> <!-- Updated link -->
+        <a href="#" onclick="showSection('our-ai')">Our AI</a>
         <a href="#" onclick="showSection('careers')">Careers</a>
         <a href="#" onclick="showSection('privacy-policy')">Privacy Policy</a>
     </nav>
@@ -258,7 +258,7 @@
             </div>
         </div>
 
-        <!-- Our Services Section (Now includes Home content) -->
+        <!-- Our Services Section (Home content) -->
         <div id="our-services" class="content-section hidden w-full max-w-4xl bg-gray-800 bg-opacity-60 p-6 rounded-xl shadow-lg">
             <!-- Agency Logo -->
             <div class="flex justify-center mb-6">
@@ -447,6 +447,101 @@
                 This policy may be updated periodically. Please review it regularly.
             </p>
         </div>
+
+        <!-- Our Services Detail Section (New Page) -->
+        <div id="our-services-detail" class="content-section hidden w-full max-w-4xl bg-gray-800 bg-opacity-60 p-6 rounded-xl shadow-lg text-left">
+            <h2 class="text-3xl font-bold text-white mb-4 text-center">Our Comprehensive AI Services</h2>
+            <p class="text-gray-300 text-base leading-relaxed mb-8 text-center">
+                At solid AI, we offer a suite of cutting-edge Artificial Intelligence solutions designed to transform your business.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Service 1: Automations with Informative Windows -->
+                <div class="bg-gray-700 bg-opacity-70 p-5 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <svg class="w-12 h-12 text-blue-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-1-3m-6.964-1.24A6.002 6.002 0 0012 16a6.002 6.002 0 005.214-2.24m-10.428 0a6.002 6.002 0 0110.428 0M10 10V6a2 2 0 114 0v4m-4 0h4"></path></svg>
+                    <h3 class="text-xl font-semibold text-white mb-2">Automations with Informative Windows</h3>
+                    <p class="text-gray-300 text-sm">We implement intelligent automation solutions that interact with users through personalized windows and notifications, enhancing efficiency and user experience. These automations streamline workflows, reduce manual effort, and provide real-time updates and prompts to users, ensuring seamless operation and improved decision-making across various business processes.</p>
+                </div>
+
+                <!-- Service 2: Custom Software Development -->
+                <div class="bg-gray-700 bg-opacity-70 p-5 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <svg class="w-12 h-12 text-green-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5l7 7-7 7"></path></svg>
+                    <h3 class="text-xl font-semibold text-white mb-2">Custom Software Development</h3>
+                    <p class="text-gray-300 text-sm">We develop tailor-made software, specifically designed to meet your business's unique needs, integrating AI for more powerful and adaptable solutions. From enterprise-level applications to specialized tools, our custom software enhances operational capabilities, provides competitive advantages, and scales with your growth, ensuring a perfect fit for your specific challenges.</p>
+                </div>
+
+                <!-- Service 3: Secure Cloud Services -->
+                <div class="bg-gray-700 bg-opacity-70 p-5 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <svg class="w-12 h-12 text-purple-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg>
+                    <h3 class="text-xl font-semibold text-white mb-2">Secure Cloud Services</h3>
+                    <p class="text-gray-300 text-sm">We offer robust and secure cloud infrastructure and services, ensuring the protection of your data and the scalability of your AI-powered operations. Our cloud solutions provide high availability, disaster recovery, and compliance with industry standards, allowing your business to leverage the power of the cloud securely and efficiently, without compromising data integrity.</p>
+                </div>
+
+                <!-- Service 4: Website Creation -->
+                <div class="bg-gray-700 bg-opacity-70 p-5 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <svg class="w-12 h-12 text-yellow-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                    <h3 class="text-xl font-semibold text-white mb-2">Website Creation</h3>
+                    <p class="text-gray-300 text-sm">We design and develop modern, functional websites, optimized with AI to enhance user experience and SEO performance. Our websites are not just visually appealing; they are built with intelligent features to engage visitors, convert leads, and provide valuable insights into user behavior, ensuring your online presence drives real business results.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="careers" class="content-section hidden w-full max-w-4xl bg-gray-800 bg-opacity-60 p-6 rounded-xl shadow-lg text-left">
+            <h2 class="text-3xl font-bold text-white mb-4 text-center">Careers</h2>
+            <p class="text-gray-300 text-base leading-relaxed mb-8 text-center">
+                Join solid AI and be part of a dynamic team at the forefront of Artificial Intelligence innovation. We are always looking for talented individuals who are passionate about technology, problem-solving, and making a real impact. Explore our key roles:
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-gray-700 bg-opacity-70 p-4 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <img src="https://placehold.co/120x120/FF5722/ffffff?text=AI+Eng" alt="AI Engineer Profile Picture" class="rounded-full w-24 h-24 object-cover mb-3 border-2 border-red-400" loading="lazy">
+                    <h3 class="text-xl font-semibold text-white mb-1">AI/Machine Learning Engineer</h3>
+                    <p class="text-blue-300 text-sm font-medium mb-2">Develop & Implement AI Models</p>
+                    <p class="text-gray-300 text-xs">Design, build, and deploy cutting-edge AI and machine learning models, transforming complex data into intelligent solutions.</p>
+                </div>
+                <div class="bg-gray-700 bg-opacity-70 p-4 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <img src="https://placehold.co/120x120/00BCD4/ffffff?text=Data+Sci" alt="Data Scientist Profile Picture" class="rounded-full w-24 h-24 object-cover mb-3 border-2 border-teal-400" loading="lazy">
+                    <h3 class="text-xl font-semibold text-white mb-1">Data Scientist</h3>
+                    <p class="text-blue-300 text-sm font-medium mb-2">Analyze & Interpret Data</p>
+                    <p class="text-gray-300 text-xs">Extract insights from vast datasets, develop predictive models, and guide data-driven strategies for our clients.</p>
+                </div>
+                <div class="bg-gray-700 bg-opacity-70 p-4 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <img src="https://placehold.co/120x120/607D8B/ffffff?text=Cloud+Arch" alt="Cloud Architect Profile Picture" class="rounded-full w-24 h-24 object-cover mb-3 border-2 border-gray-400" loading="lazy">
+                    <h3 class="text-xl font-semibold text-white mb-1">Cloud Solutions Architect</h3>
+                    <p class="text-blue-300 text-sm font-medium mb-2">Design & Manage Cloud Infrastructure</p>
+                    <p class="text-gray-300 text-xs">Architect and manage scalable, secure cloud environments essential for deploying and operating our AI solutions.</p>
+                </div>
+                <div class="bg-gray-700 bg-opacity-70 p-4 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <img src="https://placehold.co/120x120/FFEB3B/000000?text=PM" alt="Project Manager Profile Picture" class="rounded-full w-24 h-24 object-cover mb-3 border-2 border-yellow-400" loading="lazy">
+                    <h3 class="text-xl font-semibold text-white mb-1">AI Project Manager</h3>
+                    <p class="text-blue-300 text-sm font-medium mb-2">Lead AI Project Lifecycle</p>
+                    <p class="text-gray-300 text-xs">Oversee the planning, execution, and delivery of AI projects, ensuring seamless communication and successful outcomes for clients.</p>
+                </div>
+            </div>
+        </div>
+        <div id="privacy-policy" class="content-section hidden w-full max-w-4xl bg-gray-800 bg-opacity-60 p-6 rounded-xl shadow-lg text-left">
+            <h2 class="text-3xl font-bold text-white mb-4 text-center">Privacy Policy</h2>
+            <p class="text-gray-300 text-base leading-relaxed mb-4">
+                At solid AI, we are committed to protecting your privacy. This policy outlines how we collect, use, and safeguard your personal information.
+            </p>
+            <h3 class="text-xl font-semibold text-white mb-2">Information Collection</h3>
+            <p class="text-gray-300 text-sm mb-4">
+                We collect information you provide directly to us, such as when you fill out our contact form (name, email, phone number, business problem). We also collect anonymous usage data to improve our services.
+            </p>
+            <h3 class="text-xl font-semibold text-white mb-2">Use of Information</h3>
+            <p class="text-gray-300 text-sm mb-4">
+                Your information is used to respond to your inquiries, provide requested services, and improve our website and AI solutions. We do not sell or share your personal data with third parties for their marketing purposes.
+            </p>
+            <h3 class="text-xl font-semibold text-white mb-2">Data Security</h3>
+            <p class="text-gray-300 text-sm mb-4">
+                We implement robust security measures to protect your data from unauthorized access, alteration, disclosure, or destruction. However, no internet transmission is entirely secure.
+            </p>
+            <h3 class="text-xl font-semibold text-white mb-2">Your Rights</h3>
+            <p class="text-gray-300 text-sm mb-4">
+                You have the right to access, correct, or delete your personal information. Please contact us to exercise these rights.
+            </p>
+            <p class="text-gray-300 text-sm">
+                This policy may be updated periodically. Please review it regularly.
+            </p>
+        </div>
     </div>
 
     <footer id="main-footer" class="bg-gray-900 bg-opacity-70 shadow-lg rounded-t-xl">
@@ -456,8 +551,8 @@
                 <ul>
                     <li><a href="#" onclick="showSection('our-services')">Home</a></li>
                     <li><a href="#" onclick="showSection('who-we-are')">Who We Are</a></li>
-                    <li><a href="#" onclick="showSection('our-services')">Our Services</a></li>
-                    <li><a href="#" onclick="showSection('our-ai')">Our AI</a> <!-- New link in footer for Our AI -->
+                    <li><a href="#" onclick="showSection('our-services-detail')">Our Services</a></li> <!-- Updated link -->
+                    <li><a href="#" onclick="showSection('our-ai')">Our AI</a>
                     <li><a href="#" onclick="showSection('careers')">Careers</a></li>
                     <li><a href="#" onclick="showSection('privacy-policy')">Privacy Policy</a></li>
                 </ul>
@@ -544,7 +639,7 @@
         const ctx = canvas.getContext('2d');
 
         let particles = [];
-        const numParticles = 200; // Number of particles
+        const numParticles = 150; // Number of particles (reduced for less clutter)
         const maxDistance = 100; // Max distance for lines between particles
 
         // Function to set canvas dimensions
@@ -970,3 +1065,4 @@
     </script>
 </body>
 </html>
+
