@@ -41,15 +41,16 @@
             justify-content: center;
             border-radius: 0 0 0.5rem 0.5rem; /* Rounded bottom corners */
             z-index: 10; /* Higher z-index than main-container */
-            gap: 1.5rem; /* Space between nav items */
+            gap: 1rem; /* Space between nav items, reduced for more tabs */
         }
         nav a {
             color: #e0e0e0;
-            padding: 0.5rem 1rem;
+            padding: 0.5rem 0.8rem; /* Adjusted padding for smaller text */
             text-decoration: none;
             border-radius: 0.5rem;
             transition: background-color 0.3s ease, color 0.3s ease;
             font-weight: 600;
+            font-size: 0.9rem; /* Slightly smaller font size */
         }
         nav a:hover {
             background-color: rgba(60, 120, 255, 0.2); /* Light blue hover */
@@ -62,8 +63,8 @@
                 gap: 0.5rem;
             }
             nav a {
-                padding: 0.4rem 0.8rem;
-                font-size: 0.9rem;
+                padding: 0.4rem 0.6rem; /* Further reduced for small screens */
+                font-size: 0.8rem;
             }
         }
 
@@ -114,7 +115,12 @@
             }
         }
 
-        /* Dropdown specific styles (no longer used for main nav, but kept if needed elsewhere) */
+        /* Dropdown specific styles (no longer used as main nav, but kept if needed elsewhere) */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
         .dropdown-content {
             display: none;
             position: absolute;
@@ -126,6 +132,7 @@
             top: 100%; /* Position below the button */
             left: 50%;
             transform: translateX(-50%); /* Center the dropdown */
+            padding: 0.5rem 0; /* Padding inside dropdown */
         }
 
         .dropdown-content a {
@@ -135,50 +142,16 @@
             display: block;
             text-align: left;
             border-radius: 0.5rem;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .dropdown-content a:hover {
             background-color: #2d3748; /* Lighter hover background */
         }
 
+        /* Show the dropdown menu on hover or click */
         .dropdown:hover .dropdown-content {
             display: block;
-        }
-
-        /* Footer specific styles - Removed absolute positioning to be part of normal flow */
-        footer {
-            width: 100%;
-            background-color: #1a202c; /* Darker background for footer */
-            padding: 2rem;
-            text-align: center;
-            border-radius: 0.5rem 0.5rem 0 0; /* Rounded top corners */
-            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5); /* Shadow for top edge */
-            z-index: 10; /* Higher z-index than main-container */
-        }
-        footer .footer-section {
-            margin-bottom: 1.5rem;
-        }
-        footer h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #4CAF50; /* Green accent */
-            margin-bottom: 1rem;
-        }
-        footer ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        footer ul li a {
-            color: #a0aec0; /* Lighter grey for links */
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        footer ul li a:hover {
-            color: #2196F3; /* Blue hover for links */
-        }
-        footer .social-icons a {
-            margin: 0 0.75rem;
         }
 
         /* Custom styles for solution item animation */
@@ -204,8 +177,9 @@
     <nav class="bg-gray-900 bg-opacity-70 shadow-lg">
         <a href="#" onclick="showSection('our-services')">Home</a>
         <a href="#" onclick="showSection('who-we-are')">Who We Are</a>
-        <a href="#" onclick="showSection('our-services-detail')">Our Services</a> <!-- Updated link -->
+        <a href="#" onclick="showSection('our-services-detail')">Our Services</a>
         <a href="#" onclick="showSection('our-ai')">Our AI</a>
+        <a href="#" onclick="showSection('consulting-section')">Consulting</a>
         <a href="#" onclick="showSection('careers')">Careers</a>
         <a href="#" onclick="showSection('privacy-policy')">Privacy Policy</a>
     </nav>
@@ -390,98 +364,90 @@
             </div>
         </div>
 
-        <div id="careers" class="content-section hidden w-full max-w-4xl bg-gray-800 bg-opacity-60 p-6 rounded-xl shadow-lg text-left">
-            <h2 class="text-3xl font-bold text-white mb-4 text-center">Careers</h2>
+        <div id="consulting-section" class="content-section hidden w-full max-w-4xl bg-gray-800 bg-opacity-60 p-6 rounded-xl shadow-lg text-left">
+            <h2 class="text-3xl font-bold text-white mb-4 text-center">Our AI Consulting: A Week of Transformation</h2>
             <p class="text-gray-300 text-base leading-relaxed mb-8 text-center">
-                Join solid AI and be part of a dynamic team at the forefront of Artificial Intelligence innovation. We are always looking for talented individuals who are passionate about technology, problem-solving, and making a real impact. Explore our key roles:
+                We offer an intensive one-week consulting service, designed to effectively integrate Artificial Intelligence into your business. For a cost of **500 AUD**, we will guide you step-by-step, from initial diagnosis to a personalized proposal and a roadmap for your employees.
             </p>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="bg-gray-700 bg-opacity-70 p-4 rounded-lg shadow-md flex flex-col items-center text-center">
-                    <img src="https://placehold.co/120x120/FF5722/ffffff?text=AI+Eng" alt="AI Engineer Profile Picture" class="rounded-full w-24 h-24 object-cover mb-3 border-2 border-red-400" loading="lazy">
-                    <h3 class="text-xl font-semibold text-white mb-1">AI/Machine Learning Engineer</h3>
-                    <p class="text-blue-300 text-sm font-medium mb-2">Develop & Implement AI Models</p>
-                    <p class="text-gray-300 text-xs">Design, build, and deploy cutting-edge AI and machine learning models, transforming complex data into intelligent solutions.</p>
+
+            <div class="overflow-x-auto mb-8">
+                <table class="min-w-full bg-gray-700 rounded-lg shadow-md">
+                    <thead>
+                        <tr class="bg-gray-600 text-white uppercase text-sm leading-normal">
+                            <th class="py-3 px-6 text-left">Day</th>
+                            <th class="py-3 px-6 text-left">Focus</th>
+                            <th class="py-3 px-6 text-left">Key Activities</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-300 text-sm font-light">
+                        <tr class="border-b border-gray-600 hover:bg-gray-800">
+                            <td class="py-3 px-6 text-left whitespace-nowrap font-semibold">Monday</td>
+                            <td class="py-3 px-6 text-left">Initial Visit & Diagnosis</td>
+                            <td class="py-3 px-6 text-left">Physical visit (if required by the business), collection of operational and business data, interviews with key stakeholders to understand current processes and challenges.</td>
+                        </tr>
+                        <tr class="border-b border-gray-600 hover:bg-gray-800">
+                            <td class="py-3 px-6 text-left font-semibold">Tuesday</td>
+                            <td class="py-3 px-6 text-left">Analysis & Opportunity Detection</td>
+                            <td class="py-3 px-6 text-left">In-depth analysis of collected data, detailed mapping of existing workflows, identification of pain points and clear opportunities for AI automation.</td>
+                        </tr>
+                        <tr class="border-b border-gray-600 hover:bg-gray-800">
+                            <td class="py-3 px-6 text-left font-semibold">Wednesday</td>
+                            <td class="py-3 px-6 text-left">Preliminary Solution Design</td>
+                            <td class="py-3 px-6 text-left">Collaborative brainstorming session to design AI solutions (e.g., with n8n), system architecture sketching, and definition of Key Performance Indicators (KPIs) to measure AI success.</td>
+                        </tr>
+                        <tr class="border-b border-gray-600 hover:bg-gray-800">
+                            <td class="py-3 px-6 text-left font-semibold">Thursday</td>
+                            <td class="py-3 px-6 text-left">Proposal & Employee Roadmap</td>
+                            <td class="py-3 px-6 text-left">Development of a detailed proposal with recommended AI solutions, cost estimation, and Return on Investment (ROI) projection. Development of a training plan and guide for AI adoption by employees and management.</td>
+                        </tr>
+                        <tr class="hover:bg-gray-800">
+                            <td class="py-3 px-6 text-left font-semibold">Friday</td>
+                            <td class="py-3 px-6 text-left">Presentation & Next Steps</td>
+                            <td class="py-3 px-6 text-left">Formal presentation of the proposal to the client and their management team. Discussion of feedback, proposal adjustment, and establishment of clear next steps for implementation.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="text-2xl font-bold text-white mb-4 text-center">The Strategic Importance of AI in Your Business</h3>
+            <p class="text-gray-300 text-base leading-relaxed mb-8 text-center">
+                Artificial Intelligence is a key driver for efficiency, growth, and competitive advantage. Below, we present concepts illustrating AI's impact. Detailed visualization with your specific data would be part of our consulting.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                <!-- Graphic 1: Cost Optimization -->
+                <div class="bg-gray-700 bg-opacity-70 p-6 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <img src="https://quickchart.io/chart?c={type:'bar',data:{labels:['Q1','Q2','Q3','Q4'],datasets:[{label:'Costs w/o AI',data:[100,95,90,85],backgroundColor:'rgba(255,99,132,0.7)'},{label:'Costs with AI',data:[100,80,60,40],backgroundColor:'rgba(54,162,235,0.7)'}]},options:{title:{display:true,text:'Operational Cost Reduction'}}}&width=400&height=250" alt="Bar chart showing operational cost reduction with AI" class="w-full h-auto rounded-md mb-4" loading="lazy">
+                    <h3 class="text-xl font-semibold text-white mb-2">Reduce Operational Costs</h3>
+                    <p class="text-gray-300 text-sm">AI-driven automation and predictive analytics can significantly cut down operational expenses by optimizing resource allocation, reducing waste, and streamlining complex processes.</p>
                 </div>
-                <div class="bg-gray-700 bg-opacity-70 p-4 rounded-lg shadow-md flex flex-col items-center text-center">
-                    <img src="https://placehold.co/120x120/00BCD4/ffffff?text=Data+Sci" alt="Data Scientist Profile Picture" class="rounded-full w-24 h-24 object-cover mb-3 border-2 border-teal-400" loading="lazy">
-                    <h3 class="text-xl font-semibold text-white mb-1">Data Scientist</h3>
-                    <p class="text-blue-300 text-sm font-medium mb-2">Analyze & Interpret Data</p>
-                    <p class="text-gray-300 text-xs">Extract insights from vast datasets, develop predictive models, and guide data-driven strategies for our clients.</p>
+                <!-- Graphic 2: Revenue Growth -->
+                <div class="bg-gray-700 bg-opacity-70 p-6 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <img src="https://quickchart.io/chart?c={type:'line',data:{labels:['Year 1','Year 2','Year 3'],datasets:[{label:'Revenue w/o AI',data:[100,105,110],borderColor:'rgba(255,99,132,0.7)',fill:false},{label:'Revenue with AI',data:[100,120,140],borderColor:'rgba(75,192,192,0.7)',fill:false}]},options:{title:{display:true,text:'AI-driven Revenue Increase'}}}&width=400&height=250" alt="Line chart showing AI-driven revenue increase" class="w-full h-auto rounded-md mb-4" loading="lazy">
+                    <h3 class="text-xl font-semibold text-white mb-2">Drive Revenue Growth</h3>
+                    <p class="text-gray-300 text-sm">Leverage AI for personalized customer experiences, targeted marketing, and demand forecasting to identify new revenue streams and increase sales conversions.</p>
                 </div>
-                <div class="bg-gray-700 bg-opacity-70 p-4 rounded-lg shadow-md flex flex-col items-center text-center">
-                    <img src="https://placehold.co/120x120/607D8B/ffffff?text=Cloud+Arch" alt="Cloud Architect Profile Picture" class="rounded-full w-24 h-24 object-cover mb-3 border-2 border-gray-400" loading="lazy">
-                    <h3 class="text-xl font-semibold text-white mb-1">Cloud Solutions Architect</h3>
-                    <p class="text-blue-300 text-sm font-medium mb-2">Design & Manage Cloud Infrastructure</p>
-                    <p class="text-gray-300 text-xs">Architect and manage scalable, secure cloud environments essential for deploying and operating our AI solutions.</p>
+                <!-- Graphic 3: Competitive Advantage -->
+                <div class="bg-gray-700 bg-opacity-70 p-6 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <img src="https://quickchart.io/chart?c={type:'radar',data:{labels:['Innovation','Efficiency','Market Share','Customer Loyalty'],datasets:[{label:'Competitor',data:[70,60,50,65],backgroundColor:'rgba(255,99,132,0.2)',borderColor:'rgba(255,99,132,1)'},{label:'Your Business with AI',data:[90,95,80,85],backgroundColor:'rgba(54,162,235,0.2)',borderColor:'rgba(54,162,235,1)'}]},options:{title:{display:true,text:'Competitive Advantage with AI'}}}&width=400&height=250" alt="Radar chart showing competitive advantage with AI" class="w-full h-auto rounded-md mb-4" loading="lazy">
+                    <h3 class="text-xl font-semibold text-white mb-2">Gain Competitive Advantage</h3>
+                    <p class="text-gray-300 text-sm">Stay ahead of the curve by implementing AI solutions that provide deeper insights, faster decision-making, and innovative service delivery, setting you apart from competitors.</p>
                 </div>
-                <div class="bg-gray-700 bg-opacity-70 p-4 rounded-lg shadow-md flex flex-col items-center text-center">
-                    <img src="https://placehold.co/120x120/FFEB3B/000000?text=PM" alt="Project Manager Profile Picture" class="rounded-full w-24 h-24 object-cover mb-3 border-2 border-yellow-400" loading="lazy">
-                    <h3 class="text-xl font-semibold text-white mb-1">AI Project Manager</h3>
-                    <p class="text-blue-300 text-sm font-medium mb-2">Lead AI Project Lifecycle</p>
-                    <p class="text-gray-300 text-xs">Oversee the planning, execution, and delivery of AI projects, ensuring seamless communication and successful outcomes for clients.</p>
+                <!-- Graphic 4: Customer Experience -->
+                <div class="bg-gray-700 bg-opacity-70 p-6 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <img src="https://quickchart.io/chart?c={type:'doughnut',data:{labels:['Satisfied','Neutral','Dissatisfied'],datasets:[{data:[75,15,10],backgroundColor:['#4CAF50','#FFC107','#F44336']}]},options:{title:{display:true,text:'Customer Satisfaction (CSAT) with AI'}}}&width=400&height=250" alt="Doughnut chart showing customer satisfaction with AI" class="w-full h-auto rounded-md mb-4" loading="lazy">
+                    <h3 class="text-xl font-semibold text-white mb-2">Enhance Customer Experience</h3>
+                    <p class="text-gray-300 text-sm">Utilize AI-powered chatbots, personalized recommendations, and predictive support to deliver seamless, highly responsive, and satisfying customer interactions.</p>
                 </div>
             </div>
-        </div>
-        <div id="privacy-policy" class="content-section hidden w-full max-w-4xl bg-gray-800 bg-opacity-60 p-6 rounded-xl shadow-lg text-left">
-            <h2 class="text-3xl font-bold text-white mb-4 text-center">Privacy Policy</h2>
-            <p class="text-gray-300 text-base leading-relaxed mb-4">
-                At solid AI, we are committed to protecting your privacy. This policy outlines how we collect, use, and safeguard your personal information.
-            </p>
-            <h3 class="text-xl font-semibold text-white mb-2">Information Collection</h3>
-            <p class="text-gray-300 text-sm mb-4">
-                We collect information you provide directly to us, such as when you fill out our contact form (name, email, phone number, business problem). We also collect anonymous usage data to improve our services.
-            </p>
-            <h3 class="text-xl font-semibold text-white mb-2">Use of Information</h3>
-            <p class="text-gray-300 text-sm mb-4">
-                Your information is used to respond to your inquiries, provide requested services, and improve our website and AI solutions. We do not sell or share your personal data with third parties for their marketing purposes.
-            </p>
-            <h3 class="text-xl font-semibold text-white mb-2">Data Security</h3>
-            <p class="text-gray-300 text-sm mb-4">
-                We implement robust security measures to protect your data from unauthorized access, alteration, disclosure, or destruction. However, no internet transmission is entirely secure.
-            </p>
-            <h3 class="text-xl font-semibold text-white mb-2">Your Rights</h3>
-            <p class="text-gray-300 text-sm mb-4">
-                You have the right to access, correct, or delete your personal information. Please contact us to exercise these rights.
-            </p>
-            <p class="text-gray-300 text-sm">
-                This policy may be updated periodically. Please review it regularly.
-            </p>
-        </div>
 
-        <!-- Our Services Detail Section (New Page) -->
-        <div id="our-services-detail" class="content-section hidden w-full max-w-4xl bg-gray-800 bg-opacity-60 p-6 rounded-xl shadow-lg text-left">
-            <h2 class="text-3xl font-bold text-white mb-4 text-center">Our Comprehensive AI Services</h2>
             <p class="text-gray-300 text-base leading-relaxed mb-8 text-center">
-                At solid AI, we offer a suite of cutting-edge Artificial Intelligence solutions designed to transform your business.
+                Ready to explore how AI can transform your business? Contact us today for a personalized consultation.
             </p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Service 1: Automations with Informative Windows -->
-                <div class="bg-gray-700 bg-opacity-70 p-5 rounded-lg shadow-md flex flex-col items-center text-center">
-                    <svg class="w-12 h-12 text-blue-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-1-3m-6.964-1.24A6.002 6.002 0 0012 16a6.002 6.002 0 005.214-2.24m-10.428 0a6.002 6.002 0 0110.428 0M10 10V6a2 2 0 114 0v4m-4 0h4"></path></svg>
-                    <h3 class="text-xl font-semibold text-white mb-2">Automations with Informative Windows</h3>
-                    <p class="text-gray-300 text-sm">We implement intelligent automation solutions that interact with users through personalized windows and notifications, enhancing efficiency and user experience. These automations streamline workflows, reduce manual effort, and provide real-time updates and prompts to users, ensuring seamless operation and improved decision-making across various business processes.</p>
-                </div>
-
-                <!-- Service 2: Custom Software Development -->
-                <div class="bg-gray-700 bg-opacity-70 p-5 rounded-lg shadow-md flex flex-col items-center text-center">
-                    <svg class="w-12 h-12 text-green-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5l7 7-7 7"></path></svg>
-                    <h3 class="text-xl font-semibold text-white mb-2">Custom Software Development</h3>
-                    <p class="text-gray-300 text-sm">We develop tailor-made software, specifically designed to meet your business's unique needs, integrating AI for more powerful and adaptable solutions. From enterprise-level applications to specialized tools, our custom software enhances operational capabilities, provides competitive advantages, and scales with your growth, ensuring a perfect fit for your specific challenges.</p>
-                </div>
-
-                <!-- Service 3: Secure Cloud Services -->
-                <div class="bg-gray-700 bg-opacity-70 p-5 rounded-lg shadow-md flex flex-col items-center text-center">
-                    <svg class="w-12 h-12 text-purple-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg>
-                    <h3 class="text-xl font-semibold text-white mb-2">Secure Cloud Services</h3>
-                    <p class="text-gray-300 text-sm">We offer robust and secure cloud infrastructure and services, ensuring the protection of your data and the scalability of your AI-powered operations. Our cloud solutions provide high availability, disaster recovery, and compliance with industry standards, allowing your business to leverage the power of the cloud securely and efficiently, without compromising data integrity.</p>
-                </div>
-
-                <!-- Service 4: Website Creation -->
-                <div class="bg-gray-700 bg-opacity-70 p-5 rounded-lg shadow-md flex flex-col items-center text-center">
-                    <svg class="w-12 h-12 text-yellow-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
-                    <h3 class="text-xl font-semibold text-white mb-2">Website Creation</h3>
-                    <p class="text-gray-300 text-sm">We design and develop modern, functional websites, optimized with AI to enhance user experience and SEO performance. Our websites are not just visually appealing; they are built with intelligent features to engage visitors, convert leads, and provide valuable insights into user behavior, ensuring your online presence drives real business results.</p>
-                </div>
+            <div class="flex justify-center">
+                <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105" onclick="showSection('our-ai')">
+                    Request a Consultation
+                </button>
             </div>
         </div>
 
@@ -551,8 +517,9 @@
                 <ul>
                     <li><a href="#" onclick="showSection('our-services')">Home</a></li>
                     <li><a href="#" onclick="showSection('who-we-are')">Who We Are</a></li>
-                    <li><a href="#" onclick="showSection('our-services-detail')">Our Services</a></li> <!-- Updated link -->
+                    <li><a href="#" onclick="showSection('our-services-detail')">Our Services</a></li>
                     <li><a href="#" onclick="showSection('our-ai')">Our AI</a>
+                    <li><a href="#" onclick="showSection('consulting-section')">Consulting</a></li>
                     <li><a href="#" onclick="showSection('careers')">Careers</a></li>
                     <li><a href="#" onclick="showSection('privacy-policy')">Privacy Policy</a></li>
                 </ul>
@@ -737,7 +704,8 @@
 
         // --- Section Switching Logic ---
         const sections = document.querySelectorAll('.content-section');
-        const dropdownLinks = document.querySelectorAll('.dropdown-content a');
+        // Removed dropdownLinks.forEach block as it was causing the "undefined" error.
+        // The navigation links now rely solely on their onclick attributes.
 
         function showSection(id) {
             const targetSection = document.getElementById(id);
@@ -750,15 +718,6 @@
                 console.error(`Error: Section with ID "${id}" not found in the DOM.`);
             }
         }
-
-        // Attach click event listeners to dropdown links
-        dropdownLinks.forEach(link => {
-            link.addEventListener('click', (event) => {
-                event.preventDefault(); // Prevent default link behavior
-                const sectionId = event.target.dataset.section;
-                showSection(sectionId);
-            });
-        });
 
         // Function to scroll to the footer
         function scrollToFooter() {
@@ -1065,4 +1024,3 @@
     </script>
 </body>
 </html>
-
