@@ -175,9 +175,9 @@
 
     <!-- Navigation Bar -->
     <nav class="bg-gray-900 bg-opacity-70 shadow-lg">
-        <a href="#" onclick="showSection('our-services')">Home</a>
+        <a href="#" onclick="showSection('home-section')">Home</a> <!-- Updated link to new Home ID -->
         <a href="#" onclick="showSection('who-we-are')">Who We Are</a>
-        <a href="#" onclick="showSection('our-services-detail')">Our Services</a>
+        <a href="#" onclick="showSection('services-section')">Services</a> <!-- New/Renamed Services link -->
         <a href="#" onclick="showSection('our-ai')">Our AI</a>
         <a href="#" onclick="showSection('consulting-section')">Consulting</a>
         <a href="#" onclick="showSection('careers')">Careers</a>
@@ -232,8 +232,8 @@
             </div>
         </div>
 
-        <!-- Our Services Section (Home content) -->
-        <div id="our-services" class="content-section hidden w-full max-w-4xl bg-gray-800 bg-opacity-60 p-6 rounded-xl shadow-lg">
+        <!-- Home Section -->
+        <div id="home-section" class="content-section hidden w-full max-w-4xl bg-gray-800 bg-opacity-60 p-6 rounded-xl shadow-lg">
             <!-- Agency Logo -->
             <div class="flex justify-center mb-6">
                 <img src="logo/logo.png" alt="solid AI Logo" class="w-32 h-auto mx-auto rounded-lg" onerror="this.onerror=null;this.src='https://placehold.co/128x48/0d1117/e0e0e0?text=solid+AI+Logo';" loading="lazy">
@@ -249,6 +249,26 @@
             <div class="relative w-full md:max-w-3xl lg:max-w-4xl mx-auto h-96 md:h-[36rem] overflow-hidden mb-10 flex items-center justify-center">
                 <div id="solution1" class="main-solution-item absolute inset-0 bg-gray-700 bg-opacity-70 p-4 rounded-lg shadow-md flex flex-col items-center justify-center text-center opacity-100">
                     <img src="slides/slide1.gif" alt="Intelligent Workflow Automation with n8n" class="w-full h-full object-contain rounded-lg" onerror="this.onerror=null;this.src='https://placehold.co/400x250/4CAF50/ffffff?text=Slide+1';" loading="lazy">
+                </div>
+            </div>
+
+            <!-- Short Service Descriptions for Home Section -->
+            <h3 class="text-2xl font-bold text-white mb-4 text-center mt-10">Our Core Services</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-gray-700 bg-opacity-70 p-4 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <svg class="w-10 h-10 text-blue-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-1-3m-6.964-1.24A6.002 6.002 0 0012 16a6.002 6.002 0 005.214-2.24m-10.428 0a6.002 6.002 0 0110.428 0M10 10V6a2 2 0 114 0v4m-4 0h4"></path></svg>
+                    <h4 class="text-xl font-semibold text-white mb-1">AI Consulting</h4>
+                    <p class="text-gray-300 text-xs">Strategic guidance to integrate AI into your business for measurable impact.</p>
+                </div>
+                <div class="bg-gray-700 bg-opacity-70 p-4 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <svg class="w-10 h-10 text-green-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5l7 7-7 7"></path></svg>
+                    <h4 class="text-xl font-semibold text-white mb-1">Custom Automation</h4>
+                    <p class="text-gray-300 text-xs">Tailored n8n workflows to streamline tasks and enhance operational efficiency.</p>
+                </div>
+                <div class="bg-gray-700 bg-opacity-70 p-4 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <svg class="w-10 h-10 text-purple-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg>
+                    <h4 class="text-xl font-semibold text-white mb-1">Software Development</h4>
+                    <p class="text-gray-300 text-xs">Building custom AI-powered software solutions from scratch to fit your unique needs.</p>
                 </div>
             </div>
 
@@ -299,36 +319,59 @@
                     Thank you! Your inquiry has been received. We will contact you soon.
                 </div>
             </div>
+        </div>
 
-            <h2 class="text-3xl font-bold text-white mb-6 text-center">Our Services</h2>
+        <!-- Services Section (New detailed services page) -->
+        <div id="services-section" class="content-section hidden w-full max-w-4xl bg-gray-800 bg-opacity-60 p-6 rounded-xl shadow-lg text-left">
+            <h2 class="text-3xl font-bold text-white mb-4 text-center">Our Comprehensive AI Services</h2>
+            <p class="text-gray-300 text-base leading-relaxed mb-8 text-center">
+                At solid AI, we offer a suite of cutting-edge Artificial Intelligence solutions designed to transform your business.
+            </p>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Service 1: AI Consulting -->
                 <div class="bg-gray-700 bg-opacity-70 p-5 rounded-lg shadow-md flex flex-col items-center text-center">
                     <svg class="w-12 h-12 text-blue-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-1-3m-6.964-1.24A6.002 6.002 0 0012 16a6.002 6.002 0 005.214-2.24m-10.428 0a6.002 6.002 0 0110.428 0M10 10V6a2 2 0 114 0v4m-4 0h4"></path></svg>
-                    <h3 class="text-xl font-semibold text-white mb-2">Automations with Informative Windows</h3>
-                    <p class="text-gray-300 text-sm">We implement intelligent automation solutions that interact with users through personalized windows and notifications, enhancing efficiency and user experience.</p>
+                    <h3 class="text-xl font-semibold text-white mb-2">AI Consulting</h3>
+                    <p class="text-gray-300 text-sm">Our specialized AI consulting services guide your business through the strategic integration of Artificial Intelligence. From identifying opportunities to developing a clear roadmap, we ensure AI aligns with your business goals and drives measurable impact. <a href="#" onclick="showSection('consulting-section')" class="text-blue-400 hover:underline">Learn more about our 1-week consulting program.</a></p>
                 </div>
 
+                <!-- Service 2: Custom Automation Solutions (n8n Focused) -->
                 <div class="bg-gray-700 bg-opacity-70 p-5 rounded-lg shadow-md flex flex-col items-center text-center">
                     <svg class="w-12 h-12 text-green-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5l7 7-7 7"></path></svg>
-                    <h3 class="text-xl font-semibold text-white mb-2">Custom Software Development</h3>
-                    <p class="text-gray-300 text-sm">We develop tailor-made software, specifically designed to meet your business's unique needs, integrating AI for more powerful and adaptable solutions.</p>
+                    <h3 class="text-xl font-semibold text-white mb-2">Custom Automation Solutions</h3>
+                    <p class="text-gray-300 text-sm">We design and implement intelligent automation workflows tailored to your company's specific needs, leveraging powerful tools like n8n. Our solutions streamline repetitive tasks, integrate disparate systems, and enhance operational efficiency, freeing your team to focus on high-value activities.</p>
+                    <img src="https://quickchart.io/chart?c={type:'line',data:{labels:['Month 1','Month 2','Month 3','Month 4'],datasets:[{label:'Manual Process Time',data:[100,90,80,70],backgroundColor:'rgba(255,99,132,0.7)'},{label:'Automated Process Time',data:[100,60,30,10],backgroundColor:'rgba(75,192,192,0.7)',fill:false}]},options:{title:{display:true,text:'Process Time Reduction with Automation'}}}&width=400&height=250" alt="Line chart showing process time reduction with automation" class="w-full h-auto rounded-md mt-4" loading="lazy"
+                    onerror="this.onerror=null; this.outerHTML='<div class=\'w-full h-48 bg-gray-800 flex items-center justify-center rounded-md mt-4 text-gray-400 text-sm italic\'>[Chart failed to load. Conceptual chart here.]</div>';">
                 </div>
 
+                <!-- Service 3: Custom Software Development -->
                 <div class="bg-gray-700 bg-opacity-70 p-5 rounded-lg shadow-md flex flex-col items-center text-center">
                     <svg class="w-12 h-12 text-purple-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg>
-                    <h3 class="text-xl font-semibold text-white mb-2">Secure Cloud Services</h3>
-                    <p class="text-gray-300 text-sm">We offer robust and secure cloud infrastructure and services, ensuring the protection of your data and the scalability of your AI-powered operations.</p>
+                    <h3 class="text-xl font-semibold text-white mb-2">Custom Software Development</h3>
+                    <p class="text-gray-300 text-sm">We develop tailor-made software solutions from scratch, integrating AI capabilities to create powerful, scalable, and adaptable applications that precisely fit your unique business needs and give you a competitive edge.</p>
+                    <img src="https://quickchart.io/chart?c={type:'bar',data:{labels:['Planning','Development','Testing','Deployment'],datasets:[{label:'Traditional Cycle',data:[20,40,30,10],backgroundColor:'rgba(255,99,132,0.7)'},{label:'AI-Accelerated Cycle',data:[15,30,20,5],backgroundColor:'rgba(54,162,235,0.7)'}]},options:{indexAxis:'y',title:{display:true,text:'Software Development Cycle Improvement'}}}&width=400&height=250" alt="Bar chart showing software development cycle improvement with AI" class="w-full h-auto rounded-md mt-4" loading="lazy"
+                    onerror="this.onerror=null; this.outerHTML='<div class=\'w-full h-48 bg-gray-800 flex items-center justify-center rounded-md mt-4 text-gray-400 text-sm italic\'>[Chart failed to load. Conceptual chart here.]</div>';">
                 </div>
 
+                <!-- Service 4: AI-Optimized Website Creation -->
                 <div class="bg-gray-700 bg-opacity-70 p-5 rounded-lg shadow-md flex flex-col items-center text-center">
                     <svg class="w-12 h-12 text-yellow-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
-                    <h3 class="text-xl font-semibold text-white mb-2">Website Creation</h3>
-                    <p class="text-gray-300 text-sm">We design and develop modern, functional websites, optimized with AI to enhance user experience and SEO performance.</p>
+                    <h3 class="text-xl font-semibold text-white mb-2">AI-Optimized Website Creation</h3>
+                    <p class="text-gray-300 text-sm">We design and develop modern, responsive websites enhanced with AI for superior user experience, personalized content delivery, and optimized SEO, ensuring your online presence drives engagement and conversions.</p>
+                    <!-- No chart for this service as requested -->
+                </div>
+
+                <!-- Service 5: Ultra-Low Latency Cloud Execution Services -->
+                <div class="bg-gray-700 bg-opacity-70 p-5 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <svg class="w-12 h-12 text-red-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v-1a3 3 0 013-3h12a3 3 0 013 3v1m-6 0v-1a3 3 0 00-3-3h-2a3 3 0 00-3 3v1m-6-4h.01M12 10h.01M16 10h.01M12 16h.01"></path></svg>
+                    <h3 class="text-xl font-semibold text-white mb-2">Ultra-Low Latency Cloud Execution</h3>
+                    <p class="text-gray-300 text-sm">Host your AI models and applications on our high-performance cloud servers located in Sydney, ensuring minimal latency and maximum speed for your Australian operations. Experience unparalleled responsiveness and reliability.</p>
+                    <img src="https://quickchart.io/chart?c={type:'line',data:{labels:['Distance (km)','Latency (ms)'],datasets:[{label:'Sydney Server',data:[0,5,10,15,20],borderColor:'rgba(75,192,192,0.7)',fill:false},{label:'Overseas Server',data:[0,50,100,150,200],borderColor:'rgba(255,99,132,0.7)',fill:false}]},options:{title:{display:true,text:'Latency Comparison (Sydney vs. Overseas)'}}}&width=400&height=250" alt="Line chart comparing latency of Sydney vs overseas servers" class="w-full h-auto rounded-md mt-4" loading="lazy"
+                    onerror="this.onerror=null; this.outerHTML='<div class=\'w-full h-48 bg-gray-800 flex items-center justify-center rounded-md mt-4 text-gray-400 text-sm italic\'>[Chart failed to load. Conceptual chart here.]</div>';">
                 </div>
             </div>
         </div>
 
-        <!-- Our AI Section (Now contains the Brainstormer) -->
         <div id="our-ai" class="content-section hidden w-full max-w-4xl bg-gray-800 bg-opacity-60 p-6 rounded-xl shadow-lg">
             <h2 class="text-3xl font-bold text-white mb-4 text-center">Let's Build a Solution Together</h2>
             <p class="text-gray-300 text-base leading-relaxed mb-8 text-center">
@@ -538,9 +581,9 @@
             <div class="footer-section">
                 <h3>Quick Links</h3>
                 <ul>
-                    <li><a href="#" onclick="showSection('our-services')">Home</a></li>
+                    <li><a href="#" onclick="showSection('home-section')">Home</a></li>
                     <li><a href="#" onclick="showSection('who-we-are')">Who We Are</a></li>
-                    <li><a href="#" onclick="showSection('our-services-detail')">Our Services</a></li>
+                    <li><a href="#" onclick="showSection('services-section')">Services</a></li> <!-- Updated link -->
                     <li><a href="#" onclick="showSection('our-ai')">Our AI</a>
                     <li><a href="#" onclick="showSection('consulting-section')">Consulting</a></li>
                     <li><a href="#" onclick="showSection('careers')">Careers</a></li>
@@ -1039,14 +1082,17 @@
 
         // Initialize and start animation when window loads
         window.onload = function () {
-            setCanvasSize();
-            init();
-            animate();
-            showSection('our-services'); // Show the "Our Services" section (which now includes Home) by default
-            // Removed animateSolutions() call as only one static slide is desired.
+            // Added a small delay to ensure DOM is fully ready before showing default section
+            setTimeout(() => {
+                setCanvasSize();
+                init();
+                animate();
+                showSection('home-section'); // Show the "Home" section by default
+            }, 100); // 100ms delay
         };
 
     </script>
 </body>
 </html>
+
 
