@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diseño Oscuro Moderno</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- 1. ESTILO GENERAL DEL CUERPO --- */
+        body {
+            /* Color de fondo principal: un gris muy oscuro, casi negro */
+            background-color: #0d1117;
+
+            /* Color de texto principal: un gris claro para no cansar la vista */
+            color: #e0e0e0;
+
+            /* Familia de fuente moderna y legible */
+            font-family: 'Inter', sans-serif;
+
+            /* Elimina el margen por defecto */
+            margin: 0;
+
+            /* Centra el contenido vertical y horizontalmente */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* --- 2. ESTILO DEL CONTENEDOR PRINCIPAL --- */
+        .main-container {
+            /* Fondo semitransparente para dar un efecto de profundidad */
+            background: rgba(13, 17, 23, 0.6); /* Un poco más oscuro que el body */
+
+            /* Bordes redondeados para un look suave */
+            border-radius: 1.5rem;
+
+            /* Sombra sutil para que el contenedor resalte */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            
+            /* Borde ligero para definir mejor el contenedor */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+
+            /* Espaciado interno */
+            padding: 2.5rem;
+
+            /* Ancho máximo para que no se estire demasiado en pantallas grandes */
+            max-width: 800px;
+            
+            /* Centrado del texto dentro del contenedor */
+            text-align: center;
+        }
+
+        /* --- 3. ESTILOS DE TEXTO Y ENCABEZADOS --- */
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ffffff; /* Blanco puro para el título principal */
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6; /* Espaciado entre líneas para mejor lectura */
+            color: #c9d1d9;  /* Un gris un poco más claro para los párrafos */
+            margin-bottom: 1.5rem;
+        }
+
+        /* --- 4. ESTILO PARA BOTONES (Ejemplo) --- */
+        .button {
+            background-color: #8A2BE2; /* Un morado vibrante como color de acento */
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 50px; /* Bordes totalmente redondeados (píldora) */
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .button:hover {
+            background-color: #9932CC; /* Un morado un poco más claro al pasar el mouse */
+            transform: scale(1.05);   /* Efecto de crecimiento sutil */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <h1>Diseño Futurista y Elegante</h1>
+        <p>
+            Este es un diseño limpio y moderno que utiliza un fondo oscuro,
+            texto claro y un contenedor semitransparente para crear un efecto
+            sofisticado y profesional, ideal para proyectos de tecnología.
+        </p>
+        <a href="#" class="button">Botón de Ejemplo</a>
+    </div>
+
+</body>
+</html>
