@@ -1,1 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Automation Services</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #020818; /* Dark space blue background */
+            overflow: hidden; /* Prevents scrollbars */
+        }
+        #galaxy-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        .glass-effect {
+            background: rgba(10, 15, 30, 0.25); /* More transparent background */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px); /* For Safari */
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
 
+    <!-- Animated Galaxy Background -->
+    <canvas id="galaxy-canvas"></canvas>
+
+    <!-- Main Content -->
+    <div class="relative min-h-screen flex items-center justify-center p-4">
+        <div class="w-full max-w-2xl text-center rounded-2xl p-8 md:p-12 shadow-2xl glass-effect">
+            
+            <!-- Main Title -->
+            <h1 class="text-3xl md:text-5xl font-black uppercase tracking-wider text-gray-100 mb-4">
+                Future-Proof Your Instagram
+            </h1>
+            
+            <!-- Subtitle/Description -->
+            <p class="text-lg md:text-xl text-gray-300 max-w-lg mx-auto mb-8">
+                Leverage our advanced AI-powered automation to boost your growth, skyrocket engagement, and reclaim your valuable time.
+            </p>
+            
+            <!-- Call to Action Button -->
+            <a href="#contact" class="inline-block bg-cyan-500 text-gray-900 font-bold uppercase tracking-wide py-3 px-9 rounded-full text-base transition-transform duration-300 hover:bg-cyan-400 hover:scale-105 shadow-lg shadow-cyan-500/30">
+                Automate Now
+            </a>
+            
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('galaxy-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let stars = [];
+        const numStars = 200; // Fewer stars for performance
+        let planets = [];
+
+        function setCanvasSize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        class Star {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.radius = Math.random() * 1.2;
+                this.alpha = Math.random() * 0.5 + 0.2;
+                this.velocity = {
+                    x: (Math.random() - 0.5) * 0.1,
+                    y: (Math.random() - 0.5) * 0.1,
+                };
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.alpha})`;
+                ctx.fill();
+            }
+
+            update() {
+                this.x += this.velocity.x;
+                this.y += this.velocity.y;
+
+                if (this.x < 0 || this.x > canvas.width) this.velocity.x = -this.velocity.x;
+                if (this.y < 0 || this.y > canvas.height) this.velocity.y = -this.velocity.y;
+            }
+        }
+
+        class Planet {
+            constructor(orbitRadius, speed, planetRadius, color) {
+                this.orbitRadius = orbitRadius;
+                this.angle = Math.random() * Math.PI * 2;
+                this.speed = speed;
+                this.planetRadius = planetRadius;
+                this.color = color;
+            }
+
+            draw() {
+                const centerX = canvas.width / 2;
+                const centerY = canvas.height / 2;
+                
+                // Calculate position
+                const x = centerX + this.orbitRadius * Math.cos(this.angle);
+                const y = centerY + this.orbitRadius * Math.sin(this.angle);
+                
+                // Draw orbit path
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, this.orbitRadius, 0, Math.PI * 2);
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+                ctx.stroke();
+
+                // Draw planet
+                ctx.beginPath();
+                ctx.arc(x, y, this.planetRadius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+
+            update() {
+                this.angle += this.speed;
+            }
+        }
+
+        function init() {
+            stars = [];
+            for (let i = 0; i < numStars; i++) {
+                stars.push(new Star());
+            }
+
+            planets = [
+                new Planet(80, 0.008, 4, '#a78bfa'), // Violet
+                new Planet(140, 0.005, 7, '#60a5fa'), // Blue
+                new Planet(220, 0.003, 5, '#f87171'), // Red
+                new Planet(300, 0.002, 9, '#4ade80'), // Green
+            ];
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+
+            // Draw drifting stars
+            stars.forEach(star => {
+                star.update();
+                star.draw();
+            });
+
+            // Draw sun
+            const sunGradient = ctx.createRadialGradient(centerX, centerY, 5, centerX, centerY, 30);
+            sunGradient.addColorStop(0, 'rgba(250, 204, 21, 1)');
+            sunGradient.addColorStop(1, 'rgba(250, 204, 21, 0)');
+            ctx.fillStyle = sunGradient;
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 30, 0, Math.PI * 2);
+            ctx.fill();
+
+
+            // Draw planets and their orbits
+            planets.forEach(planet => {
+                planet.update();
+                planet.draw();
+            });
+        }
+
+        // Event Listeners
+        window.addEventListener('resize', () => {
+            setCanvasSize();
+            init(); // Re-initialize for new size
+        });
+
+        // Initial setup
+        setCanvasSize();
+        init();
+        animate();
+    </script>
+</body>
+</html>
