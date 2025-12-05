@@ -832,21 +832,18 @@
             let collectionStep = 0;
             let collectedData = {
                 contact: {},
-                property: {},
-                preferences: {},
+                business: {}, // New section for business info
                 serviceType: 'General Inquiry'
             };
 
             const collectionSteps = [
+                { field: 'businessType', prompt: "To start, what is your type of business?", section: 'business' },
+                { field: 'needType', prompt: "Do you know what you need? (e.g., Custom Software, Automation, Consulting, Automated Website, or AI Recommendation)", section: 'business' },
                 { field: 'firstName', prompt: "Great! Let's get your details. What is your First Name?", section: 'contact' },
                 { field: 'lastName', prompt: "And your Last Name?", section: 'contact' },
                 { field: 'email', prompt: "What is your Email Address?", section: 'contact' },
                 { field: 'phone', prompt: "What is your Phone Number?", section: 'contact' },
-                { field: 'address', prompt: "What is the Property Address?", section: 'property' },
-                { field: 'ownership', prompt: "Are you the Property Owner or is it a New Build? (Type 'owner' or 'building')", section: 'property' },
-                { field: 'roofType', prompt: "What is the Roof Type? (Tile, Tin, Flat, Other)", section: 'property' },
-                { field: 'installTimeframe', prompt: "When do you want this installed? (1 Week, 2-3 Weeks, 1 Month+)", section: 'preferences' },
-                { field: 'batteryTimeframe', prompt: "When would you like a battery? (1 Week, 2-3 Weeks, 1 Month+)", section: 'preferences' }
+                { field: 'message', prompt: "Any specific details or questions you'd like to add?", section: 'business' }
             ];
 
             // Toggle Chat
@@ -939,60 +936,138 @@
                 }
             }
 
+            // Chat History
+            let chatHistory = [];
+
             // Gemini Chat Logic
-            async function handleGeminiChat(message) {
-                // Check if user wants a quote
-                const lowerMsg = message.toLowerCase();
-                if (lowerMsg.includes('quote') || lowerMsg.includes('price') || lowerMsg.includes('contact') || lowerMsg.includes('call')) {
-                    isCollectingData = true;
-                    addMessage("I can certainly help you with that! I just need to ask you a few questions to get the best quote for you.", 'bot');
-                    setTimeout(() => addMessage(collectionSteps[0].prompt, 'bot'), 1000);
-                    return;
-                }
+                        // Gemini Chat Logic
+            // Gemini Chat Logic
+async function handleGeminiChat(message) {
+    const lowerMsg = message.toLowerCase();
 
-                // Show typing indicator
-                const typingDiv = document.createElement('div');
-                typingDiv.className = 'flex justify-start';
-                typingDiv.innerHTML = '<div class="bg-gray-700 text-gray-200 rounded-lg p-3 text-sm italic">Thinking...</div>';
-                chatMessages.appendChild(typingDiv);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
+    // Language Detection (Simple Heuristic)
+    const isSpanish = lowerMsg.includes('hola') || lowerMsg.includes('si ') || lowerMsg.includes('sí') || lowerMsg.includes('gracias') || lowerMsg.includes('por favor') || lowerMsg.includes('quiero') || lowerMsg.includes('cotizacion') || lowerMsg.includes('buenos');
 
-                try {
-                    const apiKey = "AIzaSyCVqJGBnJIgNb73heK3RIclkIA0ujSR7XY"; // Using the token from backup
-                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+    // 1. Direct Keyword Check (Fast Path)
+    // Expanded list for both languages
+    const quoteKeywords = [
+        // English
+        'quote', 'price', 'cost', 'estimate', 'proposal',
+        // Spanish
+        'cotizacion', 'cotización', 'precio', 'costo', 'presupuesto', 'valor', 'cuanto cuesta'
+    ];
 
-                    const systemPrompt = "You are a helpful AI assistant for 'solid AI', an Artificial Intelligence Agency. Answer questions about our services (AI Consulting, Custom Automation, Software Development, Web Creation). Keep answers concise (under 3 sentences). If the user seems interested in a service or pricing, encourage them to ask for a quote.";
+    // If user explicitly asks for a quote, start immediately
+    if (quoteKeywords.some(keyword => lowerMsg.includes(keyword))) {
+        isCollectingData = true;
+        const msg = isSpanish
+            ? "¡Claro que sí! Para darte la mejor cotización, necesito hacerte unas pocas preguntas."
+            : "I can certainly help you with that! I just need to ask you a few questions to get the best quote for you.";
 
-                    const payload = {
-                        contents: [{
-                            role: "user",
-                            parts: [{ text: systemPrompt + "\n\nUser: " + message }]
-                        }]
-                    };
+        addMessage(msg, 'bot');
 
-                    const response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
+        // Translate first prompt if needed (basic implementation)
+        const firstPrompt = isSpanish ? "¿Para empezar, cuál es tu tipo de negocio?" : collectionSteps[0].prompt;
+        setTimeout(() => addMessage(firstPrompt, 'bot'), 1000);
+        return;
+    }
 
-                    const data = await response.json();
+    // Show typing indicator
+    const typingDiv = document.createElement('div');
+    typingDiv.className = 'flex justify-start';
+    typingDiv.innerHTML = '<div class="bg-gray-700 text-gray-200 rounded-lg p-3 text-sm italic">Thinking...</div>';
+    chatMessages.appendChild(typingDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
 
-                    // Remove typing indicator
-                    chatMessages.removeChild(typingDiv);
+    try {
+        const apiKey = "AIzaSyCVqJGBnJIgNb73heK3RIclkIA0ujSR7XY"; // Using the token from backup
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
-                    if (data.candidates && data.candidates[0].content) {
-                        const reply = data.candidates[0].content.parts[0].text;
-                        addMessage(reply, 'bot');
-                    } else {
-                        addMessage("I'm sorry, I didn't quite catch that. Could you rephrase?", 'bot');
-                    }
-                } catch (error) {
-                    chatMessages.removeChild(typingDiv);
-                    console.error('Gemini Error:', error);
-                    addMessage("I'm having trouble connecting to my brain right now. Please try again later.", 'bot');
-                }
+        const systemPrompt = `You are a proactive, bilingual (English/Spanish) sales AI for 'solid AI'. 
+                    
+                    INSTRUCTIONS:
+                    1. Detect the user's language and REPLY IN THE SAME LANGUAGE.
+                    2. Briefly answer questions about services (AI, Automation, Web, Software).
+                    3. ALWAYS try to close by asking if they want a quote.
+                    
+                    CRITICAL TRIGGER:
+                    If the user agrees to a quote, says "yes", "si", "sure", "claro", "please", "por favor", "ok", "adelante", or explicitly asks for one:
+                    Output EXACTLY and ONLY the word: QUOTE_START
+                    
+                    Otherwise, keep responses short (max 2 sentences).`;
+
+        // Construct the conversation history for the API
+        let contents = [];
+
+        if (chatHistory.length === 0) {
+            contents.push({
+                role: "user",
+                parts: [{ text: systemPrompt + "\n\nUser: " + message }]
+            });
+        } else {
+            let historyText = systemPrompt + "\n\nConversation History:\n";
+            chatHistory.forEach(msg => {
+                historyText += `${msg.role === 'user' ? 'User' : 'Assistant'}: ${msg.text}\n`;
+            });
+            historyText += `\nUser: ${message}`;
+
+            contents.push({
+                role: "user",
+                parts: [{ text: historyText }]
+            });
+        }
+
+        const payload = {
+            contents: contents
+        };
+
+        const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+
+        const data = await response.json();
+
+        // Remove typing indicator
+        if (chatMessages.contains(typingDiv)) chatMessages.removeChild(typingDiv);
+
+        if (data.candidates && data.candidates[0].content) {
+            let reply = data.candidates[0].content.parts[0].text.trim();
+
+            // Check for the magic trigger word
+            if (reply.includes('QUOTE_START')) {
+                isCollectingData = true;
+                // Determine language for the transition message based on recent context or default
+                const transitionMsg = isSpanish
+                    ? "¡Excelente! Empecemos con tu cotización."
+                    : "Great! Let's get started with your quote.";
+
+                addMessage(transitionMsg, 'bot');
+
+                const firstPrompt = isSpanish ? "¿Para empezar, cuál es tu tipo de negocio?" : collectionSteps[0].prompt;
+                setTimeout(() => addMessage(firstPrompt, 'bot'), 1000);
+            } else {
+                addMessage(reply, 'bot');
+
+                // Update history
+                chatHistory.push({ role: 'user', text: message });
+                chatHistory.push({ role: 'model', text: reply });
+
+                if (chatHistory.length > 20) chatHistory = chatHistory.slice(chatHistory.length - 20);
             }
+
+        } else {
+            addMessage("I'm sorry, I didn't quite catch that. Could you rephrase?", 'bot');
+        }
+    } catch (error) {
+        if (chatMessages.contains(typingDiv)) chatMessages.removeChild(typingDiv);
+        console.error('Gemini Error:', error);
+        addMessage("I'm having trouble connecting to my brain right now. Please try again later.", 'bot');
+    }
+}
+
+
         });
     </script>
 </body>
