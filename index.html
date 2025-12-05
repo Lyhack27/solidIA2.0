@@ -122,6 +122,7 @@
             font-weight: 700;
             margin-bottom: 0.5rem;
             background: linear-gradient(45deg, #4CAF50, #2196F3);
+            background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -273,10 +274,11 @@
 
             <div id="intro-question"
                 class="w-full max-w-2xl bg-gray-700 bg-opacity-70 p-8 rounded-xl shadow-lg text-center flex flex-col items-center justify-center mb-8 mx-auto">
-                <h2 class="text-4xl font-bold text-white mb-6">Do you know what you need?</h2>
-                <p class="text-xl text-gray-300 mb-8">
-                    Describe your initial thoughts or problem here. A solid AI expert will respond in less than 24
-                    hours.
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Tell us what process you'd like to automate
+                </h2>
+                <p class="text-lg md:text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
+                    Send us a message about what you need—whether it's an AI Chatbot, SEO & Instagram automation,
+                    seamless Calendar scheduling, or LinkedIn outreach. We'll build the perfect solution for you.
                 </p>
                 <form id="introContactForm" class="space-y-4 w-full text-left">
                     <div>
@@ -286,12 +288,19 @@
                             class="w-full p-3 rounded-lg bg-gray-800 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500"
                             placeholder="John Doe" required>
                     </div>
-                    <div>
+                    <div class="mb-4">
                         <label for="introClientEmail" class="block text-gray-300 text-sm font-bold mb-2">Your
                             Email:</label>
                         <input type="email" id="introClientEmail" name="email"
                             class="w-full p-3 rounded-lg bg-gray-800 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500"
                             placeholder="john.doe@example.com" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="introClientPhone" class="block text-gray-300 text-sm font-bold mb-2">Your
+                            Phone:</label>
+                        <input type="tel" id="introClientPhone" name="phone"
+                            class="w-full p-3 rounded-lg bg-gray-800 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500"
+                            placeholder="+61 400 000 000">
                     </div>
                     <textarea id="introProblemInput" name="message"
                         class="w-full p-3 rounded-lg bg-gray-800 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500 mb-4"
@@ -438,7 +447,7 @@
             class="content-section hidden w-full max-w-4xl bg-gray-800 bg-opacity-60 p-6 rounded-xl shadow-lg text-left">
             <h2 class="text-3xl font-bold text-white mb-4 text-center">AI Transformation & Team Empowerment</h2>
             <p class="text-gray-300 text-base leading-relaxed mb-8 text-center">
-                Our intensive one-week consulting service (500 AUD) empowers your team with the skills to use AI
+                Our intensive one-week consulting service empowers your team with the skills to use AI
                 effectively.
             </p>
             <div class="space-y-8">
@@ -475,7 +484,7 @@
             </div>
             <div class="flex justify-center mt-8">
                 <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-lg"
-                    onclick="showSection('our-ai')">
+                    onclick="showSection('home-section'); setTimeout(() => document.getElementById('intro-question').scrollIntoView({behavior: 'smooth'}), 100);">
                     Request a Consultation
                 </button>
             </div>
@@ -704,12 +713,20 @@
                 introContactForm.addEventListener('submit', async (e) => {
                     e.preventDefault();
 
-                    const name = document.getElementById('introClientName').value.trim();
-                    const email = document.getElementById('introClientEmail').value.trim();
-                    const message = document.getElementById('introProblemInput').value.trim();
+                    const nameInput = document.getElementById('introClientName');
+                    const emailInput = document.getElementById('introClientEmail');
+                    const phoneInput = document.getElementById('introClientPhone');
+                    const messageInput = document.getElementById('introProblemInput');
+
+                    const name = nameInput ? nameInput.value.trim() : '';
+                    const email = emailInput ? emailInput.value.trim() : '';
+                    const phone = phoneInput ? phoneInput.value.trim() : '';
+                    const message = messageInput ? messageInput.value.trim() : '';
+
+                    console.log('Form Submission Attempt:', { name, email, phone, message });
 
                     if (!name || !email || !message) {
-                        alert('Please fill in all fields.');
+                        alert('Please fill in Name, Email and Message fields.');
                         return;
                     }
 
@@ -724,13 +741,15 @@
                             firstName: name.split(' ')[0],
                             lastName: name.split(' ').slice(1).join(' ') || '',
                             email: email,
-                            phone: '' // Phone not in this form, can be added if needed
+                            phone: phone
                         },
                         property: {}, // Empty for general inquiry
                         preferences: {}, // Empty for general inquiry
                         serviceType: 'General Inquiry (Intro Form)',
                         message: message
                     };
+
+                    console.log('Sending Payload to n8n:', payload);
 
                     const webhookUrl = 'https://n8n.solidiaai.com/webhook/540bf998-e19d-4608-8636-f5a53ac00080';
 
@@ -741,14 +760,18 @@
                             body: JSON.stringify(payload)
                         });
 
+                        console.log('n8n Response Status:', response.status);
+
                         if (response.ok) {
                             alert('Thank you! Your inquiry has been received. We will contact you shortly.');
                             introContactForm.reset();
                         } else {
+                            const errorText = await response.text();
+                            console.error('n8n Error Response:', errorText);
                             alert('Oops, something went wrong. Please try again later.');
                         }
                     } catch (error) {
-                        console.error('Webhook Error:', error);
+                        console.error('Webhook Network Error:', error);
                         alert('Network error. Please try again later.');
                     } finally {
                         sendIntroInquiryBtn.disabled = false;
@@ -830,13 +853,14 @@
             // State for data collection
             let isCollectingData = false;
             let collectionStep = 0;
+            let currentLanguage = 'en'; // Default to English
             let collectedData = {
                 contact: {},
-                business: {}, // New section for business info
+                business: {},
                 serviceType: 'General Inquiry'
             };
 
-            const collectionSteps = [
+            const collectionStepsEn = [
                 { field: 'businessType', prompt: "To start, what is your type of business?", section: 'business' },
                 { field: 'needType', prompt: "Do you know what you need? (e.g., Custom Software, Automation, Consulting, Automated Website, or AI Recommendation)", section: 'business' },
                 { field: 'firstName', prompt: "Great! Let's get your details. What is your First Name?", section: 'contact' },
@@ -844,6 +868,16 @@
                 { field: 'email', prompt: "What is your Email Address?", section: 'contact' },
                 { field: 'phone', prompt: "What is your Phone Number?", section: 'contact' },
                 { field: 'message', prompt: "Any specific details or questions you'd like to add?", section: 'business' }
+            ];
+
+            const collectionStepsEs = [
+                { field: 'businessType', prompt: "Para empezar, ¿cuál es tu tipo de negocio?", section: 'business' },
+                { field: 'needType', prompt: "¿Sabes qué necesitas? (ej. Software a medida, Automatización, Consultoría, Web Automatizada o Recomendación de IA)", section: 'business' },
+                { field: 'firstName', prompt: "¡Genial! Vamos con tus datos. ¿Cuál es tu Nombre?", section: 'contact' },
+                { field: 'lastName', prompt: "¿Y tu Apellido?", section: 'contact' },
+                { field: 'email', prompt: "¿Cuál es tu correo electrónico?", section: 'contact' },
+                { field: 'phone', prompt: "¿Cuál es tu número de teléfono?", section: 'contact' },
+                { field: 'message', prompt: "¿Algún detalle específico o pregunta que quieras agregar?", section: 'business' }
             ];
 
             // Toggle Chat
@@ -892,7 +926,8 @@
 
             // Data Collection Logic
             function handleDataCollection(input) {
-                const currentStep = collectionSteps[collectionStep];
+                const steps = currentLanguage === 'es' ? collectionStepsEs : collectionStepsEn;
+                const currentStep = steps[collectionStep];
 
                 // Save data
                 if (currentStep.section === 'root') {
@@ -903,21 +938,24 @@
 
                 collectionStep++;
 
-                if (collectionStep < collectionSteps.length) {
+                if (collectionStep < steps.length) {
                     // Ask next question
-                    setTimeout(() => addMessage(collectionSteps[collectionStep].prompt, 'bot'), 500);
+                    setTimeout(() => addMessage(steps[collectionStep].prompt, 'bot'), 500);
                 } else {
                     // Finish collection
                     isCollectingData = false;
                     collectionStep = 0;
-                    addMessage("Thank you! I'm sending your details to our team now...", 'bot');
+                    const thankMsg = currentLanguage === 'es'
+                        ? "¡Gracias! Enviando tus detalles a nuestro equipo..."
+                        : "Thank you! I'm sending your details to our team now...";
+                    addMessage(thankMsg, 'bot');
                     sendToWebhook(collectedData);
                 }
             }
 
             // Send to n8n Webhook
             async function sendToWebhook(data) {
-                const webhookUrl = 'https://n8n.solidiaai.com/webhook/540bf998-e19d-4608-8636-f5a53ac00080'; // Replace with your actual n8n webhook URL if different
+                const webhookUrl = 'https://n8n.solidiaai.com/webhook/540bf998-e19d-4608-8636-f5a53ac00080';
                 try {
                     const response = await fetch(webhookUrl, {
                         method: 'POST',
@@ -926,13 +964,22 @@
                     });
 
                     if (response.ok) {
-                        addMessage("Success! Your quote request has been received. We will contact you shortly.", 'bot');
+                        const successMsg = currentLanguage === 'es'
+                            ? "¡Éxito! Hemos recibido tu solicitud. Te contactaremos pronto."
+                            : "Success! Your quote request has been received. We will contact you shortly.";
+                        addMessage(successMsg, 'bot');
                     } else {
-                        addMessage("Oops, something went wrong sending your request. Please try again later or contact us directly.", 'bot');
+                        const errorMsg = currentLanguage === 'es'
+                            ? "Ups, algo salió mal. Por favor intenta más tarde."
+                            : "Oops, something went wrong sending your request. Please try again later.";
+                        addMessage(errorMsg, 'bot');
                     }
                 } catch (error) {
                     console.error('Webhook Error:', error);
-                    addMessage("I'm having trouble connecting to the system. Please try again later.", 'bot');
+                    const connErrorMsg = currentLanguage === 'es'
+                        ? "Tengo problemas de conexión. Intenta más tarde."
+                        : "I'm having trouble connecting to the system. Please try again later.";
+                    addMessage(connErrorMsg, 'bot');
                 }
             }
 
@@ -940,50 +987,51 @@
             let chatHistory = [];
 
             // Gemini Chat Logic
-                        // Gemini Chat Logic
             // Gemini Chat Logic
-async function handleGeminiChat(message) {
-    const lowerMsg = message.toLowerCase();
+            // Gemini Chat Logic
+            // Gemini Chat Logic
+            async function handleGeminiChat(message) {
+                const lowerMsg = message.toLowerCase();
 
-    // Language Detection (Simple Heuristic)
-    const isSpanish = lowerMsg.includes('hola') || lowerMsg.includes('si ') || lowerMsg.includes('sí') || lowerMsg.includes('gracias') || lowerMsg.includes('por favor') || lowerMsg.includes('quiero') || lowerMsg.includes('cotizacion') || lowerMsg.includes('buenos');
+                // Language Detection (Simple Heuristic)
+                const isSpanish = lowerMsg.includes('hola') || lowerMsg.includes('si ') || lowerMsg.includes('sí') || lowerMsg.includes('gracias') || lowerMsg.includes('por favor') || lowerMsg.includes('quiero') || lowerMsg.includes('cotizacion') || lowerMsg.includes('buenos');
 
-    // 1. Direct Keyword Check (Fast Path)
-    // Expanded list for both languages
-    const quoteKeywords = [
-        // English
-        'quote', 'price', 'cost', 'estimate', 'proposal',
-        // Spanish
-        'cotizacion', 'cotización', 'precio', 'costo', 'presupuesto', 'valor', 'cuanto cuesta'
-    ];
+                // 1. Direct Keyword Check (Fast Path)
+                const quoteKeywords = [
+                    // English
+                    'quote', 'price', 'cost', 'estimate', 'proposal',
+                    // Spanish
+                    'cotizacion', 'cotización', 'precio', 'costo', 'presupuesto', 'valor', 'cuanto cuesta'
+                ];
 
-    // If user explicitly asks for a quote, start immediately
-    if (quoteKeywords.some(keyword => lowerMsg.includes(keyword))) {
-        isCollectingData = true;
-        const msg = isSpanish
-            ? "¡Claro que sí! Para darte la mejor cotización, necesito hacerte unas pocas preguntas."
-            : "I can certainly help you with that! I just need to ask you a few questions to get the best quote for you.";
+                // If user explicitly asks for a quote, start immediately
+                if (quoteKeywords.some(keyword => lowerMsg.includes(keyword))) {
+                    isCollectingData = true;
+                    currentLanguage = isSpanish ? 'es' : 'en'; // Set Global Language
 
-        addMessage(msg, 'bot');
+                    const msg = isSpanish
+                        ? "¡Claro que sí! Para darte la mejor cotización, necesito hacerte unas pocas preguntas."
+                        : "I can certainly help you with that! I just need to ask you a few questions to get the best quote for you.";
 
-        // Translate first prompt if needed (basic implementation)
-        const firstPrompt = isSpanish ? "¿Para empezar, cuál es tu tipo de negocio?" : collectionSteps[0].prompt;
-        setTimeout(() => addMessage(firstPrompt, 'bot'), 1000);
-        return;
-    }
+                    addMessage(msg, 'bot');
 
-    // Show typing indicator
-    const typingDiv = document.createElement('div');
-    typingDiv.className = 'flex justify-start';
-    typingDiv.innerHTML = '<div class="bg-gray-700 text-gray-200 rounded-lg p-3 text-sm italic">Thinking...</div>';
-    chatMessages.appendChild(typingDiv);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
+                    const firstPrompt = isSpanish ? collectionStepsEs[0].prompt : collectionStepsEn[0].prompt;
+                    setTimeout(() => addMessage(firstPrompt, 'bot'), 1000);
+                    return;
+                }
 
-    try {
-        const apiKey = "AIzaSyCVqJGBnJIgNb73heK3RIclkIA0ujSR7XY"; // Using the token from backup
-        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+                // Show typing indicator
+                const typingDiv = document.createElement('div');
+                typingDiv.className = 'flex justify-start';
+                typingDiv.innerHTML = '<div class="bg-gray-700 text-gray-200 rounded-lg p-3 text-sm italic">Thinking...</div>';
+                chatMessages.appendChild(typingDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
 
-        const systemPrompt = `You are a proactive, bilingual (English/Spanish) sales AI for 'solid AI'. 
+                try {
+                    const apiKey = "AIzaSyCVqJGBnJIgNb73heK3RIclkIA0ujSR7XY"; // Using the token from backup
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                    const systemPrompt = `You are a proactive, bilingual (English/Spanish) sales AI for 'solid AI'. 
                     
                     INSTRUCTIONS:
                     1. Detect the user's language and REPLY IN THE SAME LANGUAGE.
@@ -996,76 +1044,79 @@ async function handleGeminiChat(message) {
                     
                     Otherwise, keep responses short (max 2 sentences).`;
 
-        // Construct the conversation history for the API
-        let contents = [];
+                    // Construct the conversation history for the API
+                    let contents = [];
 
-        if (chatHistory.length === 0) {
-            contents.push({
-                role: "user",
-                parts: [{ text: systemPrompt + "\n\nUser: " + message }]
-            });
-        } else {
-            let historyText = systemPrompt + "\n\nConversation History:\n";
-            chatHistory.forEach(msg => {
-                historyText += `${msg.role === 'user' ? 'User' : 'Assistant'}: ${msg.text}\n`;
-            });
-            historyText += `\nUser: ${message}`;
+                    if (chatHistory.length === 0) {
+                        contents.push({
+                            role: "user",
+                            parts: [{ text: systemPrompt + "\n\nUser: " + message }]
+                        });
+                    } else {
+                        let historyText = systemPrompt + "\n\nConversation History:\n";
+                        chatHistory.forEach(msg => {
+                            historyText += `${msg.role === 'user' ? 'User' : 'Assistant'}: ${msg.text}\n`;
+                        });
+                        historyText += `\nUser: ${message}`;
 
-            contents.push({
-                role: "user",
-                parts: [{ text: historyText }]
-            });
-        }
+                        contents.push({
+                            role: "user",
+                            parts: [{ text: historyText }]
+                        });
+                    }
 
-        const payload = {
-            contents: contents
-        };
+                    const payload = {
+                        contents: contents
+                    };
 
-        const response = await fetch(apiUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-        });
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
 
-        const data = await response.json();
+                    const data = await response.json();
 
-        // Remove typing indicator
-        if (chatMessages.contains(typingDiv)) chatMessages.removeChild(typingDiv);
+                    // Remove typing indicator
+                    if (chatMessages.contains(typingDiv)) chatMessages.removeChild(typingDiv);
 
-        if (data.candidates && data.candidates[0].content) {
-            let reply = data.candidates[0].content.parts[0].text.trim();
+                    if (data.candidates && data.candidates[0].content) {
+                        let reply = data.candidates[0].content.parts[0].text.trim();
 
-            // Check for the magic trigger word
-            if (reply.includes('QUOTE_START')) {
-                isCollectingData = true;
-                // Determine language for the transition message based on recent context or default
-                const transitionMsg = isSpanish
-                    ? "¡Excelente! Empecemos con tu cotización."
-                    : "Great! Let's get started with your quote.";
+                        // Check for the magic trigger word
+                        if (reply.includes('QUOTE_START')) {
+                            isCollectingData = true;
+                            currentLanguage = isSpanish ? 'es' : 'en'; // Set Global Language based on recent interaction
 
-                addMessage(transitionMsg, 'bot');
+                            // Determine language for the transition message based on recent context or default
+                            const transitionMsg = isSpanish
+                                ? "¡Excelente! Empecemos con tu cotización."
+                                : "Great! Let's get started with your quote.";
 
-                const firstPrompt = isSpanish ? "¿Para empezar, cuál es tu tipo de negocio?" : collectionSteps[0].prompt;
-                setTimeout(() => addMessage(firstPrompt, 'bot'), 1000);
-            } else {
-                addMessage(reply, 'bot');
+                            addMessage(transitionMsg, 'bot');
 
-                // Update history
-                chatHistory.push({ role: 'user', text: message });
-                chatHistory.push({ role: 'model', text: reply });
+                            const firstPrompt = isSpanish ? collectionStepsEs[0].prompt : collectionStepsEn[0].prompt;
+                            setTimeout(() => addMessage(firstPrompt, 'bot'), 1000);
+                        } else {
+                            addMessage(reply, 'bot');
 
-                if (chatHistory.length > 20) chatHistory = chatHistory.slice(chatHistory.length - 20);
+                            // Update history
+                            chatHistory.push({ role: 'user', text: message });
+                            chatHistory.push({ role: 'model', text: reply });
+
+                            if (chatHistory.length > 20) chatHistory = chatHistory.slice(chatHistory.length - 20);
+                        }
+
+                    } else {
+                        addMessage("I'm sorry, I didn't quite catch that. Could you rephrase?", 'bot');
+                    }
+                } catch (error) {
+                    if (chatMessages.contains(typingDiv)) chatMessages.removeChild(typingDiv);
+                    console.error('Gemini Error:', error);
+                    addMessage("I'm having trouble connecting to my brain right now. Please try again later.", 'bot');
+                }
             }
 
-        } else {
-            addMessage("I'm sorry, I didn't quite catch that. Could you rephrase?", 'bot');
-        }
-    } catch (error) {
-        if (chatMessages.contains(typingDiv)) chatMessages.removeChild(typingDiv);
-        console.error('Gemini Error:', error);
-        addMessage("I'm having trouble connecting to my brain right now. Please try again later.", 'bot');
-    }
-}
 
 
         });

@@ -1,0 +1,136 @@
+{
+    "name": "solid AI - Premium Automation (Fixed Data)",
+    "nodes": [
+        {
+            "parameters": {
+                "httpMethod": "POST",
+                "path": "540bf998-e19d-4608-8636-f5a53ac00080",
+                "options": {}
+            },
+            "name": "Receive Inquiry",
+            "type": "n8n-nodes-base.webhook",
+            "typeVersion": 1,
+            "position": [
+                100,
+                300
+            ],
+            "id": "webhook-node",
+            "webhookId": "540bf998-e19d-4608-8636-f5a53ac00080"
+        },
+        {
+            "parameters": {
+                "keepOnlySet": true,
+                "values": {
+                    "string": [
+                        {
+                            "name": "FULL_NAME",
+                            "value": "={{ ( ($json.body?.contact?.firstName || $json.contact?.firstName || $json.body?.firstName || $json.firstName || $json.body?.name || $json.name || 'Unknown') + ' ' + ($json.body?.contact?.lastName || $json.contact?.lastName || $json.body?.lastName || $json.lastName || '') ).trim() }}"
+                        },
+                        {
+                            "name": "CLIENT_EMAIL",
+                            "value": "={{ $json.body?.contact?.email || $json.contact?.email || $json.body?.email || $json.email || 'solidiaai@gmail.com' }}"
+                        },
+                        {
+                            "name": "PHONE",
+                            "value": "={{ $json.body?.contact?.phone || $json.contact?.phone || $json.body?.phone || $json.phone || 'N/A' }}"
+                        },
+                        {
+                            "name": "MESSAGE",
+                            "value": "={{ $json.body?.message || $json.message || $json.body?.contact?.message || $json.contact?.message || 'No details provided' }}"
+                        },
+                        {
+                            "name": "SERVICE_TYPE",
+                            "value": "={{ $json.body?.serviceType || $json.serviceType || 'General Inquiry' }}"
+                        },
+                        {
+                            "name": "DATE_RECEIVED",
+                            "value": "={{ $now.toFormat('dd/MM/yyyy HH:mm') }}"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "name": "Prepare Data",
+            "type": "n8n-nodes-base.set",
+            "typeVersion": 1,
+            "position": [
+                300,
+                300
+            ],
+            "id": "prepare-data-node"
+        },
+        {
+            "parameters": {
+                "sendTo": "={{ $node[\"Prepare Data\"].json.CLIENT_EMAIL }}",
+                "subject": "=Received: {{$node[\"Prepare Data\"].json.SERVICE_TYPE}} - solid AI",
+                "message": "=<!DOCTYPE html>\n<html>\n<head>\n<style>\n  body { margin: 0; padding: 0; font-family: 'Inter', sans-serif; background-color: #0d1117; color: #e0e0e0; }\n  .container { max-width: 600px; margin: 0 auto; background-color: #1f2937; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }\n  .header { background: rgba(0,0,0,0.7); padding: 30px; text-align: center; border-bottom: 1px solid #374151; }\n  .logo { width: 120px; height: auto; }\n  .content { padding: 40px 30px; }\n  .h1 { color: #ffffff; font-size: 24px; font-weight: 700; margin-bottom: 10px; }\n  .text { color: #9ca3af; font-size: 16px; line-height: 1.6; margin-bottom: 20px; }\n  .accent { color: #60a5fa; font-weight: 600; }\n  .summary-box { background-color: #111827; padding: 20px; border-radius: 8px; margin-top: 20px; border: 1px solid #374151; }\n  .label { color: #6b7280; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 4px; }\n  .value { color: #f3f4f6; font-size: 16px; font-weight: 500; margin-bottom: 12px; }\n  .footer { background-color: #111827; padding: 20px; text-align: center; color: #6b7280; font-size: 12px; border-top: 1px solid #374151; }\n  .btn { display: inline-block; background-color: #2563eb; color: #ffffff; padding: 12px 24px; border-radius: 9999px; text-decoration: none; font-weight: 600; margin-top: 20px; }\n</style>\n</head>\n<body>\n  <div class=\"container\">\n    <div class=\"header\">\n       <img src=\"https://raw.githubusercontent.com/Lyhack27/solidIA2.0/main/logo/logo.png\" alt=\"solid AI Logo\" class=\"logo\">\n    </div>\n    <div class=\"content\">\n       <h1 class=\"h1\">Inquiry Received</h1>\n       <p class=\"text\">Hi <span class=\"accent\">{{$node[\"Prepare Data\"].json.FULL_NAME}}</span>,</p>\n       <p class=\"text\">Thanks for reaching out to <strong>solid AI</strong>. We have received your request regarding <strong>{{$node[\"Prepare Data\"].json.SERVICE_TYPE}}</strong> and our team is already reviewing it.</p>\n       \n       <div class=\"summary-box\">\n          <span class=\"label\">Your Message</span>\n          <div class=\"value\">{{$node[\"Prepare Data\"].json.MESSAGE}}</div>\n          <span class=\"label\">Received On</span>\n          <div class=\"value\">{{$node[\"Prepare Data\"].json.DATE_RECEIVED}}</div>\n       </div>\n\n       <div style=\"text-align: center;\">\n         <a href=\"https://solidiaai.com\" class=\"btn\">Visit our Website</a>\n       </div>\n    </div>\n    <div class=\"footer\">\n       &copy; 2025 solid AI. All rights reserved.<br>\n       Artificial Intelligence Solutions\n    </div>\n  </div>\n</body>\n</html>",
+                "options": {}
+            },
+            "name": "Send to Client",
+            "type": "n8n-nodes-base.gmail",
+            "typeVersion": 2.1,
+            "position": [
+                550,
+                200
+            ],
+            "id": "send-client-node",
+            "credentials": {
+                "gmailOAuth2": {
+                    "id": "tFigzIN0822VVseh",
+                    "name": "Gmail account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "sendTo": "solidiaai@gmail.com",
+                "subject": "=New Lead: {{$node[\"Prepare Data\"].json.FULL_NAME}} - {{$node[\"Prepare Data\"].json.SERVICE_TYPE}}",
+                "message": "=<!DOCTYPE html>\n<html>\n<head>\n<style>\n  body { margin: 0; padding: 0; font-family: 'Inter', sans-serif; background-color: #0d1117; color: #e0e0e0; }\n  .container { max-width: 600px; margin: 0 auto; background-color: #1f2937; border-radius: 16px; overflow: hidden; }\n  .header { background: #2563eb; padding: 20px; text-align: center; color: white; }\n  .content { padding: 30px; }\n  .row { margin-bottom: 15px; border-bottom: 1px solid #374151; padding-bottom: 10px; }\n  .label { color: #9ca3af; font-size: 12px; text-transform: uppercase; font-weight: bold; }\n  .value { color: white; font-size: 16px; margin-top: 5px; }\n</style>\n</head>\n<body>\n  <div class=\"container\">\n    <div class=\"header\">\n       <h2>New Lead Received</h2>\n    </div>\n    <div class=\"content\">\n       <div class=\"row\">\n          <div class=\"label\">Name</div>\n          <div class=\"value\">{{$node[\"Prepare Data\"].json.FULL_NAME}}</div>\n       </div>\n       <div class=\"row\">\n          <div class=\"label\">Email</div>\n          <div class=\"value\">{{$node[\"Prepare Data\"].json.CLIENT_EMAIL}}</div>\n       </div>\n       <div class=\"row\">\n          <div class=\"label\">Phone</div>\n          <div class=\"value\">{{$node[\"Prepare Data\"].json.PHONE}}</div>\n       </div>\n       <div class=\"row\">\n          <div class=\"label\">Service</div>\n          <div class=\"value\">{{$node[\"Prepare Data\"].json.SERVICE_TYPE}}</div>\n       </div>\n       <div class=\"row\">\n          <div class=\"label\">Message</div>\n          <div class=\"value\">{{$node[\"Prepare Data\"].json.MESSAGE}}</div>\n       </div>\n       <div class=\"row\">\n          <div class=\"label\">Raw Data Dump</div>\n          <div class=\"value\" style=\"font-size: 10px; font-family: monospace; overflow-wrap: break-word;\">{{ JSON.stringify($json) }}</div>\n       </div>\n    </div>\n  </div>\n</body>\n</html>",
+                "options": {}
+            },
+            "name": "Send to Admin",
+            "type": "n8n-nodes-base.gmail",
+            "typeVersion": 2.1,
+            "position": [
+                550,
+                450
+            ],
+            "id": "send-admin-node",
+            "credentials": {
+                "gmailOAuth2": {
+                    "id": "tFigzIN0822VVseh",
+                    "name": "Gmail account"
+                }
+            }
+        }
+    ],
+    "connections": {
+        "Receive Inquiry": {
+            "main": [
+                [
+                    {
+                        "node": "Prepare Data",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Prepare Data": {
+            "main": [
+                [
+                    {
+                        "node": "Send to Client",
+                        "type": "main",
+                        "index": 0
+                    },
+                    {
+                        "node": "Send to Admin",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    }
+}

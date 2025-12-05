@@ -1,0 +1,140 @@
+{
+    "name": "solid AI - Quote & Inquiry Automation V3 (No Errors)",
+    "nodes": [
+        {
+            "parameters": {
+                "httpMethod": "POST",
+                "path": "540bf998-e19d-4608-8636-f5a53ac00080",
+                "options": {}
+            },
+            "name": "Webhook",
+            "type": "n8n-nodes-base.webhook",
+            "typeVersion": 1,
+            "position": [
+                100,
+                300
+            ],
+            "id": "webhook-node-id",
+            "webhookId": "540bf998-e19d-4608-8636-f5a53ac00080"
+        },
+        {
+            "parameters": {
+                "functionCode": "// --- ROBUST DATA PROCESSING V3 ---\nconst input = items[0].json;\n\n// 1. Extract Data\nconst contact = input.contact || {};\nconst firstName = contact.firstName || input.firstName || input.name || 'Unknown';\nconst lastName = contact.lastName || input.lastName || '';\nconst fullName = `${firstName} ${lastName}`.trim();\nconst phone = contact.phone || input.phone || 'N/A';\nconst message = input.message || contact.message || 'No message provided';\n\n// 2. Client Email Validation\nlet clientEmail = null;\nlet rawEmail = contact.email || input.email;\nif (rawEmail && typeof rawEmail === 'string' && rawEmail.includes('@')) {\n    clientEmail = rawEmail.trim();\n}\n\n// 3. Admin Email Content\nconst htmlBody = `\n  <h2>New Inquiry Received</h2>\n  <p><strong>Name:</strong> ${fullName}</p>\n  <p><strong>Email:</strong> ${clientEmail || 'NOT PROVIDED'}</p>\n  <p><strong>Phone:</strong> ${phone}</p>\n  <p><strong>Message:</strong></p>\n  <blockquote style=\"background: #f0f0f0; padding: 10px;\">${message}</blockquote>\n`;\n\nconst subject = input.serviceType ? `[${input.serviceType}] ${fullName}` : `New Inquiry: ${fullName}`; \n\nreturn [{\n    json: {\n        // Outputs for subsequent nodes\n        subject: subject,\n        htmlBody: htmlBody,\n        clientEmail: clientEmail,\n        hasClientEmail: !!clientEmail\n    }\n}];"
+            },
+            "name": "Process Data",
+            "type": "n8n-nodes-base.function",
+            "typeVersion": 1,
+            "position": [
+                300,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "resource": "message",
+                "subject": "={{$node[\"Process Data\"].json[\"subject\"]}}",
+                "message": "={{$node[\"Process Data\"].json[\"htmlBody\"]}}",
+                "toEmail": "solidiaai@gmail.com",
+                "additionalFields": {
+                    "appendAttribution": false
+                }
+            },
+            "name": "Send to Admin",
+            "type": "n8n-nodes-base.gmail",
+            "typeVersion": 1,
+            "position": [
+                550,
+                200
+            ],
+            "credentials": {
+                "gmailOAuth2": {
+                    "id": "tFigzIN0822VVseh",
+                    "name": "Gmail account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "conditions": {
+                    "boolean": [
+                        {
+                            "value1": "={{$node[\"Process Data\"].json[\"hasClientEmail\"]}}",
+                            "value2": true
+                        }
+                    ]
+                }
+            },
+            "name": "Check Client Email",
+            "type": "n8n-nodes-base.if",
+            "typeVersion": 1,
+            "position": [
+                550,
+                450
+            ]
+        },
+        {
+            "parameters": {
+                "resource": "message",
+                "subject": "We received your request - solid AI",
+                "message": "Hi there,<br><br>Thanks for reaching out to solid AI. We have received your inquiry and will get back to you shortly.<br><br>Best regards,<br>The solid AI Team",
+                "toEmail": "={{$node[\"Process Data\"].json[\"clientEmail\"]}}",
+                "additionalFields": {
+                    "appendAttribution": false
+                }
+            },
+            "name": "Send to Client",
+            "type": "n8n-nodes-base.gmail",
+            "typeVersion": 1,
+            "position": [
+                800,
+                400
+            ],
+            "credentials": {
+                "gmailOAuth2": {
+                    "id": "tFigzIN0822VVseh",
+                    "name": "Gmail account"
+                }
+            }
+        }
+    ],
+    "connections": {
+        "Webhook": {
+            "main": [
+                [
+                    {
+                        "node": "Process Data",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Process Data": {
+            "main": [
+                [
+                    {
+                        "node": "Send to Admin",
+                        "type": "main",
+                        "index": 0
+                    },
+                    {
+                        "node": "Check Client Email",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Check Client Email": {
+            "main": [
+                [
+                    {
+                        "node": "Send to Client",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    }
+}
