@@ -1,0 +1,110 @@
+{
+  "name": "solid AI - Quote & Inquiry Automation",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "540bf998-e19d-4608-8636-f5a53ac00080",
+        "options": {}
+      },
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        250,
+        300
+      ],
+      "id": "3dadee3a-d5a3-465c-90c2-98e393c6bc35",
+      "webhookId": "540bf998-e19d-4608-8636-f5a53ac00080"
+    },
+    {
+      "parameters": {
+        "functionCode": "// Format data for email\nconst data = items[0].json;\n\nlet subject = '';\nlet body = '';\n\nif (data.serviceType === 'General Inquiry (Intro Form)') {\n    subject = `New General Inquiry from ${data.contact.firstName} ${data.contact.lastName}`;\n    body = `\n    <h3>New Inquiry Received</h3>\n    <p><strong>Name:</strong> ${data.contact.firstName} ${data.contact.lastName}</p>\n    <p><strong>Email:</strong> ${data.contact.email}</p>\n    <p><strong>Message:</strong> ${data.message}</p>\n    `;\n} else if (data.serviceType === 'AI Brainstormer Request') {\n    subject = `New AI Brainstormer Request`;\n    body = `\n    <h3>New AI Brainstormer Request</h3>\n    <p><strong>Details:</strong> ${data.message}</p>\n    `;\n} else {\n    subject = `New Quote Request: ${data.serviceType}`;\n    body = `\n    <h3>New Quote Request</h3>\n    <p><strong>Service:</strong> ${data.serviceType}</p>\n    <h4>Contact Details</h4>\n    <p><strong>Name:</strong> ${data.contact.firstName} ${data.contact.lastName}</p>\n    <p><strong>Email:</strong> ${data.contact.email}</p>\n    <p><strong>Phone:</strong> ${data.contact.phone}</p>\n    <h4>Property Details</h4>\n    <p><strong>Address:</strong> ${data.property.address}</p>\n    <p><strong>Ownership:</strong> ${data.property.ownership}</p>\n    <p><strong>Roof Type:</strong> ${data.property.roofType}</p>\n    <h4>Preferences</h4>\n    <p><strong>Installation:</strong> ${data.preferences.installTimeframe}</p>\n    <p><strong>Battery:</strong> ${data.preferences.batteryTimeframe}</p>\n    `;\n}\n\nreturn [\n    {\n        json: {\n            subject,\n            body,\n            toEmail: data.contact.email,\n            adminEmail: 'solidiaai@gmail.com'\n        }\n    }\n];"
+      },
+      "name": "Format Email Data",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        450,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "subject": "={{$node[\"Format Email Data\"].json[\"subject\"]}}",
+        "message": "={{$node[\"Format Email Data\"].json[\"body\"]}}",
+        "toEmail": "={{$node[\"Format Email Data\"].json[\"adminEmail\"]}}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "name": "Send to Admin",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 1,
+      "position": [
+        650,
+        200
+      ],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YOUR_GMAIL_CREDENTIALS_ID",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "subject": "We received your request - solid AI",
+        "message": "Hi there,<br><br>Thanks for reaching out to solid AI. We have received your inquiry and will get back to you shortly.<br><br>Best regards,<br>The solid AI Team",
+        "toEmail": "={{$node[\"Format Email Data\"].json[\"toEmail\"]}}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "name": "Send to Client",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 1,
+      "position": [
+        650,
+        400
+      ],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YOUR_GMAIL_CREDENTIALS_ID",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Format Email Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Email Data": {
+      "main": [
+        [
+          {
+            "node": "Send to Admin",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Send to Client",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

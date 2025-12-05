@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>solid AI - Artificial Intelligence Agency</title>
+    <!-- Meta Description for SEO -->
+    <meta name="description" content="solid AI: Your AI agency in Melbourne. Connecting the future with innovative Artificial Intelligence solutions: custom software, automation, secure cloud, and web development. Explore AI ideas with our Brainstormer!">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            background-color: #0d1117; /* Dark background for AI theme */
+            color: #e0e0e0;
+            display: flex;
+            flex-direction: column; /* Stack children vertically */
+            min-height: 100vh; /* Ensure body takes full viewport height */
+        }
+
+        canvas {
+            position: fixed; /* Changed from absolute for better background coverage across scroll */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0; /* Send canvas to background */
+            background-color: transparent;
+        }
+
+        /* Navigation Bar */
+        nav {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.7); /* Slightly more opaque for contrast */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            border-radius: 0 0 0.5rem 0.5rem; /* Rounded bottom corners */
+            z-index: 10; /* Higher z-index than main-container */
+            gap: 1.5rem; /* Space between nav items */
+        }
+        nav a {
+            color: #e0e0e0;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            border-radius: 0.5rem;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            font-weight: 600;
+        }
+        nav a:hover {
+            background-color: rgba(60, 120, 255, 0.2); /* Light blue hover */
+            color: #80bfff; /* Lighter blue text */
+        }
+        @media (max-width: 768px) {
+            nav {
+                flex-wrap: wrap; /* Allow nav items to wrap on small screens */
+                padding: 0.75rem;
+                gap: 0.5rem;
+            }
+            nav a {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.9rem;
+            }
+        }
+
+
+        .main-container {
+            position: relative; /* Keep relative for z-index and internal positioning */
+            z-index: 5; /* Above canvas, below nav/footer */
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            max-width: 95%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            overflow-y: auto; /* Allow scrolling for content if it exceeds available space */
+            flex-grow: 1; /* Allow it to grow and fill available space between nav and footer */
+            margin: 1.5rem auto; /* Vertical margin and horizontal centering */
+        }
+
+        h1 {
+            font-size: 3.5rem; /* Larger font for agency name */
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, #4CAF50, #2196F3); /* Gradient text */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            p {
+                font-size: 1rem;
+            }
+            .main-container {
+                padding: 1rem;
+            }
+        }
+
+        /* Dropdown specific styles (no longer used for main nav, but kept if needed elsewhere) */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #1a202c; /* Darker background for dropdown */
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.6);
+            z-index: 100;
+            border-radius: 0.5rem;
+            top: 100%; /* Position below the button */
+            left: 50%;
+            transform: translateX(-50%); /* Center the dropdown */
+        }
+
+        .dropdown-content a {
+            color: #e0e0e0;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            border-radius: 0.5rem;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #2d3748; /* Lighter hover background */
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Footer specific styles - Removed absolute positioning to be part of normal flow */
+        footer {
+            width: 100%;
+            background-color: #1a202c; /* Darker background for footer */
+            padding: 2rem;
+            text-align: center;
+            border-radius: 0.5rem 0.5rem 0 0; /* Rounded top corners */
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5); /* Shadow for top edge */
+            z-index: 10; /* Higher z-index than main-container */
+        }
+        footer .footer-section {
+            margin-bottom: 1.5rem;
+        }
+        footer h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #4CAF50; /* Green accent */
+            margin-bottom: 1rem;
+        }
+        footer ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        footer ul li a {
+            color: #a0aec0; /* Lighter grey for links */
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        footer ul li a:hover {
+            color: #2196F3; /* Blue hover for links */
+        }
+        footer .social-icons a {
+            margin: 0 0.75rem;
+        }
+
+        /* Custom styles for solution item animation */
+        .main-solution-item {
+            transition: opacity 1000ms ease-in-out, transform 1000ms ease-in-out;
+        }
+
+        .main-solution-item.opacity-0 {
+            opacity: 0;
+            transform: translateY(20px); /* Start slightly below */
+        }
+
+        .main-solution-item.opacity-100 {
+            opacity: 1;
+            transform: translateY(0); /* Slide up to original position */
+        }
+    </style>
+</head>
+<body>
+    <canvas id="networkCanvas"></canvas>
+
+    <!-- Navigation Bar -->
+    <nav class="bg-gray-900 bg-opacity-70 shadow-lg">
+        <a href="#" onclick="showSection('our-services')">Home</a>
+        <a href="#" onclick="showSection('who-we-are')">Who We Are</a>
+        <a href="#" onclick="showSection('our-services')">Our Services</a>
+        <a href="#" onclick="showSection('our-ai')">Our AI</a> <!-- New link for Our AI section -->
+        <a href="#" onclick="showSection('careers')">Careers</a>
+        <a href="#" onclick="showSection('privacy-policy')">Privacy Policy</a>
+    </nav>
+
+    <div class="main-container" id="mainContent">
+        <!-- Who We Are Section -->
+        <div id="who-we-are" class="content-section hidden w-full max-w-4xl bg-gray-800 bg-opacity-60 p-6 rounded-xl shadow-lg text-left">
+            <h2 class="text-3xl font-bold text-white mb-4 text-center">Who We Are</h2>
+            <p class="text-gray-300 text-base leading-relaxed mb-8 text-center">
+                At solid AI, our strength lies in our diverse and expert team, dedicated to pushing the boundaries of Artificial Intelligence. Meet the key individuals driving our innovation and client success.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Profile 1: CEO & Lead AI Strategist (Leonardo Rincon) -->
+                <div class="bg-gray-700 bg-opacity-70 p-4 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <!-- Image path updated to local 'miembros' folder -->
+                    <img src="miembros/leonardo.jpg" alt="Leonardo Rincon Profile Picture" class="rounded-full w-24 h-24 object-cover mb-3 border-2 border-blue-400" onerror="this.onerror=null;this.src='https://placehold.co/120x120/4CAF50/ffffff?text=CEO';" loading="lazy">
+                    <h3 class="text-xl font-semibold text-white mb-1">Leonardo Rincon</h3>
+                    <p class="text-blue-300 text-sm font-medium mb-2">CEO & Lead AI Strategist</p>
+                    <p class="text-gray-300 text-xs">Visionary leader based in Melbourne, guiding solid AI's strategic direction and fostering key client partnerships to deliver groundbreaking AI solutions. Also manages secure domains as a security analyst.</p>
+                </div>
+                <!-- Profile 2: Head of AI Marketing & Communications (Diana Kara) -->
+                <div class="bg-gray-700 bg-opacity-70 p-4 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <!-- Image path updated to local 'miembros' folder -->
+                    <img src="miembros/diana.jpg" alt="Diana Kara Profile Picture" class="rounded-full w-24 h-24 object-cover mb-3 border-2 border-green-400" onerror="this.onerror=null;this.src='https://placehold.co/120x120/2196F3/ffffff?text=Marketing';" loading="lazy">
+                    <h3 class="text-xl font-semibold text-white mb-1">Diana Kara</h3>
+                    <p class="text-blue-300 text-sm font-medium mb-2">Head of AI Marketing & Communications</p>
+                    <p class="text-gray-300 text-xs">Drives solid AI's brand presence and communication strategies, ensuring our innovative AI solutions reach the right audience effectively.</p>
+                </div>
+                <!-- Profile 3: Head of Solutions Architecture -->
+                <div class="bg-gray-700 bg-opacity-70 p-4 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <img src="https://placehold.co/120x120/9C27B0/ffffff?text=Arch" alt="Profile Picture" class="rounded-full w-24 h-24 object-cover mb-3 border-2 border-purple-400" loading="lazy">
+                    <h3 class="text-xl font-semibold text-white mb-1">Ing. Marco Rossi</h3>
+                    <p class="text-blue-300 text-sm font-medium mb-2">Head of Solutions Architecture</p>
+                    <p class="text-gray-300 text-xs">Designs robust and scalable AI solutions, translating complex client needs into technically sound and effective implementations.</p>
+                </div>
+                <!-- Profile 4: Lead Data Scientist & ML Engineer -->
+                <div class="bg-gray-700 bg-opacity-70 p-4 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <img src="https://placehold.co/120x120/FFC107/ffffff?text=Data" alt="Profile Picture" class="rounded-full w-24 h-24 object-cover mb-3 border-2 border-yellow-400" loading="lazy">
+                    <h3 class="text-xl font-semibold text-white mb-1">Dr. Anya Sharma</h3>
+                    <p class="text-blue-300 text-sm font-medium mb-2">Lead Data Scientist & ML Engineer</p>
+                    <p class="text-gray-300 text-xs">Drives the core AI development, from data analysis and model building to deployment and optimization of machine learning systems.</p>
+                </div>
+                <!-- New Profile: Byron Yepes - Automation Developer -->
+                <div class="bg-gray-700 bg-opacity-70 p-4 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <img src="https://placehold.co/120x120/663399/ffffff?text=Byron" alt="Byron Yepes Profile Picture" class="rounded-full w-24 h-24 object-cover mb-3 border-2 border-indigo-400" loading="lazy">
+                    <h3 class="text-xl font-semibold text-white mb-1">Byron Yepes</h3>
+                    <p class="text-blue-300 text-sm font-medium mb-2">Automation Developer</p>
+                    <p class="text-gray-300 text-xs">Specializes in building robust and efficient automation workflows, particularly with n8n, to streamline business processes.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Our Services Section (Now includes Home content) -->
+        <div id="our-services" class="content-section hidden w-full max-w-4xl bg-gray-800 bg-opacity-60 p-6 rounded-xl shadow-lg">
+            <!-- Agency Logo -->
+            <div class="flex justify-center mb-6">
+                <img src="logo/logo.png" alt="solid AI Logo" class="w-48 h-auto mx-auto rounded-lg" onerror="this.onerror=null;this.src='https://placehold.co/192x72/0d1117/e0e0e0?text=solid+AI+Logo';" loading="lazy">
+            </div>
+            <p class="text-xl text-gray-300 mb-6">Connecting the future with Artificial Intelligence</p>
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mb-8"> <!-- Added margin-bottom -->
+                <button class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105" onclick="window.open('https://wa.me/61424840127', '_blank')">
+                    WhatsApp Us
+                </button>
+            </div>
+
+            <!-- Three Main Solutions (Animated PNG Content) -->
+            <div class="relative w-full max-w-xl mx-auto h-96 overflow-hidden mb-10 flex items-center justify-center">
+                <div id="solution1" class="main-solution-item absolute inset-0 bg-gray-700 bg-opacity-70 p-4 rounded-lg shadow-md flex flex-col items-center justify-center text-center opacity-100">
+                    <img src="slides/slide1.png" alt="Intelligent Workflow Automation with n8n" class="w-full h-full object-contain rounded-lg" onerror="this.onerror=null;this.src='https://placehold.co/400x250/4CAF50/ffffff?text=Slide+1';" loading="lazy">
+                </div>
+                <div id="solution2" class="main-solution-item absolute inset-0 bg-gray-700 bg-opacity-70 p-4 rounded-lg shadow-md flex flex-col items-center justify-center text-center opacity-0 hidden">
+                    <img src="slides/slide2.png" alt="AI-Powered Content & Communication Automation via n8n" class="w-full h-full object-contain rounded-lg" onerror="this.onerror=null;this.src='https://placehold.co/400x250/2196F3/ffffff?text=Slide+2';" loading="lazy">
+                </div>
+                <div id="solution3" class="main-solution-item absolute inset-0 bg-gray-700 bg-opacity-70 p-4 rounded-lg shadow-md flex flex-col items-center justify-center text-center opacity-0 hidden">
+                    <img src="slides/slide3.png" alt="Data-Driven Operational Insights with n8n Integrations" class="w-full h-full object-contain rounded-lg" onerror="this.onerror=null;this.src='https://placehold.co/400x250/9C27B0/ffffff?text=Slide+3';" loading="lazy">
+                </div>
+            </div>
+            
+            <!-- Intro Question Section - MOVED HERE, CENTRADO, y con campos de usuario -->
+            <div id="intro-question" class="w-full max-w-2xl bg-gray-700 bg-opacity-70 p-8 rounded-xl shadow-lg text-center flex flex-col items-center justify-center mb-8 mx-auto">
+                <h2 class="text-4xl font-bold text-white mb-6">Do you know what you need?</h2>
+                <p class="text-xl text-gray-300 mb-8">
+                    Describe your initial thoughts or problem here. A solid AI expert will respond in less than 24 hours.
+                </p>
+                <form id="introContactForm" action="https://formspree.io/f/mzzgnjzw" method="POST" class="space-y-4 w-full text-left">
+                    <div>
+                        <label for="introClientName" class="block text-gray-300 text-sm font-bold mb-2">Your Name:</label>
+                        <input type="text" id="introClientName" name="name" class="w-full p-3 rounded-lg bg-gray-800 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500" placeholder="John Doe" required>
+                    </div>
+                    <div>
+                        <label for="introClientEmail" class="block text-gray-300 text-sm font-bold mb-2">Your Email:</label>
+                        <input type="email" id="introClientEmail" name="email" class="w-full p-3 rounded-lg bg-gray-800 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500" placeholder="john.doe@example.com" required>
+                    </div>
+                    <div>
+                        <label for="introClientPhone" class="block text-gray-300 text-sm font-bold mb-2">Phone Number (Optional):</label>
+                        <input type="tel" id="introClientPhone" name="phone" class="w-full p-3 rounded-lg bg-gray-800 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500" placeholder="+1 555 123 4567">
+                    </div>
+                    <textarea id="introProblemInput" name="message" class="w-full p-3 rounded-lg bg-gray-800 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500 mb-4" rows="3" placeholder="Describe your initial thoughts or problem here..."></textarea>
+                    <button type="submit" id="sendIntroInquiryBtn" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
+                        Send Inquiry
+                    </button>
+                </form>
+                <div id="introConfirmation" class="mt-4 p-3 bg-blue-900 text-white rounded-lg hidden">
+                    Thank you! Your inquiry has been received. We will contact you soon.
+                </div>
+            </div>
+
+            <h2 class="text-3xl font-bold text-white mb-6 text-center">Our Services</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-gray-700 bg-opacity-70 p-5 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <svg class="w-12 h-12 text-blue-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-1-3m-6.964-1.24A6.002 6.002 0 0012 16a6.002 6.002 0 005.214-2.24m-10.428 0a6.002 6.002 0 0110.428 0M10 10V6a2 2 0 114 0v4m-4 0h4"></path></svg>
+                    <h3 class="text-xl font-semibold text-white mb-2">Automations with Informative Windows</h3>
+                    <p class="text-gray-300 text-sm">We implement intelligent automation solutions that interact with users through personalized windows and notifications, enhancing efficiency and user experience.</p>
+                </div>
+
+                <div class="bg-gray-700 bg-opacity-70 p-5 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <svg class="w-12 h-12 text-green-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5l7 7-7 7"></path></svg>
+                    <h3 class="text-xl font-semibold text-white mb-2">Custom Software Development</h3>
+                    <p class="text-gray-300 text-sm">We develop tailor-made software, specifically designed to meet your business's unique needs, integrating AI for more powerful and adaptable solutions.</p>
+                </div>
+
+                <div class="bg-gray-700 bg-opacity-70 p-5 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <svg class="w-12 h-12 text-purple-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg>
+                    <h3 class="text-xl font-semibold text-white mb-2">Secure Cloud Services</h3>
+                    <p class="text-gray-300 text-sm">We offer robust and secure cloud infrastructure and services, ensuring the protection of your data and the scalability of your AI-powered operations.</p>
+                </div>
+
+                <div class="bg-gray-700 bg-opacity-70 p-5 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <svg class="w-12 h-12 text-yellow-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                    <h3 class="text-xl font-semibold text-white mb-2">Website Creation</h3>
+                    <p class="text-gray-300 text-sm">We design and develop modern, functional websites, optimized with AI to enhance user experience and SEO performance.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Our AI Section (Now contains the Brainstormer) -->
+        <div id="our-ai" class="content-section hidden w-full max-w-4xl bg-gray-800 bg-opacity-60 p-6 rounded-xl shadow-lg">
+            <h2 class="text-3xl font-bold text-white mb-4 text-center">Let's Build a Solution Together</h2>
+            <p class="text-gray-300 text-base leading-relaxed mb-8 text-center">
+                Describe your business challenge below, and our AI will suggest how solid AI can help solve it with intelligent solutions. You can then submit your idea for a personalized consultation.
+            </p>
+            <!-- AI Solution Brainstormer Section -->
+            <div id="ai-brainstormer-section" class="w-full bg-gray-700 bg-opacity-70 p-6 rounded-xl shadow-md mb-8">
+                <h3 class="text-2xl font-bold text-white mb-4 text-center">Get Your AI Solution Idea</h3>
+                <p class="text-gray-300 text-sm mb-4">
+                    Describe your business challenge here, and our AI will suggest how solid AI can help solve it with intelligent solutions.
+                </p>
+                <textarea id="businessProblemInput" class="w-full p-3 rounded-lg bg-gray-800 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500 mb-4" rows="4" placeholder="E.g., 'We need to automate customer support inquiries' or 'How can AI improve our sales forecasting?'"></textarea>
+                <button id="generateSolutionBtn" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
+                    Generate AI Solution Idea
+                </button>
+                <div id="solutionOutput" class="mt-6 p-4 bg-gray-800 rounded-lg text-left text-gray-200 border border-gray-600 hidden">
+                    <p class="text-sm italic text-gray-400 mb-2">AI Suggested Solution:</p>
+                    <div id="solutionText" class="whitespace-pre-wrap"></div>
+                    <div id="loadingIndicator" class="hidden flex justify-center items-center mt-4">
+                        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+                        <span class="ml-3 text-blue-400">Thinking...</span>
+                    </div>
+                </div>
+
+                <div id="contactFormContainer" class="mt-8 p-6 bg-gray-800 rounded-lg shadow-lg hidden">
+                    <h3 class="text-2xl font-bold text-white mb-4 text-center">Ready to discuss your solution?</h3>
+                    <p class="text-gray-300 text-sm mb-6 text-center">
+                        Leave your details and a solid AI expert will contact you shortly to explore your needs in depth.
+                    </p>
+                    <form id="contactForm" action="https://formspree.io/f/mzzgnjzw" method="POST" class="space-y-4 text-left">
+                        <div>
+                            <label for="clientName" class="block text-gray-300 text-sm font-bold mb-2">Your Name:</label>
+                            <input type="text" id="clientName" name="name" class="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500" placeholder="John Doe" required>
+                        </div>
+                        <div>
+                            <label for="clientEmail" class="block text-gray-300 text-sm font-bold mb-2">Your Email:</label>
+                            <input type="email" id="clientEmail" name="email" class="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500" placeholder="john.doe@example.com" required>
+                        </div>
+                        <div>
+                            <label for="clientPhone" class="block text-gray-300 text-sm font-bold mb-2">Phone Number (Optional):</label>
+                            <input type="tel" id="clientPhone" name="phone" class="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500" placeholder="+1 555 123 4567">
+                        </div>
+                        <input type="hidden" id="solutionIdeaHidden" name="solution_idea">
+                        <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 mt-4">
+                            Request a Call
+                        </button>
+                    </form>
+                    <div id="contactConfirmation" class="mt-4 p-3 bg-blue-900 text-white rounded-lg hidden">
+                        Thank you! Your request has been received. A solid AI expert will contact you soon.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="careers" class="content-section hidden w-full max-w-4xl bg-gray-800 bg-opacity-60 p-6 rounded-xl shadow-lg text-left">
+            <h2 class="text-3xl font-bold text-white mb-4 text-center">Careers</h2>
+            <p class="text-gray-300 text-base leading-relaxed mb-8 text-center">
+                Join solid AI and be part of a dynamic team at the forefront of Artificial Intelligence innovation. We are always looking for talented individuals who are passionate about technology, problem-solving, and making a real impact. Explore our key roles:
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-gray-700 bg-opacity-70 p-4 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <img src="https://placehold.co/120x120/FF5722/ffffff?text=AI+Eng" alt="AI Engineer Profile Picture" class="rounded-full w-24 h-24 object-cover mb-3 border-2 border-red-400" loading="lazy">
+                    <h3 class="text-xl font-semibold text-white mb-1">AI/Machine Learning Engineer</h3>
+                    <p class="text-blue-300 text-sm font-medium mb-2">Develop & Implement AI Models</p>
+                    <p class="text-gray-300 text-xs">Design, build, and deploy cutting-edge AI and machine learning models, transforming complex data into intelligent solutions.</p>
+                </div>
+                <div class="bg-gray-700 bg-opacity-70 p-4 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <img src="https://placehold.co/120x120/00BCD4/ffffff?text=Data+Sci" alt="Data Scientist Profile Picture" class="rounded-full w-24 h-24 object-cover mb-3 border-2 border-teal-400" loading="lazy">
+                    <h3 class="text-xl font-semibold text-white mb-1">Data Scientist</h3>
+                    <p class="text-blue-300 text-sm font-medium mb-2">Analyze & Interpret Data</p>
+                    <p class="text-gray-300 text-xs">Extract insights from vast datasets, develop predictive models, and guide data-driven strategies for our clients.</p>
+                </div>
+                <div class="bg-gray-700 bg-opacity-70 p-4 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <img src="https://placehold.co/120x120/607D8B/ffffff?text=Cloud+Arch" alt="Cloud Architect Profile Picture" class="rounded-full w-24 h-24 object-cover mb-3 border-2 border-gray-400" loading="lazy">
+                    <h3 class="text-xl font-semibold text-white mb-1">Cloud Solutions Architect</h3>
+                    <p class="text-blue-300 text-sm font-medium mb-2">Design & Manage Cloud Infrastructure</p>
+                    <p class="text-gray-300 text-xs">Architect and manage scalable, secure cloud environments essential for deploying and operating our AI solutions.</p>
+                </div>
+                <div class="bg-gray-700 bg-opacity-70 p-4 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <img src="https://placehold.co/120x120/FFEB3B/000000?text=PM" alt="Project Manager Profile Picture" class="rounded-full w-24 h-24 object-cover mb-3 border-2 border-yellow-400" loading="lazy">
+                    <h3 class="text-xl font-semibold text-white mb-1">AI Project Manager</h3>
+                    <p class="text-blue-300 text-sm font-medium mb-2">Lead AI Project Lifecycle</p>
+                    <p class="text-gray-300 text-xs">Oversee the planning, execution, and delivery of AI projects, ensuring seamless communication and successful outcomes for clients.</p>
+                </div>
+            </div>
+        </div>
+        <div id="privacy-policy" class="content-section hidden w-full max-w-4xl bg-gray-800 bg-opacity-60 p-6 rounded-xl shadow-lg text-left">
+            <h2 class="text-3xl font-bold text-white mb-4 text-center">Privacy Policy</h2>
+            <p class="text-gray-300 text-base leading-relaxed mb-4">
+                At solid AI, we are committed to protecting your privacy. This policy outlines how we collect, use, and safeguard your personal information.
+            </p>
+            <h3 class="text-xl font-semibold text-white mb-2">Information Collection</h3>
+            <p class="text-gray-300 text-sm mb-4">
+                We collect information you provide directly to us, such as when you fill out our contact form (name, email, phone number, business problem). We also collect anonymous usage data to improve our services.
+            </p>
+            <h3 class="text-xl font-semibold text-white mb-2">Use of Information</h3>
+            <p class="text-gray-300 text-sm mb-4">
+                Your information is used to respond to your inquiries, provide requested services, and improve our website and AI solutions. We do not sell or share your personal data with third parties for their marketing purposes.
+            </p>
+            <h3 class="text-xl font-semibold text-white mb-2">Data Security</h3>
+            <p class="text-gray-300 text-sm mb-4">
+                We implement robust security measures to protect your data from unauthorized access, alteration, disclosure, or destruction. However, no internet transmission is entirely secure.
+            </p>
+            <h3 class="text-xl font-semibold text-white mb-2">Your Rights</h3>
+            <p class="text-gray-300 text-sm mb-4">
+                You have the right to access, correct, or delete your personal information. Please contact us to exercise these rights.
+            </p>
+            <p class="text-gray-300 text-sm">
+                This policy may be updated periodically. Please review it regularly.
+            </p>
+        </div>
+    </div>
+
+    <footer id="main-footer" class="bg-gray-900 bg-opacity-70 shadow-lg rounded-t-xl">
+        <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-left p-4">
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#" onclick="showSection('our-services')">Home</a></li>
+                    <li><a href="#" onclick="showSection('who-we-are')">Who We Are</a></li>
+                    <li><a href="#" onclick="showSection('our-services')">Our Services</a></li>
+                    <li><a href="#" onclick="showSection('our-ai')">Our AI</a> <!-- New link in footer for Our AI -->
+                    <li><a href="#" onclick="showSection('careers')">Careers</a></li>
+                    <li><a href="#" onclick="showSection('privacy-policy')">Privacy Policy</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p class="text-gray-400">Email: solidiaai@gmail.com</p>
+                <p class="text-gray-400">Phone: +61 424 840 127</p>
+                <p class="text-gray-400">Address: 81 St Albans, Melbourne, VIC 3071, Australia</p>
+            </div>
+
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="flex justify-center md:justify-start space-x-6 social-icons">
+                    <a href="#" class="text-gray-400 hover:text-blue-500 transition duration-300 ease-in-out">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33V22C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-blue-400 transition duration-300 ease-in-out">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.007-.532A8.318 8.318 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 014 9.659v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.188 11.644 11.644 0 008.29 20.25z" />
+                        </svg>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-blue-600 transition duration-300 ease-in-out">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.47 2.906 8.22 6.899 9.59v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33V22C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="mt-8 text-gray-500 text-sm">
+            &copy; 2025 solid AI. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Floating Chatbot Button -->
+    <div id="chatbot-button-container" class="fixed bottom-8 right-8 z-50">
+        <button id="openChatbotBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 flex items-center space-x-2">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+            <span>Free Quote / Appointment</span>
+        </button>
+    </div>
+
+    <!-- Floating Chatbot Window -->
+    <div id="chatbot-window" class="fixed bottom-24 right-8 z-50 bg-gray-800 bg-opacity-95 p-6 rounded-xl shadow-2xl w-80 max-h-[calc(100vh-10rem)] overflow-y-auto hidden transform scale-95 opacity-0 transition-all duration-300 ease-in-out origin-bottom-right">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-xl font-bold text-white">Quick Inquiry</h3>
+            <button id="closeChatbotBtn" class="text-gray-400 hover:text-white transition duration-300">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        <p class="text-gray-300 text-sm mb-4">Assign an appointment or get a free quote. We'll get back to you in less than 24 hours!</p>
+        <form id="chatbotForm" action="https://formspree.io/f/mzzgnjzw" method="POST" class="space-y-3 text-left">
+            <div>
+                <label for="chatbotName" class="block text-gray-300 text-sm font-bold mb-1">Your Name:</label>
+                <input type="text" id="chatbotName" name="name" class="w-full p-2 rounded-lg bg-gray-700 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500 text-sm" placeholder="John Doe" required>
+            </div>
+            <div>
+                <label for="chatbotEmail" class="block text-gray-300 text-sm font-bold mb-1">Your Email:</label>
+                <input type="email" id="chatbotEmail" name="email" class="w-full p-2 rounded-lg bg-gray-700 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500 text-sm" placeholder="john.doe@example.com" required>
+            </div>
+            <div>
+                <label for="chatbotMessage" class="block text-gray-300 text-sm font-bold mb-1">Your Message/Problem:</label>
+                <textarea id="chatbotMessage" name="message" class="w-full p-2 rounded-lg bg-gray-700 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500 text-sm" rows="3" placeholder="I'd like to automate... / I need a quote for..."></textarea>
+            </div>
+            <button type="submit" id="sendChatbotInquiryBtn" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 text-sm mt-4">
+                Send Inquiry
+            </button>
+        </form>
+        <div id="chatbotConfirmation" class="mt-4 p-3 bg-blue-900 text-white rounded-lg text-sm hidden">
+            Thank you! Your inquiry has been received.
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('networkCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let particles = [];
+        const numParticles = 200; // Number of particles
+        const maxDistance = 100; // Max distance for lines between particles
+
+        // Function to set canvas dimensions
+        function setCanvasSize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        // Particle class
+        class Particle {
+            constructor(x, y, directionX, directionY, size, color) {
+                this.x = x;
+                this.y = y;
+                this.directionX = directionX;
+                this.directionY = directionY;
+                this.size = size;
+                this.color = color;
+            }
+
+            // Method to draw particle
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+
+            // Method to update particle position (random drift)
+            update() {
+                // Bounce off edges
+                if (this.x + this.size > canvas.width || this.x - this.size < 0) {
+                    this.directionX = -this.directionX;
+                }
+                if (this.y + this.size > canvas.height || this.y - this.size < 0) {
+                    this.directionY = -this.directionY;
+                }
+
+                this.x += this.directionX;
+                this.y += this.directionY;
+
+                // Occasionally slightly change direction for more organic movement
+                if (Math.random() < 0.005) { // Small chance to change direction
+                    this.directionX = (Math.random() * 0.5) - 0.25;
+                    this.directionY = (Math.random() * 0.5) - 0.25;
+                }
+
+                this.draw();
+            }
+        }
+
+        // Create particles
+        function init() {
+            particles = [];
+            for (let i = 0; i < numParticles; i++) {
+                let size = (Math.random() * 2) + 1; // Particle size between 1 and 3
+                let x = (Math.random() * canvas.width);
+                let y = (Math.random() * canvas.height);
+                let directionX = (Math.random() * 0.5) - 0.25; // Speed between -0.25 and 0.25
+                let directionY = (Math.random() * 0.5) - 0.25;
+                let color = '#888888'; // Greyish color for nodes
+                particles.push(new Particle(x, y, directionX, directionY, size, color));
+            }
+        }
+
+        // Connect particles with lines
+        function connect() {
+            let opacityValue = 1;
+            for (let a = 0; a < particles.length; a++) {
+                for (let b = a; b < particles.length; b++) {
+                    let distance = ((particles[a].x - particles[b].x) * (particles[a].x - particles[b].x)) +
+                                   ((particles[a].y - particles[b].y) * (particles[a].y - particles[b].y));
+                    if (distance < (maxDistance * maxDistance)) {
+                        opacityValue = 1 - (distance / (maxDistance * maxDistance));
+                        ctx.strokeStyle = `rgba(0, 150, 255, ${opacityValue})`; // Blue lines with varying opacity
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[a].x, particles[a].y);
+                        ctx.lineTo(particles[b].x, particles[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        // Animation loop
+        function animate(timestamp) {
+            requestAnimationFrame(animate);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+            }
+            connect();
+        }
+
+        // --- Section Switching Logic ---
+        const sections = document.querySelectorAll('.content-section');
+        const dropdownLinks = document.querySelectorAll('.dropdown-content a');
+
+        function showSection(id) {
+            const targetSection = document.getElementById(id);
+            if (targetSection) {
+                sections.forEach(section => {
+                    section.classList.add('hidden'); // Hide all sections
+                });
+                targetSection.classList.remove('hidden'); // Show the selected section
+            } else {
+                console.error(`Error: Section with ID "${id}" not found in the DOM.`);
+            }
+        }
+
+        // Attach click event listeners to dropdown links
+        dropdownLinks.forEach(link => {
+            link.addEventListener('click', (event) => {
+                event.preventDefault(); // Prevent default link behavior
+                const sectionId = event.target.dataset.section;
+                showSection(sectionId);
+            });
+        });
+
+        // Function to scroll to the footer
+        function scrollToFooter() {
+            const footerElement = document.getElementById('main-footer'); // Use the ID of the footer
+            if (footerElement) {
+                footerElement.scrollIntoView({ behavior: 'smooth', block: 'end' }); // Scroll to the end of the footer
+            }
+        }
+
+        // --- Solutions Carousel Logic ---
+        let solutionItems;
+        let currentSolutionIndex = 0;
+        const solutionDisplayTime = 15000; // 15 seconds
+
+        function animateSolutions() {
+            if (!solutionItems || solutionItems.length === 0) {
+                solutionItems = document.querySelectorAll('.main-solution-item');
+                if (solutionItems.length === 0) {
+                    console.warn('No solution items found for animation.');
+                    return;
+                }
+                // Initialize visibility: ensure only the first is visible and others are hidden
+                solutionItems.forEach((item, index) => {
+                    if (index === 0) {
+                        item.classList.remove('hidden'); // Ensure it's not hidden
+                        item.classList.add('opacity-100'); // Ensure it's visible
+                    } else {
+                        item.classList.add('hidden'); // Ensure it's hidden
+                        item.classList.remove('opacity-100'); // Ensure it's not visible
+                        item.classList.add('opacity-0'); // Ensure it's transparent
+                    }
+                });
+            }
+
+            const currentSlide = solutionItems[currentSolutionIndex];
+            const nextIndex = (currentSolutionIndex + 1) % solutionItems.length;
+            const nextSlide = solutionItems[nextIndex];
+
+            // 1. Start fading out the current slide
+            currentSlide.classList.remove('opacity-100');
+            currentSlide.classList.add('opacity-0');
+            console.log(`Fading out slide ${currentSolutionIndex + 1}`); // Debugging log
+
+            // 2. After the fade-out transition, hide the current slide and show the next
+            setTimeout(() => {
+                currentSlide.classList.add('hidden'); // Make current slide display: none
+                console.log(`Slide ${currentSolutionIndex + 1} is now hidden.`); // Debugging log
+
+                // Prepare next slide to appear
+                nextSlide.classList.remove('hidden'); // Make next slide display: block/flex
+                // Force reflow to ensure the browser registers the display change before applying opacity
+                void nextSlide.offsetWidth; 
+                
+                // Start fading in the next slide
+                nextSlide.classList.remove('opacity-0');
+                nextSlide.classList.add('opacity-100');
+                console.log(`Fading in slide ${nextIndex + 1}`); // Debugging log
+
+                // Update the index for the next cycle
+                currentSolutionIndex = nextIndex;
+
+                // 3. Schedule the next animation cycle after the display time
+                setTimeout(animateSolutions, solutionDisplayTime); // This is the time the slide is fully visible
+            }, 1000); // This delay matches the CSS transition duration for opacity (1 second)
+        }
+
+
+        // Gemini API Integration and Contact Form Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            // Intro Inquiry elements
+            const introProblemInput = document.getElementById('introProblemInput');
+            const introNameInput = document.getElementById('introClientName');
+            const introEmailInput = document.getElementById('introClientEmail');
+            const introPhoneInput = document.getElementById('introClientPhone');
+            const sendIntroInquiryBtn = document.getElementById('sendIntroInquiryBtn');
+            const introConfirmation = document.getElementById('introConfirmation');
+
+            // Floating Chatbot elements
+            const openChatbotBtn = document.getElementById('openChatbotBtn');
+            const closeChatbotBtn = document.getElementById('closeChatbotBtn');
+            const chatbotWindow = document.getElementById('chatbot-window');
+            const chatbotForm = document.getElementById('chatbotForm');
+            const chatbotNameInput = document.getElementById('chatbotName');
+            const chatbotEmailInput = document.getElementById('chatbotEmail');
+            const chatbotMessageInput = document.getElementById('chatbotMessage');
+            const sendChatbotInquiryBtn = document.getElementById('sendChatbotInquiryBtn');
+            const chatbotConfirmation = document.getElementById('chatbotConfirmation');
+
+            // AI Brainstormer elements (re-introduced)
+            const businessProblemInput = document.getElementById('businessProblemInput');
+            const generateSolutionBtn = document.getElementById('generateSolutionBtn');
+            const solutionOutput = document.getElementById('solutionOutput');
+            const solutionText = document.getElementById('solutionText');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const contactFormContainer = document.getElementById('contactFormContainer');
+            const contactForm = document.getElementById('contactForm');
+            const contactConfirmation = document.getElementById('contactConfirmation');
+            const solutionIdeaHidden = document.getElementById('solutionIdeaHidden');
+
+
+            // Handle Intro Inquiry Submission
+            if (sendIntroInquiryBtn) { // Check if the element exists
+                sendIntroInquiryBtn.addEventListener('click', async (event) => { // Added event parameter
+                    event.preventDefault(); // Prevent default form submission
+
+                    const inquiryText = introProblemInput.value.trim(); // Use introProblemInput
+                    const introName = introNameInput.value.trim();
+                    const introEmail = introEmailInput.value.trim();
+                    const introPhone = introPhoneInput.value.trim();
+
+                    if (!inquiryText || !introName || !introEmail) { // Require name, email, and message
+                        introConfirmation.textContent = 'Please fill in your Name, Email, and your Inquiry.';
+                        introConfirmation.classList.remove('hidden', 'bg-blue-900');
+                        introConfirmation.classList.add('bg-red-700');
+                        return;
+                    }
+
+                    const formData = new FormData();
+                    formData.append('inquiry_type', 'Initial Intro Inquiry');
+                    formData.append('name', introName);
+                    formData.append('email', introEmail);
+                    formData.append('phone', introPhone);
+                    formData.append('message', inquiryText); // Use introProblemInput content
+
+                    sendIntroInquiryBtn.disabled = true;
+                    sendIntroInquiryBtn.textContent = 'Sending...';
+                    introConfirmation.classList.add('hidden'); // Hide previous messages
+
+                    try {
+                        const response = await fetch("https://formspree.io/f/mzzgnjzw", { // Use your Formspree endpoint
+                            method: 'POST',
+                            body: formData,
+                            headers: {
+                                'Accept': 'application/json'
+                            }
+                        });
+
+                        if (response.ok) {
+                            introConfirmation.textContent = 'Thank you! Your inquiry has been received. We will contact you soon.';
+                            introConfirmation.classList.remove('hidden', 'bg-red-700');
+                            introConfirmation.classList.add('bg-blue-900');
+                            introProblemInput.value = ''; // Clear the textarea
+                            introNameInput.value = '';
+                            introEmailInput.value = '';
+                            introPhoneInput.value = '';
+                        } else {
+                            const errorData = await response.json();
+                            introConfirmation.textContent = `Error sending inquiry: ${errorData.errors ? errorData.errors.map(e => e.message).join(', ') : 'Unknown error'}`;
+                            introConfirmation.classList.remove('hidden', 'bg-blue-900');
+                            introConfirmation.classList.add('bg-red-700');
+                            console.error('Formspree intro inquiry error:', errorData);
+                        }
+                    } catch (error) {
+                        introConfirmation.textContent = 'An error occurred while sending your inquiry. Please try again.';
+                        introConfirmation.classList.remove('hidden', 'bg-blue-900');
+                        introConfirmation.classList.add('bg-red-700');
+                        console.error('Network error during intro inquiry submission:', error);
+                    } finally {
+                        sendIntroInquiryBtn.disabled = false;
+                        sendIntroInquiryBtn.textContent = 'Send Inquiry';
+                    }
+                });
+            }
+
+            // Chatbot button click to open window
+            if (openChatbotBtn) {
+                openChatbotBtn.addEventListener('click', () => {
+                    chatbotWindow.classList.remove('hidden', 'opacity-0', 'scale-95');
+                    chatbotWindow.classList.add('opacity-100', 'scale-100');
+                });
+            }
+
+            // Chatbot close button click to close window
+            if (closeChatbotBtn) {
+                closeChatbotBtn.addEventListener('click', () => {
+                    chatbotWindow.classList.remove('opacity-100', 'scale-100');
+                    chatbotWindow.classList.add('opacity-0', 'scale-95');
+                    setTimeout(() => {
+                        chatbotWindow.classList.add('hidden');
+                    }, 300); // Match transition duration
+                });
+            }
+
+            // Handle Chatbot Form Submission
+            if (chatbotForm) {
+                chatbotForm.addEventListener('submit', async (event) => {
+                    event.preventDefault();
+
+                    const formData = new FormData();
+                    formData.append('inquiry_type', 'Floating Chatbot Inquiry');
+                    formData.append('name', chatbotNameInput.value.trim());
+                    formData.append('email', chatbotEmailInput.value.trim());
+                    formData.append('message', chatbotMessageInput.value.trim());
+
+                    sendChatbotInquiryBtn.disabled = true;
+                    sendChatbotInquiryBtn.textContent = 'Sending...';
+                    chatbotConfirmation.classList.add('hidden'); // Hide previous messages
+
+                    try {
+                        const response = await fetch("https://formspree.io/f/mzzgnjzw", {
+                            method: 'POST',
+                            body: formData,
+                            headers: {
+                                'Accept': 'application/json'
+                            }
+                        });
+
+                        if (response.ok) {
+                            chatbotConfirmation.textContent = 'Thank you! Your inquiry has been received.';
+                            chatbotConfirmation.classList.remove('hidden', 'bg-red-700');
+                            chatbotConfirmation.classList.add('bg-blue-900');
+                            chatbotForm.reset(); // Clear the form
+                        } else {
+                            const errorData = await response.json();
+                            chatbotConfirmation.textContent = `Error sending inquiry: ${errorData.errors ? errorData.errors.map(e => e.message).join(', ') : 'Unknown error'}`;
+                            chatbotConfirmation.classList.remove('hidden', 'bg-blue-900');
+                            chatbotConfirmation.classList.add('bg-red-700');
+                            console.error('Formspree chatbot inquiry error:', errorData);
+                        }
+                    } catch (error) {
+                        chatbotConfirmation.textContent = 'An error occurred while sending your inquiry. Please try again.';
+                        chatbotConfirmation.classList.remove('hidden', 'bg-blue-900');
+                        chatbotConfirmation.classList.add('bg-red-700');
+                        console.error('Network error during chatbot form submission:', error);
+                    } finally {
+                        sendChatbotInquiryBtn.disabled = false;
+                        sendChatbotInquiryBtn.textContent = 'Send Inquiry';
+                    }
+                });
+            }
+
+            // Handle AI Brainstormer Logic (re-introduced)
+            if (generateSolutionBtn) {
+                generateSolutionBtn.addEventListener('click', async () => {
+                    const prompt = businessProblemInput.value.trim();
+                    if (!prompt) {
+                        solutionOutput.classList.remove('hidden');
+                        solutionText.textContent = 'Please enter a business problem to get a solution idea.';
+                        contactFormContainer.classList.add('hidden'); // Hide form if no prompt
+                        return;
+                    }
+
+                    // Show loading indicator, clear previous output and hide form
+                    solutionOutput.classList.remove('hidden');
+                    solutionText.textContent = '';
+                    loadingIndicator.classList.remove('hidden');
+                    contactFormContainer.classList.add('hidden'); // Hide form when generating new solution
+                    contactConfirmation.classList.add('hidden'); // Hide confirmation message
+                    generateSolutionBtn.disabled = true; // Disable button during loading
+
+                    try {
+                        let chatHistory = [];
+                        // Prompt in English, focused on solid AI and n8n
+                        chatHistory.push({ role: "user", parts: [{ text: `As an AI expert for an AI agency named solid AI, suggest a concise and innovative AI solution (2-3 sentences) for the following business problem, specifically mentioning how n8n automations can be leveraged: "${prompt}". Focus on how AI and n8n can directly solve it and then mention a relevant solid AI service.` }] });
+                        const payload = { contents: chatHistory };
+                        const apiKey = "AIzaSyCVqJGBnJIgNb73heK3RIclkIA0ujSR7XY"; // YOUR GEMINI API KEY
+                        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                        const response = await fetch(apiUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+
+                        const result = await response.json();
+
+                        if (result.candidates && result.candidates.length > 0 &&
+                            result.candidates[0].content && result.candidates[0].content.parts &&
+                            result.candidates[0].content.parts.length > 0) {
+                            const text = result.candidates[0].content.parts[0].text;
+                            solutionText.textContent = text;
+                            solutionIdeaHidden.value = text; // Assign solution to hidden field
+                            contactFormContainer.classList.remove('hidden'); // Show contact form after solution
+                        } else {
+                            solutionText.textContent = 'Could not generate a solution. Please try again.';
+                            console.error('Gemini API response structure unexpected:', result);
+                        }
+                    } catch (error) {
+                        solutionText.textContent = 'An error occurred while generating the solution. Please try again later.';
+                        console.error('Error calling Gemini API:', error);
+                    } finally {
+                        loadingIndicator.classList.add('hidden');
+                        generateSolutionBtn.disabled = false; // Re-enable button
+                    }
+                });
+            }
+
+            // Handle Contact Form Submission (for Brainstormer follow-up)
+            if (contactForm) {
+                contactForm.addEventListener('submit', async (event) => {
+                    event.preventDefault();
+
+                    const form = event.target;
+                    const formData = new FormData(form);
+
+                    contactForm.querySelector('button[type="submit"]').disabled = true;
+                    contactForm.querySelector('button[type="submit"]').textContent = 'Sending...';
+
+                    try {
+                        const response = await fetch(form.action, {
+                            method: form.method,
+                            body: formData,
+                            headers: {
+                                'Accept': 'application/json'
+                            }
+                        });
+
+                        if (response.ok) {
+                            contactConfirmation.textContent = 'Thank you! Your request has been received. A solid AI expert will contact you soon.';
+                            contactConfirmation.classList.remove('hidden', 'bg-red-700');
+                            contactConfirmation.classList.add('bg-blue-900');
+                            form.reset();
+                            contactFormContainer.classList.add('hidden'); // Hide form after successful submission
+                        } else {
+                            const errorData = await response.json();
+                            contactConfirmation.textContent = `Error submitting form: ${errorData.errors ? errorData.errors.map(e => e.message).join(', ') : 'Unknown error'}`;
+                            contactConfirmation.classList.remove('hidden', 'bg-blue-900');
+                            contactConfirmation.classList.add('bg-red-700');
+                            console.error('Formspree error:', errorData);
+                        }
+                    } catch (error) {
+                        contactConfirmation.textContent = 'An error occurred while sending your request. Please try again.';
+                        contactConfirmation.classList.remove('hidden', 'bg-blue-900');
+                        contactConfirmation.classList.add('bg-red-700');
+                        console.error('Network error during form submission:', error);
+                    } finally {
+                        contactForm.querySelector('button[type="submit"]').disabled = false;
+                        contactForm.querySelector('button[type="submit"]').textContent = 'Request a Call';
+                    }
+                });
+            }
+        });
+
+
+        // Event listeners for canvas and window
+        window.addEventListener('resize', () => {
+            setCanvasSize();
+            init(); // Re-initialize particles on resize
+        });
+
+        // Removed mouse and touch event listeners for particle interaction
+        // window.addEventListener('mousemove', (event) => { ... });
+        // window.addEventListener('touchmove', (event) => { ... });
+        // window.addEventListener('mouseout', () => { ... });
+        // window.addEventListener('touchend', () => { ... });
+
+        // Initialize and start animation when window loads
+        window.onload = function () {
+            setCanvasSize();
+            init();
+            animate();
+            showSection('our-services'); // Show the "Our Services" section (which now includes Home) by default
+            animateSolutions(); // Start the solution carousel animation
+        };
+
+    </script>
+</body>
+</html>
