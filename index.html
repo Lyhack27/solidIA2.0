@@ -131,6 +131,54 @@
             position: relative;
             z-index: 10;
         }
+
+        /* --- Animations & Custom Styles for App Preview --- */
+        @keyframes blob {
+            0% {
+                transform: translate(0px, 0px) scale(1);
+            }
+
+            33% {
+                transform: translate(30px, -50px) scale(1.1);
+            }
+
+            66% {
+                transform: translate(-20px, 20px) scale(0.9);
+            }
+
+            100% {
+                transform: translate(0px, 0px) scale(1);
+            }
+        }
+
+        .animate-blob {
+            animation: blob 7s infinite;
+        }
+
+        .animation-delay-2000 {
+            animation-delay: 2s;
+        }
+
+        .animation-delay-4000 {
+            animation-delay: 4s;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #111827;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #374151;
+            border-radius: 3px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #4b5563;
+        }
     </style>
 </head>
 
@@ -231,113 +279,235 @@
                 </div>
             </div>
 
-            <!-- Our Last Jobs Section (Moved to Home) -->
-            <h3 class="text-2xl font-bold text-white mb-4 text-center mt-10">Our Last Jobs</h3>
-            <p class="text-gray-300 text-base leading-relaxed mb-8 text-center">
-                Check out some of our recent automation and web development projects.
-            </p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-                <!-- Job 1 -->
-                <div class="bg-gray-700 bg-opacity-70 p-2 rounded-lg shadow-md">
-                    <div class="flex justify-between items-center mb-2 px-2">
-                        <h4 class="text-lg font-semibold text-white">Raziel Insulation</h4>
-                        <a href="https://lyhack27.github.io/raziel/" target="_blank"
-                            class="text-blue-400 hover:text-blue-300 text-sm">Visit Site &rarr;</a>
-                    </div>
-                    <p class="text-gray-300 text-xs mb-2 px-2 text-left">Automation in this websites: Automated capture
-                        lead, chatbot, full design and calculating quotes and automated email</p>
-                    <div class="w-full h-80 rounded-md overflow-hidden border border-gray-600 relative group">
-                        <iframe src="https://lyhack27.github.io/raziel/"
-                            class="w-full h-full transform scale-[1.0] origin-top-left"
-                            style="width: 100%; height: 100%; border: none;"></iframe>
-                        <div
-                            class="absolute inset-0 bg-transparent pointer-events-none group-hover:pointer-events-auto">
-                        </div>
-                    </div>
-                </div>
-                <!-- Job 2 -->
-                <div class="bg-gray-700 bg-opacity-70 p-2 rounded-lg shadow-md">
-                    <div class="flex justify-between items-center mb-2 px-2">
-                        <h4 class="text-lg font-semibold text-white">Premium Promotions</h4>
-                        <a href="https://premiumpromotions.vercel.app/" target="_blank"
-                            class="text-blue-400 hover:text-blue-300 text-sm">Visit Site &rarr;</a>
-                    </div>
-                    <p class="text-gray-300 text-xs mb-2 px-2 text-left">Automation in this websites: Automated capture
-                        lead, chatbot, full design and calculating quotes and automated email</p>
-                    <div class="w-full h-80 rounded-md overflow-hidden border border-gray-600 relative group">
-                        <iframe src="https://premiumpromotions.vercel.app/"
-                            class="w-full h-full transform scale-[1.0] origin-top-left"
-                            style="width: 100%; height: 100%; border: none;"></iframe>
-                    </div>
-                </div>
-            </div>
+            <!-- Featured Projects Carousel -->
+            <div class="w-full mt-12 mb-12">
+                <h3 class="text-3xl font-bold text-white mb-2 text-center">Featured Work & Solutions</h3>
+                <p class="text-gray-300 text-base leading-relaxed mb-8 text-center">
+                    Swipe through our latest websites, applications, and automation bots.
+                </p>
 
-            <!-- Latest Software Section -->
-            <h3 class="text-2xl font-bold text-white mb-4 text-center mt-10">Latest Software</h3>
-            <p class="text-gray-300 text-base leading-relaxed mb-8 text-center">
-                Explore our custom-built software solutions driven by AI.
-            </p>
-            <div class="w-full max-w-4xl mx-auto mb-10">
-                <!-- Driver Market -->
-                <div class="bg-gray-700 bg-opacity-70 p-2 rounded-lg shadow-md">
-                    <div class="flex justify-between items-center mb-2 px-2">
-                        <h4 class="text-lg font-semibold text-white">Driver Market</h4>
-                        <span class="text-xs text-blue-400 border border-blue-400 rounded px-2 py-0.5">Preview</span>
-                    </div>
-                    <p class="text-gray-300 text-xs mb-2 px-2 text-left">
-                        A comprehensive marketplace application for drivers. Features real-time tracking, job matching,
-                        and AI-driven route optimization.
-                    </p>
-                    <div
-                        class="w-full h-80 rounded-md overflow-hidden border border-gray-600 relative flex items-center justify-center bg-gray-800 group">
-                        <img src="images/driver_market_preview.png" alt="Driver Market App Preview"
-                            class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                            onerror="this.onerror=null;this.src='https://placehold.co/600x400/1f2937/ffffff?text=App+Preview';">
-                        <div
-                            class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <span class="text-white font-bold border border-white px-4 py-2 rounded-full">View
-                                Details</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                <!-- Scrollable Container -->
+                <div class="flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory custom-scrollbar px-4 w-full"
+                    style="-webkit-overflow-scrolling: touch;">
 
-            <!-- Latest Automations Section -->
-            <h3 class="text-2xl font-bold text-white mb-4 text-center mt-10">Latest Automations</h3>
-            <p class="text-gray-300 text-base leading-relaxed mb-8 text-center">
-                See our intelligent bots and automated workflows in action.
-            </p>
-            <div class="w-full max-w-4xl mx-auto mb-10">
-                <!-- Trading Bot Video -->
-                <div class="bg-gray-700 bg-opacity-70 p-4 rounded-lg shadow-md">
-                    <h4 class="text-lg font-semibold text-white mb-2 text-center">Custom Trading Bot for Telegram</h4>
-                    <p class="text-gray-300 text-sm mb-4 text-center">
-                        An advanced trading bot integrated with Telegram, featuring real-time market analysis, automated
-                        trade execution, and personalized alerts.
-                    </p>
-                    <!-- YouTube Placeholder -->
+                    <!-- Card 1: Raziel Insulation (Website) -->
                     <div
-                        class="relative w-full pb-[56.25%] bg-black rounded-md overflow-hidden border border-gray-600 group">
-                        <div class="absolute inset-0 flex items-center justify-center flex-col">
-                            <svg class="w-24 h-24 text-red-600 opacity-80 mb-4 transition-transform transform group-hover:scale-110"
-                                fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
-                            </svg>
-                            <h5 class="text-white text-xl font-bold drop-shadow-md">Video Coming Soon</h5>
-                            <p class="text-gray-400 text-sm mt-2">Space reserved for demo video</p>
+                        class="min-w-[90vw] md:min-w-[500px] lg:min-w-[600px] bg-gray-700 bg-opacity-70 p-4 rounded-xl shadow-lg snap-center flex flex-col">
+                        <div class="flex justify-between items-center mb-3">
+                            <div>
+                                <h4 class="text-xl font-bold text-white">Raziel Insulation</h4>
+                                <span class="text-xs text-blue-400 border border-blue-400 rounded px-2 py-0.5">Website &
+                                    Automation</span>
+                            </div>
+                            <a href="https://lyhack27.github.io/raziel/" target="_blank"
+                                class="text-blue-400 hover:text-blue-300 text-sm font-semibold">Visit Site &rarr;</a>
+                        </div>
+                        <p class="text-gray-300 text-sm mb-4 h-10 overflow-hidden">
+                            Full design, lead capture automation, chatbot integration, and automated quote calculation
+                            emails.
+                        </p>
+                        <div
+                            class="w-full h-[22rem] rounded-lg overflow-hidden border border-gray-600 relative group flex-grow">
+                            <iframe src="https://lyhack27.github.io/raziel/"
+                                class="w-full h-full transform scale-[1.0] origin-top-left"
+                                style="width: 100%; height: 100%; border: none;"></iframe>
+                            <div
+                                class="absolute inset-0 bg-transparent pointer-events-none group-hover:pointer-events-auto">
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
+
+                    <!-- Card 2: Premium Promotions (Website) -->
+                    <div
+                        class="min-w-[90vw] md:min-w-[500px] lg:min-w-[600px] bg-gray-700 bg-opacity-70 p-4 rounded-xl shadow-lg snap-center flex flex-col">
+                        <div class="flex justify-between items-center mb-3">
+                            <div>
+                                <h4 class="text-xl font-bold text-white">Premium Promotions</h4>
+                                <span class="text-xs text-blue-400 border border-blue-400 rounded px-2 py-0.5">Website &
+                                    Automation</span>
+                            </div>
+                            <a href="https://premiumpromotions.vercel.app/" target="_blank"
+                                class="text-blue-400 hover:text-blue-300 text-sm font-semibold">Visit Site &rarr;</a>
+                        </div>
+                        <p class="text-gray-300 text-sm mb-4 h-10 overflow-hidden">
+                            Modern landing page with lead capture, chatbot, and integrated email marketing automation.
+                        </p>
+                        <div
+                            class="w-full h-[22rem] rounded-lg overflow-hidden border border-gray-600 relative group flex-grow">
+                            <iframe src="https://premiumpromotions.vercel.app/"
+                                class="w-full h-full transform scale-[1.0] origin-top-left"
+                                style="width: 100%; height: 100%; border: none;"></iframe>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Driver Market (App) -->
+                    <div
+                        class="min-w-[90vw] md:min-w-[500px] lg:min-w-[600px] bg-gray-700 bg-opacity-70 p-4 rounded-xl shadow-lg snap-center flex flex-col">
+                        <div class="flex justify-between items-center mb-3">
+                            <div>
+                                <h4 class="text-xl font-bold text-white">Driver Market</h4>
+                                <span class="text-xs text-purple-400 border border-purple-400 rounded px-2 py-0.5">Web
+                                    App</span>
+                            </div>
+                            <span class="text-xs text-gray-400">Inventory Module</span>
+                        </div>
+                        <p class="text-gray-300 text-sm mb-4 h-10 overflow-hidden">
+                            Marketplace for drivers with real-time tracking. Shown: Product Management Interface.
+                        </p>
+
+                        <!-- ADD PRODUCT UI (Compact) -->
+                        <div
+                            class="w-full h-[22rem] rounded-lg overflow-hidden border border-gray-600 relative flex flex-col bg-gray-900 group shadow-2xl flex-grow">
+                            <!-- Mock Browser Header -->
+                            <div
+                                class="bg-gray-800 px-3 py-1.5 flex items-center gap-2 border-b border-gray-700 select-none">
+                                <div class="flex gap-1.5">
+                                    <div class="w-2.5 h-2.5 rounded-full bg-red-500"></div>
+                                    <div class="w-2.5 h-2.5 rounded-full bg-yellow-500"></div>
+                                    <div class="w-2.5 h-2.5 rounded-full bg-green-500"></div>
+                                </div>
+                                <div class="flex-1 text-center">
+                                    <span
+                                        class="text-[10px] text-gray-400 font-mono bg-gray-900 px-2 py-0.5 rounded-full border border-gray-700">admin.drivermarket.com/add</span>
+                                </div>
+                            </div>
+
+                            <!-- App UI -->
+                            <div
+                                class="flex-1 bg-gray-900 p-4 overflow-y-auto custom-scrollbar flex items-center justify-center relative">
+                                <!-- Reduced scale for card view -->
+                                <div
+                                    class="w-full max-w-sm bg-gray-800 border border-gray-700 rounded-xl p-4 shadow-xl relative overflow-hidden transform scale-95 origin-center">
+                                    <!-- Background Glow -->
+                                    <div
+                                        class="absolute -top-10 -right-10 w-24 h-24 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob">
+                                    </div>
+                                    <div
+                                        class="absolute -bottom-10 -left-10 w-24 h-24 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-2000">
+                                    </div>
+
+                                    <div class="relative z-10">
+                                        <div class="flex justify-between items-center mb-4">
+                                            <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                                                <span class="bg-blue-600 p-1 rounded-md">
+                                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                                        viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2" d="M12 4v16m8-8H4"></path>
+                                                    </svg>
+                                                </span>
+                                                Add Product
+                                            </h3>
+                                            <span
+                                                class="text-[10px] text-green-400 bg-green-900/30 px-1.5 py-0.5 rounded border border-green-500/30">Active</span>
+                                        </div>
+
+                                        <div class="space-y-3">
+                                            <!-- Image Upload Mock -->
+                                            <div
+                                                class="border-2 border-dashed border-gray-600 hover:border-blue-500 rounded-lg p-3 transition-colors cursor-pointer group text-center bg-gray-900/50">
+                                                <div class="flex flex-col items-center justify-center pt-1 pb-1">
+                                                    <svg class="w-5 h-5 mb-1 text-gray-400 group-hover:text-blue-500 transition-colors"
+                                                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2"
+                                                            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
+                                                        </path>
+                                                    </svg>
+                                                    <p class="text-xs text-gray-500">Upload Image</p>
+                                                </div>
+                                            </div>
+
+                                            <!-- Inputs -->
+                                            <div class="grid grid-cols-2 gap-3">
+                                                <div class="col-span-2">
+                                                    <label
+                                                        class="block mb-1 text-[10px] font-medium text-gray-400 uppercase">Name</label>
+                                                    <input type="text"
+                                                        class="bg-gray-900/50 border border-gray-600 text-white text-xs rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2 placeholder-gray-600"
+                                                        placeholder="Product Name">
+                                                </div>
+                                                <div>
+                                                    <label
+                                                        class="block mb-1 text-[10px] font-medium text-gray-400 uppercase">Price</label>
+                                                    <div class="relative">
+                                                        <div
+                                                            class="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
+                                                            <span class="text-gray-500 text-xs">$</span>
+                                                        </div>
+                                                        <input type="number"
+                                                            class="bg-gray-900/50 border border-gray-600 text-white text-xs rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full pl-5 p-2 placeholder-gray-600"
+                                                            placeholder="0.00">
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <label
+                                                        class="block mb-1 text-[10px] font-medium text-gray-400 uppercase">Category</label>
+                                                    <select
+                                                        class="bg-gray-900/50 border border-gray-600 text-gray-300 text-xs rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2">
+                                                        <option>Parts</option>
+                                                        <option>Tools</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <!-- Buttons -->
+                                            <div class="flex items-center justify-end space-x-2 pt-1">
+                                                <button
+                                                    class="text-gray-400 hover:text-white text-xs font-medium transition-colors">Cancel</button>
+                                                <button
+                                                    class="text-white bg-gradient-to-r from-blue-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-800 font-medium rounded-md text-xs px-3 py-1.5 text-center transition-all shadow-lg shadow-blue-500/30">
+                                                    Save
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 4: Telegram Bot (Video) -->
+                    <div
+                        class="min-w-[90vw] md:min-w-[500px] lg:min-w-[600px] bg-gray-700 bg-opacity-70 p-4 rounded-xl shadow-lg snap-center flex flex-col">
+                        <div class="flex justify-between items-center mb-3">
+                            <div>
+                                <h4 class="text-xl font-bold text-white">Crypto Trading Bot</h4>
+                                <span
+                                    class="text-xs text-green-400 border border-green-400 rounded px-2 py-0.5">Automation
+                                    & Telegram</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-300 text-sm mb-4 h-10 overflow-hidden">
+                            Real-time market analysis, automated execution, and alerts directly via Telegram.
+                        </p>
+                        <div
+                            class="w-full h-[22rem] bg-black rounded-lg overflow-hidden border border-gray-600 relative group flex items-center justify-center flex-grow">
+                            <div class="absolute inset-0 flex items-center justify-center flex-col">
+                                <svg class="w-16 h-16 text-red-600 opacity-80 mb-3 transition-transform transform group-hover:scale-110"
+                                    fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
+                                </svg>
+                                <h5 class="text-white text-lg font-bold drop-shadow-md">Watch Demo</h5>
+                                <p class="text-gray-400 text-xs mt-1">Coming Soon</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div> <!-- End of Scrollable Container -->
+            </div> <!-- End of Featured Projects Section -->
 
             <div id="intro-question"
                 class="w-full max-w-2xl bg-gray-700 bg-opacity-70 p-8 rounded-xl shadow-lg text-center flex flex-col items-center justify-center mb-8 mx-auto">
-                <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Tell us what process you'd like to automate
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Tell us what process you'd like to
+                    automate
                 </h2>
                 <p class="text-lg md:text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
-                    Send us a message about what you need—whether it's an AI Chatbot, SEO & Instagram automation,
-                    seamless Calendar scheduling, or LinkedIn outreach. We'll build the perfect solution for you.
+                    Send us a message about what you need—whether it's an AI Chatbot, SEO & Instagram
+                    automation,
+                    seamless Calendar scheduling, or LinkedIn outreach. We'll build the perfect solution for
+                    you.
                 </p>
                 <form id="introContactForm" class="space-y-4 w-full text-left">
                     <div>
@@ -384,7 +554,8 @@
                         loading="lazy">
                     <h3 class="text-xl font-semibold text-white mb-1">Leonardo Rincon</h3>
                     <p class="text-blue-300 text-sm font-medium mb-2">CEO & Lead AI Strategist</p>
-                    <p class="text-gray-300 text-xs">System Cloud Administrator & Cybersecurity Workflow Specialist.</p>
+                    <p class="text-gray-300 text-xs">System Cloud Administrator & Cybersecurity Workflow
+                        Specialist.</p>
                 </div>
                 <div class="bg-gray-700 bg-opacity-70 p-4 rounded-lg shadow-md flex flex-col items-center text-center">
                     <img src="miembros/diana.jpg" alt="Diana Kara Profile Picture"
@@ -393,7 +564,8 @@
                         loading="lazy">
                     <h3 class="text-xl font-semibold text-white mb-1">Diana Kara</h3>
                     <p class="text-blue-300 text-sm font-medium mb-2">Head of AI Marketing & Communications</p>
-                    <p class="text-gray-300 text-xs">Drives solid AI's brand presence and communication strategies.</p>
+                    <p class="text-gray-300 text-xs">Drives solid AI's brand presence and communication
+                        strategies.</p>
                 </div>
             </div>
         </div>
@@ -404,7 +576,8 @@
         class="content-section hidden w-full max-w-4xl bg-gray-800 bg-opacity-60 p-6 rounded-xl shadow-lg text-left">
         <h2 class="text-3xl font-bold text-white mb-4 text-center">Our Comprehensive AI Services</h2>
         <p class="text-gray-300 text-base leading-relaxed mb-8 text-center">
-            At solid AI, we offer a suite of cutting-edge Artificial Intelligence solutions designed to transform
+            At solid AI, we offer a suite of cutting-edge Artificial Intelligence solutions designed to
+            transform
             your business.
         </p>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -415,26 +588,30 @@
             </div>
             <div class="bg-gray-700 bg-opacity-70 p-5 rounded-lg shadow-md flex flex-col items-center text-center">
                 <h3 class="text-xl font-semibold text-white mb-2">Custom Automation Solutions</h3>
-                <p class="text-gray-300 text-sm">We design and implement intelligent automation workflows tailored
+                <p class="text-gray-300 text-sm">We design and implement intelligent automation workflows
+                    tailored
                     to your company's specific needs, leveraging powerful tools like n8n.</p>
                 <img src="https://quickchart.io/chart?c={type:'line',data:{labels:['Month 1','Month 2','Month 3','Month 4'],datasets:[{label:'Manual Time',data:[100,90,80,70]},{label:'Automated Time',data:[100,60,30,10]}]}}"
                     alt="Automation Time Reduction Chart" class="w-full h-auto rounded-md mt-4" loading="lazy">
             </div>
             <div class="bg-gray-700 bg-opacity-70 p-5 rounded-lg shadow-md flex flex-col items-center text-center">
                 <h3 class="text-xl font-semibold text-white mb-2">Custom Software Development</h3>
-                <p class="text-gray-300 text-sm">We develop tailor-made software solutions from scratch, integrating
+                <p class="text-gray-300 text-sm">We develop tailor-made software solutions from scratch,
+                    integrating
                     AI capabilities to create powerful applications.</p>
                 <img src="https://quickchart.io/chart?c={type:'bar',data:{labels:['Planning','Dev','Test','Deploy'],datasets:[{label:'Traditional',data:[20,40,30,10]},{label:'AI-Accelerated',data:[15,30,20,5]}]}}"
                     alt="Development Cycle Chart" class="w-full h-auto rounded-md mt-4" loading="lazy">
             </div>
             <div class="bg-gray-700 bg-opacity-70 p-5 rounded-lg shadow-md flex flex-col items-center text-center">
                 <h3 class="text-xl font-semibold text-white mb-2">AI-Optimized Website Creation</h3>
-                <p class="text-gray-300 text-sm">We design modern, responsive websites enhanced with AI for superior
+                <p class="text-gray-300 text-sm">We design modern, responsive websites enhanced with AI for
+                    superior
                     user experience and optimized SEO.</p>
             </div>
             <div class="bg-gray-700 bg-opacity-70 p-5 rounded-lg shadow-md flex flex-col items-center text-center">
                 <h3 class="text-xl font-semibold text-white mb-2">Ultra-Low Latency Cloud Execution</h3>
-                <p class="text-gray-300 text-sm">Host your AI models and applications on our high-performance cloud
+                <p class="text-gray-300 text-sm">Host your AI models and applications on our high-performance
+                    cloud
                     servers for minimal latency.</p>
             </div>
         </div>
@@ -444,20 +621,23 @@
     <div id="our-ai" class="content-section hidden w-full max-w-4xl bg-gray-800 bg-opacity-60 p-6 rounded-xl shadow-lg">
         <h2 class="text-3xl font-bold text-white mb-4 text-center">Let's Build a Solution Together</h2>
         <p class="text-xl text-gray-300 mb-8 text-center">
-            Answer a few questions to help our AI understand your needs and generate a tailored solution idea for
+            Answer a few questions to help our AI understand your needs and generate a tailored solution idea
+            for
             your business.
         </p>
         <div id="ai-brainstormer-section" class="w-full bg-gray-700 bg-opacity-70 p-8 rounded-xl shadow-md mb-8">
             <div class="space-y-6">
                 <div>
-                    <label for="industryInput" class="block text-left text-lg font-medium text-white mb-2">1. What
+                    <label for="industryInput" class="block text-left text-lg font-medium text-white mb-2">1.
+                        What
                         industry is your business in?</label>
                     <input type="text" id="industryInput"
                         class="w-full p-3 rounded-lg bg-gray-800 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500"
                         placeholder="e.g., E-commerce, Healthcare, Real Estate">
                 </div>
                 <div>
-                    <label for="goalSelect" class="block text-left text-lg font-medium text-white mb-2">2. What is
+                    <label for="goalSelect" class="block text-left text-lg font-medium text-white mb-2">2. What
+                        is
                         your primary goal?</label>
                     <select id="goalSelect"
                         class="w-full p-3 rounded-lg bg-gray-800 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500">
@@ -525,7 +705,8 @@
                     5</div>
                 <div>
                     <h4 class="font-bold text-lg">Day 5: Strategy & Kick-off</h4>
-                    <p class="text-gray-400">We deliver a detailed proposal and strategic roadmap to kick-start your
+                    <p class="text-gray-400">We deliver a detailed proposal and strategic roadmap to kick-start
+                        your
                         AI transformation.</p>
                 </div>
             </div>
@@ -552,13 +733,15 @@
         class="content-section hidden w-full max-w-4xl bg-gray-800 bg-opacity-60 p-6 rounded-xl shadow-lg text-left">
         <h2 class="text-3xl font-bold text-white mb-4 text-center">Privacy Policy</h2>
         <p class="text-gray-300 text-base leading-relaxed mb-4">
-            At solid AI, we are committed to protecting your privacy. This policy outlines how we collect, use, and
+            At solid AI, we are committed to protecting your privacy. This policy outlines how we collect, use,
+            and
             safeguard your personal information.
         </p>
         <h3 class="text-xl font-semibold text-white mb-2">Information Collection</h3>
         <p class="text-gray-300 text-sm mb-4">
             We collect information you provide directly to us, such as when you fill out our contact form (name,
-            email, phone number, business problem). We also collect anonymous usage data to improve our services.
+            email, phone number, business problem). We also collect anonymous usage data to improve our
+            services.
         </p>
         <h3 class="text-xl font-semibold text-white mb-2">Use of Information</h3>
         <p class="text-gray-300 text-sm mb-4">
@@ -588,7 +771,8 @@
                             class="text-gray-400 hover:text-white">Services</a></li>
                     <li><a href="#" onclick="showSection('consulting-section')"
                             class="text-gray-400 hover:text-white">Consulting</a></li>
-                    <li><a href="#" onclick="showSection('our-ai')" class="text-gray-400 hover:text-white">Our AI</a>
+                    <li><a href="#" onclick="showSection('our-ai')" class="text-gray-400 hover:text-white">Our
+                            AI</a>
                     </li>
                 </ul>
             </div>
