@@ -1,52 +1,265 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Future of AI in Production and Marketing: Top Applications for Companies</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-<style>
-  body{background:#0d1117;color:#e0e0e0;font-family:'Inter',sans-serif;margin:0;padding:2rem 0;}
-  .main-container{background:rgba(13,17,23,.6);border-radius:1.5rem;box-shadow:0 10px 25px rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.1);padding:2.5rem 3rem;max-width:800px;margin:auto;}
-  .blog-header{display:flex;align-items:center;justify-content:center;gap:1.5rem;margin-bottom:2rem;flex-wrap:wrap;}
-  .header-logo{height:60px;width:auto;}
-  .image-container{width:100%;height:400px;margin-bottom:2rem;border-radius:1rem;overflow:hidden;background:#1a1a1a;}
-  .blog-image{width:100%;height:100%;object-fit:cover;}
-  h1{font-size:2.8rem;font-weight:700;color:#fff;margin:0;text-align:center;}
-  h2{font-size:2rem;font-weight:700;color:#fff;margin-top:2.5rem;margin-bottom:1.5rem;border-bottom:2px solid #8A2BE2;padding-bottom:.5rem;}
-  h3{font-size:1.5rem;font-weight:600;color:#c9d1d9;margin-top:2rem;margin-bottom:1rem;}
-  p,li{font-size:1.1rem;line-height:1.7;color:#c9d1d9;margin-bottom:1.5rem;}
-  ul{padding-left:20px;}
-  .button-container{text-align:center;margin-top:2.5rem;display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;}
-  .button{background:#8A2BE2;color:#fff;padding:12px 24px;border:none;border-radius:50px;font-weight:bold;text-decoration:none;cursor:pointer;transition:.3s;}
-  .button:hover{background:#9932CC;transform:scale(1.05);}
-  .button.button-secondary{background:transparent;border:2px solid #8A2BE2;color:#8A2BE2;}
-  .button.button-secondary:hover{background:#8A2BE2;color:#fff;}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="page_title">The Future of AI in Production and Marketing: Top Applications for Companies</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: #0d1117;
+      color: #e0e0e0;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 2rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .main-container {
+      background: rgba(13, 17, 23, 0.8);
+      backdrop-filter: blur(10px);
+      border-radius: 1.5rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 2.5rem 3rem;
+      max-width: 800px;
+      width: 100%;
+      margin: auto;
+    }
+
+    .blog-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      text-align: center;
+    }
+
+    .header-logo {
+      height: 60px;
+      width: auto;
+    }
+
+    .image-container {
+      width: 100%;
+      height: 400px;
+      margin-bottom: 2rem;
+      border-radius: 1rem;
+      overflow: hidden;
+      background: #1a1a1a;
+    }
+
+    .blog-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #fff;
+      margin: 0;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #fff;
+      margin-top: 2.5rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 2px solid #8A2BE2;
+      padding-bottom: 0.5rem;
+    }
+
+    h3 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #c9d1d9;
+      margin-top: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    p,
+    li {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: #c9d1d9;
+      margin-bottom: 1.2rem;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    .button-container {
+      text-align: center;
+      margin-top: 3rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .button {
+      background: #8A2BE2;
+      color: #fff;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 50px;
+      font-weight: bold;
+      text-decoration: none;
+      cursor: pointer;
+      transition: 0.3s;
+      font-size: 1rem;
+    }
+
+    .button:hover {
+      background: #9932CC;
+      transform: scale(1.05);
+    }
+
+    .button.button-secondary {
+      background: transparent;
+      border: 2px solid #8A2BE2;
+      color: #8A2BE2;
+    }
+
+    .button.button-secondary:hover {
+      background: #8A2BE2;
+      color: #fff;
+    }
+
+    @media (max-width: 600px) {
+      .main-container {
+        padding: 1.5rem;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      .image-container {
+        height: 250px;
+      }
+    }
+  </style>
 </head>
+
 <body>
-<div class="main-container">
-  <div class="blog-header">
-    <img src="logo/logo.png" alt="Company Logo" class="header-logo">
-    <h1>The Future of AI in Production and Marketing: Top Applications for Companies</h1>
+
+  <div class="main-container">
+    <div class="blog-header">
+      <img src="logo/logo.png" alt="Company Logo" class="header-logo">
+      <h1 data-i18n="blog_title">The Future of AI in Production and Marketing: Top Applications for Companies</h1>
+    </div>
+    <div class="image-container">
+      <img
+        src="https://image.pollinations.ai/prompt/futuristic%20artificial%20intelligence%20technology%20office?width=1024&height=600&nologo=true&seed=6087"
+        alt="AI Feature" class="blog-image">
+    </div>
+    <div class="article-content">
+      <p data-i18n="intro_text">In today's rapidly evolving business landscape, artificial intelligence (AI) has become
+        a cornerstone for enhancing production and marketing processes. This article explores the latest AI applications
+        tailored for companies, integrating automated branding, cloud infrastructure automation, linking SQL databases
+        to Power Automate flows, workflow automation for behavioral health, and the best AI-driven PR agencies.</p>
+
+      <h2 data-i18n="h2_branding">Automated Branding for Enhanced Marketing</h2>
+      <p data-i18n="p_branding">Automated branding through AI tools enables companies to streamline their marketing
+        efforts by automating tasks such as logo creation, brand consistency monitoring, and personalized content
+        generation. This technology ensures brand messaging remains cohesive across all marketing channels and
+        campaigns.</p>
+
+      <h3 data-i18n="h3_features">Key Features of Automated Branding:</h3>
+      <ul>
+        <li data-i18n="li_1">Automated logo creation and design customization.</li>
+        <li data-i18n="li_2">Monitoring brand consistency and tone of voice.</li>
+        <li data-i18n="li_3">Personalized content generation for diverse audience segments.</li>
+      </ul>
+
+      <h2 data-i18n="h2_cloud">Cloud Infrastructure Automation for Streamlined Production</h2>
+      <p data-i18n="p_cloud">Cloud infrastructure automation powered by AI optimizes production workflows by automating
+        resource allocation, scalability, and security measures. This technology reduces manual intervention in cloud
+        management, enhances operational efficiency, and ensures seamless integration with existing systems and
+        applications.</p>
+
+      <h2 data-i18n="h2_transform">The Power of AI in Transforming Marketing and Production</h2>
+      <p data-i18n="p_transform">As AI continues to revolutionize the way companies approach marketing and production
+        processes, integrating these advanced technologies is crucial for staying competitive in the market. By
+        leveraging AI-driven solutions for branding, cloud automation, workflow enhancements, and PR agency selection,
+        companies can unlock new levels of efficiency and innovation in their operations.</p>
+    </div>
+    <div class="button-container">
+      <a href="https://wa.me/61424840127" target="_blank" class="button" data-i18n="btn_whatsapp">Contact via
+        WhatsApp</a>
+      <a href="index.html" class="button button-secondary" data-i18n="btn_mainsite">Main Site</a>
+    </div>
   </div>
-  <div class="image-container">
-    <img src="https://image.pollinations.ai/prompt/futuristic%20artificial%20intelligence%20technology%20office?width=1024&height=600&nologo=true&seed=6087" alt="The Future of AI in Production and Marketing: Top Applications for Companies" class="blog-image">
-  </div>
-  <div class="article-content">
-    <p>In today's rapidly evolving business landscape, artificial intelligence (AI) has become a cornerstone for enhancing production and marketing processes. This article explores the latest AI applications tailored for companies, integrating automated branding, cloud infrastructure automation, linking SQL databases to Power Automate flows, workflow automation for behavioral health, and the best AI-driven PR agencies.</p>
-    <h2>Automated Branding for Enhanced Marketing</h2>
-    <p>Automated branding through AI tools enables companies to streamline their marketing efforts by automating tasks such as logo creation, brand consistency monitoring, and personalized content generation. This technology ensures brand messaging remains cohesive across all marketing channels and campaigns.</p>
-    <h3>Key Features of Automated Branding:</h3>
-    <ul><li>Automated logo creation and design customization.</li><li>Monitoring brand consistency and tone of voice.</li><li>Personalized content generation for diverse audience segments.</li></ul>
-    <h2>Cloud Infrastructure Automation for Streamlined Production</h2>
-    <p>Cloud infrastructure automation powered by AI optimizes production workflows by automating resource allocation, scalability, and security measures. This technology reduces manual intervention in cloud management, enhances operational efficiency, and ensures seamless integration with existing systems and applications.</p>
-    <h2>The Power of AI in Transforming Marketing and Production</h2>
-    <p>As AI continues to revolutionize the way companies approach marketing and production processes, integrating these advanced technologies is crucial for staying competitive in the market. By leveraging AI-driven solutions for branding, cloud automation, workflow enhancements, and PR agency selection, companies can unlock new levels of efficiency and innovation in their operations</p>
-  </div>
-  <div class="button-container">
-    <a href="https://wa.me/61424840127" target="_blank" class="button">Contact via WhatsApp</a>
-    <a href="https://solidiaai.com/" target="_blank" class="button button-secondary">Main Site</a>
-  </div>
-</div>
-</body></html>
+
+  <script>
+    const translations = {
+      en: {
+        page_title: "The Future of AI in Production and Marketing: Top Applications for Companies",
+        blog_title: "The Future of AI in Production and Marketing: Top Applications for Companies",
+        intro_text: "In today's rapidly evolving business landscape, artificial intelligence (AI) has become a cornerstone for enhancing production and marketing processes. This article explores the latest AI applications tailored for companies, integrating automated branding, cloud infrastructure automation, linking SQL databases to Power Automate flows, workflow automation for behavioral health, and the best AI-driven PR agencies.",
+        h2_branding: "Automated Branding for Enhanced Marketing",
+        p_branding: "Automated branding through AI tools enables companies to streamline their marketing efforts by automating tasks such as logo creation, brand consistency monitoring, and personalized content generation. This technology ensures brand messaging remains cohesive across all marketing channels and campaigns.",
+        h3_features: "Key Features of Automated Branding:",
+        li_1: "Automated logo creation and design customization.",
+        li_2: "Monitoring brand consistency and tone of voice.",
+        li_3: "Personalized content generation for diverse audience segments.",
+        h2_cloud: "Cloud Infrastructure Automation for Streamlined Production",
+        p_cloud: "Cloud infrastructure automation powered by AI optimizes production workflows by automating resource allocation, scalability, and security measures. This technology reduces manual intervention in cloud management, enhances operational efficiency, and ensures seamless integration with existing systems and applications.",
+        h2_transform: "The Power of AI in Transforming Marketing and Production",
+        p_transform: "As AI continues to revolutionize the way companies approach marketing and production processes, integrating these advanced technologies is crucial for staying competitive in the market. By leveraging AI-driven solutions for branding, cloud automation, workflow enhancements, and PR agency selection, companies can unlock new levels of efficiency and innovation in their operations.",
+        btn_whatsapp: "Contact via WhatsApp",
+        btn_mainsite: "Main Site"
+      },
+      es: {
+        page_title: "El Futuro de la IA en Producción y Marketing: Principales Aplicaciones para Empresas",
+        blog_title: "El Futuro de la IA en Producción y Marketing: Principales Aplicaciones para Empresas",
+        intro_text: "En el panorama empresarial actual de rápida evolución, la inteligencia artificial (IA) se ha convertido en un pilar para mejorar los procesos de producción y marketing. Este artículo explora las últimas aplicaciones de IA adaptadas para empresas, integrando branding automatizado, automatización de infraestructura en la nube, vinculación de bases de datos SQL a flujos de Power Automate, automatización de flujos de trabajo para salud conductual y las mejores agencias de relaciones públicas impulsadas por IA.",
+        h2_branding: "Branding Automatizado para un Marketing Mejorado",
+        p_branding: "El branding automatizado a través de herramientas de IA permite a las empresas optimizar sus esfuerzos de marketing automatizando tareas como la creación de logotipos, el monitoreo de la consistencia de marca y la generación de contenido personalizado. Esta tecnología asegura que el mensaje de la marca permanezca coherente en todos los canales y campañas de marketing.",
+        h3_features: "Características Clave del Branding Automatizado:",
+        li_1: "Creación automatizada de logotipos y personalización de diseño.",
+        li_2: "Monitoreo de la consistencia de marca y el tono de voz.",
+        li_3: "Generación de contenido personalizado para diversos segmentos de audiencia.",
+        h2_cloud: "Automatización de Infraestructura en la Nube para una Producción Optimizada",
+        p_cloud: "La automatización de infraestructura en la nube impulsada por IA optimiza los flujos de trabajo de producción al automatizar la asignación de recursos, la escalabilidad y las medidas de seguridad. Esta tecnología reduce la intervención manual en la gestión de la nube, mejora la eficiencia operativa y asegura una integración perfecta con sistemas y aplicaciones existentes.",
+        h2_transform: "El Poder de la IA en la Transformación del Marketing y la Producción",
+        p_transform: "A medida que la IA continúa revolucionando la forma en que las empresas abordan los procesos de marketing y producción, integrar estas tecnologías avanzadas es crucial para mantenerse competitivo. Aprovechando soluciones impulsadas por IA para branding, automatización en la nube, mejoras de flujo de trabajo y selección de agencias de relaciones públicas, las empresas pueden desbloquear nuevos niveles de eficiencia e innovación en sus operaciones.",
+        btn_whatsapp: "Contactar por WhatsApp",
+        btn_mainsite: "Sitio Principal"
+      }
+    };
+
+    function updateContent(lang) {
+      document.querySelectorAll('[data-i18n]').forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        if (translations[lang] && translations[lang][key]) {
+          element.innerText = translations[lang][key];
+        }
+      });
+    }
+
+    function initLanguage() {
+      const userLang = navigator.language || navigator.userLanguage;
+      const lang = userLang.startsWith('es') ? 'es' : 'en';
+      updateContent(lang);
+    }
+
+    document.addEventListener('DOMContentLoaded', initLanguage);
+  </script>
+</body>
+
+</html>
