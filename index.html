@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Security: Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://placehold.co https://quickchart.io; connect-src 'self' https://n8n.solidiaai.com https://generativelanguage.googleapis.com; frame-src 'self' https://lyhack27.github.io https://premiumpromotions.vercel.app;">
     <title>solid Ai - Artificial Intelligence Agency</title>
     <!-- Meta Description for SEO -->
     <meta name="description"
@@ -230,18 +233,18 @@
     <!-- Navigation Bar -->
     <nav>
         <a href="#" onclick="showSection('home-section')">Home</a>
-        <a href="latest-news.html" target="_blank">Latest News</a>
+        <a href="latest-news.html" target="_blank" rel="noopener noreferrer">Latest News</a>
         <a href="#" onclick="showSection('who-we-are')">Who We Are</a>
         <a href="#" onclick="showSection('services-section')">Services</a>
         <a href="#" onclick="showSection('our-ai')">Our AI</a>
 
-        <a href="automated instagram.html" target="_blank">Automated Instagram</a>
+        <a href="automated instagram.html" target="_blank" rel="noopener noreferrer">Automated Instagram</a>
         <a href="#" onclick="showSection('consulting-section')">Consulting</a>
         <a href="#" onclick="showSection('careers')">Careers</a>
         <a href="#" onclick="showSection('privacy-policy')">Privacy Policy</a>
 
         <!-- BOTÓN DE LOGIN AÑADIDO -->
-        <a href="https://login.solidiaai.com" target="_blank" class="login-btn">Log In</a>
+        <a href="https://login.solidiaai.com" target="_blank" class="login-btn" rel="noopener noreferrer">Log In</a>
     </nav>
 
     <div class="main-container" id="mainContent">
@@ -258,7 +261,7 @@
             <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mb-8">
                 <button
                     class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105"
-                    onclick="window.open('https://wa.me/61424840127', '_blank')">
+                    onclick="window.open('https://wa.me/61424840127', '_blank', 'noopener,noreferrer')">
                     WhatsApp Us
                 </button>
             </div>
@@ -358,7 +361,7 @@
                                         &
                                         Automation</span>
                                 </div>
-                                <a href="https://lyhack27.github.io/raziel/" target="_blank"
+                                <a href="https://lyhack27.github.io/raziel/" target="_blank" rel="noopener noreferrer"
                                     class="text-blue-400 hover:text-blue-300 text-sm font-semibold">Visit Site
                                     &rarr;</a>
                             </div>
@@ -371,7 +374,8 @@
                                 class="w-full h-[22rem] rounded-lg overflow-hidden border border-gray-600 relative group flex-grow">
                                 <iframe src="https://lyhack27.github.io/raziel/"
                                     class="w-full h-full transform scale-[1.0] origin-top-left"
-                                    style="width: 100%; height: 100%; border: none;"></iframe>
+                                    style="width: 100%; height: 100%; border: none;"
+                                    sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
                                 <div
                                     class="absolute inset-0 bg-transparent pointer-events-none group-hover:pointer-events-auto">
                                 </div>
@@ -390,6 +394,7 @@
                                         Automation</span>
                                 </div>
                                 <a href="https://premiumpromotions.vercel.app/" target="_blank"
+                                    rel="noopener noreferrer"
                                     class="text-blue-400 hover:text-blue-300 text-sm font-semibold">Visit Site
                                     &rarr;</a>
                             </div>
@@ -401,7 +406,8 @@
                                 class="w-full h-[22rem] rounded-lg overflow-hidden border border-gray-600 relative group flex-grow">
                                 <iframe src="https://premiumpromotions.vercel.app/"
                                     class="w-full h-full transform scale-[1.0] origin-top-left"
-                                    style="width: 100%; height: 100%; border: none;"></iframe>
+                                    style="width: 100%; height: 100%; border: none;"
+                                    sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
                             </div>
                         </div>
 
@@ -852,7 +858,7 @@
             <div>
                 <h3 class="font-bold text-white mb-4">Follow Us</h3>
                 <div class="flex justify-center md:justify-start space-x-4">
-                    <a href="https://www.instagram.com/solidai.solutions/" target="_blank"
+                    <a href="https://www.instagram.com/solidai.solutions/" target="_blank" rel="noopener noreferrer"
                         class="text-gray-400 hover:text-pink-500">
                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path
