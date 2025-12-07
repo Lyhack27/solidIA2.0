@@ -9,6 +9,10 @@
     <meta name="description"
         content="solid AI: Your AI agency in Melbourne. Connecting the future with innovative Artificial Intelligence solutions: custom software, automation, secure cloud, and web development. Explore AI ideas with our Brainstormer!">
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="logo/logo.png">
+    <link rel="apple-touch-icon" href="logo/logo.png">
+
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
@@ -192,6 +196,29 @@
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
             background: #4b5563;
         }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #4b5563;
+        }
+
+        /* Breathing Animation for Scroll Hint */
+        @keyframes breathe {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
+        }
+
+        .animate-breathe {
+            animation: breathe 2s ease-in-out infinite;
+        }
     </style>
 </head>
 
@@ -299,216 +326,241 @@
                     Swipe through our latest websites, applications, and automation bots.
                 </p>
 
-                <!-- Scrollable Container -->
-                <div class="flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory custom-scrollbar px-4 w-full"
-                    style="-webkit-overflow-scrolling: touch;">
-
-                    <!-- Card 1: Raziel Insulation (Website) -->
+                <!-- Scrollable Container Wrapper with Hint -->
+                <div class="relative w-full group">
+                    <!-- Scroll Hint Indicator (Yellow, Breathing) -->
                     <div
-                        class="min-w-full md:min-w-[500px] lg:min-w-[600px] bg-gray-700 bg-opacity-70 p-4 rounded-xl shadow-lg snap-center flex flex-col">
-                        <div class="flex justify-between items-center mb-3">
-                            <div>
-                                <h4 class="text-xl font-bold text-white">Raziel Insulation</h4>
-                                <span class="text-xs text-blue-400 border border-blue-400 rounded px-2 py-0.5">Website &
-                                    Automation</span>
-                            </div>
-                            <a href="https://lyhack27.github.io/raziel/" target="_blank"
-                                class="text-blue-400 hover:text-blue-300 text-sm font-semibold">Visit Site &rarr;</a>
-                        </div>
-                        <p class="text-gray-300 text-sm mb-4 h-10 overflow-hidden">
-                            Full design, lead capture automation, chatbot integration, and automated quote calculation
-                            emails.
-                        </p>
+                        class="absolute right-0 top-1/2 -translate-y-1/2 z-30 pointer-events-none flex flex-col items-center justify-center pr-2 animate-breathe filter drop-shadow-lg opacity-80 group-hover:opacity-0 transition-opacity duration-500">
                         <div
-                            class="w-full h-[22rem] rounded-lg overflow-hidden border border-gray-600 relative group flex-grow">
-                            <iframe src="https://lyhack27.github.io/raziel/"
-                                class="w-full h-full transform scale-[1.0] origin-top-left"
-                                style="width: 100%; height: 100%; border: none;"></iframe>
-                            <div
-                                class="absolute inset-0 bg-transparent pointer-events-none group-hover:pointer-events-auto">
-                            </div>
+                            class="bg-yellow-500/10 p-2 rounded-full border border-yellow-400/60 backdrop-blur-sm shadow-[0_0_15px_rgba(250,204,21,0.3)]">
+                            <svg class="w-8 h-8 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 5l7 7-7 7M5 5l7 7-7 7"></path>
+                            </svg>
                         </div>
+                        <span
+                            class="text-[10px] font-bold text-yellow-400 mt-1 uppercase tracking-wider text-shadow-sm">Swipe</span>
                     </div>
 
-                    <!-- Card 2: Premium Promotions (Website) -->
-                    <div
-                        class="min-w-full md:min-w-[500px] lg:min-w-[600px] bg-gray-700 bg-opacity-70 p-4 rounded-xl shadow-lg snap-center flex flex-col">
-                        <div class="flex justify-between items-center mb-3">
-                            <div>
-                                <h4 class="text-xl font-bold text-white">Premium Promotions</h4>
-                                <span class="text-xs text-blue-400 border border-blue-400 rounded px-2 py-0.5">Website &
-                                    Automation</span>
-                            </div>
-                            <a href="https://premiumpromotions.vercel.app/" target="_blank"
-                                class="text-blue-400 hover:text-blue-300 text-sm font-semibold">Visit Site &rarr;</a>
-                        </div>
-                        <p class="text-gray-300 text-sm mb-4 h-10 overflow-hidden">
-                            Modern landing page with lead capture, chatbot, and integrated email marketing automation.
-                        </p>
-                        <div
-                            class="w-full h-[22rem] rounded-lg overflow-hidden border border-gray-600 relative group flex-grow">
-                            <iframe src="https://premiumpromotions.vercel.app/"
-                                class="w-full h-full transform scale-[1.0] origin-top-left"
-                                style="width: 100%; height: 100%; border: none;"></iframe>
-                        </div>
-                    </div>
+                    <div class="flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory custom-scrollbar px-4 w-full"
+                        style="-webkit-overflow-scrolling: touch;">
 
-                    <!-- Card 3: Driver Market (App) -->
-                    <div
-                        class="min-w-full md:min-w-[500px] lg:min-w-[600px] bg-gray-700 bg-opacity-70 p-4 rounded-xl shadow-lg snap-center flex flex-col">
-                        <div class="flex justify-between items-center mb-3">
-                            <div>
-                                <h4 class="text-xl font-bold text-white">Driver Market</h4>
-                                <span class="text-xs text-purple-400 border border-purple-400 rounded px-2 py-0.5">Web
-                                    App</span>
-                            </div>
-                            <span class="text-xs text-gray-400">Inventory Module</span>
-                        </div>
-                        <p class="text-gray-300 text-sm mb-4 h-10 overflow-hidden">
-                            Marketplace for drivers with real-time tracking. Shown: Product Management Interface.
-                        </p>
-
-                        <!-- ADD PRODUCT UI (Compact) -->
+                        <!-- Card 1: Raziel Insulation (Website) -->
                         <div
-                            class="w-full h-[22rem] rounded-lg overflow-hidden border border-gray-600 relative flex flex-col bg-gray-900 group shadow-2xl flex-grow">
-                            <!-- Mock Browser Header -->
-                            <div
-                                class="bg-gray-800 px-3 py-1.5 flex items-center gap-2 border-b border-gray-700 select-none">
-                                <div class="flex gap-1.5">
-                                    <div class="w-2.5 h-2.5 rounded-full bg-red-500"></div>
-                                    <div class="w-2.5 h-2.5 rounded-full bg-yellow-500"></div>
-                                    <div class="w-2.5 h-2.5 rounded-full bg-green-500"></div>
-                                </div>
-                                <div class="flex-1 text-center">
+                            class="min-w-full md:min-w-[500px] lg:min-w-[600px] bg-gray-700 bg-opacity-70 p-4 rounded-xl shadow-lg snap-center flex flex-col">
+                            <div class="flex justify-between items-center mb-3">
+                                <div>
+                                    <h4 class="text-xl font-bold text-white">Raziel Insulation</h4>
                                     <span
-                                        class="text-[10px] text-gray-400 font-mono bg-gray-900 px-2 py-0.5 rounded-full border border-gray-700">admin.drivermarket.com/add</span>
+                                        class="text-xs text-blue-400 border border-blue-400 rounded px-2 py-0.5">Website
+                                        &
+                                        Automation</span>
+                                </div>
+                                <a href="https://lyhack27.github.io/raziel/" target="_blank"
+                                    class="text-blue-400 hover:text-blue-300 text-sm font-semibold">Visit Site
+                                    &rarr;</a>
+                            </div>
+                            <p class="text-gray-300 text-sm mb-4 h-10 overflow-hidden">
+                                Full design, lead capture automation, chatbot integration, and automated quote
+                                calculation
+                                emails.
+                            </p>
+                            <div
+                                class="w-full h-[22rem] rounded-lg overflow-hidden border border-gray-600 relative group flex-grow">
+                                <iframe src="https://lyhack27.github.io/raziel/"
+                                    class="w-full h-full transform scale-[1.0] origin-top-left"
+                                    style="width: 100%; height: 100%; border: none;"></iframe>
+                                <div
+                                    class="absolute inset-0 bg-transparent pointer-events-none group-hover:pointer-events-auto">
                                 </div>
                             </div>
+                        </div>
 
-                            <!-- App UI -->
+                        <!-- Card 2: Premium Promotions (Website) -->
+                        <div
+                            class="min-w-full md:min-w-[500px] lg:min-w-[600px] bg-gray-700 bg-opacity-70 p-4 rounded-xl shadow-lg snap-center flex flex-col">
+                            <div class="flex justify-between items-center mb-3">
+                                <div>
+                                    <h4 class="text-xl font-bold text-white">Premium Promotions</h4>
+                                    <span
+                                        class="text-xs text-blue-400 border border-blue-400 rounded px-2 py-0.5">Website
+                                        &
+                                        Automation</span>
+                                </div>
+                                <a href="https://premiumpromotions.vercel.app/" target="_blank"
+                                    class="text-blue-400 hover:text-blue-300 text-sm font-semibold">Visit Site
+                                    &rarr;</a>
+                            </div>
+                            <p class="text-gray-300 text-sm mb-4 h-10 overflow-hidden">
+                                Modern landing page with lead capture, chatbot, and integrated email marketing
+                                automation.
+                            </p>
                             <div
-                                class="flex-1 bg-gray-900 p-4 overflow-y-auto custom-scrollbar flex items-center justify-center relative">
-                                <!-- Reduced scale for card view -->
-                                <div
-                                    class="w-full max-w-sm bg-gray-800 border border-gray-700 rounded-xl p-4 shadow-xl relative overflow-hidden transform scale-95 origin-center">
-                                    <!-- Background Glow -->
-                                    <div
-                                        class="absolute -top-10 -right-10 w-24 h-24 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob">
-                                    </div>
-                                    <div
-                                        class="absolute -bottom-10 -left-10 w-24 h-24 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-2000">
-                                    </div>
+                                class="w-full h-[22rem] rounded-lg overflow-hidden border border-gray-600 relative group flex-grow">
+                                <iframe src="https://premiumpromotions.vercel.app/"
+                                    class="w-full h-full transform scale-[1.0] origin-top-left"
+                                    style="width: 100%; height: 100%; border: none;"></iframe>
+                            </div>
+                        </div>
 
-                                    <div class="relative z-10">
-                                        <div class="flex justify-between items-center mb-4">
-                                            <h3 class="text-lg font-bold text-white flex items-center gap-2">
-                                                <span class="bg-blue-600 p-1 rounded-md">
-                                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
-                                                        viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="2" d="M12 4v16m8-8H4"></path>
-                                                    </svg>
-                                                </span>
-                                                Add Product
-                                            </h3>
-                                            <span
-                                                class="text-[10px] text-green-400 bg-green-900/30 px-1.5 py-0.5 rounded border border-green-500/30">Active</span>
+                        <!-- Card 3: Driver Market (App) -->
+                        <div
+                            class="min-w-full md:min-w-[500px] lg:min-w-[600px] bg-gray-700 bg-opacity-70 p-4 rounded-xl shadow-lg snap-center flex flex-col">
+                            <div class="flex justify-between items-center mb-3">
+                                <div>
+                                    <h4 class="text-xl font-bold text-white">Driver Market</h4>
+                                    <span
+                                        class="text-xs text-purple-400 border border-purple-400 rounded px-2 py-0.5">Web
+                                        App</span>
+                                </div>
+                                <span class="text-xs text-gray-400">Inventory Module</span>
+                            </div>
+                            <p class="text-gray-300 text-sm mb-4 h-10 overflow-hidden">
+                                Marketplace for drivers with real-time tracking. Shown: Product Management Interface.
+                            </p>
+
+                            <!-- ADD PRODUCT UI (Compact) -->
+                            <div
+                                class="w-full h-[22rem] rounded-lg overflow-hidden border border-gray-600 relative flex flex-col bg-gray-900 group shadow-2xl flex-grow">
+                                <!-- Mock Browser Header -->
+                                <div
+                                    class="bg-gray-800 px-3 py-1.5 flex items-center gap-2 border-b border-gray-700 select-none">
+                                    <div class="flex gap-1.5">
+                                        <div class="w-2.5 h-2.5 rounded-full bg-red-500"></div>
+                                        <div class="w-2.5 h-2.5 rounded-full bg-yellow-500"></div>
+                                        <div class="w-2.5 h-2.5 rounded-full bg-green-500"></div>
+                                    </div>
+                                    <div class="flex-1 text-center">
+                                        <span
+                                            class="text-[10px] text-gray-400 font-mono bg-gray-900 px-2 py-0.5 rounded-full border border-gray-700">admin.drivermarket.com/add</span>
+                                    </div>
+                                </div>
+
+                                <!-- App UI -->
+                                <div
+                                    class="flex-1 bg-gray-900 p-4 overflow-y-auto custom-scrollbar flex items-center justify-center relative">
+                                    <!-- Reduced scale for card view -->
+                                    <div
+                                        class="w-full max-w-sm bg-gray-800 border border-gray-700 rounded-xl p-4 shadow-xl relative overflow-hidden transform scale-95 origin-center">
+                                        <!-- Background Glow -->
+                                        <div
+                                            class="absolute -top-10 -right-10 w-24 h-24 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob">
+                                        </div>
+                                        <div
+                                            class="absolute -bottom-10 -left-10 w-24 h-24 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-2000">
                                         </div>
 
-                                        <div class="space-y-3">
-                                            <!-- Image Upload Mock -->
-                                            <div
-                                                class="border-2 border-dashed border-gray-600 hover:border-blue-500 rounded-lg p-3 transition-colors cursor-pointer group text-center bg-gray-900/50">
-                                                <div class="flex flex-col items-center justify-center pt-1 pb-1">
-                                                    <svg class="w-5 h-5 mb-1 text-gray-400 group-hover:text-blue-500 transition-colors"
-                                                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="2"
-                                                            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
-                                                        </path>
-                                                    </svg>
-                                                    <p class="text-xs text-gray-500">Upload Image</p>
-                                                </div>
+                                        <div class="relative z-10">
+                                            <div class="flex justify-between items-center mb-4">
+                                                <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                                                    <span class="bg-blue-600 p-1 rounded-md">
+                                                        <svg class="w-3 h-3 text-white" fill="none"
+                                                            stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M12 4v16m8-8H4"></path>
+                                                        </svg>
+                                                    </span>
+                                                    Add Product
+                                                </h3>
+                                                <span
+                                                    class="text-[10px] text-green-400 bg-green-900/30 px-1.5 py-0.5 rounded border border-green-500/30">Active</span>
                                             </div>
 
-                                            <!-- Inputs -->
-                                            <div class="grid grid-cols-2 gap-3">
-                                                <div class="col-span-2">
-                                                    <label
-                                                        class="block mb-1 text-[10px] font-medium text-gray-400 uppercase">Name</label>
-                                                    <input type="text"
-                                                        class="bg-gray-900/50 border border-gray-600 text-white text-xs rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2 placeholder-gray-600"
-                                                        placeholder="Product Name">
-                                                </div>
-                                                <div>
-                                                    <label
-                                                        class="block mb-1 text-[10px] font-medium text-gray-400 uppercase">Price</label>
-                                                    <div class="relative">
-                                                        <div
-                                                            class="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
-                                                            <span class="text-gray-500 text-xs">$</span>
-                                                        </div>
-                                                        <input type="number"
-                                                            class="bg-gray-900/50 border border-gray-600 text-white text-xs rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full pl-5 p-2 placeholder-gray-600"
-                                                            placeholder="0.00">
+                                            <div class="space-y-3">
+                                                <!-- Image Upload Mock -->
+                                                <div
+                                                    class="border-2 border-dashed border-gray-600 hover:border-blue-500 rounded-lg p-3 transition-colors cursor-pointer group text-center bg-gray-900/50">
+                                                    <div class="flex flex-col items-center justify-center pt-1 pb-1">
+                                                        <svg class="w-5 h-5 mb-1 text-gray-400 group-hover:text-blue-500 transition-colors"
+                                                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
+                                                            </path>
+                                                        </svg>
+                                                        <p class="text-xs text-gray-500">Upload Image</p>
                                                     </div>
                                                 </div>
-                                                <div>
-                                                    <label
-                                                        class="block mb-1 text-[10px] font-medium text-gray-400 uppercase">Category</label>
-                                                    <select
-                                                        class="bg-gray-900/50 border border-gray-600 text-gray-300 text-xs rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2">
-                                                        <option>Parts</option>
-                                                        <option>Tools</option>
-                                                    </select>
-                                                </div>
-                                            </div>
 
-                                            <!-- Buttons -->
-                                            <div class="flex items-center justify-end space-x-2 pt-1">
-                                                <button
-                                                    class="text-gray-400 hover:text-white text-xs font-medium transition-colors">Cancel</button>
-                                                <button
-                                                    class="text-white bg-gradient-to-r from-blue-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-800 font-medium rounded-md text-xs px-3 py-1.5 text-center transition-all shadow-lg shadow-blue-500/30">
-                                                    Save
-                                                </button>
+                                                <!-- Inputs -->
+                                                <div class="grid grid-cols-2 gap-3">
+                                                    <div class="col-span-2">
+                                                        <label
+                                                            class="block mb-1 text-[10px] font-medium text-gray-400 uppercase">Name</label>
+                                                        <input type="text"
+                                                            class="bg-gray-900/50 border border-gray-600 text-white text-xs rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2 placeholder-gray-600"
+                                                            placeholder="Product Name">
+                                                    </div>
+                                                    <div>
+                                                        <label
+                                                            class="block mb-1 text-[10px] font-medium text-gray-400 uppercase">Price</label>
+                                                        <div class="relative">
+                                                            <div
+                                                                class="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
+                                                                <span class="text-gray-500 text-xs">$</span>
+                                                            </div>
+                                                            <input type="number"
+                                                                class="bg-gray-900/50 border border-gray-600 text-white text-xs rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full pl-5 p-2 placeholder-gray-600"
+                                                                placeholder="0.00">
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <label
+                                                            class="block mb-1 text-[10px] font-medium text-gray-400 uppercase">Category</label>
+                                                        <select
+                                                            class="bg-gray-900/50 border border-gray-600 text-gray-300 text-xs rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2">
+                                                            <option>Parts</option>
+                                                            <option>Tools</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Buttons -->
+                                                <div class="flex items-center justify-end space-x-2 pt-1">
+                                                    <button
+                                                        class="text-gray-400 hover:text-white text-xs font-medium transition-colors">Cancel</button>
+                                                    <button
+                                                        class="text-white bg-gradient-to-r from-blue-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-800 font-medium rounded-md text-xs px-3 py-1.5 text-center transition-all shadow-lg shadow-blue-500/30">
+                                                        Save
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Card 4: Telegram Bot (Video) -->
-                    <div
-                        class="min-w-full md:min-w-[500px] lg:min-w-[600px] bg-gray-700 bg-opacity-70 p-4 rounded-xl shadow-lg snap-center flex flex-col">
-                        <div class="flex justify-between items-center mb-3">
-                            <div>
-                                <h4 class="text-xl font-bold text-white">Crypto Trading Bot</h4>
-                                <span
-                                    class="text-xs text-green-400 border border-green-400 rounded px-2 py-0.5">Automation
-                                    & Telegram</span>
-                            </div>
-                        </div>
-                        <p class="text-gray-300 text-sm mb-4 h-10 overflow-hidden">
-                            Real-time market analysis, automated execution, and alerts directly via Telegram.
-                        </p>
+                        <!-- Card 4: Telegram Bot (Video) -->
                         <div
-                            class="w-full h-[22rem] bg-black rounded-lg overflow-hidden border border-gray-600 relative group flex items-center justify-center flex-grow">
-                            <div class="absolute inset-0 flex items-center justify-center flex-col">
-                                <svg class="w-16 h-16 text-red-600 opacity-80 mb-3 transition-transform transform group-hover:scale-110"
-                                    fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
-                                </svg>
-                                <h5 class="text-white text-lg font-bold drop-shadow-md">Watch Demo</h5>
-                                <p class="text-gray-400 text-xs mt-1">Coming Soon</p>
+                            class="min-w-full md:min-w-[500px] lg:min-w-[600px] bg-gray-700 bg-opacity-70 p-4 rounded-xl shadow-lg snap-center flex flex-col">
+                            <div class="flex justify-between items-center mb-3">
+                                <div>
+                                    <h4 class="text-xl font-bold text-white">Crypto Trading Bot</h4>
+                                    <span
+                                        class="text-xs text-green-400 border border-green-400 rounded px-2 py-0.5">Automation
+                                        & Telegram</span>
+                                </div>
+                            </div>
+                            <p class="text-gray-300 text-sm mb-4 h-10 overflow-hidden">
+                                Real-time market analysis, automated execution, and alerts directly via Telegram.
+                            </p>
+                            <div
+                                class="w-full h-[22rem] bg-black rounded-lg overflow-hidden border border-gray-600 relative group flex items-center justify-center flex-grow">
+                                <div class="absolute inset-0 flex items-center justify-center flex-col">
+                                    <svg class="w-16 h-16 text-red-600 opacity-80 mb-3 transition-transform transform group-hover:scale-110"
+                                        fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
+                                    </svg>
+                                    <h5 class="text-white text-lg font-bold drop-shadow-md">Watch Demo</h5>
+                                    <p class="text-gray-400 text-xs mt-1">Coming Soon</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                </div> <!-- End of Scrollable Container -->
+                    </div> <!-- End of Scrollable Container -->
+                </div> <!-- End of Wrapper -->
             </div> <!-- End of Featured Projects Section -->
 
             <div id="intro-question"
