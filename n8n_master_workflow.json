@@ -1,5 +1,5 @@
 {
-    "name": "solid AI - Master Workflow (Chat & Email)",
+    "name": "solid AI - Master Workflow (Chat & Email) - FIXED",
     "nodes": [
         {
             "parameters": {
@@ -19,18 +19,17 @@
         },
         {
             "parameters": {
-                "dataType": "string",
-                "value1": "={{ $json.body.serviceType }}",
-                "rules": {
-                    "rules": [
+                "conditions": {
+                    "string": [
                         {
+                            "value1": "={{ $json.body.serviceType }}",
                             "value2": "Chat"
                         }
                     ]
                 }
             },
-            "name": "Is Chat or Email?",
-            "type": "n8n-nodes-base.switch",
+            "name": "Is Chat?",
+            "type": "n8n-nodes-base.if",
             "typeVersion": 1,
             "position": [
                 300,
@@ -178,14 +177,14 @@
             "main": [
                 [
                     {
-                        "node": "Is Chat or Email?",
+                        "node": "Is Chat?",
                         "type": "main",
                         "index": 0
                     }
                 ]
             ]
         },
-        "Is Chat or Email?": {
+        "Is Chat?": {
             "main": [
                 [
                     {
