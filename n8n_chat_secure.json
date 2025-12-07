@@ -1,0 +1,72 @@
+{
+    "name": "Secure Gemini Chat - solid AI",
+    "nodes": [
+        {
+            "parameters": {
+                "httpMethod": "POST",
+                "path": "chat-secure",
+                "options": {}
+            },
+            "name": "Chat Webhook",
+            "type": "n8n-nodes-base.webhook",
+            "typeVersion": 1,
+            "position": [
+                100,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyCVqJGBnJIgNb73heK3RIclkIA0ujSR7XY",
+                "method": "POST",
+                "jsonParameters": true,
+                "options": {},
+                "bodyParametersJson": "={{ $json.body }}"
+            },
+            "name": "Gemini API Call",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 1,
+            "position": [
+                350,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "options": {}
+            },
+            "name": "Format Response",
+            "type": "n8n-nodes-base.function",
+            "typeVersion": 1,
+            "position": [
+                600,
+                300
+            ],
+            "functionCode": "const response = items[0].json;\n\n// Extract the text from Gemini response structure\nlet reply = 'Sorry, I am having trouble thinking right now.';\nif (response.candidates && response.candidates[0].content && response.candidates[0].content.parts) {\n  reply = response.candidates[0].content.parts[0].text;\n}\n\nreturn [{\n  json: {\n    reply: reply\n  }\n}];"
+        }
+    ],
+    "connections": {
+        "Chat Webhook": {
+            "main": [
+                [
+                    {
+                        "node": "Gemini API Call",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Gemini API Call": {
+            "main": [
+                [
+                    {
+                        "node": "Format Response",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    }
+}
