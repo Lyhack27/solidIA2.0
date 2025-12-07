@@ -1,5 +1,5 @@
 {
-    "name": "solid AI - Master Workflow (Chat & Email) - FIXED",
+    "name": "solid AI - Master Workflow (Chat & Email) - FIXED v2",
     "nodes": [
         {
             "parameters": {
@@ -20,10 +20,10 @@
         {
             "parameters": {
                 "conditions": {
-                    "string": [
+                    "boolean": [
                         {
-                            "value1": "={{ $json.body.serviceType }}",
-                            "value2": "Chat"
+                            "value1": "={{ $json.body.serviceType === 'Chat' }}",
+                            "value2": true
                         }
                     ]
                 }
@@ -80,7 +80,7 @@
         },
         {
             "parameters": {
-                "functionCode": "// --- LEGACY EMAIL PROCESSING --- \nconst input = items[0].json.body;\n\n// 1. Extract Data\nconst contact = input.contact || {};\nconst firstName = contact.firstName || input.firstName || input.name || 'Unknown';\nconst lastName = contact.lastName || input.lastName || '';\nconst fullName = `${firstName} ${lastName}`.trim();\nconst phone = contact.phone || input.phone || 'N/A';\nconst message = input.message || contact.message || 'No message provided';\n\n// 2. Client Email Validation\nlet clientEmail = null;\nlet rawEmail = contact.email || input.email;\nif (rawEmail && typeof rawEmail === 'string' && rawEmail.includes('@')) {\n    clientEmail = rawEmail.trim();\n}\n\n// 3. Admin Email Content\nconst htmlBody = `\n  <h2>New Inquiry Received</h2>\n  <p><strong>Name:</strong> ${fullName}</p>\n  <p><strong>Email:</strong> ${clientEmail || 'NOT PROVIDED'}</p>\n  <p><strong>Phone:</strong> ${phone}</p>\n  <p><strong>Message:</strong></p>\n  <blockquote style=\"background: #f0f0f0; padding: 10px;\">${message}</blockquote>\n`;\n\nconst subject = input.serviceType ? `[${input.serviceType}] ${fullName}` : `New Inquiry: ${fullName}`; \n\nreturn [{\n    json: {\n        subject: subject,\n        htmlBody: htmlBody,\n        clientEmail: clientEmail,\n        hasClientEmail: !!clientEmail\n    }\n}];"
+                "functionCode": "// --- ROBUST EMAIL EXTRACTION --- \n// Get the full body directly (sometimes n8n nests it differently based on triggers)\nconst input = items[0].json.body || items[0].json;\n\n// Debug: Log input to see structure if needed\n// console.log(input);\n\n// 1. Extract Contact Info with Multiple Fallbacks\nconst contact = input.contact || {};\nconst firstName = contact.firstName || input.firstName || input.name || 'Unknown';\nconst lastName = contact.lastName || input.lastName || '';\nconst fullName = `${firstName} ${lastName}`.trim();\nconst phone = contact.phone || input.phone || 'N/A';\nconst message = input.message || contact.message || 'No message provided';\nconst serviceType = input.serviceType || 'General Inquiry';\n\n// 2. Client Email Finding Strategy\n// We look for email in multiple possible locations\nlet rawEmail = contact.email || input.email;\n\nlet clientEmail = null;\nif (rawEmail && typeof rawEmail === 'string' && rawEmail.includes('@')) {\n    clientEmail = rawEmail.trim();\n}\n\n// 3. Construct Admin Email\nconst htmlBody = `\n  <h2>New Inquiry Received</h2>\n  <p><strong>Type:</strong> ${serviceType}</p>\n  <p><strong>Name:</strong> ${fullName}</p>\n  <p><strong>Email:</strong> ${clientEmail || 'NOT PROVIDED - REPLY MANUAL REQUIRED'}</p>\n  <p><strong>Phone:</strong> ${phone}</p>\n  <p><strong>Message:</strong></p>\n  <blockquote style=\"background: #f0f0f0; padding: 10px;\">${message}</blockquote>\n`;\n\nconst subject = `[${serviceType}] New Inquiry from ${fullName}`; \n\nreturn [{\n    json: {\n        subject: subject,\n        htmlBody: htmlBody,\n        clientEmail: clientEmail,\n        // Crucial flag for the next IF node\n        hasValidClientEmail: (clientEmail !== null && clientEmail.length > 5)\n    }\n}];"
             },
             "name": "Process Email Data",
             "type": "n8n-nodes-base.function",
@@ -119,13 +119,13 @@
                 "conditions": {
                     "boolean": [
                         {
-                            "value1": "={{$node[\"Process Email Data\"].json[\"hasClientEmail\"]}}",
+                            "value1": "={{ $node[\"Process Email Data\"].json[\"hasValidClientEmail\"] }}",
                             "value2": true
                         }
                     ]
                 }
             },
-            "name": "Check Client Email",
+            "name": "Has Client Email?",
             "type": "n8n-nodes-base.if",
             "typeVersion": 1,
             "position": [
@@ -147,7 +147,7 @@
             "type": "n8n-nodes-base.gmail",
             "typeVersion": 1,
             "position": [
-                1000,
+                1050,
                 550
             ],
             "credentials": {
@@ -167,7 +167,7 @@
             "type": "n8n-nodes-base.respondToWebhook",
             "typeVersion": 1,
             "position": [
-                1000,
+                1050,
                 350
             ]
         }
@@ -233,7 +233,7 @@
                         "index": 0
                     },
                     {
-                        "node": "Check Client Email",
+                        "node": "Has Client Email?",
                         "type": "main",
                         "index": 0
                     }
@@ -251,7 +251,7 @@
                 ]
             ]
         },
-        "Check Client Email": {
+        "Has Client Email?": {
             "main": [
                 [
                     {
