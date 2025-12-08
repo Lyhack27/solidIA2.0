@@ -1200,255 +1200,133 @@
             position: fixed;
             bottom: 20px;
             right: 20px;
-            z-index: 9999;
-        }
 
-        .n8n-chat-container {
-            position: absolute;
-            bottom: 80px;
-            /* Position above the toggle button */
-            right: 0;
-            width: 400px;
-            height: 600px;
-            max-width: 90vw;
-            max-height: 70vh;
-
-            /* Hidden State: Element exists but is invisible */
-            visibility: hidden;
-            opacity: 0;
-            transform: translateY(20px);
-            pointer-events: none;
-
-            background-color: #1d1d1d;
-            border-radius: 12px;
-            border: 1px solid #333;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-            overflow: hidden;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-
-        .n8n-chat-container.open {
-            visibility: visible;
-            opacity: 1;
-            transform: translateY(0);
-            pointer-events: auto;
-        }
-
-        .n8n-chat-toggle {
-            position: relative;
-            z-index: 10000;
-            display: flex;
-            align-items: center;
-            background-color: #1d1d1d;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-            transition: all 0.3s ease;
-            border: 1px solid #4ecd97;
-            user-select: none;
-        }
-
-        .n8n-chat-toggle:hover {
-            transform: scale(1.05);
-            background-color: #252525;
-            box-shadow: 0 6px 16px rgba(78, 205, 151, 0.2);
-        }
-
-        .n8n-chat-toggle img {
-            width: 28px;
-            height: 28px;
-            margin-right: 12px;
-            object-fit: contain;
-        }
-
-        .n8n-chat-toggle span {
-            font-weight: 600;
-            font-family: 'Inter', sans-serif;
-            font-size: 1rem;
-        }
-    </style>
-
-    <div class="n8n-chat-widget">
-        <div id="n8n-chat" class="n8n-chat-container"></div>
-        <div class="n8n-chat-toggle" id="n8n-chat-toggle-btn">
-            <img src="logo/logo.png" alt="Chat Icon"
-                onerror="this.onerror=null;this.src='https://placehold.co/40x40?text=Chat';">
-            <span>Chat with us</span>
-        </div>
-    </div>
-
-    <script type="module">
-        import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
-
-        createChat({
-            webhookUrl: 'https://n8n.solidiaai.com/webhook/974f29f6-1eee-4e56-aabc-ccb9cccccaef/chat',
-            target: '#n8n-chat',
-            chatInputKey: 'chatInput',
-            chatSessionKey: 'sessionId',
-            metadata: {},
-            showWelcomeScreen: true,
-            defaultLanguage: 'es',
-            initialMessages: [
-                'Hola 👋 Soy el Asistente Virtual de Solid AI.',
-                '¿En qué puedo ayudarte hoy?'
-            ],
-            i18n: {
-                en: {
-                    title: 'Solid AI - Asistente',
-                    subtitle: 'Consultoría y Automatización',
-                    getStarted: 'Iniciar Chat',
-                    inputPlaceholder: 'Escribe aquí...',
-                },
-            },
-            style: {
-                backgroundColor: '#1d1d1d',
-                tokenColor: '#4ecd97',
-            }
-        });
-
-        // Toggle Logic
-        const toggleBtn = document.getElementById('n8n-chat-toggle-btn');
-        const chatContainer = document.getElementById('n8n-chat');
-
-        toggleBtn.addEventListener('click', () => {
-            chatContainer.classList.toggle('open');
-        });
-    </script>
-
-    <!-- Language Translation Script -->
-    <script>
-        const translations = {
             es: {
                 // Navigation
                 nav_home: "Inicio",
-                nav_news: "Últimas Noticias",
-                nav_who: "Quiénes Somos",
-                nav_services: "Servicios",
-                nav_ai: "Nuestra IA",
-                nav_instagram: "Instagram Auto",
-                nav_consulting: "Consultoría",
-                nav_careers: "Carreras",
-                nav_privacy: "Privacidad",
+                    nav_news: "Últimas Noticias",
+                    nav_who: "Quiénes Somos",
+                    nav_services: "Servicios",
+                    nav_ai: "Nuestra IA",
+                    nav_instagram: "Instagram Auto",
+                    nav_consulting: "Consultoría",
+                    nav_careers: "Carreras",
+                    nav_privacy: "Privacidad",
 
-                // Hero
-                hero_tagline: "Agencia de Automatización IA y Desarrollo de Software",
-                hero_whatsapp: "Contáctanos por WhatsApp",
+                    // Hero
+                    hero_tagline: "Agencia de Automatización IA y Desarrollo de Software",
+                    hero_whatsapp: "Contáctanos por WhatsApp",
 
-                // Services
-                section_services_title: "Nuestros Servicios Principales",
-                service_consulting: "Consultoría IA",
-                service_consulting_desc: "Guía estratégica para integrar IA en tu negocio con impacto medible.",
-                service_automation: "Automatización a Medida",
-                service_automation_desc: "Flujos de n8n personalizados para optimizar tareas y eficiencia.",
-                service_software: "Desarrollo de Software",
-                service_software_desc: "Soluciones de software personalizadas con IA desde cero.",
+                    // Services
+                    section_services_title: "Nuestros Servicios Principales",
+                    service_consulting: "Consultoría IA",
+                    service_consulting_desc: "Guía estratégica para integrar IA en tu negocio con impacto medible.",
+                    service_automation: "Automatización a Medida",
+                    service_automation_desc: "Flujos de n8n personalizados para optimizar tareas y eficiencia.",
+                    service_software: "Desarrollo de Software",
+                    service_software_desc: "Soluciones de software personalizadas con IA desde cero.",
 
-                // Why AI
-                section_why_ai: "Por qué la IA es Esencial",
-                chart_costs: "Reducir Costos Operativos",
-                chart_revenue: "Impulsar Crecimiento de Ingresos",
+                    // Why AI
+                    section_why_ai: "Por qué la IA es Esencial",
+                    chart_costs: "Reducir Costos Operativos",
+                    chart_revenue: "Impulsar Crecimiento de Ingresos",
 
-                // Testimonials (New)
-                section_testimonials: "Lo que Dicen Nuestros Clientes",
-                testim_1_text: "La automatización de solid AI nos ahorró 20 horas semanales en entrada de datos. El chatbot funciona de maravilla.",
-                testim_2_text: "El software a medida que construyeron para nuestro inventario ha cambiado las reglas del juego.",
+                    // Testimonials (New)
+                    section_testimonials: "Lo que Dicen Nuestros Clientes",
+                    testim_1_text: "La automatización de solid AI nos ahorró 20 horas semanales en entrada de datos. El chatbot funciona de maravilla.",
+                    testim_2_text: "El software a medida que construyeron para nuestro inventario ha cambiado las reglas del juego.",
 
-                // Featured
-                section_featured: "Trabajos y Soluciones Destacados",
-                featured_desc: "Desliza para ver nuestros últimos sitios web, apps y bots.",
-                swipe_hint: "DESLIZA",
+                    // Featured
+                    section_featured: "Trabajos y Soluciones Destacados",
+                    featured_desc: "Desliza para ver nuestros últimos sitios web, apps y bots.",
+                    swipe_hint: "DESLIZA",
 
-                // Intro Form
-                intro_title: "Cuéntanos qué proceso te gustaría automatizar",
-                intro_desc: "Envíanos un mensaje sobre lo que necesitas: Chatbot IA, SEO, automatización de Instagram, agenda o LinkedIn. Construiremos la solución perfecta.",
-                form_name: "Tu Nombre:",
-                form_email: "Tu Email:",
-                form_phone: "Tu Teléfono:",
-                form_placeholder_msg: "Describe tus ideas iniciales o problema aquí...",
-                btn_send_inquiry: "Enviar Consulta",
-                btn_sending: "Enviando...",
+                    // Intro Form
+                    intro_title: "Cuéntanos qué proceso te gustaría automatizar",
+                    intro_desc: "Envíanos un mensaje sobre lo que necesitas: Chatbot IA, SEO, automatización de Instagram, agenda o LinkedIn. Construiremos la solución perfecta.",
+                    form_name: "Tu Nombre:",
+                    form_email: "Tu Email:",
+                    form_phone: "Tu Teléfono:",
+                    form_placeholder_msg: "Describe tus ideas iniciales o problema aquí...",
+                    btn_send_inquiry: "Enviar Consulta",
+                    btn_sending: "Enviando...",
 
-                // Who We Are section
-                section_who_title: "Quiénes Somos",
-                role_ceo: "CEO y Estratega Principal de IA",
-                role_marcom: "Jefa de Marketing y Comunicaciones IA",
-                opt_sales: "Aumentar Ventas y Marketing",
-                opt_costs: "Reducir Costos Operativos",
-                opt_service: "Mejorar Servicio al Cliente",
-                opt_auto: "Automatizar Tareas Repetitivas",
-                label_challenge: "3. Describe el desafío específico.",
-                btn_generate: "Generar Idea de Solución IA",
+                    // Who We Are section
+                    section_who_title: "Quiénes Somos",
+                    role_ceo: "CEO y Estratega Principal de IA",
+                    role_marcom: "Jefa de Marketing y Comunicaciones IA",
+                    opt_sales: "Aumentar Ventas y Marketing",
+                    opt_costs: "Reducir Costos Operativos",
+                    opt_service: "Mejorar Servicio al Cliente",
+                    opt_auto: "Automatizar Tareas Repetitivas",
+                    label_challenge: "3. Describe el desafío específico.",
+                    btn_generate: "Generar Idea de Solución IA",
 
-                // Consulting (Urgency Added)
-                section_consulting_title: "Transformación IA y Empoderamiento",
-                consulting_intro: "Nuestro servicio intensivo de consultoría de una semana empodera a tu equipo con habilidades de IA.",
-                day_1: "Día 1: Descubrimiento y Diagnóstico",
-                day_2_4: "Días 2-4: Taller de Empoderamiento IA",
-                day_5: "Día 5: Estrategia y Inicio",
-                btn_request_consult: "Solicitar (Solo 2 cupos/mes)",
+                    // Consulting (Urgency Added)
+                    section_consulting_title: "Transformación IA y Empoderamiento",
+                    consulting_intro: "Nuestro servicio intensivo de consultoría de una semana empodera a tu equipo con habilidades de IA.",
+                    day_1: "Día 1: Descubrimiento y Diagnóstico",
+                    day_2_4: "Días 2-4: Taller de Empoderamiento IA",
+                    day_5: "Día 5: Estrategia y Inicio",
+                    btn_request_consult: "Solicitar (Solo 2 cupos/mes)",
 
-                // Careers
-                section_careers_title: "Carreras",
-                careers_desc: "Únete a solid AI y sé parte de un equipo dinámico a la vanguardia de la innovación en IA.",
+                    // Careers
+                    section_careers_title: "Carreras",
+                    careers_desc: "Únete a solid AI y sé parte de un equipo dinámico a la vanguardia de la innovación en IA.",
 
-                // Footer
-                footer_quick_links: "Enlaces Rápidos",
-                footer_contact: "Contáctanos",
-                footer_follow: "Síguenos"
+                    // Footer
+                    footer_quick_links: "Enlaces Rápidos",
+                    footer_contact: "Contáctanos",
+                    footer_follow: "Síguenos"
             }
         }
 
-            ;
+        ;
 
         function detectAndApplyLanguage() {
-            const userLang = navigator.language || navigator.userLanguage;
+            const userLang=navigator.language || navigator.userLanguage;
 
             // Check if language starts with 'es' (es, es-ES, es-MX, etc.)
-            if (userLang.startsWith('es')) {
+            if (userLang.startsWith ('es')) {
                 applyLanguage('es');
             }
         }
 
         function applyLanguage(lang) {
-            if (!translations[lang]) return;
+            if ( !translations[lang]) return;
 
-            const elements = document.querySelectorAll('[data-i18n]');
+            const elements=document.querySelectorAll('[data-i18n]');
 
-            elements.forEach(el => {
-                const key = el.getAttribute('data-i18n');
+            elements.forEach(el=> {
+                    const key=el.getAttribute('data-i18n');
 
-                if (translations[lang][key]) {
+                    if (translations[lang][key]) {
 
-                    // Check if input/textarea placeholder or textContent
-                    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-                        el.placeholder = translations[lang][key];
+                        // Check if input/textarea placeholder or textContent
+                        if (el.tagName==='INPUT' || el.tagName==='TEXTAREA') {
+                            el.placeholder=translations[lang][key];
+                        }
+
+                        else {
+                            el.textContent=translations[lang][key];
+                        }
                     }
-
-                    else {
-                        el.textContent = translations[lang][key];
-                    }
-                }
-            });
+                });
 
             // Update Select Options manually if needed, or by finding them
-            if (lang === 'es') {
-                const goalSelect = document.getElementById('goalSelect');
+            if (lang==='es') {
+                const goalSelect=document.getElementById('goalSelect');
 
                 if (goalSelect) {
-                    goalSelect.options[0].text = translations.es.opt_select;
-                    goalSelect.options[1].text = translations.es.opt_sales;
-                    goalSelect.options[2].text = translations.es.opt_costs;
-                    goalSelect.options[3].text = translations.es.opt_service;
-                    goalSelect.options[4].text = translations.es.opt_auto;
+                    goalSelect.options[0].text=translations.es.opt_select;
+                    goalSelect.options[1].text=translations.es.opt_sales;
+                    goalSelect.options[2].text=translations.es.opt_costs;
+                    goalSelect.options[3].text=translations.es.opt_service;
+                    goalSelect.options[4].text=translations.es.opt_auto;
                 }
             }
         }
 
         // Run on load
         document.addEventListener('DOMContentLoaded', detectAndApplyLanguage);
-    </script>
-</body>
-
-</html>
+        </script></body></html>
