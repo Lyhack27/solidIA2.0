@@ -1297,8 +1297,8 @@
             ],
             i18n: {
                 en: {
-                    title: '',
-                    subtitle: '',
+                    title: 'Solid AI', /* Text hidden by CSS, used for layout */
+                    subtitle: 'Schedule an appointment with Solid AI Assistance',
                     getStarted: 'Iniciar Chat',
                     inputPlaceholder: 'Escribe aquí...',
                 },
@@ -1324,17 +1324,21 @@
                         const style = iframe.contentWindow.document.createElement('style');
                         style.id = 'custom-header-style';
                         style.textContent = `
-                                .n8n-chat-header-branding {
+                                .n8n-chat-header-title {
+                                    color: transparent !important;
                                     background-image: url('logo/logo.png') !important;
                                     background-size: contain !important;
                                     background-repeat: no-repeat !important;
                                     background-position: center !important;
+                                    height: 35px !important;
                                     width: 100% !important;
-                                    height: 40px !important;
                                     display: block !important;
+                                    margin-bottom: 5px !important;
                                 }
-                                .n8n-chat-header-title, .n8n-chat-header-subtitle {
-                                    display: none !important;
+                                .n8n-chat-header-subtitle {
+                                    display: block !important;
+                                    font-size: 13px !important;
+                                    text-align: center !important;
                                 }
                                 /* Force Input Visibility */
                                 .n8n-chat-input-container {
