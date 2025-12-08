@@ -1282,6 +1282,31 @@
     <script type="module">
         import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
 
+        // Detect user language
+        const userLang = navigator.language || navigator.userLanguage;
+        const isSpanish = userLang.startsWith('es');
+        const langCode = isSpanish ? 'es' : 'en';
+
+        // Define specific texts based on language
+        const i18nConfig = {
+            en: {
+                title: 'Solid AI',
+                subtitle: 'Schedule an appointment with Solid AI Assistance',
+                getStarted: 'Start Chat',
+                inputPlaceholder: 'Type here...',
+            },
+            es: {
+                title: 'Solid AI',
+                subtitle: 'Agenda una cita con Solid AI Assistance',
+                getStarted: 'Iniciar Chat',
+                inputPlaceholder: 'Escribe aquí...',
+            }
+        };
+
+        const initialMessagesData = isSpanish
+            ? ['Hola 👋 Soy el Asistente Virtual de Solid AI.', '¿En qué puedo ayudarte hoy?']
+            : ['Hello 👋 I am the Solid AI Virtual Assistant.', 'How can I help you today?'];
+
         createChat({
             webhookUrl: 'https://n8n.solidiaai.com/webhook/974f29f6-1eee-4e56-aabc-ccb9cccccaef/chat',
             target: '#n8n-chat',
@@ -1289,19 +1314,11 @@
             chatInputKey: 'chatInput',
             chatSessionKey: 'sessionId',
             metadata: {},
-            showWelcomeScreen: false, /* Force skip welcome screen */
-            defaultLanguage: 'es',
-            initialMessages: [
-                'Hola 👋 Soy el Asistente Virtual de Solid AI.',
-                '¿En qué puedo ayudarte hoy?'
-            ],
+            showWelcomeScreen: false,
+            defaultLanguage: langCode,
+            initialMessages: initialMessagesData,
             i18n: {
-                es: {
-                    title: 'Solid AI', /* Text hidden by CSS, used for layout */
-                    subtitle: 'Schedule an appointment with Solid AI Assistance',
-                    getStarted: 'Iniciar Chat',
-                    inputPlaceholder: 'Escribe aquí...',
-                },
+                [langCode]: i18nConfig[langCode]
             },
             style: {
                 backgroundColor: '#1d1d1d',
