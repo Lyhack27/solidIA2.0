@@ -1193,315 +1193,116 @@
         });
     </script>
 
-    <!-- Chatbot Widget -->
-    <div id="chatbot-container" class="fixed bottom-6 right-6 z-50 flex flex-col items-end">
-        <!-- Chat Window -->
-        <div id="chat-window"
-            class="bg-gray-800 border border-gray-700 rounded-lg shadow-2xl w-96 h-[32rem] flex flex-col mb-4 hidden transition-all duration-300 transform origin-bottom-right">
-            <!-- Header -->
-            <div class="bg-gray-900 p-4 rounded-t-lg flex justify-between items-center border-b border-gray-700">
-                <div class="flex items-center space-x-2">
-                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
-                    <h3 class="text-white font-bold">solid AI Assistant</h3>
-                </div>
-                <button id="close-chat" class="text-gray-400 hover:text-white focus:outline-none">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
-                        </path>
-                    </svg>
-                </button>
-            </div>
+    <!-- New Chatbot Widget -->
+    <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
+    <style>
+        .n8n-chat-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 10px;
+        }
 
-            <!-- Messages Area -->
-            <div id="chat-messages" class="flex-1 p-4 overflow-y-auto space-y-4 bg-gray-800">
-                <!-- Welcome Message -->
-                <div class="flex justify-start">
-                    <div class="bg-gray-700 text-gray-200 rounded-lg p-3 max-w-[80%] text-sm">
-                        Hello! I'm the solid AI assistant. How can I help you today? If you're interested in our
-                        services, I can also help you get a quote.
-                    </div>
-                </div>
-            </div>
+        .n8n-chat-container {
+            display: none;
+            /* Hidden by default */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            border-radius: 12px;
+            overflow: hidden;
+            background-color: #1d1d1d;
+        }
 
-            <!-- Input Area -->
-            <div class="p-4 bg-gray-900 rounded-b-lg border-t border-gray-700">
-                <form id="chat-form" class="flex space-x-2">
-                    <input type="text" id="chat-input"
-                        class="flex-1 bg-gray-800 text-white border border-gray-600 rounded-full px-4 py-2 focus:outline-none focus:border-blue-500 text-sm"
-                        placeholder="Type your message...">
-                    <button type="submit"
-                        class="bg-blue-600 hover:bg-blue-700 text-white rounded-full p-2 focus:outline-none transition duration-200">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
-                        </svg>
-                    </button>
-                </form>
-            </div>
+        .n8n-chat-container.open {
+            display: block;
+        }
+
+        .n8n-chat-toggle {
+            display: flex;
+            align-items: center;
+            background-color: #1d1d1d;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+            border: 1px solid #4ecd97;
+        }
+
+        .n8n-chat-toggle:hover {
+            transform: scale(1.05);
+            background-color: #252525;
+            box-shadow: 0 6px 16px rgba(78, 205, 151, 0.2);
+        }
+
+        .n8n-chat-toggle img {
+            width: 28px;
+            height: 28px;
+            margin-right: 12px;
+            object-fit: contain;
+        }
+
+        .n8n-chat-toggle span {
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+        }
+    </style>
+
+    <div class="n8n-chat-widget">
+        <div id="n8n-chat" class="n8n-chat-container"></div>
+        <div class="n8n-chat-toggle" id="n8n-chat-toggle-btn">
+            <img src="logo/logo.png" alt="Chat Icon"
+                onerror="this.onerror=null;this.src='https://placehold.co/40x40?text=Chat';">
+            <span>Chat with us</span>
         </div>
-
-        <!-- Toggle Button -->
-        <button id="toggle-chat"
-            class="bg-blue-600 hover:bg-blue-700 text-white rounded-full p-4 shadow-lg transition duration-300 transform hover:scale-105 flex items-center justify-center">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z">
-                </path>
-            </svg>
-        </button>
     </div>
 
-    <script>
-        // Chatbot Logic
-        document.addEventListener('DOMContentLoaded', () => {
-            const toggleChatBtn = document.getElementById('toggle-chat');
-            const closeChatBtn = document.getElementById('close-chat');
-            const chatWindow = document.getElementById('chat-window');
-            const chatMessages = document.getElementById('chat-messages');
-            const chatForm = document.getElementById('chat-form');
-            const chatInput = document.getElementById('chat-input');
+    <script type="module">
+        import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
 
-            // State for data collection
-            let isCollectingData = false;
-            let collectionStep = 0;
-            let currentLanguage = 'en'; // Default to English
-            let collectedData = {
-                contact: {},
-                business: {},
-                serviceType: 'General Inquiry'
-            };
-
-            const collectionStepsEn = [
-                { field: 'businessType', prompt: "To start, what is your type of business?", section: 'business' },
-                { field: 'needType', prompt: "Do you know what you need? (e.g., Custom Software, Automation, Consulting, Automated Website, or AI Recommendation)", section: 'business' },
-                { field: 'firstName', prompt: "Great! Let's get your details. What is your First Name?", section: 'contact' },
-                { field: 'lastName', prompt: "And your Last Name?", section: 'contact' },
-                { field: 'email', prompt: "What is your Email Address?", section: 'contact' },
-                { field: 'phone', prompt: "What is your Phone Number?", section: 'contact' },
-                { field: 'message', prompt: "Any specific details or questions you'd like to add?", section: 'business' }
-            ];
-
-            const collectionStepsEs = [
-                { field: 'businessType', prompt: "Para empezar, ¿cuál es tu tipo de negocio?", section: 'business' },
-                { field: 'needType', prompt: "¿Sabes qué necesitas? (ej. Software a medida, Automatización, Consultoría, Web Automatizada o Recomendación de IA)", section: 'business' },
-                { field: 'firstName', prompt: "¡Genial! Vamos con tus datos. ¿Cuál es tu Nombre?", section: 'contact' },
-                { field: 'lastName', prompt: "¿Y tu Apellido?", section: 'contact' },
-                { field: 'email', prompt: "¿Cuál es tu correo electrónico?", section: 'contact' },
-                { field: 'phone', prompt: "¿Cuál es tu número de teléfono?", section: 'contact' },
-                { field: 'message', prompt: "¿Algún detalle específico o pregunta que quieras agregar?", section: 'business' }
-            ];
-
-            // Toggle Chat
-            function toggleChat() {
-                chatWindow.classList.toggle('hidden');
-                if (!chatWindow.classList.contains('hidden')) {
-                    chatInput.focus();
-                }
+        createChat({
+            webhookUrl: 'https://n8n.solidiaai.com/webhook/974f29f6-1eee-4e56-aabc-ccb9cccccaef/chat',
+            target: '#n8n-chat',
+            mode: 'window',
+            chatInputKey: 'chatInput',
+            chatSessionKey: 'sessionId',
+            metadata: {},
+            showWelcomeScreen: true,
+            defaultLanguage: 'es',
+            initialMessages: [
+                'Hola 👋 Soy el Asistente Virtual de Solid AI.',
+                '¿En qué puedo ayudarte hoy?'
+            ],
+            i18n: {
+                en: {
+                    title: 'Solid AI - Asistente',
+                    subtitle: 'Consultoría y Automatización',
+                    getStarted: 'Iniciar Chat',
+                    inputPlaceholder: 'Escribe aquí...',
+                },
+            },
+            style: {
+                width: 400,
+                height: 600,
+                position: 'right',
+                backgroundColor: '#1d1d1d', /* Color de fondo oscuro estilo Solid AI */
+                tokenColor: '#4ecd97',      /* Color verde tipo n8n/Matrix */
             }
+        });
 
-            toggleChatBtn.addEventListener('click', toggleChat);
-            closeChatBtn.addEventListener('click', toggleChat);
+        // Toggle Logic
+        const toggleBtn = document.getElementById('n8n-chat-toggle-btn');
+        const chatContainer = document.getElementById('n8n-chat');
 
-            // Add Message to Chat
-            function addMessage(text, sender) {
-                const div = document.createElement('div');
-                div.className = `flex ${sender === 'user' ? 'justify-end' : 'justify-start'}`;
-
-                const bubble = document.createElement('div');
-                bubble.className = `rounded-lg p-3 max-w-[80%] text-sm ${sender === 'user'
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-700 text-gray-200'
-                    }`;
-                bubble.textContent = text;
-
-                div.appendChild(bubble);
-                chatMessages.appendChild(div);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-            }
-
-            // Handle Form Submission
-            chatForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const message = chatInput.value.trim();
-                if (!message) return;
-
-                addMessage(message, 'user');
-                chatInput.value = '';
-
-                if (isCollectingData) {
-                    handleDataCollection(message);
-                } else {
-                    await handleGeminiChat(message);
-                }
-            });
-
-            // Data Collection Logic
-            function handleDataCollection(input) {
-                const steps = currentLanguage === 'es' ? collectionStepsEs : collectionStepsEn;
-                const currentStep = steps[collectionStep];
-
-                // Save data
-                if (currentStep.section === 'root') {
-                    collectedData[currentStep.field] = input;
-                } else {
-                    collectedData[currentStep.section][currentStep.field] = input;
-                }
-
-                collectionStep++;
-
-                if (collectionStep < steps.length) {
-                    // Ask next question
-                    setTimeout(() => addMessage(steps[collectionStep].prompt, 'bot'), 500);
-                } else {
-                    // Finish collection
-                    isCollectingData = false;
-                    collectionStep = 0;
-                    const thankMsg = currentLanguage === 'es'
-                        ? "¡Gracias! Enviando tus detalles a nuestro equipo..."
-                        : "Thank you! I'm sending your details to our team now...";
-                    addMessage(thankMsg, 'bot');
-                    sendToWebhook(collectedData);
-                }
-            }
-
-            // Send to n8n Webhook
-            async function sendToWebhook(data) {
-                const webhookUrl = 'https://n8n.solidiaai.com/webhook/540bf998-e19d-4608-8636-f5a53ac00080';
-                try {
-                    const response = await fetch(webhookUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(data)
-                    });
-
-                    if (response.ok) {
-                        const successMsg = currentLanguage === 'es'
-                            ? "¡Éxito! Hemos recibido tu solicitud. Te contactaremos pronto."
-                            : "Success! Your quote request has been received. We will contact you shortly.";
-                        addMessage(successMsg, 'bot');
-                    } else {
-                        const errorMsg = currentLanguage === 'es'
-                            ? "Ups, algo salió mal. Por favor intenta más tarde."
-                            : "Oops, something went wrong sending your request. Please try again later.";
-                        addMessage(errorMsg, 'bot');
-                    }
-                } catch (error) {
-                    console.error('Webhook Error:', error);
-                    const connErrorMsg = currentLanguage === 'es'
-                        ? "Tengo problemas de conexión. Intenta más tarde."
-                        : "I'm having trouble connecting to the system. Please try again later.";
-                    addMessage(connErrorMsg, 'bot');
-                }
-            }
-
-            // Chat History
-            let chatHistory = [];
-
-            // Gemini Chat Logic
-            // Gemini Chat Logic
-            // Gemini Chat Logic
-            // Gemini Chat Logic
-            async function handleGeminiChat(message) {
-                const lowerMsg = message.toLowerCase();
-
-                // Language Detection (Simple Heuristic)
-                const isSpanish = lowerMsg.includes('hola') || lowerMsg.includes('si ') || lowerMsg.includes('sí') || lowerMsg.includes('buenos') || lowerMsg.includes('gracias');
-
-                // 1. Direct Keyword Check (Fast Path)
-                const quoteKeywords = [
-                    'quote', 'price', 'cost', 'estimate', 'proposal',
-                    'cotizacion', 'cotización', 'precio', 'costo', 'presupuesto'
-                ];
-
-                if (quoteKeywords.some(keyword => lowerMsg.includes(keyword))) {
-                    isCollectingData = true;
-                    currentLanguage = isSpanish ? 'es' : 'en';
-                    const msg = isSpanish
-                        ? "¡Claro que sí! Para darte la mejor cotización, necesito hacerte unas pocas preguntas."
-                        : "I can certainly help you with that! I just need answered a few questions to get the best quote for you.";
-                    addMessage(msg, 'bot');
-                    const firstPrompt = isSpanish ? collectionStepsEs[0].prompt : collectionStepsEn[0].prompt;
-                    setTimeout(() => addMessage(firstPrompt, 'bot'), 1000);
-                    return;
-                }
-
-                // Show typing indicator
-                const typingDiv = document.createElement('div');
-                typingDiv.className = 'flex justify-start';
-                typingDiv.innerHTML = '<div class="bg-gray-700 text-gray-200 rounded-lg p-3 text-sm italic">Thinking...</div>';
-                chatMessages.appendChild(typingDiv);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-
-                try {
-                    // SECURE CALL: Send to the MASTER n8n Webhook
-                    // This uses the same webhook ID as your email forms, but with serviceType='Chat'
-                    const secureChatWebhook = 'https://n8n.solidiaai.com/webhook/540bf998-e19d-4608-8636-f5a53ac00080';
-
-                    const systemPrompt = `You are a proactive, bilingual (English/Spanish) sales AI for 'solid AI'. 
-                    INSTRUCTIONS:
-                    1. Detect the user's language and REPLY IN THE SAME LANGUAGE.
-                    2. Briefly answer questions about services (AI, Automation, Web, Software).
-                    3. ALWAYS try to close by asking if they want a quote.
-                    CRITICAL TRIGGER: If user wants a quote, output EXACTLY: QUOTE_START`;
-
-                    // Prepare context for n8n
-                    let contents = [];
-                    if (chatHistory.length === 0) {
-                        contents.push({ role: "user", parts: [{ text: systemPrompt + "\n\nUser: " + message }] });
-                    } else {
-                        let historyText = systemPrompt + "\n\nConversation History:\n";
-                        chatHistory.forEach(msg => {
-                            historyText += `${msg.role === 'user' ? 'User' : 'Assistant'}: ${msg.text}\n`;
-                        });
-                        historyText += `\nUser: ${message}`;
-                        contents.push({ role: "user", parts: [{ text: historyText }] });
-                    }
-
-                    // Payload includes 'serviceType: Chat' for the n8n Switch node
-                    const payload = {
-                        serviceType: 'Chat',
-                        contents: contents
-                    };
-
-                    const response = await fetch(secureChatWebhook, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-
-                    const data = await response.json();
-
-                    // Remove typing indicator
-                    if (chatMessages.contains(typingDiv)) chatMessages.removeChild(typingDiv);
-
-                    if (data.reply) {
-                        let reply = data.reply.trim();
-
-                        if (reply.includes('QUOTE_START')) {
-                            isCollectingData = true;
-                            currentLanguage = isSpanish ? 'es' : 'en';
-                            const transitionMsg = isSpanish ? "¡Excelente! Empecemos con tu cotización." : "Great! Let's get started with your quote.";
-                            addMessage(transitionMsg, 'bot');
-                            const firstPrompt = isSpanish ? collectionStepsEs[0].prompt : collectionStepsEn[0].prompt;
-                            setTimeout(() => addMessage(firstPrompt, 'bot'), 1000);
-                        } else {
-                            addMessage(reply, 'bot');
-                            chatHistory.push({ role: 'user', text: message });
-                            chatHistory.push({ role: 'model', text: reply });
-                            if (chatHistory.length > 20) chatHistory = chatHistory.slice(chatHistory.length - 20);
-                        }
-                    } else {
-                        addMessage("I'm sorry, I didn't quite catch that. Could you rephrase?", 'bot');
-                    }
-                } catch (error) {
-                    if (chatMessages.contains(typingDiv)) chatMessages.removeChild(typingDiv);
-                    console.error('Chat Error:', error);
-                    addMessage("I'm having trouble connecting to my brain right now. Please try again later.", 'bot');
-                }
-            }
-
-
-
+        toggleBtn.addEventListener('click', () => {
+            chatContainer.classList.toggle('open');
+            // Change button text or styling if open? Optional.
+            // For now, simple toggle is good.
         });
     </script>
     <!-- Language Translation Script -->
