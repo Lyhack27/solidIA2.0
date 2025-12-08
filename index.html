@@ -1210,6 +1210,10 @@
         .n8n-chat-container {
             display: none;
             /* Hidden by default */
+            width: 400px;
+            height: 600px;
+            max-width: 90vw;
+            max-height: 70vh;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
             border-radius: 12px;
             overflow: hidden;
@@ -1268,7 +1272,7 @@
         createChat({
             webhookUrl: 'https://n8n.solidiaai.com/webhook/974f29f6-1eee-4e56-aabc-ccb9cccccaef/chat',
             target: '#n8n-chat',
-            mode: 'window',
+            mode: 'fullscreen',
             chatInputKey: 'chatInput',
             chatSessionKey: 'sessionId',
             metadata: {},
@@ -1287,9 +1291,6 @@
                 },
             },
             style: {
-                width: 400,
-                height: 600,
-                position: 'right',
                 backgroundColor: '#1d1d1d', /* Color de fondo oscuro estilo Solid AI */
                 tokenColor: '#4ecd97',      /* Color verde tipo n8n/Matrix */
             }
@@ -1301,8 +1302,6 @@
 
         toggleBtn.addEventListener('click', () => {
             chatContainer.classList.toggle('open');
-            // Change button text or styling if open? Optional.
-            // For now, simple toggle is good.
         });
     </script>
     <!-- Language Translation Script -->
