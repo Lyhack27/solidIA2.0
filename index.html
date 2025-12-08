@@ -1201,30 +1201,42 @@
             bottom: 20px;
             right: 20px;
             z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            gap: 10px;
         }
 
         .n8n-chat-container {
-            display: none;
-            /* Hidden by default */
+            position: absolute;
+            bottom: 80px;
+            /* Position above the toggle button */
+            right: 0;
             width: 400px;
             height: 600px;
             max-width: 90vw;
             max-height: 70vh;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-            border-radius: 12px;
-            overflow: hidden;
+
+            /* Hidden State: Element exists but is invisible */
+            visibility: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+
             background-color: #1d1d1d;
+            border-radius: 12px;
+            border: 1px solid #333;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         .n8n-chat-container.open {
-            display: block;
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
         }
 
         .n8n-chat-toggle {
+            position: relative;
+            z-index: 10000;
             display: flex;
             align-items: center;
             background-color: #1d1d1d;
@@ -1235,6 +1247,7 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
             transition: all 0.3s ease;
             border: 1px solid #4ecd97;
+            user-select: none;
         }
 
         .n8n-chat-toggle:hover {
@@ -1272,7 +1285,6 @@
         createChat({
             webhookUrl: 'https://n8n.solidiaai.com/webhook/974f29f6-1eee-4e56-aabc-ccb9cccccaef/chat',
             target: '#n8n-chat',
-            mode: 'fullscreen',
             chatInputKey: 'chatInput',
             chatSessionKey: 'sessionId',
             metadata: {},
@@ -1291,8 +1303,8 @@
                 },
             },
             style: {
-                backgroundColor: '#1d1d1d', /* Color de fondo oscuro estilo Solid AI */
-                tokenColor: '#4ecd97',      /* Color verde tipo n8n/Matrix */
+                backgroundColor: '#1d1d1d',
+                tokenColor: '#4ecd97',
             }
         });
 
@@ -1304,6 +1316,7 @@
             chatContainer.classList.toggle('open');
         });
     </script>
+
     <!-- Language Translation Script -->
     <script>
         const translations = {
@@ -1385,10 +1398,13 @@
                 footer_contact: "Contáctanos",
                 footer_follow: "Síguenos"
             }
-        };
+        }
+
+            ;
 
         function detectAndApplyLanguage() {
             const userLang = navigator.language || navigator.userLanguage;
+
             // Check if language starts with 'es' (es, es-ES, es-MX, etc.)
             if (userLang.startsWith('es')) {
                 applyLanguage('es');
@@ -1399,13 +1415,18 @@
             if (!translations[lang]) return;
 
             const elements = document.querySelectorAll('[data-i18n]');
+
             elements.forEach(el => {
                 const key = el.getAttribute('data-i18n');
+
                 if (translations[lang][key]) {
+
                     // Check if input/textarea placeholder or textContent
                     if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
                         el.placeholder = translations[lang][key];
-                    } else {
+                    }
+
+                    else {
                         el.textContent = translations[lang][key];
                     }
                 }
@@ -1414,6 +1435,7 @@
             // Update Select Options manually if needed, or by finding them
             if (lang === 'es') {
                 const goalSelect = document.getElementById('goalSelect');
+
                 if (goalSelect) {
                     goalSelect.options[0].text = translations.es.opt_select;
                     goalSelect.options[1].text = translations.es.opt_sales;
