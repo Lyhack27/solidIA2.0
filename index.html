@@ -1289,7 +1289,7 @@
             chatInputKey: 'chatInput',
             chatSessionKey: 'sessionId',
             metadata: {},
-            showWelcomeScreen: false,
+            showWelcomeScreen: false, /* Force skip welcome screen */
             defaultLanguage: 'es',
             initialMessages: [
                 'Hola 👋 Soy el Asistente Virtual de Solid AI.',
@@ -1336,6 +1336,7 @@
                                 .n8n-chat-header-title, .n8n-chat-header-subtitle {
                                     display: none !important;
                                 }
+                                /* Force Input Visibility */
                                 .n8n-chat-input-container {
                                     display: flex !important;
                                     visibility: visible !important;
