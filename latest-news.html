@@ -1,245 +1,455 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title data-i18n="page_title">The Future of AI in Production and Marketing: Top Applications for Companies</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <title data-i18n="page_title">Construyendo el Micro-Servidor Definitivo para IA | Solidia AI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
     body {
-      background: #0d1117;
-      color: #e0e0e0;
       font-family: 'Inter', sans-serif;
-      margin: 0;
-      padding: 2rem;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      background-color: #030712;
+      /* Very dark slate/black */
+      color: #e2e8f0;
     }
 
-    .main-container {
-      background: rgba(13, 17, 23, 0.8);
-      backdrop-filter: blur(10px);
-      border-radius: 1.5rem;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 2.5rem 3rem;
-      max-width: 800px;
-      width: 100%;
-      margin: auto;
+    .gradient-text {
+      background: linear-gradient(to right, #38bdf8, #818cf8, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
-    .blog-header {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1.5rem;
-      margin-bottom: 2rem;
-      flex-wrap: wrap;
-      text-align: center;
+    .glass-card {
+      background: rgba(30, 41, 59, 0.4);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
     }
 
-    .header-logo {
-      height: 60px;
-      width: auto;
+    .glow-hover:hover {
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.15);
+      border-color: rgba(56, 189, 248, 0.3);
     }
 
-    .image-container {
-      width: 100%;
-      height: 400px;
-      margin-bottom: 2rem;
-      border-radius: 1rem;
-      overflow: hidden;
-      background: #1a1a1a;
+    /* Custom image border style */
+    .tech-border {
+      position: relative;
+      padding: 2px;
+      background: linear-gradient(45deg, #38bdf8, #818cf8, #c084fc);
+      border-radius: 0.75rem;
+      /* rounded-xl */
+      box-shadow: 0 0 15px rgba(138, 43, 226, 0.4);
     }
 
-    .blog-image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    h1 {
-      font-size: 2.2rem;
-      font-weight: 700;
-      color: #fff;
-      margin: 0;
-      text-align: center;
-      line-height: 1.3;
-    }
-
-    h2 {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: #fff;
-      margin-top: 2.5rem;
-      margin-bottom: 1.5rem;
-      border-bottom: 2px solid #8A2BE2;
-      padding-bottom: 0.5rem;
-    }
-
-    h3 {
-      font-size: 1.4rem;
-      font-weight: 600;
-      color: #c9d1d9;
-      margin-top: 1.5rem;
-      margin-bottom: 1rem;
-    }
-
-    p,
-    li {
-      font-size: 1rem;
-      line-height: 1.7;
-      color: #c9d1d9;
-      margin-bottom: 1.2rem;
-    }
-
-    ul {
-      padding-left: 20px;
-    }
-
-    .button-container {
-      text-align: center;
-      margin-top: 3rem;
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .button {
-      background: #8A2BE2;
-      color: #fff;
-      padding: 12px 24px;
-      border: none;
-      border-radius: 50px;
-      font-weight: bold;
-      text-decoration: none;
-      cursor: pointer;
-      transition: 0.3s;
-      font-size: 1rem;
-    }
-
-    .button:hover {
-      background: #9932CC;
-      transform: scale(1.05);
-    }
-
-    .button.button-secondary {
-      background: transparent;
-      border: 2px solid #8A2BE2;
-      color: #8A2BE2;
-    }
-
-    .button.button-secondary:hover {
-      background: #8A2BE2;
-      color: #fff;
-    }
-
-    @media (max-width: 600px) {
-      .main-container {
-        padding: 1.5rem;
-      }
-
-      h1 {
-        font-size: 1.8rem;
-      }
-
-      .image-container {
-        height: 250px;
-      }
+    .tech-border img {
+      border-radius: 0.7rem;
+      /* slightly less than container */
+      display: block;
     }
   </style>
 </head>
 
-<body>
+<body class="antialiased min-h-screen flex flex-col">
 
-  <div class="main-container">
-    <div class="blog-header">
-      <img src="logo/logo.png" alt="Company Logo" class="header-logo">
-      <h1 data-i18n="blog_title">The Future of AI in Production and Marketing: Top Applications for Companies</h1>
+  <!-- Main Content -->
+  <main class="flex-grow pt-12 pb-16 px-4">
+    <article class="max-w-3xl mx-auto">
+
+      <!-- Header del Blog -->
+      <header class="mb-12 text-center">
+        <div
+          class="inline-block px-3 py-1 mb-4 text-xs font-semibold tracking-wider text-blue-400 uppercase bg-blue-500/10 rounded-full border border-blue-500/20"
+          data-i18n="tag_infra">
+          Infraestructura & Hardware
+        </div>
+        <h1 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+          <span data-i18n="h1_title_pre">El "Cerebro Local" de la Automatización:</span> <br>
+          <span class="gradient-text">Raspberry Pi 5 + 16GB + NVMe</span>
+        </h1>
+        <div class="flex items-center justify-center gap-4 text-sm text-slate-400">
+          <div class="flex items-center gap-2">
+            <img src="./miembros/leonardo.png" alt="Leonardo" class="w-8 h-8 rounded-full bg-slate-700 object-cover">
+            <span>Leonardo Rincon</span>
+          </div>
+          <span>•</span>
+          <time data-i18n="date">Diciembre 10, 2025</time>
+          <span>•</span>
+          <span data-i18n="read_time">5 min de lectura</span>
+        </div>
+      </header>
+
+      <!-- Intro -->
+      <div class="prose prose-invert prose-lg max-w-none text-slate-300">
+        <p class="lead text-xl text-slate-200 mb-8" data-i18n="intro_paragraph">
+          En Solidia AI creemos que no todo debe vivir en la nube. A veces, la latencia, la privacidad y el costo
+          requieren una solución "in-house". Hoy desglosamos nuestra arquitectura de micro-servidor favorita para
+          ejecutar <strong>n8n</strong> y modelos de <strong>IA Local</strong>.
+        </p>
+
+        <!-- Centered Image Section -->
+        <figure class="my-10">
+          <div class="tech-border">
+            <img src="images/raspberry_pi_cloud.png" alt="Raspberry Pi Cloud Connectivity"
+              class="w-full h-auto object-cover">
+          </div>
+          <figcaption class="text-center text-xs text-slate-500 mt-2" data-i18n="img_caption">
+            Arquitectura de conexión Edge-to-Cloud con Raspberry Pi 5.
+          </figcaption>
+        </figure>
+
+        <h2 class="text-2xl font-bold text-white mt-12 mb-4" data-i18n="h2_why">¿Por qué construir tu propio servidor?
+        </h2>
+        <p data-i18n="p_why">
+          Para un ingeniero de IA o una agencia de automatización, depender 100% de APIs externas tiene sus límites. Al
+          montar este servidor basado en la nueva <strong>Raspberry Pi 5 de 16GB</strong>, conseguimos:
+        </p>
+        <ul class="list-disc pl-6 space-y-2 mb-8 marker:text-blue-500">
+          <li data-i18n="li_privacy"><strong>IA Privada:</strong> Ejecutar modelos como Llama 3 o Mistral vía Ollama sin
+            costo por token.</li>
+          <li data-i18n="li_speed"><strong>Velocidad Extrema:</strong> Almacenamiento NVMe (800MB/s) vs la lenta tarjeta
+            SD.</li>
+          <li data-i18n="li_cost"><strong>Costo Operativo Nulo:</strong> Consume menos energía que una bombilla LED
+            (~$18 AUD al año).</li>
+        </ul>
+      </div>
+
+      <!-- Hardware List Grid -->
+      <h2 class="text-2xl font-bold text-white mt-12 mb-6" data-i18n="h2_list">La Lista de Compras (Melbourne Edition)
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
+
+        <!-- Item 1 -->
+        <div class="glass-card p-5 rounded-xl glow-hover transition-all duration-300">
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="font-bold text-white text-lg">Raspberry Pi 5 (16GB)</h3>
+            <span class="bg-green-500/20 text-green-400 text-xs px-2 py-1 rounded border border-green-500/20"
+              data-i18n="badge_essential">Esencial</span>
+          </div>
+          <p class="text-sm text-slate-400 mb-4" data-i18n="desc_pi5">El corazón del sistema. 16GB de RAM son
+            obligatorios para cargar modelos de IA en memoria.</p>
+          <a href="https://core-electronics.com.au/raspberry-pi-5-model-b-16gb.html" target="_blank"
+            class="text-blue-400 text-sm font-semibold hover:text-blue-300 flex items-center gap-1">
+            <span data-i18n="btn_buy_core">Comprar en Core Electronics</span> <svg class="w-4 h-4" fill="none"
+              stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+            </svg>
+          </a>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="glass-card p-5 rounded-xl glow-hover transition-all duration-300">
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="font-bold text-white text-lg">Pimoroni NVMe Base</h3>
+            <span class="bg-purple-500/20 text-purple-400 text-xs px-2 py-1 rounded border border-purple-500/20"
+              data-i18n="badge_speed">Velocidad</span>
+          </div>
+          <p class="text-sm text-slate-400 mb-4" data-i18n="desc_nvme">Adaptador PCIe para conectar discos SSD de alta
+            velocidad. Se monta debajo de la placa.</p>
+          <a href="https://core-electronics.com.au/nvme-base-for-raspberry-pi-5.html" target="_blank"
+            class="text-blue-400 text-sm font-semibold hover:text-blue-300 flex items-center gap-1">
+            <span data-i18n="btn_view_core">Ver en Core Electronics</span> <svg class="w-4 h-4" fill="none"
+              stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+            </svg>
+          </a>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="glass-card p-5 rounded-xl glow-hover transition-all duration-300">
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="font-bold text-white text-lg">Crucial P3 1TB NVMe</h3>
+            <span class="bg-blue-500/20 text-blue-400 text-xs px-2 py-1 rounded border border-blue-500/20"
+              data-i18n="badge_storage">Almacenamiento</span>
+          </div>
+          <p class="text-sm text-slate-400 mb-4" data-i18n="desc_ssd">Disco estable y eficiente. Perfecto para bases de
+            datos Docker y almacenamiento NAS.</p>
+          <a href="https://www.centrecom.com.au/crucial-p3-1tb-pcie-m2-2280-ssd" target="_blank"
+            class="text-blue-400 text-sm font-semibold hover:text-blue-300 flex items-center gap-1">
+            <span data-i18n="btn_search_centre">Buscar en Centre Com</span> <svg class="w-4 h-4" fill="none"
+              stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+            </svg>
+          </a>
+        </div>
+
+        <!-- Item 4 -->
+        <div class="glass-card p-5 rounded-xl glow-hover transition-all duration-300">
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="font-bold text-white text-lg">Power Supply 27W</h3>
+            <span class="bg-orange-500/20 text-orange-400 text-xs px-2 py-1 rounded border border-orange-500/20"
+              data-i18n="badge_power">Energía</span>
+          </div>
+          <p class="text-sm text-slate-400 mb-4" data-i18n="desc_power">Necesario para alimentar el procesador y el
+            disco SSD simultáneamente sin fallos.</p>
+          <a href="https://core-electronics.com.au/raspberry-pi-27w-usb-c-power-supply-white.html" target="_blank"
+            class="text-blue-400 text-sm font-semibold hover:text-blue-300 flex items-center gap-1">
+            <span data-i18n="btn_buy_official">Comprar Oficial</span> <svg class="w-4 h-4" fill="none"
+              stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+            </svg>
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Technical Section -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-8 mb-12">
+        <h2 class="text-2xl font-bold text-white mb-4" data-i18n="h2_stack">El Stack de Software</h2>
+        <p class="text-slate-400 mb-6" data-i18n="p_stack">
+          El hardware es solo la mitad de la batalla. Así es como configuramos el software para Solidia AI utilizando
+          <strong>Docker Compose</strong>.
+        </p>
+
+        <!-- Code Block -->
+        <div class="bg-black rounded-lg p-4 font-mono text-sm border border-slate-800 overflow-x-auto">
+          <div class="flex gap-1.5 mb-4">
+            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+          </div>
+          <p class="text-slate-500"># <span data-i18n="code_comment_install">Instalación del stack básico</span></p>
+          <p class="text-green-400">$ curl -fsSL https://get.casaos.io | sudo bash</p>
+          <p class="text-slate-500 mt-2"># <span data-i18n="code_comment_model">Descargando modelos de IA</span></p>
+          <p class="text-green-400">$ docker exec -it ollama ollama run llama3</p>
+          <p class="text-blue-400 mt-2">>>> System: Ready for inference.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-8">
+          <div class="text-center">
+            <div class="text-3xl font-bold text-white mb-1">n8n</div>
+            <div class="text-xs text-slate-500 uppercase tracking-wider" data-i18n="label_auto">Automatización</div>
+          </div>
+          <div class="text-center border-l border-r border-slate-800">
+            <div class="text-3xl font-bold text-white mb-1">Ollama</div>
+            <div class="text-xs text-slate-500 uppercase tracking-wider" data-i18n="label_localai">IA Local</div>
+          </div>
+          <div class="text-center">
+            <div class="text-3xl font-bold text-white mb-1">Postgres</div>
+            <div class="text-xs text-slate-500 uppercase tracking-wider" data-i18n="label_db">Base de Datos</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Conclusion -->
+      <div class="prose prose-invert prose-lg max-w-none text-slate-300 mb-8">
+        <p data-i18n="p_conclusion">
+          Con una inversión aproximada de <strong>$425 AUD</strong>, obtenemos un servidor capaz de procesar miles de
+          webhooks diarios y mantener la soberanía de nuestros datos. Es la pieza fundamental para cualquier ingeniero
+          que quiera tomarse en serio la automatización híbrida.
+        </p>
+      </div>
+
+      <!-- CTA Section (New) -->
+      <div
+        class="bg-gradient-to-r from-blue-900/40 to-purple-900/40 border border-blue-500/30 rounded-2xl p-8 mb-16 text-center">
+        <h3 class="text-2xl font-bold text-white mb-3" data-i18n="cta_title">¿Prefieres que lo hagamos por ti?</h3>
+        <p class="text-slate-300 mb-6 max-w-lg mx-auto" data-i18n="cta_desc">
+          En Solidia AI podemos construir, configurar y enviar este servidor listo para usar a tu oficina. O si lo
+          prefieres, alojamos tus flujos de n8n en nuestra infraestructura privada de alto rendimiento.
+        </p>
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
+          <a href="index.html#intro-question"
+            class="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-full transition-colors shadow-lg shadow-blue-500/30"
+            data-i18n="btn_build_for_me">
+            Contáctanos para Construirlo
+          </a>
+        </div>
+      </div>
+
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/10 bg-black py-12">
+    <div class="max-w-6xl mx-auto px-4 text-center">
+
+      <!-- Navigation Buttons (Restored) -->
+      <div class="flex flex-col sm:flex-row justify-center gap-4 mb-8">
+        <a href="https://wa.me/61424840127" target="_blank"
+          class="px-6 py-2 border border-green-500/50 text-green-400 hover:bg-green-500/10 rounded-full transition-colors text-sm font-semibold"
+          data-i18n="btn_whatsapp_footer">
+          Contactar por WhatsApp
+        </a>
+        <a href="index.html"
+          class="px-6 py-2 border border-slate-700 text-slate-400 hover:bg-slate-800 rounded-full transition-colors text-sm font-semibold"
+          data-i18n="btn_mainsite_footer">
+          Ir al Sitio Principal
+        </a>
+      </div>
+
+      <div class="mb-4">
+        <span class="text-2xl font-bold tracking-tight text-white">Solidia AI</span>
+      </div>
+      <p class="text-slate-500 text-sm mb-8" data-i18n="footer_desc">
+        Transformando negocios a través de la Inteligencia Artificial y la Automatización en Melbourne.
+      </p>
+      <div class="text-xs text-slate-600" data-i18n="copyright">
+        &copy; 2025 Solidia AI. Todos los derechos reservados.
+      </div>
     </div>
-    <div class="image-container">
-      <img
-        src="https://image.pollinations.ai/prompt/futuristic%20artificial%20intelligence%20technology%20office?width=1024&height=600&nologo=true&seed=6087"
-        alt="AI Feature" class="blog-image">
-    </div>
-    <div class="article-content">
-      <p data-i18n="intro_text">In today's rapidly evolving business landscape, artificial intelligence (AI) has become
-        a cornerstone for enhancing production and marketing processes. This article explores the latest AI applications
-        tailored for companies, integrating automated branding, cloud infrastructure automation, linking SQL databases
-        to Power Automate flows, workflow automation for behavioral health, and the best AI-driven PR agencies.</p>
+  </footer>
 
-      <h2 data-i18n="h2_branding">Automated Branding for Enhanced Marketing</h2>
-      <p data-i18n="p_branding">Automated branding through AI tools enables companies to streamline their marketing
-        efforts by automating tasks such as logo creation, brand consistency monitoring, and personalized content
-        generation. This technology ensures brand messaging remains cohesive across all marketing channels and
-        campaigns.</p>
+  <!-- Floating Chat Widget -->
+  <div id="chat-widget" class="fixed bottom-4 right-4 z-50">
+    <!-- Chat Toggle Button -->
+    <button id="chat-toggle"
+      class="bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-full shadow-lg transition-transform transform hover:scale-105 flex items-center gap-2">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z">
+        </path>
+      </svg>
+      <span class="font-semibold" data-i18n="chat_with_us">Chat with Us</span>
+    </button>
 
-      <h3 data-i18n="h3_features">Key Features of Automated Branding:</h3>
-      <ul>
-        <li data-i18n="li_1">Automated logo creation and design customization.</li>
-        <li data-i18n="li_2">Monitoring brand consistency and tone of voice.</li>
-        <li data-i18n="li_3">Personalized content generation for diverse audience segments.</li>
-      </ul>
-
-      <h2 data-i18n="h2_cloud">Cloud Infrastructure Automation for Streamlined Production</h2>
-      <p data-i18n="p_cloud">Cloud infrastructure automation powered by AI optimizes production workflows by automating
-        resource allocation, scalability, and security measures. This technology reduces manual intervention in cloud
-        management, enhances operational efficiency, and ensures seamless integration with existing systems and
-        applications.</p>
-
-      <h2 data-i18n="h2_transform">The Power of AI in Transforming Marketing and Production</h2>
-      <p data-i18n="p_transform">As AI continues to revolutionize the way companies approach marketing and production
-        processes, integrating these advanced technologies is crucial for staying competitive in the market. By
-        leveraging AI-driven solutions for branding, cloud automation, workflow enhancements, and PR agency selection,
-        companies can unlock new levels of efficiency and innovation in their operations.</p>
-    </div>
-    <div class="button-container">
-      <a href="https://wa.me/61424840127" target="_blank" class="button" data-i18n="btn_whatsapp">Contact via
-        WhatsApp</a>
-      <a href="index.html" class="button button-secondary" data-i18n="btn_mainsite">Main Site</a>
+    <!-- Chat Window (Hidden by Default) -->
+    <div id="chat-window"
+      class="hidden absolute bottom-16 right-0 w-80 bg-slate-900 border border-slate-700 rounded-xl shadow-2xl overflow-hidden glass-card">
+      <div class="bg-blue-600 p-4 flex justify-between items-center">
+        <h3 class="text-white font-bold" data-i18n="chat_title">Solidia Support</h3>
+        <button id="chat-close" class="text-white hover:text-gray-200">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      <div class="p-4 h-64 overflow-y-auto bg-slate-800/50" id="chat-messages">
+        <div class="bg-slate-700 text-slate-200 p-2 rounded-lg mb-2 inline-block max-w-[85%] text-sm"
+          data-i18n="chat_welcome">
+          Hello! How can we help you automate your business today?
+        </div>
+      </div>
+      <div class="p-3 bg-slate-900 border-t border-slate-700 flex gap-2">
+        <input type="text" id="chat-input"
+          class="w-full bg-slate-800 border border-slate-600 text-white rounded-md px-3 py-2 text-sm focus:outline-none focus:border-blue-500"
+          placeholder="Type a message..." data-i18n="chat_placeholder">
+        <button class="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-md">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8">
+            </path>
+          </svg>
+        </button>
+      </div>
     </div>
   </div>
 
+  <!-- Translations & Script -->
   <script>
+    // Toggle Chat Logic
+    const chatToggle = document.getElementById('chat-toggle');
+    const chatWindow = document.getElementById('chat-window');
+    const chatClose = document.getElementById('chat-close');
+
+    if (chatToggle && chatWindow && chatClose) {
+      chatToggle.addEventListener('click', () => {
+        chatWindow.classList.toggle('hidden');
+      });
+      chatClose.addEventListener('click', () => {
+        chatWindow.classList.add('hidden');
+      });
+    }
+
     const translations = {
-      en: {
-        page_title: "The Future of AI in Production and Marketing: Top Applications for Companies",
-        blog_title: "The Future of AI in Production and Marketing: Top Applications for Companies",
-        intro_text: "In today's rapidly evolving business landscape, artificial intelligence (AI) has become a cornerstone for enhancing production and marketing processes. This article explores the latest AI applications tailored for companies, integrating automated branding, cloud infrastructure automation, linking SQL databases to Power Automate flows, workflow automation for behavioral health, and the best AI-driven PR agencies.",
-        h2_branding: "Automated Branding for Enhanced Marketing",
-        p_branding: "Automated branding through AI tools enables companies to streamline their marketing efforts by automating tasks such as logo creation, brand consistency monitoring, and personalized content generation. This technology ensures brand messaging remains cohesive across all marketing channels and campaigns.",
-        h3_features: "Key Features of Automated Branding:",
-        li_1: "Automated logo creation and design customization.",
-        li_2: "Monitoring brand consistency and tone of voice.",
-        li_3: "Personalized content generation for diverse audience segments.",
-        h2_cloud: "Cloud Infrastructure Automation for Streamlined Production",
-        p_cloud: "Cloud infrastructure automation powered by AI optimizes production workflows by automating resource allocation, scalability, and security measures. This technology reduces manual intervention in cloud management, enhances operational efficiency, and ensures seamless integration with existing systems and applications.",
-        h2_transform: "The Power of AI in Transforming Marketing and Production",
-        p_transform: "As AI continues to revolutionize the way companies approach marketing and production processes, integrating these advanced technologies is crucial for staying competitive in the market. By leveraging AI-driven solutions for branding, cloud automation, workflow enhancements, and PR agency selection, companies can unlock new levels of efficiency and innovation in their operations.",
-        btn_whatsapp: "Contact via WhatsApp",
-        btn_mainsite: "Main Site"
-      },
       es: {
-        page_title: "El Futuro de la IA en Producción y Marketing: Principales Aplicaciones para Empresas",
-        blog_title: "El Futuro de la IA en Producción y Marketing: Principales Aplicaciones para Empresas",
-        intro_text: "En el panorama empresarial actual de rápida evolución, la inteligencia artificial (IA) se ha convertido en un pilar para mejorar los procesos de producción y marketing. Este artículo explora las últimas aplicaciones de IA adaptadas para empresas, integrando branding automatizado, automatización de infraestructura en la nube, vinculación de bases de datos SQL a flujos de Power Automate, automatización de flujos de trabajo para salud conductual y las mejores agencias de relaciones públicas impulsadas por IA.",
-        h2_branding: "Branding Automatizado para un Marketing Mejorado",
-        p_branding: "El branding automatizado a través de herramientas de IA permite a las empresas optimizar sus esfuerzos de marketing automatizando tareas como la creación de logotipos, el monitoreo de la consistencia de marca y la generación de contenido personalizado. Esta tecnología asegura que el mensaje de la marca permanezca coherente en todos los canales y campañas de marketing.",
-        h3_features: "Características Clave del Branding Automatizado:",
-        li_1: "Creación automatizada de logotipos y personalización de diseño.",
-        li_2: "Monitoreo de la consistencia de marca y el tono de voz.",
-        li_3: "Generación de contenido personalizado para diversos segmentos de audiencia.",
-        h2_cloud: "Automatización de Infraestructura en la Nube para una Producción Optimizada",
-        p_cloud: "La automatización de infraestructura en la nube impulsada por IA optimiza los flujos de trabajo de producción al automatizar la asignación de recursos, la escalabilidad y las medidas de seguridad. Esta tecnología reduce la intervención manual en la gestión de la nube, mejora la eficiencia operativa y asegura una integración perfecta con sistemas y aplicaciones existentes.",
-        h2_transform: "El Poder de la IA en la Transformación del Marketing y la Producción",
-        p_transform: "A medida que la IA continúa revolucionando la forma en que las empresas abordan los procesos de marketing y producción, integrar estas tecnologías avanzadas es crucial para mantenerse competitivo. Aprovechando soluciones impulsadas por IA para branding, automatización en la nube, mejoras de flujo de trabajo y selección de agencias de relaciones públicas, las empresas pueden desbloquear nuevos niveles de eficiencia e innovación en sus operaciones.",
-        btn_whatsapp: "Contactar por WhatsApp",
-        btn_mainsite: "Sitio Principal"
+        page_title: "Construyendo el Micro-Servidor Definitivo para IA | Solidia AI",
+        tag_infra: "Infraestructura & Hardware",
+        h1_title_pre: "El \"Cerebro Local\" de la Automatización:",
+        date: "Diciembre 10, 2025",
+        read_time: "5 min de lectura",
+        intro_paragraph: "En Solidia AI creemos que no todo debe vivir en la nube. A veces, la latencia, la privacidad y el costo requieren una solución \"in-house\". Hoy desglosamos nuestra arquitectura de micro-servidor favorita para ejecutar <strong>n8n</strong> y modelos de <strong>IA Local</strong>.",
+        img_caption: "Arquitectura de conexión Edge-to-Cloud con Raspberry Pi 5.",
+        h2_why: "¿Por qué construir tu propio servidor?",
+        p_why: "Para un ingeniero de IA o una agencia de automatización, depender 100% de APIs externas tiene sus límites. Al montar este servidor basado en la nueva <strong>Raspberry Pi 5 de 16GB</strong>, conseguimos:",
+        li_privacy: "<strong>IA Privada:</strong> Ejecutar modelos como Llama 3 o Mistral vía Ollama sin costo por token.",
+        li_speed: "<strong>Velocidad Extrema:</strong> Almacenamiento NVMe (800MB/s) vs la lenta tarjeta SD.",
+        li_cost: "<strong>Costo Operativo Nulo:</strong> Consume menos energía que una bombilla LED (~$18 AUD al año).",
+        h2_list: "La Lista de Compras (Melbourne Edition)",
+        badge_essential: "Esencial",
+        desc_pi5: "El corazón del sistema. 16GB de RAM son obligatorios para cargar modelos de IA en memoria.",
+        btn_buy_core: "Comprar en Core Electronics",
+        badge_speed: "Velocidad",
+        desc_nvme: "Adaptador PCIe para conectar discos SSD de alta velocidad. Se monta debajo de la placa.",
+        btn_view_core: "Ver en Core Electronics",
+        badge_storage: "Almacenamiento",
+        desc_ssd: "Disco estable y eficiente. Perfecto para bases de datos Docker y almacenamiento NAS.",
+        btn_search_centre: "Buscar en Centre Com",
+        badge_power: "Energía",
+        desc_power: "Necesario para alimentar el procesador y el disco SSD simultáneamente sin fallos.",
+        btn_buy_official: "Comprar Oficial",
+        h2_stack: "El Stack de Software",
+        p_stack: "El hardware es solo la mitad de la batalla. Así es como configuramos el software para Solidia AI utilizando <strong>Docker Compose</strong>.",
+        code_comment_install: "Instalación del stack básico",
+        code_comment_model: "Descargando modelos de IA",
+        label_auto: "Automatización",
+        label_localai: "IA Local",
+        label_db: "Base de Datos",
+        p_conclusion: "Con una inversión aproximada de <strong>$425 AUD</strong>, obtenemos un servidor capaz de procesar miles de webhooks diarios y mantener la soberanía de nuestros datos. Es la pieza fundamental para cualquier ingeniero que quiera tomarse en serio la automatización híbrida.",
+        cta_title: "¿Prefieres que lo hagamos por ti?",
+        cta_desc: "En Solidia AI podemos construir, configurar y enviar este servidor listo para usar a tu oficina. O si lo prefieres, alojamos tus flujos de n8n en nuestra infraestructura privada de alto rendimiento.",
+        btn_build_for_me: "Contáctanos para Construirlo",
+        btn_whatsapp_footer: "Contactar por WhatsApp",
+        btn_mainsite_footer: "Ir al Sitio Principal",
+        footer_desc: "Transformando negocios a través de la Inteligencia Artificial y la Automatización en Melbourne.",
+        copyright: "&copy; 2025 Solidia AI. Todos los derechos reservados.",
+
+        // Chat Widget Translations
+        chat_with_us: "Chatea con Nosotros",
+        chat_title: "Soporte Solidia",
+        chat_welcome: "¡Hola! ¿Cómo podemos ayudarte a automatizar tu negocio hoy?",
+        chat_placeholder: "Escribe un mensaje..."
+      },
+      en: {
+        page_title: "Building the Ultimate AI Micro-Server | Solidia AI",
+        tag_infra: "Infrastructure & Hardware",
+        h1_title_pre: "The 'Local Brain' of Automation:",
+        date: "December 10, 2025",
+        read_time: "5 min read",
+        intro_paragraph: "At Solidia AI, we believe not everything needs to live in the cloud. Sometimes, latency, privacy, and cost demand an in-house solution. Today, we break down our favorite micro-server architecture for running <strong>n8n</strong> and <strong>Local AI</strong> models.",
+        img_caption: "Edge-to-Cloud Connection Architecture with Raspberry Pi 5.",
+        h2_why: "Why build your own server?",
+        p_why: "For an AI engineer or automation agency, relying 100% on external APIs has its limits. By building this server based on the new <strong>16GB Raspberry Pi 5</strong>, we achieve:",
+        li_privacy: "<strong>Private AI:</strong> Run models like Llama 3 or Mistral via Ollama with zero token costs.",
+        li_speed: "<strong>Extreme Speed:</strong> NVMe storage (800MB/s) vs slow SD cards.",
+        li_cost: "<strong>Zero Operating Cost:</strong> Consumes less energy than an LED bulb (~$18 AUD/year).",
+        h2_list: "The Shopping List (Melbourne Edition)",
+        badge_essential: "Essential",
+        desc_pi5: "The heart of the system. 16GB RAM is mandatory for loading AI models into memory.",
+        btn_buy_core: "Buy at Core Electronics",
+        badge_speed: "Speed",
+        desc_nvme: "PCIe adapter to connect high-speed SSDs. Mounts underneath the board.",
+        btn_view_core: "View at Core Electronics",
+        badge_storage: "Storage",
+        desc_ssd: "Stable and efficient drive. Perfect for Docker databases and NAS storage.",
+        btn_search_centre: "Search at Centre Com",
+        badge_power: "Power",
+        desc_power: "Required to power both the processor and SSD simultaneously without failure.",
+        btn_buy_official: "Buy Official",
+        h2_stack: "The Software Stack",
+        p_stack: "Hardware is only half the battle. Here is how we configure the software for Solidia AI using <strong>Docker Compose</strong>.",
+        code_comment_install: "Basic stack installation",
+        code_comment_model: "Downloading AI models",
+        label_auto: "Automation",
+        label_localai: "Local AI",
+        label_db: "Database",
+        p_conclusion: "With an investment of roughly <strong>$425 AUD</strong>, we get a server capable of processing thousands of daily webhooks while maintaining data sovereignty. It's the foundational piece for any engineer serious about hybrid automation.",
+        cta_title: "Prefer us to do it for you?",
+        cta_desc: "At Solidia AI, we can build, configure, and ship this turn-key server to your office. Or if you prefer, we can host your n8n flows on our high-performance private infrastructure.",
+        btn_build_for_me: "Contact Us to Build It",
+        btn_whatsapp_footer: "Contact via WhatsApp",
+        btn_mainsite_footer: "Go to Main Site",
+        footer_desc: "Transforming businesses through Artificial Intelligence and Automation in Melbourne.",
+        copyright: "&copy; 2025 Solidia AI. All rights reserved.",
+
+        // Chat Widget Translations
+        chat_with_us: "Chat with Us",
+        chat_title: "Solidia Support",
+        chat_welcome: "Hello! How can we help you automate your business today?",
+        chat_placeholder: "Type a message..."
       }
     };
 
@@ -247,13 +457,23 @@
       document.querySelectorAll('[data-i18n]').forEach(element => {
         const key = element.getAttribute('data-i18n');
         if (translations[lang] && translations[lang][key]) {
-          element.innerText = translations[lang][key];
+          // Check if it's strictly text or contains HTML tags
+          if (translations[lang][key].includes('<')) {
+            element.innerHTML = translations[lang][key];
+          } else {
+            if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+              element.placeholder = translations[lang][key];
+            } else {
+              element.innerText = translations[lang][key];
+            }
+          }
         }
       });
     }
 
     function initLanguage() {
       const userLang = navigator.language || navigator.userLanguage;
+      // Default to 'en' unless 'es' is detected
       const lang = userLang.startsWith('es') ? 'es' : 'en';
       updateContent(lang);
     }
