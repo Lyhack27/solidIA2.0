@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Automation for Tradies — Chatbots, Quoting & Booking | Solid AI Melbourne</title>
+    <meta name="description"
+        content="Solid AI builds AI chatbots, automated quoting, and booking systems for trades businesses in Melbourne. Plumbers, electricians, builders, roofers — stop losing jobs and start automating.">
+    <meta name="keywords"
+        content="AI automation trades Melbourne, chatbot for tradies, automated quoting construction Melbourne, AI for plumbers, AI for electricians, trades business automation">
+    <link rel="canonical" href="https://solidiaai.com/tradies.html">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://solidiaai.com/tradies.html">
+    <meta property="og:title" content="AI Automation for Tradies | Solid AI Melbourne">
+    <meta property="og:description"
+        content="AI chatbots, automated quoting & booking systems built specifically for trades businesses in Melbourne.">
+    <meta property="og:image" content="https://solidiaai.com/logo/logo.png">
+    <link rel="icon" type="image/png" href="logo/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --bg: #0b0f1a;
+            --bg-card: #131928;
+            --border: #1e293b;
+            --text: #f0f4f8;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --accent: #06b6d4;
+            --accent-hover: #22d3ee;
+            --green: #10b981;
+            --green-hover: #34d399;
+            --orange: #f59e0b;
+            --radius: 12px;
+            --transition: 0.25s ease;
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1.5rem
+        }
+
+        /* NAV */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(11, 15, 26, 0.9);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 1.5rem
+        }
+
+        .nav .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px
+        }
+
+        .nav-logo img {
+            height: 36px
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            list-style: none
+        }
+
+        .nav-links a {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            transition: color var(--transition)
+        }
+
+        .nav-links a:hover {
+            color: var(--text)
+        }
+
+        .nav-cta {
+            background: var(--green);
+            color: #fff !important;
+            padding: 0.5rem 1.25rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.85rem
+        }
+
+        .nav-cta:hover {
+            background: var(--green-hover)
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--text);
+            margin: 5px 0
+        }
+
+        @media(max-width:900px) {
+            .nav-links {
+                position: fixed;
+                top: 64px;
+                left: 0;
+                right: 0;
+                background: rgba(11, 15, 26, 0.97);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1.25rem;
+                transform: translateY(-120%);
+                transition: transform 0.35s ease;
+                border-bottom: 1px solid var(--border)
+            }
+
+            .nav-links.active {
+                transform: translateY(0)
+            }
+
+            .nav-toggle {
+                display: block
+            }
+        }
+
+        /* HERO */
+        .hero {
+            padding: 8rem 0 5rem;
+            position: relative;
+            overflow: hidden
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 3rem;
+            align-items: center
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            color: var(--orange);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 4.5vw, 3.2rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1rem
+        }
+
+        .hero .highlight {
+            color: var(--orange)
+        }
+
+        .hero-sub {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+            max-width: 520px
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--green);
+            color: #fff;
+            padding: 0.85rem 2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all var(--transition);
+            border: none;
+            cursor: pointer
+        }
+
+        .btn-primary:hover {
+            background: var(--green-hover);
+            transform: translateY(-2px)
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: transparent;
+            color: var(--text-secondary);
+            padding: 0.85rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: 1px solid var(--border);
+            transition: all var(--transition)
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent)
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap
+        }
+
+        .hero-stat-val {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--green)
+        }
+
+        .hero-stat-label {
+            font-size: 0.75rem;
+            color: var(--text-muted)
+        }
+
+        .hero-photo {
+            width: 100%;
+            max-width: 360px;
+            border-radius: var(--radius);
+            border: 2px solid var(--border);
+            margin: 0 auto
+        }
+
+        @media(max-width:768px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                text-align: center
+            }
+
+            .hero-sub {
+                margin-left: auto;
+                margin-right: auto
+            }
+
+            .hero-btns,
+            .hero-stats {
+                justify-content: center
+            }
+        }
+
+        /* SECTION SHARED */
+        section {
+            padding: 5rem 0
+        }
+
+        .section-tag {
+            display: inline-block;
+            background: rgba(6, 182, 212, 0.1);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            color: var(--accent);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem
+        }
+
+        .section-title {
+            font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+            font-weight: 800;
+            margin-bottom: 1rem
+        }
+
+        .text-center {
+            text-align: center
+        }
+
+        /* PROBLEMS */
+        .problems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 2rem
+        }
+
+        .problem-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            transition: all var(--transition)
+        }
+
+        .problem-card:hover {
+            border-color: var(--orange);
+            transform: translateY(-3px)
+        }
+
+        .problem-icon {
+            font-size: 1.75rem;
+            margin-bottom: 0.75rem
+        }
+
+        .problem-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem
+        }
+
+        /* SERVICES — BEFORE/AFTER */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem
+        }
+
+        .service-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            transition: all var(--transition)
+        }
+
+        .service-card:hover {
+            border-color: var(--green);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(16, 185, 129, 0.08)
+        }
+
+        .service-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem
+        }
+
+        .ba-row {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem
+        }
+
+        .ba-before {
+            color: #ef4444;
+            flex: 1
+        }
+
+        .ba-after {
+            color: var(--green);
+            flex: 1
+        }
+
+        .ba-label {
+            font-weight: 700;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.25rem
+        }
+
+        /* CASE STUDY */
+        .case-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center
+        }
+
+        .case-img {
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            overflow: hidden
+        }
+
+        .case-img img {
+            width: 100%;
+            height: auto;
+            object-fit: cover
+        }
+
+        .case-metrics {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1.5rem 0
+        }
+
+        .case-metric {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center
+        }
+
+        .case-metric-val {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--green)
+        }
+
+        .case-metric-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem
+        }
+
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.25rem;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: all var(--transition)
+        }
+
+        .btn-outline:hover {
+            background: var(--accent);
+            color: #fff
+        }
+
+        @media(max-width:768px) {
+            .case-grid {
+                grid-template-columns: 1fr
+            }
+        }
+
+        /* HOW IT WORKS */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem
+        }
+
+        .step-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem
+        }
+
+        .step-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--orange), var(--green));
+            color: #fff;
+            font-weight: 800;
+            margin-bottom: 1rem
+        }
+
+        .step-card h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem
+        }
+
+        .step-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6
+        }
+
+        /* TRADES LIST */
+        .trades-grid {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 1.5rem
+        }
+
+        .trade-tag {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            padding: 0.6rem 1.25rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem
+        }
+
+        /* CTA */
+        .final-cta {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(16, 185, 129, 0.08));
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            text-align: center;
+            padding: 5rem 0
+        }
+
+        .final-cta h2 {
+            font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+            font-weight: 800;
+            margin-bottom: 1rem
+        }
+
+        .final-cta .subtitle {
+            color: var(--text-secondary);
+            max-width: 520px;
+            margin: 0 auto 2rem
+        }
+
+        .final-cta .urgency {
+            color: var(--orange);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 1.5rem
+        }
+
+        /* FOOTER */
+        .footer {
+            background: var(--bg-card);
+            border-top: 1px solid var(--border);
+            padding: 3rem 0 1.5rem
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem
+        }
+
+        .footer-brand p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-top: 0.75rem;
+            max-width: 280px
+        }
+
+        .footer h4 {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 1rem
+        }
+
+        .footer ul {
+            list-style: none
+        }
+
+        .footer li {
+            margin-bottom: 0.5rem
+        }
+
+        .footer li a {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            transition: color var(--transition)
+        }
+
+        .footer li a:hover {
+            color: var(--accent)
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border);
+            padding-top: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem
+        }
+
+        .footer-bottom p {
+            color: var(--text-muted);
+            font-size: 0.8rem
+        }
+
+        @media(max-width:768px) {
+            .footer-grid {
+                grid-template-columns: 1fr
+            }
+        }
+
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0)
+        }
+
+        /* BACKGROUND ANIMATIONS */
+        @keyframes blob {
+            0% {
+                transform: translate(0, 0) scale(1)
+            }
+
+            33% {
+                transform: translate(30px, -50px) scale(1.1)
+            }
+
+            66% {
+                transform: translate(-20px, 20px) scale(0.9)
+            }
+
+            100% {
+                transform: translate(0, 0) scale(1)
+            }
+        }
+
+        @keyframes drift {
+            0% {
+                transform: translate(0, 0) rotate(0deg)
+            }
+
+            25% {
+                transform: translate(50px, -30px) rotate(90deg)
+            }
+
+            50% {
+                transform: translate(-20px, -60px) rotate(180deg)
+            }
+
+            75% {
+                transform: translate(-50px, -20px) rotate(270deg)
+            }
+
+            100% {
+                transform: translate(0, 0) rotate(360deg)
+            }
+        }
+
+        @keyframes pulse-glow {
+
+            0%,
+            100% {
+                opacity: 0.4
+            }
+
+            50% {
+                opacity: 0.8
+            }
+        }
+
+        .bg-blobs {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.15;
+            animation: blob 8s infinite ease-in-out
+        }
+
+        .blob-1 {
+            width: 500px;
+            height: 500px;
+            background: var(--accent);
+            top: -10%;
+            left: -5%
+        }
+
+        .blob-2 {
+            width: 400px;
+            height: 400px;
+            background: var(--green);
+            top: 30%;
+            right: -10%;
+            animation-delay: 2s
+        }
+
+        .blob-3 {
+            width: 350px;
+            height: 350px;
+            background: #8b5cf6;
+            bottom: 10%;
+            left: 20%;
+            animation-delay: 4s
+        }
+
+        /* Floating service nodes */
+        .floating-nodes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none
+        }
+
+        .f-node {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            opacity: 0;
+            animation: drift 20s infinite linear, pulse-glow 5s infinite ease-in-out
+        }
+
+        .f-node-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--orange);
+            border-radius: 50%;
+            box-shadow: 0 0 12px rgba(245, 158, 11, 0.6);
+            flex-shrink: 0
+        }
+
+        .f-node-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: rgba(245, 158, 11, 0.5);
+            white-space: nowrap;
+            letter-spacing: 0.5px;
+            text-transform: uppercase
+        }
+
+        .f-node:nth-child(1) {
+            top: 12%;
+            left: 8%;
+            animation-delay: 0s
+        }
+
+        .f-node:nth-child(2) {
+            top: 30%;
+            right: 6%;
+            left: auto;
+            animation-delay: 3s
+        }
+
+        .f-node:nth-child(3) {
+            top: 58%;
+            left: 5%;
+            animation-delay: 6s
+        }
+
+        .f-node:nth-child(4) {
+            top: 75%;
+            right: 10%;
+            left: auto;
+            animation-delay: 9s
+        }
+
+        @media(max-width:768px) {
+            .floating-nodes {
+                display: none
+            }
+        }
+
+        .nav,
+        section,
+        .final-cta,
+        .footer,
+        .n8n-chat-widget {
+            position: relative;
+            z-index: 1
+        }
+
+        /* N8N CHAT */
+        .n8n-chat-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 100px;
+            z-index: 9999
+        }
+
+        .n8n-chat-container {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 400px;
+            height: 600px;
+            max-width: 90vw;
+            max-height: 70vh;
+            visibility: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+            background: #1d1d1d;
+            border-radius: 12px;
+            border: 1px solid #333;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)
+        }
+
+        .n8n-chat-container.open {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto
+        }
+
+        .n8n-chat-toggle {
+            position: relative;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            background: #1d1d1d;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+            border: 1px solid #4ecd97;
+            user-select: none
+        }
+
+        .n8n-chat-toggle:hover {
+            transform: scale(1.05);
+            background: #252525;
+            box-shadow: 0 6px 16px rgba(78, 205, 151, 0.2)
+        }
+
+        .n8n-chat-toggle img {
+            width: 28px;
+            height: 28px;
+            margin-right: 12px;
+            object-fit: contain
+        }
+
+        .n8n-chat-toggle span {
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem
+        }
+    </style>
+</head>
+
+<body>
+    <!-- BACKGROUND ANIMATIONS -->
+    <div class="bg-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+    <div class="floating-nodes">
+        <div class="f-node">
+            <div class="f-node-dot"></div><span class="f-node-label">24/7 Chatbot</span>
+        </div>
+        <div class="f-node">
+            <div class="f-node-dot"></div><span class="f-node-label">Auto Quoting</span>
+        </div>
+        <div class="f-node">
+            <div class="f-node-dot"></div><span class="f-node-label">Smart Booking</span>
+        </div>
+        <div class="f-node">
+            <div class="f-node-dot"></div><span class="f-node-label">Trade Websites</span>
+        </div>
+    </div>
+
+    <!-- NAV -->
+    <nav class="nav" id="navbar">
+        <div class="container">
+            <a href="index.html" class="nav-logo"><img src="logo/logo.png" alt="Solid AI"></a>
+            <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#case-study">Case Study</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="https://wa.me/61424840127?text=Hi%20Solid%20AI%2C%20I'm%20a%20tradie%20and%20want%20a%20free%20demo"
+                        target="_blank" rel="noopener noreferrer" class="nav-cta">Free Demo →</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" id="hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div>
+                    <div class="hero-badge">🔧 AI Automation for Trades — Melbourne</div>
+                    <h1>Stop Losing Jobs Because You Can't <span class="highlight">Answer the Phone at 9PM</span></h1>
+                    <p class="hero-sub">We build AI chatbots, automated quoting, and booking systems specifically for
+                        trades businesses in Melbourne. Your leads get answered instantly — even when you're on the
+                        tools or at home with the family.</p>
+                    <div class="hero-btns">
+                        <a href="https://wa.me/61424840127?text=Hi%20Solid%20AI%2C%20I'm%20a%20tradie%20and%20want%20a%20free%2015-min%20demo"
+                            target="_blank" rel="noopener noreferrer" class="btn-primary">💬 Book a Free 15-Min Demo</a>
+                        <a href="#case-study" class="btn-secondary">See Raziel's Results ↓</a>
+                    </div>
+                    <div class="hero-stats">
+                        <div>
+                            <div class="hero-stat-val">24/7</div>
+                            <div class="hero-stat-label">Lead Capture</div>
+                        </div>
+                        <div>
+                            <div class="hero-stat-val">&lt; 30s</div>
+                            <div class="hero-stat-label">Response Time</div>
+                        </div>
+                        <div>
+                            <div class="hero-stat-val">3x</div>
+                            <div class="hero-stat-label">More Quotes Sent</div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <img src="miembros/leonardo.png" alt="Leonardo Rincon — Solid AI" class="hero-photo">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROBLEMS -->
+    <section id="problems" class="fade-up">
+        <div class="container">
+            <div class="text-center"><span class="section-tag">Sound Familiar?</span></div>
+            <h2 class="section-title text-center">Every Tradie Knows This Feeling</h2>
+            <div class="problems-grid">
+                <div class="problem-card">
+                    <div class="problem-icon">📞</div>
+                    <p>Customer calls at 8PM — you're at dinner. By morning, they've called your competitor.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">📝</div>
+                    <p>You spend Sunday night doing quotes instead of relaxing. Half of them never reply.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">🌐</div>
+                    <p>Your website cost you $3K but hasn't brought in a single lead.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">🔄</div>
+                    <p>You copy-paste the same info between email, spreadsheets, and your calendar every day.</p>
+                </div>
+            </div>
+            <p class="text-center" style="color:var(--text-secondary);margin-bottom:1rem">If any of this sounds
+                familiar, we should talk.</p>
+            <div class="text-center"><a
+                    href="https://wa.me/61424840127?text=Hi%20Solid%20AI%2C%20I'm%20a%20tradie%20and%20I%20have%20this%20problem..."
+                    target="_blank" rel="noopener noreferrer" class="btn-outline">Tell Us Your Problem →</a></div>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="fade-up">
+        <div class="container">
+            <div class="text-center"><span class="section-tag">Solutions for Tradies</span></div>
+            <h2 class="section-title text-center">What We Build for Your Trade Business</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>💬 24/7 AI Chatbot</h3>
+                    <div class="ba-row">
+                        <div class="ba-before">
+                            <div class="ba-label">❌ Before</div>Missed calls after hours. Leads go cold.
+                        </div>
+                        <div class="ba-after">
+                            <div class="ba-label">✅ After</div>Bot answers instantly on WhatsApp, captures name, job
+                            type & suburb.
+                        </div>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <h3>📋 Automated Quoting</h3>
+                    <div class="ba-row">
+                        <div class="ba-before">
+                            <div class="ba-label">❌ Before</div>Hours spent writing quotes manually. Half never reply.
+                        </div>
+                        <div class="ba-after">
+                            <div class="ba-label">✅ After</div>Customer fills a form → instant estimate sent via
+                            email/WhatsApp.
+                        </div>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <h3>📅 Smart Booking System</h3>
+                    <div class="ba-row">
+                        <div class="ba-before">
+                            <div class="ba-label">❌ Before</div>Back-and-forth texts to find a time. Double bookings.
+                        </div>
+                        <div class="ba-after">
+                            <div class="ba-label">✅ After</div>Customers book online, syncs with your Google Calendar
+                            automatically.
+                        </div>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <h3>🌐 Website That Actually Works</h3>
+                    <div class="ba-row">
+                        <div class="ba-before">
+                            <div class="ba-label">❌ Before</div>Pretty site, zero leads. No chat, no booking, no forms.
+                        </div>
+                        <div class="ba-after">
+                            <div class="ba-label">✅ After</div>SEO-optimised site with chatbot, lead forms, and booking
+                            built in.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p class="text-center" style="color:var(--text-muted);margin-top:2rem;font-size:0.9rem">Built on <strong
+                    style="color:var(--text)">your</strong> existing tools. No expensive platforms or lock-in contracts.
+            </p>
+        </div>
+    </section>
+
+    <!-- CASE STUDY -->
+    <section id="case-study" class="fade-up">
+        <div class="container">
+            <div class="text-center"><span class="section-tag">Real Results</span></div>
+            <h2 class="section-title text-center">How We Helped Raziel Insulation</h2>
+            <div class="case-grid">
+                <div class="case-img"><img src="images/raciel_preview_real.png" alt="Raziel Insulation Website"></div>
+                <div>
+                    <p style="color:var(--text-secondary);line-height:1.8;margin-bottom:1rem">Raziel Insulation needed a
+                        website that could capture leads 24/7, send automated quotes, and book jobs — without them
+                        having to answer every call manually.</p>
+                    <p style="color:var(--text-secondary);line-height:1.8;margin-bottom:1.5rem">We built them a full
+                        website with an AI chatbot, lead capture automation, and automated quote calculation emails. The
+                        system runs day and night.</p>
+                    <div class="case-metrics">
+                        <div class="case-metric">
+                            <div class="case-metric-val">24/7</div>
+                            <div class="case-metric-label">Lead Capture</div>
+                        </div>
+                        <div class="case-metric">
+                            <div class="case-metric-val">Auto</div>
+                            <div class="case-metric-label">Quote Emails</div>
+                        </div>
+                        <div class="case-metric">
+                            <div class="case-metric-val">AI</div>
+                            <div class="case-metric-label">Chatbot</div>
+                        </div>
+                        <div class="case-metric">
+                            <div class="case-metric-val">SEO</div>
+                            <div class="case-metric-label">Optimised</div>
+                        </div>
+                    </div>
+                    <a href="https://www.racielinsulation.com/" target="_blank" rel="noopener noreferrer"
+                        class="btn-outline">Visit Their Site →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="how-it-works" class="fade-up">
+        <div class="container">
+            <div class="text-center"><span class="section-tag">Simple Process</span></div>
+            <h2 class="section-title text-center">How It Works</h2>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-num">1</div>
+                    <h3>Free 15-Min Call</h3>
+                    <p>Tell us what's costing you time. We'll identify what to automate first — no jargon, no pitch.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">2</div>
+                    <h3>We Build It in 1–3 Weeks</h3>
+                    <p>Chatbot, quoting system, booking, website — we build it, you approve it before anything goes
+                        live.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">3</div>
+                    <h3>Your Business Runs on Autopilot</h3>
+                    <p>Leads get answered at 3AM. Quotes go out automatically. You wake up to booked jobs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TRADES WE SERVE -->
+    <section class="fade-up">
+        <div class="container text-center">
+            <span class="section-tag">Trades We Serve</span>
+            <h2 class="section-title">Built for Tradies Like You</h2>
+            <div class="trades-grid">
+                <div class="trade-tag">🔌 Electricians</div>
+                <div class="trade-tag">🔧 Plumbers</div>
+                <div class="trade-tag">🏗️ Builders</div>
+                <div class="trade-tag">🏠 Roofers</div>
+                <div class="trade-tag">❄️ HVAC</div>
+                <div class="trade-tag">🧱 Insulation</div>
+                <div class="trade-tag">🎨 Painters</div>
+                <div class="trade-tag">🌿 Landscapers</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="final-cta fade-up" id="contact">
+        <div class="container">
+            <h2>Ready to Stop Losing Jobs?</h2>
+            <p class="subtitle">Book a free 15-minute call. We'll show you exactly how AI can save you time and catch
+                more leads.</p>
+            <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+                <a href="https://wa.me/61424840127?text=Hi%20Solid%20AI%2C%20I'm%20a%20tradie%20and%20want%20to%20book%20a%20free%20call"
+                    target="_blank" rel="noopener noreferrer" class="btn-primary">💬 Chat With Us on WhatsApp</a>
+                <a href="mailto:solidiaai@gmail.com" class="btn-secondary">Or Email Us →</a>
+            </div>
+            <p class="urgency">⚡ We take on 2 new trades clients per month — spots fill fast.</p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="logo/logo.png" alt="Solid AI" style="height:32px">
+                    <p>AI automation for trades businesses in Melbourne. Chatbots, quoting, bookings — all on autopilot.
+                    </p>
+                </div>
+                <div>
+                    <h4>Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#case-study">Case Study</a></li>
+                        <li><a href="latest-news.html" target="_blank">Blog</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="mailto:solidiaai@gmail.com">solidiaai@gmail.com</a></li>
+                        <li><a href="tel:+61424840127">+61 424 840 127</a></li>
+                        <li><span style="color:var(--text-secondary);font-size:0.85rem">Melbourne, VIC, Australia</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Solid AI. All rights reserved.</p>
+                <p><a href="index.html" style="color:var(--accent)">← Back to main site</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const navToggle = document.getElementById('navToggle'), navLinks = document.getElementById('navLinks');
+        navToggle.addEventListener('click', () => { navLinks.classList.toggle('active') });
+        navLinks.querySelectorAll('a').forEach(l => { l.addEventListener('click', () => { navLinks.classList.remove('active') }) });
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => { navbar.style.background = window.scrollY > 50 ? 'rgba(11,15,26,0.95)' : 'rgba(11,15,26,0.9)' });
+        const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible') }) }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+    </script>
+
+    <!-- N8N CHAT WIDGET -->
+    <div class="n8n-chat-widget">
+        <div id="n8n-chat" class="n8n-chat-container"></div>
+        <div class="n8n-chat-toggle" id="n8n-chat-toggle-btn">
+            <img src="logo/logo.png" alt="Chat">
+            <span>Chat with us</span>
+        </div>
+    </div>
+    <script type="module">
+        import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+        const ul = navigator.language || navigator.userLanguage, isEs = ul.startsWith('es'), lc = isEs ? 'es' : 'en';
+        const i18n = { en: { title: 'Solid AI', subtitle: 'Schedule an appointment with Solid AI', getStarted: 'Start Chat', inputPlaceholder: 'Type here...' }, es: { title: 'Solid AI', subtitle: 'Agenda una cita con Solid AI', getStarted: 'Iniciar Chat', inputPlaceholder: 'Escribe aquí...' } };
+        const msgs = isEs ? ['Hola 👋 Soy el Asistente Virtual de Solid AI.', '¿En qué puedo ayudarte?'] : ['Hello 👋 I am the Solid AI Virtual Assistant.', 'How can I help you today?'];
+        createChat({ webhookUrl: 'https://n8n.solidiaai.com/webhook/974f29f6-1eee-4e56-aabc-ccb9cccccaef/chat', target: '#n8n-chat', mode: 'fullscreen', chatInputKey: 'chatInput', chatSessionKey: 'sessionId', metadata: {}, showWelcomeScreen: false, defaultLanguage: lc, initialMessages: msgs, i18n: { [lc]: i18n[lc] }, style: { backgroundColor: '#1d1d1d', tokenColor: '#4ecd97' } });
+        const tBtn = document.getElementById('n8n-chat-toggle-btn'), cC = document.getElementById('n8n-chat');
+        tBtn.addEventListener('click', () => { cC.classList.toggle('open'); setTimeout(() => { try { const f = cC.querySelector('iframe'); if (f && !f.contentWindow.document.getElementById('chs')) { const s = f.contentWindow.document.createElement('style'); s.id = 'chs'; s.textContent = '.n8n-chat-header-title{color:transparent!important;background-image:url("logo/logo.png")!important;background-size:contain!important;background-repeat:no-repeat!important;background-position:center!important;height:35px!important;width:100%!important;display:block!important;margin-bottom:5px!important}.n8n-chat-header-subtitle{display:block!important;font-size:13px!important;text-align:center!important}.n8n-chat-input-container{display:flex!important;visibility:visible!important}'; f.contentWindow.document.head.appendChild(s) } } catch (e) { console.log(e) } }, 100) });
+    </script>
+</body>
+
+</html>

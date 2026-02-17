@@ -4,175 +4,967 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Security: Content Security Policy -->
-    <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://placehold.co https://quickchart.io; connect-src 'self' https://n8n.solidiaai.com https://generativelanguage.googleapis.com; frame-src 'self' https://lyhack27.github.io https://premiumpromotions.vercel.app;">
-    <title>solid Ai - Artificial Intelligence Agency</title>
-    <!-- Meta Description for SEO -->
+    <title>Solid AI — AI Automation & Software Development | Melbourne</title>
     <meta name="description"
-        content="solid AI: Your AI agency in Melbourne. Connecting the future with innovative Artificial Intelligence solutions: custom software, automation, secure cloud, and web development. Explore AI ideas with our Brainstormer!">
-
-    <!-- SEO: Canonical URL -->
+        content="Solid AI builds AI chatbots, automated quoting, smart workflows, and websites that convert — for small and medium businesses in Melbourne and across Australia.">
+    <meta name="keywords"
+        content="AI automation Melbourne, AI chatbot for business, automated quoting system, workflow automation, AI agency Melbourne, lead capture automation">
     <link rel="canonical" href="https://solidiaai.com/">
-
-    <!-- Social Media Tags (Open Graph / Facebook) -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://solidiaai.com/">
-    <meta property="og:title" content="solid Ai - Artificial Intelligence Agency">
+    <meta property="og:title" content="Solid AI — AI Automation & Software Development | Melbourne">
     <meta property="og:description"
-        content="Custom AI solutions, automation workflows, and software development to transform your business.">
+        content="AI chatbots, automated quoting & smart workflows for small businesses in Melbourne.">
     <meta property="og:image" content="https://solidiaai.com/logo/logo.png">
-
-    <!-- Social Media Tags (Twitter) -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="solid Ai - Artificial Intelligence Agency">
+    <meta name="twitter:title" content="Solid AI — AI Automation & Software Development | Melbourne">
     <meta name="twitter:description"
-        content="Custom AI solutions, automation workflows, and software development to transform your business.">
+        content="AI chatbots, automated quoting & smart workflows for small businesses in Melbourne.">
     <meta name="twitter:image" content="https://solidiaai.com/logo/logo.png">
-
-    <!-- Favicon & App Icons (Optimized for Google Search) -->
     <link rel="icon" type="image/png" href="logo/logo.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="logo/logo.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="logo/logo.png">
     <link rel="apple-touch-icon" href="logo/logo.png">
-
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"LocalBusiness","name":"Solid AI","url":"https://solidiaai.com/","telephone":"+61424840127","email":"solidiaai@gmail.com","address":{"@type":"PostalAddress","addressLocality":"Melbourne","addressRegion":"VIC","addressCountry":"AU"},"description":"AI automation agency helping small and medium businesses automate lead capture, quoting, and workflows."}
+</script>
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
+        *,
+        *::before,
+        *::after {
             margin: 0;
-            background-color: #0d1117;
-            /* Dark background for AI theme */
-            color: #e0e0e0;
-            display: flex;
-            flex-direction: column;
-            /* Stack children vertically */
-            min-height: 100vh;
-            /* Ensure body takes full viewport height */
+            padding: 0;
+            box-sizing: border-box
         }
 
-        canvas {
+        :root {
+            --bg: #000000;
+            --bg-card: #0a0a0a;
+            --bg-card-hover: #111111;
+            --border: #1a1a1a;
+            --text: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-muted: #666666;
+            --accent: #ffffff;
+            --accent-hover: #d4d4d4;
+            --accent-green: #ffffff;
+            --accent-green-hover: #d4d4d4;
+            --radius: 16px;
+            --radius-sm: 10px;
+            --transition: 0.3s ease;
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1.5rem
+        }
+
+        /* NAV */
+        .nav {
             position: fixed;
-            /* Keep canvas fixed to prevent scroll issues */
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 0 1.5rem;
+            transition: background var(--transition)
+        }
+
+        .nav .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px
+        }
+
+        .nav-logo img {
+            height: 36px
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            list-style: none
+        }
+
+        .nav-links a {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            transition: color var(--transition)
+        }
+
+        .nav-links a:hover {
+            color: var(--text)
+        }
+
+        .nav-cta {
+            background: var(--accent);
+            color: #fff !important;
+            padding: 0.5rem 1.25rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: background var(--transition), transform var(--transition)
+        }
+
+        .nav-cta:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px)
+        }
+
+        .nav-login {
+            background: #2563eb;
+            color: #fff !important;
+            padding: 0.5rem 1.25rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            border: 1px solid #3b82f6;
+            box-shadow: 0 0 10px rgba(37, 99, 235, 0.4);
+            transition: background var(--transition), transform var(--transition)
+        }
+
+        .nav-login:hover {
+            background: #1d4ed8;
+            transform: translateY(-1px)
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--text);
+            margin: 5px 0;
+            transition: var(--transition)
+        }
+
+        @media(max-width:900px) {
+            .nav-links {
+                position: fixed;
+                top: 64px;
+                left: 0;
+                right: 0;
+                background: rgba(11, 15, 26, 0.97);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1.25rem;
+                transform: translateY(-120%);
+                transition: transform 0.35s ease;
+                border-bottom: 1px solid var(--border)
+            }
+
+            .nav-links.active {
+                transform: translateY(0)
+            }
+
+            .nav-toggle {
+                display: block
+            }
+        }
+
+        /* HERO */
+        .hero {
+            padding: 8rem 0 5rem;
+            text-align: center;
+            position: relative;
+            min-height: 100vh;
+            overflow: hidden
+        }
+
+        /* SPLINE 3D */
+        .spline-wrapper {
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: 0;
-            /* Send canvas to background */
+            pointer-events: auto;
         }
 
-        /* Navigation Bar */
-        nav {
+        .spline-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            padding: 1rem;
-            background: rgba(0, 0, 0, 0.7);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            /* Center items vertically */
-            border-radius: 0 0 0.5rem 0.5rem;
+            height: 100%;
+            background: linear-gradient(180deg,
+                    rgba(0, 0, 0, 0.3) 0%,
+                    rgba(0, 0, 0, 0.1) 40%,
+                    rgba(0, 0, 0, 0.4) 80%,
+                    rgba(0, 0, 0, 0.95) 100%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .spline-wrapper canvas {
+            width: 100% !important;
+            height: 100% !important;
+            display: block;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .spline-wrapper canvas.loaded {
+            opacity: 1;
+        }
+
+        .spline-loader {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+
+        .spline-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(6, 182, 212, 0.15);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        .spline-loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        @keyframes spin {
+            to {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
+        .hero .container {
             position: relative;
-            z-index: 10;
-            gap: 1rem;
-            flex-wrap: wrap;
+            z-index: 2;
         }
 
-        nav a {
-            color: #e0e0e0;
-            padding: 0.5rem 0.8rem;
-            text-decoration: none;
-            border-radius: 0.5rem;
-            transition: background-color 0.3s ease, color 0.3s ease;
-            font-weight: 600;
-            font-size: 0.9rem;
+        /* Frosted glass panel behind hero text */
+        .hero-glass {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 3rem 2.5rem;
+            max-width: 720px;
+            margin: 0 auto;
+            box-shadow: 0 0 60px rgba(0, 0, 0, 0.5);
         }
 
-        nav a:hover {
-            background-color: rgba(60, 120, 255, 0.2);
-            color: #80bfff;
+        /* Logo at bottom of 3D scene */
+        .hero-3d-logo {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
         }
 
-        /* --- NUEVO ESTILO PARA EL BOTÓN LOGIN (Solo esto es nuevo) --- */
-        nav a.login-btn {
-            background-color: #2563eb;
-            /* Blue 600 */
-            color: white;
-            border: 1px solid #3b82f6;
-            box-shadow: 0 0 10px rgba(37, 99, 235, 0.5);
+        .hero-3d-logo img {
+            height: 45px;
+            filter: brightness(10);
         }
 
-        nav a.login-btn:hover {
-            background-color: #1d4ed8;
-            /* Blue 700 */
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.6);
+        .hero-3d-logo:hover {
+            opacity: 1;
         }
 
-        @media (max-width: 768px) {
-            nav {
-                padding: 0.75rem;
-                gap: 0.5rem;
+        @media(max-width:768px) {
+            .spline-wrapper {
+                display: none;
             }
 
-            nav a {
-                padding: 0.4rem 0.6rem;
-                font-size: 0.8rem;
+            .hero {
+                min-height: auto;
             }
 
-            /* Mobile adjustment for main container to maximize space */
-            .main-container {
-                padding: 0.5rem !important;
-                width: 98% !important;
-                max-width: 99% !important;
-                margin: 0.5rem auto !important;
-            }
-
-            /* Reduce padding inside content sections on mobile */
-            .content-section {
-                padding: 1rem !important;
+            .hero-3d-logo {
+                display: none;
             }
         }
 
-        .main-container {
-            position: relative;
-            z-index: 5;
-            text-align: center;
-            padding: 1.5rem;
-            background: rgba(0, 0, 0, 0.4);
-            border-radius: 1.5rem;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-            max-width: 95%;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1.5rem;
-            overflow-y: auto;
-            flex-grow: 1;
-            margin: 1.5rem auto;
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #ffffff;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem
         }
 
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(45deg, #4CAF50, #2196F3);
-            background-clip: text;
+        .hero h1 {
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, #ffffff, #888888);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text
         }
 
-        footer {
+        .hero-sub {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 640px;
+            margin: 0 auto 2rem;
+            line-height: 1.7
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2.5rem
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--accent-green);
+            color: #fff;
+            padding: 0.85rem 2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: background var(--transition), transform var(--transition);
+            border: none;
+            cursor: pointer
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-green-hover);
+            transform: translateY(-2px)
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: transparent;
+            color: var(--text-secondary);
+            padding: 0.85rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: 1px solid var(--border);
+            transition: all var(--transition);
+            cursor: pointer
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent)
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 2.5rem;
+            justify-content: center;
+            flex-wrap: wrap
+        }
+
+        .hero-stat-val {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--accent)
+        }
+
+        .hero-stat-label {
+            font-size: 0.75rem;
+            color: var(--text-muted)
+        }
+
+        /* SECTIONS */
+        section {
+            padding: 5rem 0
+        }
+
+        .section-tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem
+        }
+
+        .section-title {
+            font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+            font-weight: 800;
+            margin-bottom: 1rem
+        }
+
+        .section-desc {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-bottom: 2.5rem
+        }
+
+        .text-center {
+            text-align: center
+        }
+
+        .mx-auto {
+            margin-left: auto;
+            margin-right: auto
+        }
+
+        /* PROBLEM CARDS */
+        .problems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 2rem
+        }
+
+        .problem-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            transition: border-color var(--transition), transform var(--transition)
+        }
+
+        .problem-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px)
+        }
+
+        .problem-icon {
+            font-size: 1.75rem;
+            margin-bottom: 0.75rem
+        }
+
+        .problem-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem
+        }
+
+        /* SERVICE CARDS */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem
+        }
+
+        .service-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            transition: all var(--transition)
+        }
+
+        .service-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(6, 182, 212, 0.1)
+        }
+
+        .service-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem
+        }
+
+        .service-card h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem
+        }
+
+        .service-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1rem
+        }
+
+        .service-link {
+            color: var(--accent);
+            font-size: 0.85rem;
+            font-weight: 600
+        }
+
+        .service-link:hover {
+            text-decoration: underline
+        }
+
+        /* PORTFOLIO */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem
+        }
+
+        .portfolio-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            transition: all var(--transition)
+        }
+
+        .portfolio-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px)
+        }
+
+        .portfolio-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            object-position: top
+        }
+
+        .portfolio-body {
+            padding: 1.5rem
+        }
+
+        .portfolio-body h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem
+        }
+
+        .portfolio-tag {
+            font-size: 0.75rem;
+            color: var(--accent);
+            margin-bottom: 0.75rem;
+            display: inline-block
+        }
+
+        .portfolio-body p {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            line-height: 1.6;
+            margin-bottom: 1rem
+        }
+
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.25rem;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: all var(--transition)
+        }
+
+        .btn-outline:hover {
+            background: var(--accent);
+            color: #fff
+        }
+
+        /* HOW IT WORKS */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            counter-reset: step
+        }
+
+        .step-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            counter-increment: step;
+            position: relative
+        }
+
+        .step-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--accent-green));
+            color: #fff;
+            font-weight: 800;
+            font-size: 1rem;
+            margin-bottom: 1rem
+        }
+
+        .step-card h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem
+        }
+
+        .step-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6
+        }
+
+        /* INDUSTRIES */
+        .industries-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1rem
+        }
+
+        .industry-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            text-align: center;
+            transition: all var(--transition);
+            cursor: pointer
+        }
+
+        .industry-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px)
+        }
+
+        .industry-icon {
+            font-size: 2rem;
+            margin-bottom: 0.75rem
+        }
+
+        .industry-card span {
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: block
+        }
+
+        .industry-badge {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem
+        }
+
+        /* ABOUT */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center
+        }
+
+        .about-text p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            font-size: 0.95rem
+        }
+
+        .team-grid {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap
+        }
+
+        .team-member {
+            text-align: center
+        }
+
+        .team-member img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--border);
+            margin: 0 auto 0.75rem
+        }
+
+        .team-member h4 {
+            font-size: 0.95rem;
+            font-weight: 700
+        }
+
+        .team-member span {
+            font-size: 0.8rem;
+            color: var(--accent)
+        }
+
+        @media(max-width:768px) {
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center
+            }
+
+            .team-grid {
+                justify-content: center
+            }
+        }
+
+        /* FINAL CTA */
+        .final-cta {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.08), rgba(16, 185, 129, 0.08));
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            text-align: center;
+            padding: 5rem 0
+        }
+
+        .final-cta h2 {
+            font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+            font-weight: 800;
+            margin-bottom: 1rem
+        }
+
+        .final-cta .subtitle {
+            color: var(--text-secondary);
+            max-width: 520px;
+            margin: 0 auto 2rem;
+            font-size: 1rem
+        }
+
+        .final-cta .location {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 1.5rem
+        }
+
+        /* FOOTER */
+        .footer {
+            background: var(--bg-card);
+            border-top: 1px solid var(--border);
+            padding: 3rem 0 1.5rem
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem
+        }
+
+        .footer-brand p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-top: 0.75rem;
+            max-width: 280px
+        }
+
+        .footer h4 {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 1rem
+        }
+
+        .footer ul {
+            list-style: none
+        }
+
+        .footer li {
+            margin-bottom: 0.5rem
+        }
+
+        .footer li a {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            transition: color var(--transition)
+        }
+
+        .footer li a:hover {
+            color: var(--accent)
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border);
+            padding-top: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem
+        }
+
+        .footer-bottom p {
+            color: var(--text-muted);
+            font-size: 0.8rem
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 1rem
+        }
+
+        .footer-socials a {
+            color: var(--text-muted);
+            transition: color var(--transition)
+        }
+
+        .footer-socials a:hover {
+            color: var(--accent)
+        }
+
+        @media(max-width:768px) {
+            .footer-grid {
+                grid-template-columns: 1fr
+            }
+
+            .hero-stats {
+                gap: 1.5rem
+            }
+        }
+
+        /* ANIMATIONS */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0)
+        }
+
+        /* N8N CHAT */
+        .n8n-chat-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 100px;
+            z-index: 9999
+        }
+
+        .n8n-chat-container {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 400px;
+            height: 600px;
+            max-width: 90vw;
+            max-height: 70vh;
+            visibility: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+            background: #1d1d1d;
+            border-radius: 12px;
+            border: 1px solid #333;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)
+        }
+
+        .n8n-chat-container.open {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto
+        }
+
+        .n8n-chat-toggle {
             position: relative;
-            z-index: 10;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            background: #1d1d1d;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+            border: 1px solid #4ecd97;
+            user-select: none
         }
 
-        /* --- Animations & Custom Styles for App Preview --- */
+        .n8n-chat-toggle:hover {
+            transform: scale(1.05);
+            background: #252525;
+            box-shadow: 0 6px 16px rgba(78, 205, 151, 0.2)
+        }
+
+        .n8n-chat-toggle img {
+            width: 28px;
+            height: 28px;
+            margin-right: 12px;
+            object-fit: contain
+        }
+
+        .n8n-chat-toggle span {
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem
+        }
+
+        /* BACKGROUND ANIMATIONS */
         @keyframes blob {
             0% {
                 transform: translate(0px, 0px) scale(1);
@@ -191,1303 +983,499 @@
             }
         }
 
-        .animate-blob {
-            animation: blob 7s infinite;
-        }
-
-        .animation-delay-2000 {
-            animation-delay: 2s;
-        }
-
-        .animation-delay-4000 {
-            animation-delay: 4s;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: #111827;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #374151;
-            border-radius: 3px;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #4b5563;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #4b5563;
-        }
-
-        /* Breathing Animation for Scroll Hint */
-        @keyframes breathe {
+        @keyframes float {
 
             0%,
             100% {
-                transform: scale(1);
-                opacity: 0.8;
+                transform: translateY(0px);
             }
 
             50% {
-                transform: scale(1.1);
-                opacity: 1;
+                transform: translateY(-20px);
             }
         }
 
-        .animate-breathe {
-            animation: breathe 2s ease-in-out infinite;
+        @keyframes pulse-glow {
+
+            0%,
+            100% {
+                opacity: 0.4;
+            }
+
+            50% {
+                opacity: 0.8;
+            }
+        }
+
+        @keyframes drift {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            25% {
+                transform: translate(50px, -30px) rotate(90deg);
+            }
+
+            50% {
+                transform: translate(-20px, -60px) rotate(180deg);
+            }
+
+            75% {
+                transform: translate(-50px, -20px) rotate(270deg);
+            }
+
+            100% {
+                transform: translate(0, 0) rotate(360deg);
+            }
+        }
+
+        /* Removed: floating nodes and blobs replaced with minimal dots */
+        .bg-dots {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        @media(max-width:768px) {
+            .bg-dots {
+                background-size: 30px 30px;
+            }
+        }
+
+        /* Ensure all content is above blobs */
+        .nav,
+        section,
+        .final-cta,
+        .footer,
+        .n8n-chat-widget {
+            position: relative;
+            z-index: 1;
         }
     </style>
 </head>
 
 <body>
-    <canvas id="networkCanvas"></canvas>
+    <!-- NOTHING PHONE DOT PATTERN -->
+    <div class="bg-dots"></div>
 
-    <!-- Navigation Bar -->
-    <nav>
-        <a href="#" onclick="showSection('home-section')" data-i18n="nav_home">Home</a>
-        <a href="latest-news.html" target="_blank" rel="noopener noreferrer" data-i18n="nav_news">Latest News</a>
-        <a href="#" onclick="showSection('who-we-are')" data-i18n="nav_who">Who We Are</a>
-        <a href="#" onclick="showSection('services-section')" data-i18n="nav_services">Services</a>
-        <a href="#" onclick="showSection('our-ai')" data-i18n="nav_ai">Our AI</a>
-
-        <a href="automated instagram.html" target="_blank" rel="noopener noreferrer" data-i18n="nav_instagram">Automated
-            Instagram</a>
-        <a href="#" onclick="showSection('consulting-section')" data-i18n="nav_consulting">Consulting</a>
-        <a href="#" onclick="showSection('careers')" data-i18n="nav_careers">Careers</a>
-        <a href="#" onclick="showSection('privacy-policy')" data-i18n="nav_privacy">Privacy Policy</a>
-
-        <!-- BOTÓN DE LOGIN AÑADIDO -->
-        <a href="https://login.solidiaai.com" target="_blank" class="login-btn" rel="noopener noreferrer">Log In</a>
+    <!-- NAV -->
+    <nav class="nav" id="navbar">
+        <div class="container">
+            <a href="#" class="nav-logo"><img src="logo/logo.png" alt="Solid AI Logo"></a>
+            <button class="nav-toggle" id="navToggle" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#services">Services</a></li>
+                <li><a href="#portfolio">Our Work</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="latest-news.html" target="_blank" rel="noopener noreferrer">Blog</a></li>
+                <li><a href="automated instagram.html" target="_blank" rel="noopener noreferrer">Auto Instagram</a></li>
+                <li><a href="#contact" class="nav-cta">Book a Free Call</a></li>
+                <li><a href="https://login.solidiaai.com" target="_blank" rel="noopener noreferrer"
+                        class="nav-login">Log In</a></li>
+            </ul>
+        </div>
     </nav>
 
-    <div class="main-container" id="mainContent">
-
-        <!-- Home Section -->
-        <div id="home-section"
-            class="content-section w-full max-w-4xl bg-gray-800 bg-opacity-60 p-6 rounded-xl shadow-lg mx-auto">
-            <div class="flex justify-center mb-6">
-                <!-- Logo Image -->
-                <img src="logo/logo.png" alt="solid Ai Logo" class="h-16 md:h-20 mb-4 animate-float"
-                    onerror="this.onerror=null;this.src='https://placehold.co/128x48/0d1117/e0e0e0?text=solid+AI+Logo';"
-                    loading="lazy">
+    <!-- HERO -->
+    <section class="hero" id="hero">
+        <!-- SPLINE 3D BACKGROUND -->
+        <div class="spline-wrapper" id="splineWrapper">
+            <div class="spline-loader" id="splineLoader">
+                <div class="spline-spinner"></div>
             </div>
-
-            <!-- SEO: Main Heading (Hidden visually but present for search engines) -->
-            <h1 class="sr-only">solid Ai - Artificial Intelligence & Automation Agency</h1>
-
-            <!-- Visible Tagline -->
-            <!-- Visible Tagline -->
-            <h2 class="text-xl md:text-2xl text-gray-300 italic mb-8" data-i18n="hero_tagline">AI Automation & Software
-                Development Agency</h2>
-
-            <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mb-8">
-                <button
-                    class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105"
-                    onclick="window.open('https://wa.me/61424840127', '_blank', 'noopener,noreferrer')"
-                    data-i18n="hero_whatsapp">
-                    WhatsApp Us
-                </button>
-            </div>
-            <div
-                class="relative w-full md:max-w-3xl lg:max-w-4xl mx-auto h-96 md:h-[36rem] overflow-hidden mb-10 flex items-center justify-center">
-                <div
-                    class="absolute inset-0 bg-gray-700 bg-opacity-70 p-4 rounded-lg shadow-md flex flex-col items-center justify-center text-center">
-                    <img src="slides/slide1.gif" alt="Intelligent Workflow Automation with n8n"
-                        class="w-full h-full object-contain rounded-lg"
-                        onerror="this.onerror=null;this.src='https://placehold.co/400x250/4CAF50/ffffff?text=Slide+1';"
-                        loading="lazy">
+            <canvas id="canvas3d"></canvas>
+        </div>
+        <!-- Logo at bottom of 3D area -->
+        <div class="hero-3d-logo">
+            <img src="logo/logo.png" alt="Solid AI">
+        </div>
+        <div class="container">
+            <div class="hero-glass">
+                <div class="hero-badge">AI Automation — Melbourne, Australia</div>
+                <h1>Your Business Runs.<br><span class="highlight">Even When You Don't.</span></h1>
+                <p class="hero-sub">We build AI chatbots, automated quoting systems, and smart workflows that capture
+                    leads,
+                    answer customers, and handle the repetitive stuff — so you can focus on real work.</p>
+                <div class="hero-btns">
+                    <a href="https://wa.me/61424840127?text=Hi%20Solid%20AI%2C%20I'd%20like%20a%20free%2015-min%20call"
+                        target="_blank" rel="noopener noreferrer" class="btn-primary">💬 Book a Free 15-Min Call</a>
+                    <a href="#portfolio" class="btn-secondary">See Our Work ↓</a>
                 </div>
-            </div>
-            <h3 class="text-2xl font-bold text-white mb-4 text-center mt-10" data-i18n="section_services_title">Our Core
-                Services</h3>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div class="bg-gray-700 bg-opacity-70 p-4 rounded-lg shadow-md flex flex-col items-center text-center">
-                    <svg class="w-10 h-10 text-blue-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M9.75 17L9 20l-1 1h8l-1-1-1-3m-6.964-1.24A6.002 6.002 0 0012 16a6.002 6.002 0 005.214-2.24m-10.428 0a6.002 6.002 0 0110.428 0M10 10V6a2 2 0 114 0v4m-4 0h4">
-                        </path>
-                    </svg>
-                    <h4 class="text-xl font-semibold text-white mb-1" data-i18n="service_consulting">AI Consulting</h4>
-                    <p class="text-gray-300 text-xs" data-i18n="service_consulting_desc">Strategic guidance to integrate
-                        AI into your business for
-                        measurable impact.</p>
-                </div>
-                <div class="bg-gray-700 bg-opacity-70 p-4 rounded-lg shadow-md flex flex-col items-center text-center">
-                    <svg class="w-10 h-10 text-green-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5l7 7-7 7">
-                        </path>
-                    </svg>
-                    <h4 class="text-xl font-semibold text-white mb-1" data-i18n="service_automation">Custom Automation
-                    </h4>
-                    <p class="text-gray-300 text-xs" data-i18n="service_automation_desc">Tailored n8n workflows to
-                        streamline tasks and enhance operational
-                        efficiency.</p>
-                </div>
-                <div class="bg-gray-700 bg-opacity-70 p-4 rounded-lg shadow-md flex flex-col items-center text-center">
-                    <svg class="w-10 h-10 text-purple-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z">
-                        </path>
-                    </svg>
-                    <h4 class="text-xl font-semibold text-white mb-1" data-i18n="service_software">Software Development
-                    </h4>
-                    <p class="text-gray-300 text-xs" data-i18n="service_software_desc">Building custom AI-powered
-                        software solutions from scratch to fit
-                        your unique needs.</p>
-                </div>
-            </div>
-            <h3 class="text-2xl font-bold text-white mb-4 text-center mt-10" data-i18n="section_why_ai">Why AI is
-                Essential for Your Business</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                <div class="bg-gray-700 bg-opacity-70 p-6 rounded-lg shadow-md flex flex-col items-center text-center">
-                    <img src="https://quickchart.io/chart?c={type:'bar',data:{labels:['Q1','Q2','Q3','Q4'],datasets:[{label:'Costs w/o AI',data:[100,95,90,85]},{label:'Costs with AI',data:[100,80,60,40]}]}}"
-                        class="w-full h-auto rounded-md mb-4" loading="lazy">
-                    <h3 class="text-xl font-semibold text-white mb-2" data-i18n="chart_costs">Reduce Operational Costs
-                    </h3>
-                </div>
-                <div class="bg-gray-700 bg-opacity-70 p-6 rounded-lg shadow-md flex flex-col items-center text-center">
-                    <img src="https://quickchart.io/chart?c={type:'line',data:{labels:['Year 1','Year 2','Year 3'],datasets:[{label:'Revenue w/o AI',data:[100,105,110]},{label:'Revenue with AI',data:[100,120,140]}]}}"
-                        class="w-full h-auto rounded-md mb-4" loading="lazy">
-                    <h3 class="text-xl font-semibold text-white mb-2" data-i18n="chart_revenue">Drive Revenue Growth
-                    </h3>
-                </div>
-            </div>
-
-            <!-- Testimonials Section (New Marketing Improvement) -->
-            <div class="w-full mt-10 mb-10">
-                <h3 class="text-2xl font-bold text-white mb-6 text-center" data-i18n="section_testimonials">What Our
-                    Clients Say</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 shadow-lg relative">
-                        <div class="absolute -top-3 -left-3 text-4xl text-blue-500 opacity-50">"</div>
-                        <p class="text-gray-300 text-sm italic mb-4" data-i18n="testim_1_text">solid AI's automation
-                            saved us 20 hours a week on manual data entry. The chatbot works flawlessly.</p>
-                        <div class="flex items-center">
-                            <div
-                                class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-xs font-bold mr-3">
-                                JD</div>
-                            <div>
-                                <h4 class="text-white text-sm font-bold">John D.</h4>
-                                <span class="text-gray-500 text-xs">Director, Logistics Co.</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 shadow-lg relative">
-                        <div class="absolute -top-3 -left-3 text-4xl text-green-500 opacity-50">"</div>
-                        <p class="text-gray-300 text-sm italic mb-4" data-i18n="testim_2_text">The custom software they
-                            built specifically for our inventory management has been a game changer.</p>
-                        <div class="flex items-center">
-                            <div
-                                class="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-xs font-bold mr-3">
-                                SM</div>
-                            <div>
-                                <h4 class="text-white text-sm font-bold">Sarah M.</h4>
-                                <span class="text-gray-500 text-xs">CEO, Retail Group</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Featured Projects Carousel -->
-            <div class="w-full mt-12 mb-12">
-                <h3 class="text-3xl font-bold text-white mb-2 text-center" data-i18n="section_featured">Featured Work &
-                    Solutions</h3>
-                <p class="text-gray-300 text-base leading-relaxed mb-8 text-center" data-i18n="featured_desc">
-                    Swipe through our latest websites, applications, and automation bots.
-                </p>
-
-                <!-- Scrollable Container Wrapper with Hint -->
-                <div class="relative w-full group">
-                    <!-- Scroll Hint Indicator (Yellow, Breathing) -->
-                    <div
-                        class="absolute right-0 top-1/2 -translate-y-1/2 z-30 pointer-events-none flex flex-col items-center justify-center pr-2 animate-breathe filter drop-shadow-lg opacity-80 group-hover:opacity-0 transition-opacity duration-500">
-                        <div
-                            class="bg-yellow-500/10 p-2 rounded-full border border-yellow-400/60 backdrop-blur-sm shadow-[0_0_15px_rgba(250,204,21,0.3)]">
-                            <svg class="w-8 h-8 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M13 5l7 7-7 7M5 5l7 7-7 7"></path>
-                            </svg>
-                        </div>
-                        <span class="text-[10px] font-bold text-yellow-400 mt-1 uppercase tracking-wider text-shadow-sm"
-                            data-i18n="swipe_hint">Swipe</span>
-                    </div>
-
-                    <div class="flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory custom-scrollbar px-4 w-full"
-                        style="-webkit-overflow-scrolling: touch;">
-
-                        <!-- Card 1: Raziel Insulation (Website) -->
-                        <div
-                            class="min-w-full md:min-w-[500px] lg:min-w-[600px] bg-gray-700 bg-opacity-70 p-4 rounded-xl shadow-lg snap-center flex flex-col">
-                            <div class="flex justify-between items-center mb-3">
-                                <div>
-                                    <h4 class="text-xl font-bold text-white">Raziel Insulation</h4>
-                                    <span
-                                        class="text-xs text-blue-400 border border-blue-400 rounded px-2 py-0.5">Website
-                                        &
-                                        Automation</span>
-                                </div>
-                                <a href="https://www.racielinsulation.com/" target="_blank" rel="noopener noreferrer"
-                                    class="text-blue-400 hover:text-blue-300 text-sm font-semibold">Visit Site
-                                    &rarr;</a>
-                            </div>
-                            <p class="text-gray-300 text-sm mb-4 h-10 overflow-hidden">
-                                Full design, lead capture automation, chatbot integration, and automated quote
-                                calculation
-                                emails.
-                            </p>
-                            <div
-                                class="w-full h-[22rem] rounded-lg overflow-hidden border border-gray-600 relative group flex-grow">
-                                <img src="images/raciel_preview_real.png" alt="Raciel Insulation Website Preview"
-                                    class="w-full h-full object-cover object-top transform transition-transform duration-500 group-hover:scale-110">
-                                <div
-                                    class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300">
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card 2: Premium Promotions (Website) -->
-                        <div
-                            class="min-w-full md:min-w-[500px] lg:min-w-[600px] bg-gray-700 bg-opacity-70 p-4 rounded-xl shadow-lg snap-center flex flex-col">
-                            <div class="flex justify-between items-center mb-3">
-                                <div>
-                                    <h4 class="text-xl font-bold text-white">Premium Promotions</h4>
-                                    <span
-                                        class="text-xs text-blue-400 border border-blue-400 rounded px-2 py-0.5">Website
-                                        &
-                                        Automation</span>
-                                </div>
-                                <a href="https://premiumpromotions.vercel.app/" target="_blank"
-                                    rel="noopener noreferrer"
-                                    class="text-blue-400 hover:text-blue-300 text-sm font-semibold">Visit Site
-                                    &rarr;</a>
-                            </div>
-                            <p class="text-gray-300 text-sm mb-4 h-10 overflow-hidden">
-                                Modern landing page with lead capture, chatbot, and integrated email marketing
-                                automation.
-                            </p>
-                            <div
-                                class="w-full h-[22rem] rounded-lg overflow-hidden border border-gray-600 relative group flex-grow">
-                                <iframe src="https://premiumpromotions.vercel.app/"
-                                    class="w-full h-full transform scale-[1.0] origin-top-left"
-                                    style="width: 100%; height: 100%; border: none;"
-                                    sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
-                            </div>
-                        </div>
-
-                        <!-- Card 3: Driver Market (App) -->
-                        <div
-                            class="min-w-full md:min-w-[500px] lg:min-w-[600px] bg-gray-700 bg-opacity-70 p-4 rounded-xl shadow-lg snap-center flex flex-col">
-                            <div class="flex justify-between items-center mb-3">
-                                <div>
-                                    <h4 class="text-xl font-bold text-white">Driver Market</h4>
-                                    <span
-                                        class="text-xs text-purple-400 border border-purple-400 rounded px-2 py-0.5">Web
-                                        App</span>
-                                </div>
-                                <span class="text-xs text-gray-400">Inventory Module</span>
-                            </div>
-                            <p class="text-gray-300 text-sm mb-4 h-10 overflow-hidden">
-                                Marketplace for drivers with real-time tracking. Shown: Product Management Interface.
-                            </p>
-
-                            <!-- ADD PRODUCT UI (Compact) -->
-                            <div
-                                class="w-full h-[22rem] rounded-lg overflow-hidden border border-gray-600 relative flex flex-col bg-gray-900 group shadow-2xl flex-grow">
-                                <!-- Mock Browser Header -->
-                                <div
-                                    class="bg-gray-800 px-3 py-1.5 flex items-center gap-2 border-b border-gray-700 select-none">
-                                    <div class="flex gap-1.5">
-                                        <div class="w-2.5 h-2.5 rounded-full bg-red-500"></div>
-                                        <div class="w-2.5 h-2.5 rounded-full bg-yellow-500"></div>
-                                        <div class="w-2.5 h-2.5 rounded-full bg-green-500"></div>
-                                    </div>
-                                    <div class="flex-1 text-center">
-                                        <span
-                                            class="text-[10px] text-gray-400 font-mono bg-gray-900 px-2 py-0.5 rounded-full border border-gray-700">admin.drivermarket.com/add</span>
-                                    </div>
-                                </div>
-
-                                <!-- App UI -->
-                                <div
-                                    class="flex-1 bg-gray-900 p-4 overflow-y-auto custom-scrollbar flex items-center justify-center relative">
-                                    <!-- Reduced scale for card view -->
-                                    <div
-                                        class="w-full max-w-sm bg-gray-800 border border-gray-700 rounded-xl p-4 shadow-xl relative overflow-hidden transform scale-95 origin-center">
-                                        <!-- Background Glow -->
-                                        <div
-                                            class="absolute -top-10 -right-10 w-24 h-24 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob">
-                                        </div>
-                                        <div
-                                            class="absolute -bottom-10 -left-10 w-24 h-24 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-2000">
-                                        </div>
-
-                                        <div class="relative z-10">
-                                            <div class="flex justify-between items-center mb-4">
-                                                <h3 class="text-lg font-bold text-white flex items-center gap-2">
-                                                    <span class="bg-blue-600 p-1 rounded-md">
-                                                        <svg class="w-3 h-3 text-white" fill="none"
-                                                            stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2" d="M12 4v16m8-8H4"></path>
-                                                        </svg>
-                                                    </span>
-                                                    Add Product
-                                                </h3>
-                                                <span
-                                                    class="text-[10px] text-green-400 bg-green-900/30 px-1.5 py-0.5 rounded border border-green-500/30">Active</span>
-                                            </div>
-
-                                            <div class="space-y-3">
-                                                <!-- Image Upload Mock -->
-                                                <div
-                                                    class="border-2 border-dashed border-gray-600 hover:border-blue-500 rounded-lg p-3 transition-colors cursor-pointer group text-center bg-gray-900/50">
-                                                    <div class="flex flex-col items-center justify-center pt-1 pb-1">
-                                                        <svg class="w-5 h-5 mb-1 text-gray-400 group-hover:text-blue-500 transition-colors"
-                                                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2"
-                                                                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
-                                                            </path>
-                                                        </svg>
-                                                        <p class="text-xs text-gray-500">Upload Image</p>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Inputs -->
-                                                <div class="grid grid-cols-2 gap-3">
-                                                    <div class="col-span-2">
-                                                        <label
-                                                            class="block mb-1 text-[10px] font-medium text-gray-400 uppercase">Name</label>
-                                                        <input type="text"
-                                                            class="bg-gray-900/50 border border-gray-600 text-white text-xs rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2 placeholder-gray-600"
-                                                            placeholder="Product Name">
-                                                    </div>
-                                                    <div>
-                                                        <label
-                                                            class="block mb-1 text-[10px] font-medium text-gray-400 uppercase">Price</label>
-                                                        <div class="relative">
-                                                            <div
-                                                                class="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
-                                                                <span class="text-gray-500 text-xs">$</span>
-                                                            </div>
-                                                            <input type="number"
-                                                                class="bg-gray-900/50 border border-gray-600 text-white text-xs rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full pl-5 p-2 placeholder-gray-600"
-                                                                placeholder="0.00">
-                                                        </div>
-                                                    </div>
-                                                    <div>
-                                                        <label
-                                                            class="block mb-1 text-[10px] font-medium text-gray-400 uppercase">Category</label>
-                                                        <select
-                                                            class="bg-gray-900/50 border border-gray-600 text-gray-300 text-xs rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2">
-                                                            <option>Parts</option>
-                                                            <option>Tools</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Buttons -->
-                                                <div class="flex items-center justify-end space-x-2 pt-1">
-                                                    <button
-                                                        class="text-gray-400 hover:text-white text-xs font-medium transition-colors">Cancel</button>
-                                                    <button
-                                                        class="text-white bg-gradient-to-r from-blue-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-800 font-medium rounded-md text-xs px-3 py-1.5 text-center transition-all shadow-lg shadow-blue-500/30">
-                                                        Save
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card 4: Telegram Bot (Video) -->
-                        <div
-                            class="min-w-full md:min-w-[500px] lg:min-w-[600px] bg-gray-700 bg-opacity-70 p-4 rounded-xl shadow-lg snap-center flex flex-col">
-                            <div class="flex justify-between items-center mb-3">
-                                <div>
-                                    <h4 class="text-xl font-bold text-white">Crypto Trading Bot</h4>
-                                    <span
-                                        class="text-xs text-green-400 border border-green-400 rounded px-2 py-0.5">Automation
-                                        & Telegram</span>
-                                </div>
-                            </div>
-                            <p class="text-gray-300 text-sm mb-4 h-10 overflow-hidden">
-                                Real-time market analysis, automated execution, and alerts directly via Telegram.
-                            </p>
-                            <div
-                                class="w-full h-[22rem] bg-black rounded-lg overflow-hidden border border-gray-600 relative group flex items-center justify-center flex-grow">
-                                <div class="absolute inset-0 flex items-center justify-center flex-col">
-                                    <svg class="w-16 h-16 text-red-600 opacity-80 mb-3 transition-transform transform group-hover:scale-110"
-                                        fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
-                                    </svg>
-                                    <h5 class="text-white text-lg font-bold drop-shadow-md">Watch Demo</h5>
-                                    <p class="text-gray-400 text-xs mt-1">Coming Soon</p>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div> <!-- End of Scrollable Container -->
-                </div> <!-- End of Wrapper -->
-            </div> <!-- End of Featured Projects Section -->
-
-            <div id="intro-question"
-                class="w-full max-w-2xl bg-gray-700 bg-opacity-70 p-8 rounded-xl shadow-lg text-center flex flex-col items-center justify-center mb-8 mx-auto">
-                <h2 class="text-3xl md:text-4xl font-bold text-white mb-6" data-i18n="intro_title">Tell us what process
-                    you'd like to
-                    automate
-                </h2>
-                <p class="text-lg md:text-xl text-gray-300 mb-8 max-w-3xl mx-auto" data-i18n="intro_desc">
-                    Send us a message about what you need—whether it's an AI Chatbot, SEO & Instagram
-                    automation,
-                    seamless Calendar scheduling, LinkedIn outreach, or installing local servers. We'll build the
-                    perfect solution for
-                    you.
-                </p>
-                <form id="introContactForm" class="space-y-4 w-full text-left">
+                <div class="hero-stats">
                     <div>
-                        <label for="introClientName" class="block text-gray-300 text-sm font-bold mb-2"
-                            data-i18n="form_name">Your Name:</label>
-                        <input type="text" id="introClientName" name="name"
-                            class="w-full p-3 rounded-lg bg-gray-800 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500"
-                            placeholder="John Doe" required>
+                        <div class="hero-stat-val">24/7</div>
+                        <div class="hero-stat-label">AI That Never Sleeps</div>
                     </div>
-                    <div class="mb-4">
-                        <label for="introClientEmail" class="block text-gray-300 text-sm font-bold mb-2"
-                            data-i18n="form_email">Your Email:</label>
-                        <input type="email" id="introClientEmail" name="email"
-                            class="w-full p-3 rounded-lg bg-gray-800 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500"
-                            placeholder="john.doe@example.com" required>
+                    <div>
+                        <div class="hero-stat-val">1–3 wk</div>
+                        <div class="hero-stat-label">Setup Time</div>
                     </div>
-                    <div class="mb-4">
-                        <label for="introClientPhone" class="block text-gray-300 text-sm font-bold mb-2"
-                            data-i18n="form_phone">Your Phone:</label>
-                        <input type="tel" id="introClientPhone" name="phone"
-                            class="w-full p-3 rounded-lg bg-gray-800 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500"
-                            placeholder="+61 400 000 000">
+                    <div>
+                        <div class="hero-stat-val">100%</div>
+                        <div class="hero-stat-label">Custom Built</div>
                     </div>
-                    <textarea id="introProblemInput" name="message"
-                        class="w-full p-3 rounded-lg bg-gray-800 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500 mb-4"
-                        rows="3" placeholder="Describe your initial thoughts or problem here..."
-                        data-i18n="form_placeholder_msg"></textarea>
-                    <button type="submit" id="sendIntroInquiryBtn"
-                        class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-full shadow-lg"
-                        data-i18n="btn_send_inquiry">
-                        Send Inquiry
-                    </button>
-                </form>
-            </div>
-        </div>
-
-        <!-- Who We Are Section -->
-        <div id="who-we-are"
-            class="content-section hidden w-full max-w-4xl bg-gray-800 bg-opacity-60 p-6 rounded-xl shadow-lg text-left mx-auto">
-            <h2 class="text-3xl font-bold text-white mb-4 text-center" data-i18n="section_who_title">Who We Are</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 justify-items-center">
-                <div class="bg-gray-700 bg-opacity-70 p-4 rounded-lg shadow-md flex flex-col items-center text-center">
-                    <img src="./miembros/leonardo.png" alt="Leonardo Rincon Profile Picture"
-                        class="rounded-full w-24 h-24 object-cover mb-3 border-2 border-blue-400"
-                        onerror="this.onerror=null;this.src='https://placehold.co/120x120/4CAF50/ffffff?text=CEO';"
-                        loading="lazy">
-                    <h3 class="text-xl font-semibold text-white mb-1">Leonardo Rincon</h3>
-                    <p class="text-blue-300 text-sm font-medium mb-2" data-i18n="role_ceo">CEO & Lead AI Strategist</p>
-                    <p class="text-gray-300 text-xs">System Cloud Administrator & Cybersecurity Workflow
-                        Specialist.</p>
-                </div>
-                <div class="bg-gray-700 bg-opacity-70 p-4 rounded-lg shadow-md flex flex-col items-center text-center">
-                    <img src="miembros/diana.jpg" alt="Diana Kara Profile Picture"
-                        class="rounded-full w-24 h-24 object-cover mb-3 border-2 border-green-400"
-                        onerror="this.onerror=null;this.src='https://placehold.co/120x120/2196F3/ffffff?text=Marketing';"
-                        loading="lazy">
-                    <h3 class="text-xl font-semibold text-white mb-1">Diana Kara</h3>
-                    <p class="text-blue-300 text-sm font-medium mb-2" data-i18n="role_marcom">Head of AI Marketing &
-                        Communications</p>
-                    <p class="text-gray-300 text-xs">Drives solid AI's brand presence and communication
-                        strategies.</p>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Services Section -->
-    <div id="services-section"
-        class="content-section hidden w-full max-w-4xl bg-gray-800 bg-opacity-60 p-6 rounded-xl shadow-lg text-left mx-auto">
-        <h2 class="text-3xl font-bold text-white mb-4 text-center" data-i18n="section_services_full_title">Our
-            Comprehensive AI Services</h2>
-        <p class="text-gray-300 text-base leading-relaxed mb-8 text-center" data-i18n="section_services_intro">
-            At solid AI, we offer a suite of cutting-edge Artificial Intelligence solutions designed to
-            transform
-            your business.
-        </p>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="bg-gray-700 bg-opacity-70 p-5 rounded-lg shadow-md flex flex-col items-center text-center">
-                <h3 class="text-xl font-semibold text-white mb-2" data-i18n="service_card_consulting">AI Consulting</h3>
-                <p class="text-gray-300 text-sm" data-i18n="service_card_consulting_desc">Strategic guidance to
-                    integrate AI into your business for
-                    measurable impact.</p>
+    <!-- SPLINE RUNTIME -->
+    <script type="module">
+        // ─── SPLINE 3D SCENE ───────────────────────────────────────
+        // Replace SCENE_URL with your Spline scene URL.
+        // Get it: Spline Editor → Export → Code → Vanilla JS → Copy URL
+        const SCENE_URL = 'https://prod.spline.design/bQnz2llWWI34Vjr5/scene.splinecode';
+
+        // Only load on desktop (skip mobile for performance)
+        if (window.innerWidth > 768) {
+            import('https://esm.sh/@splinetool/runtime').then(({ Application }) => {
+                const canvas = document.getElementById('canvas3d');
+                const loader = document.getElementById('splineLoader');
+                const spline = new Application(canvas);
+
+                spline.load(SCENE_URL).then(() => {
+                    console.log('✅ Spline 3D scene loaded');
+                    loader.classList.add('hidden');
+                    canvas.classList.add('loaded');
+
+                    // Hide grid/floor/plane objects from the scene
+                    const allObjects = spline.getAllObjects();
+                    allObjects.forEach(obj => {
+                        const name = (obj.name || '').toLowerCase();
+                        if (name.includes('grid') || name.includes('floor') || name.includes('plane') || name.includes('ground') || name.includes('helper')) {
+                            obj.visible = false;
+                            console.log('🔇 Hidden Spline object:', obj.name);
+                        }
+                    });
+                    console.log('📋 All Spline objects:', allObjects.map(o => o.name));
+
+                    // Optional: connect scroll to Spline variable
+                    window.addEventListener('scroll', () => {
+                        const progress = Math.min(window.scrollY / (window.innerHeight * 0.8), 1);
+                        try { spline.setVariable('scrollProgress', progress); } catch (e) { }
+                    });
+                }).catch(err => {
+                    console.warn('Spline load error:', err);
+                    loader.classList.add('hidden');
+                    document.getElementById('splineWrapper').style.display = 'none';
+                });
+            });
+        }
+    </script>
+
+    <!-- PROBLEMS -->
+    <section id="problems" class="fade-up">
+        <div class="container">
+            <div class="text-center"><span class="section-tag">Sound Familiar?</span></div>
+            <h2 class="section-title text-center">Is This You?</h2>
+            <div class="problems-grid">
+                <div class="problem-card">
+                    <div class="problem-icon">📱</div>
+                    <p>You lose leads because you can't reply fast enough</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">⏰</div>
+                    <p>You spend hours on quoting and admin that could be automated</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">🌐</div>
+                    <p>Your website looks fine but doesn't generate any leads</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">🤖</div>
+                    <p>You're paying staff to do repetitive tasks a bot could handle</p>
+                </div>
             </div>
-            <div class="bg-gray-700 bg-opacity-70 p-5 rounded-lg shadow-md flex flex-col items-center text-center">
-                <h3 class="text-xl font-semibold text-white mb-2" data-i18n="service_card_automation">Custom Automation
-                    Solutions</h3>
-                <p class="text-gray-300 text-sm" data-i18n="service_card_automation_desc">We design and implement
-                    intelligent automation workflows
-                    tailored
-                    to your company's specific needs, leveraging powerful tools like n8n.</p>
-                <img src="https://quickchart.io/chart?c={type:'line',data:{labels:['Month 1','Month 2','Month 3','Month 4'],datasets:[{label:'Manual Time',data:[100,90,80,70]},{label:'Automated Time',data:[100,60,30,10]}]}}"
-                    alt="Automation Time Reduction Chart" class="w-full h-auto rounded-md mt-4" loading="lazy">
+            <p class="text-center" style="color:var(--text-secondary);margin-bottom:1rem">If any of this sounds
+                familiar, we should talk.</p>
+            <div class="text-center"><a
+                    href="https://wa.me/61424840127?text=Hi%20Solid%20AI%2C%20I%20have%20a%20problem%20I'd%20like%20to%20solve"
+                    target="_blank" rel="noopener noreferrer" class="btn-outline">Tell Us Your Problem →</a></div>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="fade-up">
+        <div class="container">
+            <div class="text-center"><span class="section-tag">Solutions</span></div>
+            <h2 class="section-title text-center">What We Build</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon" style="background:rgba(6,182,212,0.1)">💬</div>
+                    <h3>AI Chatbots & Virtual Assistants</h3>
+                    <p>A bot that answers your customers 24/7 on WhatsApp, your website, or Instagram. Captures leads,
+                        answers FAQs, and books appointments — even at 3AM.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon" style="background:rgba(16,185,129,0.1)">📋</div>
+                    <h3>Automated Quoting & Lead Capture</h3>
+                    <p>Customers fill in their details, get an instant estimate, and you get the lead straight to your
+                        phone. No more back-and-forth emails.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon" style="background:rgba(139,92,246,0.1)">⚡</div>
+                    <h3>Smart Workflow Automation</h3>
+                    <p>We connect the tools you already use — email, calendar, CRM, spreadsheets — so data flows
+                        automatically without you copy-pasting between apps.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon" style="background:rgba(245,158,11,0.1)">🌐</div>
+                    <h3>Websites That Actually Convert</h3>
+                    <p>Not just pretty — built to capture leads, rank on Google, and work with your automation systems
+                        from day one.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon" style="background:rgba(239,68,68,0.1)">🎓</div>
+                    <h3>AI Consulting & Team Training</h3>
+                    <p>Not sure where to start? We analyse your workflows, identify what to automate first, and train
+                        your team to use AI tools effectively.</p>
+                </div>
             </div>
-            <div class="bg-gray-700 bg-opacity-70 p-5 rounded-lg shadow-md flex flex-col items-center text-center">
-                <h3 class="text-xl font-semibold text-white mb-2" data-i18n="service_card_software">Custom Software
-                    Development</h3>
-                <p class="text-gray-300 text-sm" data-i18n="service_card_software_desc">We develop tailor-made software
-                    solutions from scratch,
-                    integrating
-                    AI capabilities to create powerful applications.</p>
-                <img src="https://quickchart.io/chart?c={type:'bar',data:{labels:['Planning','Dev','Test','Deploy'],datasets:[{label:'Traditional',data:[20,40,30,10]},{label:'AI-Accelerated',data:[15,30,20,5]}]}}"
-                    alt="Development Cycle Chart" class="w-full h-auto rounded-md mt-4" loading="lazy">
-            </div>
-            <div class="bg-gray-700 bg-opacity-70 p-5 rounded-lg shadow-md flex flex-col items-center text-center">
-                <h3 class="text-xl font-semibold text-white mb-2" data-i18n="service_card_web">AI-Optimized Website
-                    Creation</h3>
-                <p class="text-gray-300 text-sm" data-i18n="service_card_web_desc">We design modern, responsive websites
-                    enhanced with AI for
-                    superior
-                    user experience and optimized SEO.</p>
-            </div>
-            <div class="bg-gray-700 bg-opacity-70 p-5 rounded-lg shadow-md flex flex-col items-center text-center">
-                <h3 class="text-xl font-semibold text-white mb-2" data-i18n="service_card_cloud">Ultra-Low Latency Cloud
-                    Execution</h3>
-                <p class="text-gray-300 text-sm" data-i18n="service_card_cloud_desc">Host your AI models and
-                    applications on our high-performance
-                    cloud
-                    servers for minimal latency.</p>
+            <p class="text-center" style="color:var(--text-muted);margin-top:2rem;font-size:0.9rem">We don't lock you
+                into platforms. We build custom solutions on <strong style="color:var(--text)">your</strong> existing
+                tools.</p>
+        </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section id="portfolio" class="fade-up">
+        <div class="container">
+            <div class="text-center"><span class="section-tag">Portfolio</span></div>
+            <h2 class="section-title text-center">Businesses We've Helped</h2>
+            <div class="portfolio-grid">
+                <div class="portfolio-card">
+                    <img src="images/raciel_preview_real.png" alt="Raziel Insulation Website" class="portfolio-img">
+                    <div class="portfolio-body">
+                        <h3>Raziel Insulation</h3>
+                        <span class="portfolio-tag">Website & Automation</span>
+                        <p>Full website redesign, AI chatbot, lead capture automation, and automated quote calculation
+                            emails.</p>
+                        <a href="https://www.racielinsulation.com/" target="_blank" rel="noopener noreferrer"
+                            class="btn-outline">Visit Site →</a>
+                    </div>
+                </div>
+                <div class="portfolio-card">
+                    <div
+                        style="width:100%;height:220px;background:var(--bg);overflow:hidden;border-bottom:1px solid var(--border)">
+                        <iframe src="https://premiumpromotions.vercel.app/"
+                            style="width:100%;height:100%;border:none;pointer-events:none"
+                            sandbox="allow-scripts allow-same-origin" loading="lazy"></iframe>
+                    </div>
+                    <div class="portfolio-body">
+                        <h3>Premium Promotions</h3>
+                        <span class="portfolio-tag">Website & Automation</span>
+                        <p>Modern landing page with lead capture, chatbot integration, and automated email marketing.
+                        </p>
+                        <a href="https://premiumpromotions.vercel.app/" target="_blank" rel="noopener noreferrer"
+                            class="btn-outline">Visit Site →</a>
+                    </div>
+                </div>
+                <div class="portfolio-card">
+                    <div
+                        style="width:100%;height:220px;background:var(--bg-card);display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--border)">
+                        <div style="text-align:center;padding:1rem">
+                            <div style="font-size:2.5rem;margin-bottom:0.5rem">🚗</div>
+                            <p style="color:var(--text-muted);font-size:0.85rem">Web Application</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-body">
+                        <h3>Driver Market</h3>
+                        <span class="portfolio-tag">Web App</span>
+                        <p>Web application with inventory management, real-time tracking, and product management
+                            interface.</p>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Our AI Section -->
-    <div id="our-ai"
-        class="content-section hidden w-full max-w-4xl bg-gray-800 bg-opacity-60 p-6 rounded-xl shadow-lg mx-auto">
-        <h2 class="text-3xl font-bold text-white mb-4 text-center" data-i18n="section_brainstorm_title">
-            Let's Build a
-            Solution Together</h2>
-        <p class="text-xl text-gray-300 mb-8 text-center" data-i18n="brainstorm_desc">
-            Answer a few questions to help our AI understand your needs and generate a tailored solution
-            idea
-            for
-            your business.
-        </p>
-        <div id="ai-brainstormer-section" class="w-full bg-gray-700 bg-opacity-70 p-8 rounded-xl shadow-md mb-8">
-            <div class="space-y-6">
-                <div>
-                    <label for="industryInput" class="block text-left text-lg font-medium text-white mb-2"
-                        data-i18n="label_industry">1.
-                        What
-                        industry is your business in?</label>
-                    <input type="text" id="industryInput"
-                        class="w-full p-3 rounded-lg bg-gray-800 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500"
-                        placeholder="e.g., E-commerce, Healthcare, Real Estate">
+    <!-- HOW IT WORKS -->
+    <section id="how-it-works" class="fade-up">
+        <div class="container">
+            <div class="text-center"><span class="section-tag">Process</span></div>
+            <h2 class="section-title text-center">How It Works</h2>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-num">1</div>
+                    <h3>Tell Us What's Costing You Time</h3>
+                    <p>Book a free 15-minute call. We'll ask about your business, your pain points, and what you want to
+                        fix.</p>
                 </div>
-                <div>
-                    <label for="goalSelect" class="block text-left text-lg font-medium text-white mb-2"
-                        data-i18n="label_goal">2. What
-                        is
-                        your primary goal?</label>
-                    <select id="goalSelect"
-                        class="w-full p-3 rounded-lg bg-gray-800 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500">
-                        <option>Select a goal...</option>
-                        <option>Increase Sales & Marketing</option>
-                        <option>Reduce Operational Costs</option>
-                        <option>Improve Customer Service</option>
-                        <option>Automate Repetitive Tasks</option>
-                    </select>
+                <div class="step-card">
+                    <div class="step-num">2</div>
+                    <h3>We Design & Build Your System</h3>
+                    <p>In 1–3 weeks we set up your automation, chatbot, or workflow. You approve everything before it
+                        goes live.</p>
                 </div>
-                <div>
-                    <label for="challengeTextarea" class="block text-left text-lg font-medium text-white mb-2"
-                        data-i18n="label_challenge">3.
-                        Describe the specific challenge.</label>
-                    <textarea id="challengeTextarea"
-                        class="w-full p-3 rounded-lg bg-gray-800 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500"
-                        rows="4"
-                        placeholder="e.g., 'We spend hours manually creating social media posts every week.'"></textarea>
-                </div>
-            </div>
-            <button id="generateSolutionBtn"
-                class="mt-8 bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105"
-                data-i18n="btn_generate">
-                Generate AI Solution Idea
-            </button>
-            <div id="solutionOutput" class="mt-8 p-6 bg-gray-800 rounded-lg text-left border border-gray-600 hidden">
-                <h4 class="text-lg font-semibold text-white mb-3">AI Suggested Solution:</h4>
-                <div id="solutionText" class="whitespace-pre-wrap text-gray-300"></div>
-            </div>
-        </div>
-    </div>
-
-
-
-    <!-- Consulting Section -->
-    <div id="consulting-section"
-        class="content-section hidden w-full max-w-4xl bg-gray-800 bg-opacity-60 p-6 rounded-xl shadow-lg text-left mx-auto">
-        <h2 class="text-3xl font-bold text-white mb-4 text-center" data-i18n="section_consulting_title">AI
-            Transformation & Team Empowerment</h2>
-        <p class="text-gray-300 text-base leading-relaxed mb-8 text-center" data-i18n="consulting_intro">
-            Our intensive one-week consulting service empowers your team with the skills to use AI
-            effectively.
-        </p>
-        <div class="space-y-8">
-            <div class="flex items-start space-x-4">
-                <div
-                    class="flex-shrink-0 bg-blue-500 rounded-full h-12 w-12 flex items-center justify-center text-white font-bold">
-                    1</div>
-                <div>
-                    <h4 class="font-bold text-lg" data-i18n="day_1">Day 1: Discovery & Diagnosis</h4>
-                    <p class="text-gray-400">We analyze your current workflows to identify key areas for AI
-                        improvement.</p>
-                </div>
-            </div>
-            <div class="flex items-start space-x-4">
-                <div
-                    class="flex-shrink-0 bg-green-500 rounded-full h-12 w-12 flex items-center justify-center text-white font-bold">
-                    2-4</div>
-                <div>
-                    <h4 class="font-bold text-lg" data-i18n="day_2_4">Days 2-4: AI Empowerment Workshop</h4>
-                    <p class="text-gray-400">A hands-on workshop for your team covering AI fundamentals and
-                        practical tools.</p>
-                </div>
-            </div>
-            <div class="flex items-start space-x-4">
-                <div
-                    class="flex-shrink-0 bg-purple-500 rounded-full h-12 w-12 flex items-center justify-center text-white font-bold">
-                    5</div>
-                <div>
-                    <h4 class="font-bold text-lg" data-i18n="day_5">Day 5: Strategy & Kick-off</h4>
-                    <p class="text-gray-400">We deliver a detailed proposal and strategic roadmap to
-                        kick-start
-                        your
-                        AI transformation.</p>
+                <div class="step-card">
+                    <div class="step-num">3</div>
+                    <h3>You Save Time & Catch More Leads</h3>
+                    <p>Your system runs 24/7. We monitor, maintain, and optimise it so it keeps working as your business
+                        grows.</p>
                 </div>
             </div>
         </div>
-        <div class="flex justify-center mt-8">
-            <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-lg"
-                onclick="showSection('home-section'); setTimeout(() => document.getElementById('intro-question').scrollIntoView({behavior: 'smooth'}), 100);"
-                data-i18n="btn_request_consult">
-                Request a Consultation (Only 2 spots/month)
-            </button>
+    </section>
+
+    <!-- INDUSTRIES -->
+    <section id="industries" class="fade-up">
+        <div class="container">
+            <div class="text-center"><span class="section-tag">Who We Serve</span></div>
+            <h2 class="section-title text-center">Industries We Work With</h2>
+            <div class="industries-grid">
+                <a href="tradies.html" class="industry-card">
+                    <div class="industry-icon">🔧</div><span>Trades & Construction</span>
+                </a>
+                <a href="https://wa.me/61424840127?text=Hi%2C%20I'm%20interested%20in%20AI%20automation%20for%20my%20restaurant"
+                    target="_blank" class="industry-card">
+                    <div class="industry-icon">🍽️</div><span>Restaurants & Hospitality</span>
+                    <div class="industry-badge">Coming Soon</div>
+                </a>
+                <a href="https://wa.me/61424840127?text=Hi%2C%20I'm%20interested%20in%20AI%20automation%20for%20my%20health%20business"
+                    target="_blank" class="industry-card">
+                    <div class="industry-icon">💊</div><span>Health & Wellness</span>
+                    <div class="industry-badge">Coming Soon</div>
+                </a>
+                <a href="https://wa.me/61424840127?text=Hi%2C%20I'm%20interested%20in%20AI%20automation%20for%20my%20professional%20services%20business"
+                    target="_blank" class="industry-card">
+                    <div class="industry-icon">💼</div><span>Professional Services</span>
+                    <div class="industry-badge">Coming Soon</div>
+                </a>
+                <a href="https://wa.me/61424840127?text=Hi%2C%20I'm%20interested%20in%20AI%20automation%20for%20my%20education%20business"
+                    target="_blank" class="industry-card">
+                    <div class="industry-icon">📚</div><span>Education</span>
+                    <div class="industry-badge">Coming Soon</div>
+                </a>
+                <a href="https://wa.me/61424840127?text=Hi%2C%20I'm%20interested%20in%20AI%20automation%20for%20my%20retail%20business"
+                    target="_blank" class="industry-card">
+                    <div class="industry-icon">🛒</div><span>Retail & Ecommerce</span>
+                    <div class="industry-badge">Coming Soon</div>
+                </a>
+            </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Careers Section -->
-    <div id="careers"
-        class="content-section hidden w-full max-w-4xl bg-gray-800 bg-opacity-60 p-6 rounded-xl shadow-lg text-left mx-auto">
-        <h2 class="text-3xl font-bold text-white mb-4 text-center" data-i18n="section_careers_title">Careers
-        </h2>
-        <p class="text-gray-300 text-base leading-relaxed mb-8 text-center" data-i18n="careers_desc">
-            Join solid AI and be part of a dynamic team at the forefront of Artificial Intelligence
-            innovation.
-        </p>
-    </div>
-
-    <!-- Privacy Policy Section -->
-    <div id="privacy-policy"
-        class="content-section hidden w-full max-w-4xl bg-gray-800 bg-opacity-60 p-6 rounded-xl shadow-lg text-left mx-auto">
-        <h2 class="text-3xl font-bold text-white mb-4 text-center">Privacy Policy</h2>
-        <p class="text-gray-300 text-base leading-relaxed mb-4">
-            At solid AI, we are committed to protecting your privacy. This policy outlines how we collect,
-            use,
-            and
-            safeguard your personal information.
-        </p>
-        <h3 class="text-xl font-semibold text-white mb-2">Information Collection</h3>
-        <p class="text-gray-300 text-sm mb-4">
-            We collect information you provide directly to us, such as when you fill out our contact form
-            (name,
-            email, phone number, business problem). We also collect anonymous usage data to improve our
-            services.
-        </p>
-        <h3 class="text-xl font-semibold text-white mb-2">Use of Information</h3>
-        <p class="text-gray-300 text-sm mb-4">
-            Your information is used to respond to your inquiries, provide requested services, and improve
-            our
-            website and AI solutions. We do not sell or share your personal data with third parties for
-            their
-            marketing purposes.
-        </p>
-        <h3 class="text-xl font-semibold text-white mb-2">Data Security</h3>
-        <p class="text-gray-300 text-sm mb-4">
-            We implement robust security measures to protect your data from unauthorized access.
-        </p>
-        <h3 class="text-xl font-semibold text-white mb-2">Your Rights</h3>
-        <p class="text-gray-300 text-sm mb-4">
-            You have the right to access, correct, or delete your personal information.
-        </p>
-    </div>
-    </div>
-
-    <footer id="main-footer" class="bg-gray-900 bg-opacity-70 shadow-lg rounded-t-xl p-8 relative z-10">
-        <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
-            <div>
-                <h3 class="font-bold text-white mb-4" data-i18n="footer_quick_links">Quick Links</h3>
-                <ul class="space-y-2">
-                    <li><a href="#" onclick="showSection('home-section')"
-                            class="text-gray-400 hover:text-white">Home</a></li>
-                    <li><a href="#" onclick="showSection('services-section')"
-                            class="text-gray-400 hover:text-white">Services</a></li>
-                    <li><a href="#" onclick="showSection('consulting-section')"
-                            class="text-gray-400 hover:text-white">Consulting</a></li>
-                    <li><a href="#" onclick="showSection('our-ai')" class="text-gray-400 hover:text-white">Our
-                            AI</a>
-                    </li>
-                </ul>
+    <!-- ABOUT -->
+    <section id="about" class="fade-up">
+        <div class="container">
+            <div class="text-center"><span class="section-tag">About Us</span></div>
+            <h2 class="section-title text-center">Who We Are</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Solid AI is a Melbourne-based AI automation agency founded by Leonardo Rincon and Diana Kara. We
+                        help small and medium businesses automate the repetitive stuff — lead capture, quoting, customer
+                        support, scheduling — so owners can spend time on work that actually matters.</p>
+                    <p>We don't do hype. We build systems that work.</p>
+                </div>
+                <div class="team-grid" style="justify-content:center">
+                    <div class="team-member"><img src="miembros/leonardo.png" alt="Leonardo Rincon">
+                        <h4>Leonardo Rincon</h4><span>CEO & Lead AI Strategist</span>
+                    </div>
+                    <div class="team-member"><img src="miembros/diana.jpg" alt="Diana Kara">
+                        <h4>Diana Kara</h4><span>Head of AI Marketing</span>
+                    </div>
+                </div>
             </div>
-            <div>
-                <h3 class="font-bold text-white mb-4" data-i18n="footer_contact">Contact Us</h3>
-                <p class="text-gray-400">Email: solidiaai@gmail.com</p>
-                <p class="text-gray-400">Phone: +61 424 840 127</p>
-                <p class="text-gray-400">Melbourne, VIC, Australia</p>
+        </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="final-cta fade-up" id="contact">
+        <div class="container">
+            <h2>Ready to Automate the Boring Stuff?</h2>
+            <p class="subtitle">Book a free 15-minute call. No pitch, no pressure — just a conversation about what's
+                costing you time.</p>
+            <div class="hero-btns">
+                <a href="https://wa.me/61424840127?text=Hi%20Solid%20AI%2C%20I'd%20like%20to%20book%20a%20free%20call"
+                    target="_blank" rel="noopener noreferrer" class="btn-primary">💬 Chat With Us on WhatsApp</a>
+                <a href="mailto:solidiaai@gmail.com" class="btn-secondary">Or Email Us →</a>
             </div>
-            <div>
-                <h3 class="font-bold text-white mb-4" data-i18n="footer_follow">Follow Us</h3>
-                <div class="flex justify-center md:justify-start space-x-4">
-                    <a href="https://www.instagram.com/solidai.solutions/" target="_blank" rel="noopener noreferrer"
-                        class="text-gray-400 hover:text-pink-500">
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <p class="location">Based in Melbourne. Working with businesses across Australia. 🇦🇺</p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="logo/logo.png" alt="Solid AI" style="height:32px">
+                    <p>AI automation agency helping small businesses save time, capture more leads, and grow on
+                        autopilot.</p>
+                </div>
+                <div>
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#hero">Home</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#portfolio">Our Work</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="latest-news.html" target="_blank">Blog</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="mailto:solidiaai@gmail.com">solidiaai@gmail.com</a></li>
+                        <li><a href="tel:+61424840127">+61 424 840 127</a></li>
+                        <li><span style="color:var(--text-secondary);font-size:0.85rem">Melbourne, VIC, Australia</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Solid AI. All rights reserved.</p>
+                <div class="footer-socials">
+                    <a href="https://www.linkedin.com/company/solidai" target="_blank" rel="noopener noreferrer"
+                        aria-label="LinkedIn">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
                             <path
-                                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.585-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.585-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.585.069-4.85c.149-3.225 1.664-4.771 4.919-4.919C8.415 2.175 8.796 2.163 12 2.163zm0 1.802C9.042 3.965 8.71 3.977 7.433 4.032c-2.928.135-4.137 1.353-4.272 4.272-.055 1.277-.066 1.608-.066 4.695s.011 3.418.066 4.695c.135 2.919 1.344 4.137 4.272 4.272 1.277.055 1.608.066 4.695.066s3.418-.011 4.695-.066c2.919-.135 4.137-1.344 4.272-4.272.055-1.277.066-1.608.066-4.695s-.011-3.418-.066-4.695c-.135-2.919-1.344-4.137-4.272-4.272-1.277-.055-1.608-.066-4.695-.066zm0 2.882a5.151 5.151 0 100 10.302A5.151 5.151 0 0012 6.847zm0 8.468a3.317 3.317 0 110-6.634 3.317 3.317 0 010 6.634zm6.406-8.221a1.218 1.218 0 100 2.436 1.218 1.218 0 000-2.436z" />
+                                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
                         </svg>
                     </a>
                 </div>
             </div>
         </div>
-        <div class="mt-8 pt-8 border-t border-gray-700 text-center text-gray-500 text-sm">
-            &copy; 2025 solid AI. All rights reserved.
-        </div>
     </footer>
 
+    <!-- JS -->
     <script>
-        const canvas = document.getElementById('networkCanvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-        const numParticles = 80;
-        const particleSpeed = 0.02; // Slower speed for a calmer effect
-
-        function setCanvasSize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.directionX = (Math.random() - 0.5) * 2;
-                this.directionY = (Math.random() - 0.5) * 2;
-                this.size = Math.random() * 2 + 1;
-            }
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
-                ctx.fill();
-            }
-            update() {
-                if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
-                if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
-                this.x += this.directionX * particleSpeed;
-                this.y += this.directionY * particleSpeed;
-                this.draw();
-            }
-        }
-
-        function init() {
-            particles = [];
-            for (let i = 0; i < numParticles; i++) {
-                particles.push(new Particle());
-            }
-        }
-
-        function animate() {
-            requestAnimationFrame(animate);
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => p.update());
-            connect();
-        }
-
-        function connect() {
-            for (let a = 0; a < particles.length; a++) {
-                for (let b = a; b < particles.length; b++) {
-                    let distance = Math.hypot(particles[a].x - particles[b].x, particles[a].y - particles[b].y);
-                    if (distance < 100) {
-                        ctx.strokeStyle = `rgba(0, 150, 255, ${1 - distance / 100})`;
-                        ctx.lineWidth = 1;
-                        ctx.beginPath();
-                        ctx.moveTo(particles[a].x, particles[a].y);
-                        ctx.lineTo(particles[b].x, particles[b].y);
-                        ctx.stroke();
-                    }
-                }
-            }
-        }
-
-        function showSection(id) {
-            document.querySelectorAll('.content-section').forEach(section => section.classList.add('hidden'));
-            const activeSection = document.getElementById(id);
-            if (activeSection) {
-                activeSection.classList.remove('hidden');
-            }
-        }
-
-        window.addEventListener('resize', () => {
-            setCanvasSize();
-            // No re-init to prevent animation reset on resize
-        });
-
-        document.addEventListener('DOMContentLoaded', () => {
-            setCanvasSize();
-            init();
-            animate();
-            showSection('home-section');
-
-            // --- AI Brainstormer Logic ---
-            const generateSolutionBtn = document.getElementById('generateSolutionBtn');
-            if (generateSolutionBtn) {
-                const industryInput = document.getElementById('industryInput');
-                const goalSelect = document.getElementById('goalSelect');
-                const challengeTextarea = document.getElementById('challengeTextarea');
-                const solutionOutput = document.getElementById('solutionOutput');
-                const solutionText = document.getElementById('solutionText');
-
-                generateSolutionBtn.addEventListener('click', async () => {
-                    const industry = industryInput.value.trim();
-                    const goal = goalSelect.value;
-                    const challenge = challengeTextarea.value.trim();
-
-                    if (!industry || goal === "Select a goal..." || !challenge) {
-                        solutionOutput.classList.remove('hidden');
-                        solutionText.textContent = 'Please answer all three questions to get a tailored solution idea.';
-                        return;
-                    }
-
-                    solutionText.textContent = 'Generating idea...';
-                    solutionOutput.classList.remove('hidden');
-
-                    const structuredPrompt = `As an AI expert for 'solid AI', suggest a concise, innovative AI solution for a business in the '${industry}' industry. Their primary goal is to '${goal}', and their specific challenge is: "${challenge}". The solution must mention n8n automations. Conclude by recommending a relevant solid AI service.`;
-
-                    // Send data to n8n Webhook (Our AI Form)
-                    const aiPayload = {
-                        contact: {
-                            firstName: 'Anonymous', // Or ask for name in this form if needed
-                            lastName: 'User',
-                            email: 'no-email@provided.com', // Or ask for email
-                            phone: ''
-                        },
-                        property: {},
-                        preferences: {},
-                        serviceType: 'AI Brainstormer Request',
-                        message: `Industry: ${industry}, Goal: ${goal}, Challenge: ${challenge}`
-                    };
-
-                    const aiWebhookUrl = 'https://n8n.solidiaai.com/webhook/540bf998-e19d-4608-8636-f5a53ac00080';
-
-                    fetch(aiWebhookUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(aiPayload)
-                    }).catch(err => console.error('AI Webhook Error:', err));
-
-                    // This is a placeholder for the actual API call.
-                    setTimeout(() => {
-                        solutionText.textContent = `For a business in the ${industry} industry looking to ${goal}, we recommend implementing an AI-driven workflow. To address your challenge of "${challenge}", we can use n8n to automate the process from end-to-end. For example, we can connect your data sources, use an AI model to analyze and generate content, and then automatically post it or send it to the relevant team member. This would be part of our 'Custom Automation' service, designed to save you time and improve efficiency.`;
-                    }, 1500);
-                });
-            }
-            // --- Intro Question Form Logic (Send to n8n) ---
-            const introContactForm = document.getElementById('introContactForm');
-            const sendIntroInquiryBtn = document.getElementById('sendIntroInquiryBtn');
-
-            if (introContactForm) {
-                introContactForm.addEventListener('submit', async (e) => {
-                    e.preventDefault();
-
-                    const nameInput = document.getElementById('introClientName');
-                    const emailInput = document.getElementById('introClientEmail');
-                    const phoneInput = document.getElementById('introClientPhone');
-                    const messageInput = document.getElementById('introProblemInput');
-
-                    const name = nameInput ? nameInput.value.trim() : '';
-                    const email = emailInput ? emailInput.value.trim() : '';
-                    const phone = phoneInput ? phoneInput.value.trim() : '';
-                    const message = messageInput ? messageInput.value.trim() : '';
-
-                    console.log('Form Submission Attempt:', { name, email, phone, message });
-
-                    if (!name || !email || !message) {
-                        alert('Please fill in Name, Email and Message fields.');
-                        return;
-                    }
-
-                    // Disable button and show loading state
-                    const originalBtnText = sendIntroInquiryBtn.textContent;
-                    sendIntroInquiryBtn.disabled = true;
-                    sendIntroInquiryBtn.textContent = 'Sending...';
-
-                    // Structure data for n8n (compatible with chatbot structure)
-                    const payload = {
-                        contact: {
-                            firstName: name.split(' ')[0],
-                            lastName: name.split(' ').slice(1).join(' ') || '',
-                            email: email,
-                            phone: phone
-                        },
-                        property: {}, // Empty for general inquiry
-                        preferences: {}, // Empty for general inquiry
-                        serviceType: 'General Inquiry (Intro Form)',
-                        message: message
-                    };
-
-                    console.log('Sending Payload to n8n:', payload);
-
-                    const webhookUrl = 'https://n8n.solidiaai.com/webhook/540bf998-e19d-4608-8636-f5a53ac00080';
-
-                    try {
-                        const response = await fetch(webhookUrl, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify(payload)
-                        });
-
-                        console.log('n8n Response Status:', response.status);
-
-                        if (response.ok) {
-                            alert('Thank you! Your inquiry has been received. We will contact you shortly.');
-                            introContactForm.reset();
-                        } else {
-                            const errorText = await response.text();
-                            console.error('n8n Error Response:', errorText);
-                            alert('Oops, something went wrong. Please try again later.');
-                        }
-                    } catch (error) {
-                        console.error('Webhook Network Error:', error);
-                        alert('Network error. Please try again later.');
-                    } finally {
-                        sendIntroInquiryBtn.disabled = false;
-                        sendIntroInquiryBtn.textContent = originalBtnText;
-                    }
-                });
-            }
-        });
+        const navToggle = document.getElementById('navToggle'), navLinks = document.getElementById('navLinks');
+        navToggle.addEventListener('click', () => { navLinks.classList.toggle('active') });
+        navLinks.querySelectorAll('a').forEach(l => { l.addEventListener('click', () => { navLinks.classList.remove('active') }) });
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => { navbar.style.background = window.scrollY > 50 ? 'rgba(11,15,26,0.95)' : 'rgba(11,15,26,0.85)' });
+        const fadeEls = document.querySelectorAll('.fade-up');
+        const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible') }) }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        fadeEls.forEach(el => obs.observe(el));
     </script>
 
-    <!-- New Chatbot Widget -->
-    <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
-    <style>
-        .n8n-chat-widget {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 9999;
-        }
-
-        .n8n-chat-container {
-            position: absolute;
-            bottom: 80px;
-            /* Position above the toggle button */
-            right: 0;
-            width: 400px;
-            height: 600px;
-            max-width: 90vw;
-            max-height: 70vh;
-
-            /* Hidden State: Element exists but is invisible */
-            visibility: hidden;
-            opacity: 0;
-            transform: translateY(20px);
-            pointer-events: none;
-
-            background-color: #1d1d1d;
-            border-radius: 12px;
-            border: 1px solid #333;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-            overflow: hidden;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-
-        .n8n-chat-container.open {
-            visibility: visible;
-            opacity: 1;
-            transform: translateY(0);
-            pointer-events: auto;
-        }
-
-        .n8n-chat-toggle {
-            position: relative;
-            z-index: 10000;
-            display: flex;
-            align-items: center;
-            background-color: #1d1d1d;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-            transition: all 0.3s ease;
-            border: 1px solid #4ecd97;
-            user-select: none;
-        }
-
-        .n8n-chat-toggle:hover {
-            transform: scale(1.05);
-            background-color: #252525;
-            box-shadow: 0 6px 16px rgba(78, 205, 151, 0.2);
-        }
-
-        .n8n-chat-toggle img {
-            width: 28px;
-            height: 28px;
-            margin-right: 12px;
-            object-fit: contain;
-        }
-
-        .n8n-chat-toggle span {
-            font-weight: 600;
-            font-family: 'Inter', sans-serif;
-            font-size: 1rem;
-        }
-    </style>
-
+    <!-- N8N CHAT WIDGET -->
     <div class="n8n-chat-widget">
         <div id="n8n-chat" class="n8n-chat-container"></div>
         <div class="n8n-chat-toggle" id="n8n-chat-toggle-btn">
-            <img src="logo/logo.png" alt="Chat Icon"
+            <img src="logo/logo.png" alt="Chat"
                 onerror="this.onerror=null;this.src='https://placehold.co/40x40?text=Chat';">
             <span>Chat with us</span>
         </div>
     </div>
-
     <script type="module">
         import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
-
-        // Detect user language
-        const userLang = navigator.language || navigator.userLanguage;
-        const isSpanish = userLang.startsWith('es');
-        const langCode = isSpanish ? 'es' : 'en';
-
-        // Define specific texts based on language
-        const i18nConfig = {
-            en: {
-                title: 'Solid AI',
-                subtitle: 'Schedule an appointment with Solid AI Assistance',
-                getStarted: 'Start Chat',
-                inputPlaceholder: 'Type here...',
-            },
-            es: {
-                title: 'Solid AI',
-                subtitle: 'Agenda una cita con Solid AI Assistance',
-                getStarted: 'Iniciar Chat',
-                inputPlaceholder: 'Escribe aquí...',
-            }
-        };
-
-        const initialMessagesData = isSpanish
-            ? ['Hola 👋 Soy el Asistente Virtual de Solid AI.', '¿En qué puedo ayudarte hoy?']
-            : ['Hello 👋 I am the Solid AI Virtual Assistant.', 'How can I help you today?'];
-
-        createChat({
-            webhookUrl: 'https://n8n.solidiaai.com/webhook/974f29f6-1eee-4e56-aabc-ccb9cccccaef/chat',
-            target: '#n8n-chat',
-            mode: 'fullscreen',
-            chatInputKey: 'chatInput',
-            chatSessionKey: 'sessionId',
-            metadata: {},
-            showWelcomeScreen: false,
-            defaultLanguage: langCode,
-            initialMessages: initialMessagesData,
-            i18n: {
-                [langCode]: i18nConfig[langCode]
-            },
-            style: {
-                backgroundColor: '#1d1d1d',
-                tokenColor: '#4ecd97',
-            }
-        });
-
-        // Toggle Logic
-        const toggleBtn = document.getElementById('n8n-chat-toggle-btn');
-        const chatContainer = document.getElementById('n8n-chat');
-
-        toggleBtn.addEventListener('click', () => {
-            chatContainer.classList.toggle('open');
-
-            // Custom Logic: Inject Logo into CSS of Iframe
-            setTimeout(() => {
-                try {
-                    const iframe = chatContainer.querySelector('iframe');
-                    if (iframe && !iframe.contentWindow.document.getElementById('custom-header-style')) {
-                        const style = iframe.contentWindow.document.createElement('style');
-                        style.id = 'custom-header-style';
-                        style.textContent = `
-                                .n8n-chat-header-title {
-                                    color: transparent !important;
-                                    background-image: url('logo/logo.png') !important;
-                                    background-size: contain !important;
-                                    background-repeat: no-repeat !important;
-                                    background-position: center !important;
-                                    height: 35px !important;
-                                    width: 100% !important;
-                                    display: block !important;
-                                    margin-bottom: 5px !important;
-                                }
-                                .n8n-chat-header-subtitle {
-                                    display: block !important;
-                                    font-size: 13px !important;
-                                    text-align: center !important;
-                                }
-                                /* Force Input Visibility */
-                                .n8n-chat-input-container {
-                                    display: flex !important;
-                                    visibility: visible !important;
-                                }
-                            `;
-                        iframe.contentWindow.document.head.appendChild(style);
-                    }
-                } catch (e) {
-                    console.log('Could not inject custom header style:', e);
-                }
-            }, 100);
-        });
-    </script>
-
-    <!-- Language Translation Script -->
-    <script>
-        const translations = {
-            es: {
-                // Navigation
-                nav_home: "Inicio",
-                nav_news: "Últimas Noticias",
-                nav_who: "Quiénes Somos",
-                nav_services: "Servicios",
-                nav_ai: "Nuestra IA",
-                nav_instagram: "Instagram Auto",
-                nav_consulting: "Consultoría",
-                nav_careers: "Carreras",
-                nav_privacy: "Privacidad",
-
-                // Hero
-                hero_tagline: "Agencia de Automatización IA y Desarrollo de Software",
-                hero_whatsapp: "Contáctanos por WhatsApp",
-
-                // Services
-                section_services_title: "Nuestros Servicios Principales",
-                service_consulting: "Consultoría IA",
-                service_consulting_desc: "Guía estratégica para integrar IA en tu negocio con impacto medible.",
-                service_automation: "Automatización a Medida",
-                service_automation_desc: "Flujos de n8n personalizados para optimizar tareas y eficiencia.",
-                service_software: "Desarrollo de Software",
-                service_software_desc: "Soluciones de software personalizadas con IA desde cero.",
-
-                // Why AI
-                section_why_ai: "Por qué la IA es Esencial",
-                chart_costs: "Reducir Costos Operativos",
-                chart_revenue: "Impulsar Crecimiento de Ingresos",
-
-                // Testimonials (New)
-                section_testimonials: "Lo que Dicen Nuestros Clientes",
-                testim_1_text: "La automatización de solid AI nos ahorró 20 horas semanales en entrada de datos. El chatbot funciona de maravilla.",
-                testim_2_text: "El software a medida que construyeron para nuestro inventario ha cambiado las reglas del juego.",
-
-                // Featured
-                section_featured: "Trabajos y Soluciones Destacados",
-                featured_desc: "Desliza para ver nuestros últimos sitios web, apps y bots.",
-                swipe_hint: "DESLIZA",
-
-                // Intro Form
-                intro_title: "Cuéntanos qué proceso te gustaría automatizar",
-                intro_desc: "Envíanos un mensaje sobre lo que necesitas: Chatbot IA, SEO, automatización de Instagram, agenda, LinkedIn o instalación de servidores locales. Construiremos la solución perfecta.",
-                form_name: "Tu Nombre:",
-                form_email: "Tu Email:",
-                form_phone: "Tu Teléfono:",
-                form_placeholder_msg: "Describe tus ideas iniciales o problema aquí...",
-                btn_send_inquiry: "Enviar Consulta",
-                btn_sending: "Enviando...",
-
-                // Who We Are section
-                section_who_title: "Quiénes Somos",
-                role_ceo: "CEO y Estratega Principal de IA",
-                role_marcom: "Jefa de Marketing y Comunicaciones IA",
-                opt_sales: "Aumentar Ventas y Marketing",
-                opt_costs: "Reducir Costos Operativos",
-                opt_service: "Mejorar Servicio al Cliente",
-                opt_auto: "Automatizar Tareas Repetitivas",
-                label_challenge: "3. Describe el desafío específico.",
-                btn_generate: "Generar Idea de Solución IA",
-
-                // Consulting (Urgency Added)
-                section_consulting_title: "Transformación IA y Empoderamiento",
-                consulting_intro: "Nuestro servicio intensivo de consultoría de una semana empodera a tu equipo con habilidades de IA.",
-                day_1: "Día 1: Descubrimiento y Diagnóstico",
-                day_2_4: "Días 2-4: Taller de Empoderamiento IA",
-                day_5: "Día 5: Estrategia y Inicio",
-                btn_request_consult: "Solicitar (Solo 2 cupos/mes)",
-
-                // Careers
-                section_careers_title: "Carreras",
-                careers_desc: "Únete a solid AI y sé parte de un equipo dinámico a la vanguardia de la innovación en IA.",
-
-                // Footer
-                footer_quick_links: "Enlaces Rápidos",
-                footer_contact: "Contáctanos",
-                footer_follow: "Síguenos"
-            }
-        };
-
-        function detectAndApplyLanguage() {
-            const userLang = navigator.language || navigator.userLanguage;
-            if (userLang.startsWith('es')) {
-                applyLanguage('es');
-            }
-        }
-
-        function applyLanguage(lang) {
-            if (!translations[lang]) return;
-            const elements = document.querySelectorAll('[data-i18n]');
-            elements.forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                if (translations[lang][key]) {
-                    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-                        el.placeholder = translations[lang][key];
-                    } else {
-                        el.textContent = translations[lang][key];
-                    }
-                }
-            });
-
-            if (lang === 'es') {
-                const goalSelect = document.getElementById('goalSelect');
-                if (goalSelect) {
-                    goalSelect.options[0].text = translations.es.opt_select;
-                    goalSelect.options[1].text = translations.es.opt_sales;
-                    goalSelect.options[2].text = translations.es.opt_costs;
-                    goalSelect.options[3].text = translations.es.opt_service;
-                    goalSelect.options[4].text = translations.es.opt_auto;
-                }
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', detectAndApplyLanguage);
+        const ul = navigator.language || navigator.userLanguage, isEs = ul.startsWith('es'), lc = isEs ? 'es' : 'en';
+        const i18n = { en: { title: 'Solid AI', subtitle: 'Schedule an appointment with Solid AI', getStarted: 'Start Chat', inputPlaceholder: 'Type here...' }, es: { title: 'Solid AI', subtitle: 'Agenda una cita con Solid AI', getStarted: 'Iniciar Chat', inputPlaceholder: 'Escribe aquí...' } };
+        const msgs = isEs ? ['Hola 👋 Soy el Asistente Virtual de Solid AI.', '¿En qué puedo ayudarte?'] : ['Hello 👋 I am the Solid AI Virtual Assistant.', 'How can I help you today?'];
+        createChat({ webhookUrl: 'https://n8n.solidiaai.com/webhook/974f29f6-1eee-4e56-aabc-ccb9cccccaef/chat', target: '#n8n-chat', mode: 'fullscreen', chatInputKey: 'chatInput', chatSessionKey: 'sessionId', metadata: {}, showWelcomeScreen: false, defaultLanguage: lc, initialMessages: msgs, i18n: { [lc]: i18n[lc] }, style: { backgroundColor: '#1d1d1d', tokenColor: '#4ecd97' } });
+        const tBtn = document.getElementById('n8n-chat-toggle-btn'), cC = document.getElementById('n8n-chat');
+        tBtn.addEventListener('click', () => { cC.classList.toggle('open'); setTimeout(() => { try { const f = cC.querySelector('iframe'); if (f && !f.contentWindow.document.getElementById('chs')) { const s = f.contentWindow.document.createElement('style'); s.id = 'chs'; s.textContent = '.n8n-chat-header-title{color:transparent!important;background-image:url("logo/logo.png")!important;background-size:contain!important;background-repeat:no-repeat!important;background-position:center!important;height:35px!important;width:100%!important;display:block!important;margin-bottom:5px!important}.n8n-chat-header-subtitle{display:block!important;font-size:13px!important;text-align:center!important}.n8n-chat-input-container{display:flex!important;visibility:visible!important}'; f.contentWindow.document.head.appendChild(s) } } catch (e) { console.log(e) } }, 100) });
     </script>
 </body>
 
