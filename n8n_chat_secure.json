@@ -17,7 +17,7 @@
         },
         {
             "parameters": {
-                "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyCVqJGBnJIgNb73heK3RIclkIA0ujSR7XY",
+                "url": "",
                 "method": "POST",
                 "jsonParameters": true,
                 "options": {},

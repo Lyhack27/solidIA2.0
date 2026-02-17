@@ -3,7 +3,7 @@ import requests
 import sys
 
 # Configuration
-API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3ZWNjNjdhMS05Njg3LTQ2MWItOTRhNi0yNzM3ODE3MzU1OTAiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwiaWF0IjoxNzY0OTExMjg0LCJleHAiOjE3Njc1MDI4MDB9.LmmQNUDqx4E8yUbNYuGTEsROH4HyUlUMvOkUB5kfZKk"
+API_KEY = "aquiponemosunanuevas"
 WORKFLOW_ID = "lPc11aENeBAUnhpO"
 URL = f"https://n8n.solidiaai.com/api/v1/workflows/{WORKFLOW_ID}"
 FILE_PATH = "n8n_raziel_style.json"
