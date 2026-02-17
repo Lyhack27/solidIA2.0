@@ -92,7 +92,7 @@
             top: 0;
             left: 0;
             right: 0;
-            z-index: 100;
+            z-index: 9999;
             background: rgba(0, 0, 0, 0.9);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
@@ -108,8 +108,19 @@
             height: 64px
         }
 
+        .nav-logo {
+            display: flex;
+            align-items: center;
+        }
+
         .nav-logo img {
-            height: 36px
+            height: 45px;
+            filter: brightness(100);
+            transition: transform 0.3s ease;
+        }
+
+        .nav-logo:hover img {
+            transform: scale(1.05);
         }
 
         .nav-links {
@@ -131,18 +142,21 @@
         }
 
         .nav-cta {
-            background: var(--accent);
-            color: #fff !important;
-            padding: 0.5rem 1.25rem;
+            background: #ffffff;
+            color: #000000 !important;
+            padding: 0.6rem 1.4rem;
             border-radius: 50px;
-            font-weight: 600;
+            font-weight: 700;
             font-size: 0.85rem;
-            transition: background var(--transition), transform var(--transition)
+            border: 1px solid #ffffff;
+            transition: all var(--transition);
         }
 
         .nav-cta:hover {
-            background: var(--accent-hover);
-            transform: translateY(-1px)
+            background: transparent;
+            color: #ffffff !important;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.15);
         }
 
         .nav-login {
@@ -191,8 +205,10 @@
                 padding: 2rem;
                 gap: 1.25rem;
                 transform: translateY(-120%);
-                transition: transform 0.35s ease;
-                border-bottom: 1px solid var(--border)
+                transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                z-index: 999;
+                /* Ensure high z-index on mobile */
             }
 
             .nav-links.active {
@@ -214,39 +230,22 @@
         }
 
         /* SPLINE 3D */
-        .spline-wrapper {
-            position: absolute;
+        /* WAVE ANIMATION */
+        /* ANIMATED DOTS BACKGROUND */
+        /* CANVAS BACKGROUND */
+        #bgCanvas {
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: 0;
-            pointer-events: auto;
-        }
-
-        .spline-wrapper::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(180deg,
-                    rgba(0, 0, 0, 0.3) 0%,
-                    rgba(0, 0, 0, 0.1) 40%,
-                    rgba(0, 0, 0, 0.4) 80%,
-                    rgba(0, 0, 0, 0.95) 100%);
             pointer-events: none;
-            z-index: 1;
         }
 
-        .spline-wrapper canvas {
-            width: 100% !important;
-            height: 100% !important;
-            display: block;
-            opacity: 0;
-            transition: opacity 1s ease;
-        }
+
+
+        /* Spline removed */
 
         .spline-wrapper canvas.loaded {
             opacity: 1;
@@ -298,15 +297,15 @@
             box-shadow: 0 0 60px rgba(0, 0, 0, 0.5);
         }
 
-        /* Logo at bottom of 3D scene */
+        /* Logo removed (integrated into Nav) */
         .hero-3d-logo {
-            position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 3;
-            opacity: 0.6;
-            transition: opacity 0.3s ease;
+            display: none !important;
+        }
+
+        @media(max-width:768px) {
+            .hero {
+                min-height: auto;
+            }
         }
 
         .hero-3d-logo img {
@@ -382,7 +381,8 @@
             align-items: center;
             gap: 0.5rem;
             background: var(--accent-green);
-            color: #fff;
+            color: #000;
+            /* Black text on white button */
             padding: 0.85rem 2rem;
             border-radius: 50px;
             font-weight: 700;
@@ -393,11 +393,25 @@
         }
 
         .btn-primary:hover {
-            background: var(--accent-green-hover);
-            transform: translateY(-2px)
+            background: #ffffff;
+            color: #000;
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .hero-main-logo {
+            height: 90px;
+            /* Larger logo */
+            width: auto;
+            margin-bottom: 2rem;
+            filter: brightness(100);
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .btn-secondary {
+
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
@@ -413,8 +427,9 @@
         }
 
         .btn-secondary:hover {
-            border-color: var(--accent);
-            color: var(--accent)
+            border-color: #fff;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
         }
 
         .hero-stats {
@@ -894,74 +909,104 @@
             transform: translateY(0)
         }
 
-        /* N8N CHAT */
-        .n8n-chat-widget {
+        /* N8N CHAT WIDGET (Clean Rewrite) */
+        #n8n-chat-btn {
             position: fixed;
-            bottom: 20px;
-            right: 100px;
-            z-index: 9999
-        }
-
-        .n8n-chat-container {
-            position: absolute;
-            bottom: 80px;
-            right: 0;
-            width: 400px;
-            height: 600px;
-            max-width: 90vw;
-            max-height: 70vh;
-            visibility: hidden;
-            opacity: 0;
-            transform: translateY(20px);
-            pointer-events: none;
-            background: #1d1d1d;
-            border-radius: 12px;
-            border: 1px solid #333;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-            overflow: hidden;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)
-        }
-
-        .n8n-chat-container.open {
-            visibility: visible;
-            opacity: 1;
-            transform: translateY(0);
-            pointer-events: auto
-        }
-
-        .n8n-chat-toggle {
-            position: relative;
-            z-index: 10000;
-            display: flex;
-            align-items: center;
-            background: #1d1d1d;
-            color: #fff;
+            bottom: max(20px, env(safe-area-inset-bottom) + 20px);
+            right: 20px;
+            width: auto;
+            height: auto;
+            min-width: 60px;
             padding: 12px 24px;
             border-radius: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-            transition: all 0.3s ease;
-            border: 1px solid #4ecd97;
-            user-select: none
+            z-index: 2147483647;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            animation: pulse-chat 2s infinite;
         }
 
-        .n8n-chat-toggle:hover {
-            transform: scale(1.05);
-            background: #252525;
-            box-shadow: 0 6px 16px rgba(78, 205, 151, 0.2)
+        #n8n-chat-btn span {
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            color: #fff;
+            font-size: 1rem;
         }
 
-        .n8n-chat-toggle img {
-            width: 28px;
-            height: 28px;
-            margin-right: 12px;
-            object-fit: contain
+        #n8n-chat-btn:hover span {
+            color: #000;
+        }
+
+        #n8n-chat-btn:hover {
+            transform: scale(1.1);
+            background: #fff;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+        }
+
+        #n8n-chat-btn img {
+            width: 30px;
+            height: 30px;
+            filter: invert(0);
+            transition: filter 0.3s;
+        }
+
+        #n8n-chat-btn:hover img {
+            filter: invert(1);
+        }
+
+        #n8n-chat-btn.open {
+            background: #fff;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+        }
+
+        #n8n-chat-btn.open img {
+            filter: invert(1);
+        }
+
+        #n8n-chat-btn.open span {
+            color: #000;
+        }
+
+        #n8n-chat-window {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            width: 380px;
+            height: 600px;
+            max-width: calc(100vw - 40px);
+            max-height: calc(100vh - 120px);
+            background: rgba(15, 15, 15, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            z-index: 2147483646;
+            transform-origin: bottom right;
+            transform: scale(0.9) translateY(20px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow: hidden;
+        }
+
+        #n8n-chat-window.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1) translateY(0);
         }
 
         .n8n-chat-toggle span {
-            font-weight: 600;
-            font-family: 'Inter', sans-serif;
-            font-size: 1rem
+            font-size: 0.95rem;
         }
 
         /* BACKGROUND ANIMATIONS */
@@ -1061,13 +1106,15 @@
 </head>
 
 <body>
-    <!-- NOTHING PHONE DOT PATTERN -->
-    <div class="bg-dots"></div>
+    <!-- CANVAS DOT PATTERN -->
+    <canvas id="bgCanvas"></canvas>
 
     <!-- NAV -->
     <nav class="nav" id="navbar">
         <div class="container">
-            <a href="#" class="nav-logo"><img src="logo/logo.png" alt="Solid AI Logo"></a>
+            <div class="nav-logo">
+                <a href="#"><img src="logo/logo.png" alt="Solid AI Logo"></a>
+            </div>
             <button class="nav-toggle" id="navToggle" aria-label="Menu">
                 <span></span><span></span><span></span>
             </button>
@@ -1086,19 +1133,10 @@
 
     <!-- HERO -->
     <section class="hero" id="hero">
-        <!-- SPLINE 3D BACKGROUND -->
-        <div class="spline-wrapper" id="splineWrapper">
-            <div class="spline-loader" id="splineLoader">
-                <div class="spline-spinner"></div>
-            </div>
-            <canvas id="canvas3d"></canvas>
-        </div>
-        <!-- Logo at bottom of 3D area -->
-        <div class="hero-3d-logo">
-            <img src="logo/logo.png" alt="Solid AI">
-        </div>
+        <!-- ANIMATED DOTS BACKGROUND (in CSS) -->
         <div class="container">
             <div class="hero-glass">
+                <img src="logo/logo.png" alt="Solid AI" class="hero-main-logo">
                 <div class="hero-badge">AI Automation — Melbourne, Australia</div>
                 <h1>Your Business Runs.<br><span class="highlight">Even When You Don't.</span></h1>
                 <p class="hero-sub">We build AI chatbots, automated quoting systems, and smart workflows that capture
@@ -1127,49 +1165,10 @@
         </div>
     </section>
 
-    <!-- SPLINE RUNTIME -->
-    <script type="module">
-        // ─── SPLINE 3D SCENE ───────────────────────────────────────
-        // Replace SCENE_URL with your Spline scene URL.
-        // Get it: Spline Editor → Export → Code → Vanilla JS → Copy URL
-        const SCENE_URL = 'https://prod.spline.design/bQnz2llWWI34Vjr5/scene.splinecode';
+    <!-- SPLINE REMOVED -->
 
-        // Only load on desktop (skip mobile for performance)
-        if (window.innerWidth > 768) {
-            import('https://esm.sh/@splinetool/runtime').then(({ Application }) => {
-                const canvas = document.getElementById('canvas3d');
-                const loader = document.getElementById('splineLoader');
-                const spline = new Application(canvas);
+    <!-- SPLINE JS REMOVED -->
 
-                spline.load(SCENE_URL).then(() => {
-                    console.log('✅ Spline 3D scene loaded');
-                    loader.classList.add('hidden');
-                    canvas.classList.add('loaded');
-
-                    // Hide grid/floor/plane objects from the scene
-                    const allObjects = spline.getAllObjects();
-                    allObjects.forEach(obj => {
-                        const name = (obj.name || '').toLowerCase();
-                        if (name.includes('grid') || name.includes('floor') || name.includes('plane') || name.includes('ground') || name.includes('helper')) {
-                            obj.visible = false;
-                            console.log('🔇 Hidden Spline object:', obj.name);
-                        }
-                    });
-                    console.log('📋 All Spline objects:', allObjects.map(o => o.name));
-
-                    // Optional: connect scroll to Spline variable
-                    window.addEventListener('scroll', () => {
-                        const progress = Math.min(window.scrollY / (window.innerHeight * 0.8), 1);
-                        try { spline.setVariable('scrollProgress', progress); } catch (e) { }
-                    });
-                }).catch(err => {
-                    console.warn('Spline load error:', err);
-                    loader.classList.add('hidden');
-                    document.getElementById('splineWrapper').style.display = 'none';
-                });
-            });
-        }
-    </script>
 
     <!-- PROBLEMS -->
     <section id="problems" class="fade-up">
@@ -1457,25 +1456,143 @@
         const fadeEls = document.querySelectorAll('.fade-up');
         const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible') }) }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
         fadeEls.forEach(el => obs.observe(el));
+
+        // DOT WAVE ANIMATION (Bat under blanket effect)
+        (function () {
+            const canvas = document.getElementById('bgCanvas');
+            const ctx = canvas.getContext('2d');
+            let w, h;
+            const spacing = 40;
+            let t = 0;
+
+            function val(x, y, t) {
+                // Simulating a moving "lump" (bat) + subtle general wave
+                // Bat movement: diagonal across screen
+                const batX = (t * 100) % (w + 500) - 250;
+                const batY = h * 0.5 + Math.sin(t * 0.5) * (h * 0.3);
+
+                const dx = x - batX;
+                const dy = y - batY;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+
+                // Gaussian bulge function (The "Bat")
+                const bulge = Math.exp(- (dist * dist) / 30000); // 30000 = width of bulge sq
+
+                return bulge;
+            }
+
+            function frame() {
+                w = canvas.width = window.innerWidth;
+                h = canvas.height = window.innerHeight;
+                ctx.clearRect(0, 0, w, h);
+
+                t += 0.015; // Speed
+
+                const rows = Math.ceil(h / spacing);
+                const cols = Math.ceil(w / spacing);
+
+                for (let r = 0; r <= rows; r++) {
+                    for (let c = 0; c <= cols; c++) {
+                        const x = c * spacing;
+                        const y = r * spacing;
+
+                        // Adding offset to x/y for slight organic drift? 
+                        // No, Nothing Phone style is rigid grid usually.
+
+                        const bulge = val(x, y, t);
+
+                        // "Blancos más blancos": Base opacity 0.2, Bulge boosts to 1.0
+                        const alpha = 0.2 + bulge * 0.8;
+                        const size = 1.5 + bulge * 1.5; // Dots grow from 1.5px to 3px
+
+                        ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
+                        ctx.beginPath();
+                        ctx.arc(x, y, size, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                }
+                requestAnimationFrame(frame);
+            }
+            frame();
+        })();
     </script>
 
-    <!-- N8N CHAT WIDGET -->
-    <div class="n8n-chat-widget">
-        <div id="n8n-chat" class="n8n-chat-container"></div>
-        <div class="n8n-chat-toggle" id="n8n-chat-toggle-btn">
-            <img src="logo/logo.png" alt="Chat"
-                onerror="this.onerror=null;this.src='https://placehold.co/40x40?text=Chat';">
-            <span>Chat with us</span>
-        </div>
+    <!-- N8N CHAT WIDGET (New) -->
+    <div id="n8n-chat-window"></div>
+    <div id="n8n-chat-btn">
+        <img src="logo/logo.png" alt="Chat"
+            onerror="this.onerror=null;this.src='https://placehold.co/40x40?text=Chat';">
+        <span>Chat with us</span>
     </div>
+
     <script type="module">
         import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
-        const ul = navigator.language || navigator.userLanguage, isEs = ul.startsWith('es'), lc = isEs ? 'es' : 'en';
-        const i18n = { en: { title: 'Solid AI', subtitle: 'Schedule an appointment with Solid AI', getStarted: 'Start Chat', inputPlaceholder: 'Type here...' }, es: { title: 'Solid AI', subtitle: 'Agenda una cita con Solid AI', getStarted: 'Iniciar Chat', inputPlaceholder: 'Escribe aquí...' } };
-        const msgs = isEs ? ['Hola 👋 Soy el Asistente Virtual de Solid AI.', '¿En qué puedo ayudarte?'] : ['Hello 👋 I am the Solid AI Virtual Assistant.', 'How can I help you today?'];
-        createChat({ webhookUrl: 'https://n8n.solidiaai.com/webhook/974f29f6-1eee-4e56-aabc-ccb9cccccaef/chat', target: '#n8n-chat', mode: 'fullscreen', chatInputKey: 'chatInput', chatSessionKey: 'sessionId', metadata: {}, showWelcomeScreen: false, defaultLanguage: lc, initialMessages: msgs, i18n: { [lc]: i18n[lc] }, style: { backgroundColor: '#1d1d1d', tokenColor: '#4ecd97' } });
-        const tBtn = document.getElementById('n8n-chat-toggle-btn'), cC = document.getElementById('n8n-chat');
-        tBtn.addEventListener('click', () => { cC.classList.toggle('open'); setTimeout(() => { try { const f = cC.querySelector('iframe'); if (f && !f.contentWindow.document.getElementById('chs')) { const s = f.contentWindow.document.createElement('style'); s.id = 'chs'; s.textContent = '.n8n-chat-header-title{color:transparent!important;background-image:url("logo/logo.png")!important;background-size:contain!important;background-repeat:no-repeat!important;background-position:center!important;height:35px!important;width:100%!important;display:block!important;margin-bottom:5px!important}.n8n-chat-header-subtitle{display:block!important;font-size:13px!important;text-align:center!important}.n8n-chat-input-container{display:flex!important;visibility:visible!important}'; f.contentWindow.document.head.appendChild(s) } } catch (e) { console.log(e) } }, 100) });
+
+        const ul = navigator.language || navigator.userLanguage;
+        const isEs = ul.startsWith('es');
+        const lc = isEs ? 'es' : 'en';
+
+        const i18n = {
+            en: { title: 'Solid AI', subtitle: 'Detailed Automation & AI Solutions', getStarted: 'Start Chat', inputPlaceholder: 'Ask us anything...' },
+            es: { title: 'Solid AI', subtitle: 'Soluciones de IA y Automatización', getStarted: 'Iniciar Chat', inputPlaceholder: 'Pregúntanos...' }
+        };
+
+        // WhatsApp style: Start empty
+        const msgs = [];
+
+        createChat({
+            webhookUrl: 'https://n8n.solidiaai.com/webhook/974f29f6-1eee-4e56-aabc-ccb9cccccaef/chat',
+            target: '#n8n-chat-window',
+            mode: 'fullscreen',
+            chatInputKey: 'chatInput',
+            chatSessionKey: 'sessionId',
+            metadata: {},
+            showWelcomeScreen: false,
+            defaultLanguage: lc,
+            initialMessages: msgs,
+            i18n: { [lc]: i18n[lc] },
+            style: { backgroundColor: 'transparent', tokenColor: '#ffffff', secondaryColor: '#4ecd97' }
+        });
+
+        const btn = document.getElementById('n8n-chat-btn');
+        const win = document.getElementById('n8n-chat-window');
+
+        btn.addEventListener('click', () => {
+            win.classList.toggle('visible');
+            btn.classList.toggle('open');
+
+            // Fix input visibility & Add WhatsApp Animations
+            setTimeout(() => {
+                try {
+                    const iframe = win.querySelector('iframe');
+                    if (iframe) {
+                        iframe.style.width = '100%';
+                        iframe.style.height = '100%';
+
+                        const doc = iframe.contentWindow.document;
+                        if (!doc.getElementById('fix-input')) {
+                            const s = doc.createElement('style');
+                            s.id = 'fix-input';
+                            s.textContent = `
+                                .n8n-chat-input-container { display: flex !important; visibility: visible !important; opacity: 1 !important; pointer-events: auto !important; }
+                                .n8n-chat-footer { display: block !important; }
+                                
+                                /* WhatsApp-style Animation */
+                                @keyframes popIn { 
+                                    0% { opacity: 0; transform: scale(0.9) translateY(10px); } 
+                                    100% { opacity: 1; transform: scale(1) translateY(0); } 
+                                }
+                                .n8n-chat-message-row { 
+                                    animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; 
+                                    transform-origin: bottom left;
+                                }
+                            `;
+                            doc.head.appendChild(s);
+                        }
+                    }
+                } catch (e) { console.error(e); }
+            }, 500);
+        });
     </script>
 </body>
 
