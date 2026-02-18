@@ -92,7 +92,7 @@
             top: 0;
             left: 0;
             right: 0;
-            z-index: 9999;
+            z-index: 99999;
             background: rgba(0, 0, 0, 0.9);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
@@ -199,7 +199,7 @@
                 top: 64px;
                 left: 0;
                 right: 0;
-                background: rgba(11, 15, 26, 0.97);
+                background: rgba(11, 15, 26, 0.98);
                 backdrop-filter: blur(20px);
                 flex-direction: column;
                 padding: 2rem;
@@ -207,8 +207,7 @@
                 transform: translateY(-120%);
                 transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
                 border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-                z-index: 999;
-                /* Ensure high z-index on mobile */
+                z-index: 99998;
             }
 
             .nav-links.active {
@@ -1004,6 +1003,12 @@
             position: relative;
             z-index: 1;
         }
+
+        /* Chat widget always on top of everything */
+        #n8n-chat-btn,
+        #n8n-chat-window {
+            isolation: isolate;
+        }
     </style>
 </head>
 
@@ -1414,31 +1419,39 @@
         })();
     </script>
 
-    <!-- CHAT WIDGET -->
+    <!-- ============================================================
+         CHAT WIDGET — WhatsApp style, always on top
+         ============================================================ -->
     <style>
-        /* Floating button */
+        /* Force chat elements above ALL stacking contexts on the page */
+        #n8n-chat-btn,
+        #n8n-chat-window {
+            position: fixed !important;
+            z-index: 2147483647 !important; /* max possible */
+        }
+
+        /* ── Floating pill button ── */
         #n8n-chat-btn {
-            position: fixed;
             bottom: 24px;
             right: 24px;
             background: #25D366;
             color: #fff;
-            padding: 0 20px 0 14px;
+            padding: 0 20px 0 12px;
             height: 52px;
             border-radius: 52px;
-            display: flex;
+            display: flex !important;
             align-items: center;
             gap: 10px;
             cursor: pointer;
             border: none;
-            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.45);
-            transition: transform 0.25s ease, box-shadow 0.25s ease;
-            z-index: 10000;
+            box-shadow: 0 4px 24px rgba(37,211,102,0.5);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
             font-family: 'Inter', sans-serif;
+            pointer-events: all !important;
         }
         #n8n-chat-btn:hover {
-            transform: translateY(-3px) scale(1.03);
-            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.55);
+            transform: translateY(-3px) scale(1.04);
+            box-shadow: 0 8px 32px rgba(37,211,102,0.6);
         }
         #n8n-chat-btn .chat-logo {
             width: 30px;
@@ -1448,131 +1461,183 @@
             background: #fff;
             padding: 3px;
             flex-shrink: 0;
+            display: block;
         }
         #n8n-chat-btn .chat-label {
-            font-weight: 600;
+            font-weight: 700;
             font-size: 14px;
             white-space: nowrap;
+            color: #fff;
         }
 
-        /* Chat window */
+        /* ── Chat window ── */
         #n8n-chat-window {
-            position: fixed;
             bottom: 88px;
             right: 24px;
             width: 370px;
-            height: 580px;
+            height: 560px;
             max-width: calc(100vw - 32px);
             max-height: calc(100vh - 110px);
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 12px 48px rgba(0,0,0,0.45);
-            z-index: 9999;
+            box-shadow: 0 16px 56px rgba(0,0,0,0.55);
             opacity: 0;
             visibility: hidden;
-            transform: translateY(16px) scale(0.97);
-            transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+            transform: translateY(20px) scale(0.96);
+            transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s linear 0.25s;
             display: flex;
             flex-direction: column;
+            pointer-events: none !important;
         }
-        #n8n-chat-window.visible {
+        #n8n-chat-window.open {
             opacity: 1;
             visibility: visible;
             transform: translateY(0) scale(1);
+            transition: opacity 0.25s ease, transform 0.25s ease;
+            pointer-events: all !important;
         }
 
-        /* WhatsApp-style header rendered outside the iframe */
-        #chat-header {
+        /* ── WhatsApp header (rendered in our DOM, not the iframe) ── */
+        #chat-wa-header {
             background: #075E54;
             display: flex;
             align-items: center;
             gap: 10px;
-            padding: 12px 16px;
+            padding: 11px 14px;
             flex-shrink: 0;
         }
-        #chat-header img {
-            width: 36px;
-            height: 36px;
+        #chat-wa-header .wa-avatar {
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
-            object-fit: contain;
             background: #fff;
             padding: 4px;
+            object-fit: contain;
+            flex-shrink: 0;
         }
-        #chat-header-text h4 {
+        #chat-wa-header .wa-info h4 {
             color: #fff;
             font-size: 15px;
-            font-weight: 600;
+            font-weight: 700;
             margin: 0;
             font-family: 'Inter', sans-serif;
+            line-height: 1.2;
         }
-        #chat-header-text p {
-            color: rgba(255,255,255,0.72);
+        #chat-wa-header .wa-info p {
+            color: rgba(255,255,255,0.7);
             font-size: 12px;
             margin: 0;
             font-family: 'Inter', sans-serif;
         }
-        #chat-close-btn {
+        #chat-wa-close {
             margin-left: auto;
             background: none;
             border: none;
-            color: rgba(255,255,255,0.8);
-            font-size: 20px;
-            cursor: pointer;
+            color: rgba(255,255,255,0.85);
+            font-size: 22px;
             line-height: 1;
-            padding: 4px;
+            cursor: pointer;
+            padding: 2px 6px;
+            border-radius: 4px;
+            transition: background 0.15s;
         }
-        #chat-close-btn:hover { color: #fff; }
+        #chat-wa-close:hover { background: rgba(255,255,255,0.15); color: #fff; }
 
-        /* n8n iframe fills remaining space */
-        #n8n-chat-window > #n8n-chat-inner {
+        /* ── n8n iframe container ── */
+        #n8n-chat-inner {
             flex: 1;
             overflow: hidden;
-            background: #ECE5DD;
+            background: #EFE7DD;
+            position: relative;
         }
+        #n8n-chat-inner iframe {
+            width: 100% !important;
+            height: 100% !important;
+            border: none !important;
+            display: block;
+        }
+
+        /* Loading spinner inside inner */
+        #chat-spinner {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #EFE7DD;
+            pointer-events: none;
+        }
+        #chat-spinner div {
+            width: 30px; height: 30px;
+            border: 3px solid rgba(0,0,0,0.1);
+            border-top-color: #25D366;
+            border-radius: 50%;
+            animation: wa-spin 0.8s linear infinite;
+        }
+        @keyframes wa-spin { to { transform: rotate(360deg); } }
 
         @media (max-width: 480px) {
             #n8n-chat-window {
-                right: 12px;
-                width: calc(100vw - 24px);
-                bottom: 84px;
+                right: 10px;
+                width: calc(100vw - 20px);
+                bottom: 82px;
+                height: 70vh;
+            }
+            #n8n-chat-btn {
+                right: 16px;
+                bottom: 16px;
             }
         }
-        @keyframes chat-spin { to { transform: rotate(360deg); } }
     </style>
 
+    <!-- Chat window -->
     <div id="n8n-chat-window">
-        <!-- Custom WhatsApp-style header -->
-        <div id="chat-header">
-            <img src="logo/logo.png" alt="Solid AI" onerror="this.src='https://placehold.co/36x36?text=AI'">
-            <div id="chat-header-text">
+        <div id="chat-wa-header">
+            <img class="wa-avatar" src="logo/logo.png" alt="Solid AI"
+                 onerror="this.src='https://ui-avatars.com/api/?name=SA&background=25D366&color=fff&size=38'">
+            <div class="wa-info">
                 <h4>Solid AI</h4>
-                <p>AI Automation &amp; Solutions</p>
+                <p>Typically replies in minutes</p>
             </div>
-            <button id="chat-close-btn" aria-label="Close chat">&#x2715;</button>
+            <button id="chat-wa-close" aria-label="Close chat">&#x2715;</button>
         </div>
-        <!-- n8n injects iframe here -->
         <div id="n8n-chat-inner">
-            <div style="display:flex;align-items:center;justify-content:center;height:100%">
-                <div style="width:28px;height:28px;border:3px solid rgba(0,0,0,0.08);border-top-color:#25D366;border-radius:50%;animation:chat-spin 0.8s linear infinite"></div>
-            </div>
+            <div id="chat-spinner"><div></div></div>
         </div>
     </div>
 
-    <!-- Floating "Chat with us" button -->
+    <!-- Floating button -->
     <button id="n8n-chat-btn" aria-label="Open chat">
-        <img class="chat-logo" src="logo/logo.png" alt="Solid AI" onerror="this.src='https://placehold.co/30x30?text=AI'">
+        <img class="chat-logo" src="logo/logo.png" alt="Solid AI"
+             onerror="this.src='https://ui-avatars.com/api/?name=SA&background=fff&color=25D366&size=30'">
         <span class="chat-label">Chat with us</span>
     </button>
 
-    <!-- CHAT SCRIPT -->
+    <!-- n8n chat integration -->
     <script type="module" src="chat-widget.js"></script>
+
+    <!-- Toggle logic (non-module so it's always available) -->
     <script>
-        // Close button wired outside module scope so it always works
-        document.getElementById('chat-close-btn').addEventListener('click', function() {
-            document.getElementById('n8n-chat-window').classList.remove('visible');
+    (function() {
+        var btn    = document.getElementById('n8n-chat-btn');
+        var win    = document.getElementById('n8n-chat-window');
+        var closeB = document.getElementById('chat-wa-close');
+
+        function openChat()  { win.classList.add('open');    btn.style.display = 'none'; }
+        function closeChat() { win.classList.remove('open'); btn.style.display = ''; }
+
+        if (btn)    btn.addEventListener('click', openChat);
+        if (closeB) closeB.addEventListener('click', closeChat);
+
+        // Also close if clicking outside
+        document.addEventListener('click', function(e) {
+            if (win && win.classList.contains('open') &&
+                !win.contains(e.target) && e.target !== btn && !btn.contains(e.target)) {
+                closeChat();
+            }
         });
+    })();
     </script>
 </body>
 
 </html>
-```

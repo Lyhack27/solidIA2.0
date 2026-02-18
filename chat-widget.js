@@ -1,6 +1,6 @@
 import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
 
-// Initialize Chat — keeps n8n cloud connection intact
+// ── Initialize n8n Chat (cloud connection intact) ──────────────────────────
 try {
     createChat({
         webhookUrl: 'https://n8n.solidiaai.com/webhook/974f29f6-1eee-4e56-aabc-ccb9cccccaef/chat',
@@ -13,156 +13,152 @@ try {
         i18n: {
             en: {
                 title: 'Solid AI',
-                subtitle: 'AI Automation & Solutions',
+                subtitle: 'Typically replies in minutes',
                 getStarted: 'Start Chat',
                 inputPlaceholder: 'Type a message...'
             }
-        },
-        style: {
-            backgroundColor: 'transparent',
-            tokenColor: '#ffffff',
-            secondaryColor: '#25D366'
         }
     });
 } catch (e) {
-    console.error('Chat initialization failed:', e);
+    console.error('Chat init failed:', e);
 }
 
-// UI toggle logic
-const btn = document.getElementById('n8n-chat-btn');
-const win = document.getElementById('n8n-chat-window');
-const inner = document.getElementById('n8n-chat-inner');
+// ── After n8n injects the iframe, hide the loading spinner ─────────────────
+const inner   = document.getElementById('n8n-chat-inner');
+const spinner = document.getElementById('chat-spinner');
 
-if (btn && win) {
-    btn.addEventListener('click', () => {
-        const isOpen = win.classList.contains('visible');
-
-        if (isOpen) {
-            win.classList.remove('visible');
-        } else {
-            win.classList.add('visible');
-
-            // Inject WhatsApp-style theme into the n8n iframe
-            let attempts = 0;
-            const styleInterval = setInterval(() => {
-                attempts++;
-                const iframe = inner ? inner.querySelector('iframe') : win.querySelector('iframe');
-
-                if (iframe) {
-                    try {
-                        const doc = iframe.contentWindow.document;
-
-                        if (!doc.getElementById('wa-theme')) {
-                            iframe.style.width = '100%';
-                            iframe.style.height = '100%';
-                            iframe.style.border = 'none';
-
-                            const s = doc.createElement('style');
-                            s.id = 'wa-theme';
-                            s.textContent = `
-                                @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
-                                * { font-family: 'Inter', sans-serif !important; box-sizing: border-box; }
-
-                                body { background: transparent !important; }
-
-                                /* Container */
-                                .n8n-chat-container { background: transparent !important; border: none !important; height: 100% !important; }
-
-                                /* Header — WhatsApp dark green */
-                                .n8n-chat-header {
-                                    background: #075E54 !important;
-                                    border-bottom: none !important;
-                                    padding: 14px 16px !important;
-                                }
-                                .n8n-chat-header-title { color: #fff !important; font-size: 16px !important; font-weight: 600 !important; }
-                                .n8n-chat-header-subtitle { color: rgba(255,255,255,0.75) !important; font-size: 12px !important; }
-
-                                /* Messages area — WhatsApp wallpaper-like bg */
-                                .n8n-chat-messages-list {
-                                    background: #ECE5DD !important;
-                                    padding: 16px 12px !important;
-                                }
-
-                                .n8n-chat-message-row { margin-bottom: 6px !important; }
-
-                                /* Bot bubble — left, white */
-                                .n8n-chat-message-row.bot .n8n-chat-message-content {
-                                    background: #fff !important;
-                                    color: #111 !important;
-                                    border-radius: 0px 8px 8px 8px !important;
-                                    padding: 8px 12px !important;
-                                    box-shadow: 0 1px 2px rgba(0,0,0,0.15) !important;
-                                    max-width: 80% !important;
-                                    font-size: 14px !important;
-                                }
-
-                                /* User bubble — right, green */
-                                .n8n-chat-message-row.user .n8n-chat-message-content {
-                                    background: #DCF8C6 !important;
-                                    color: #111 !important;
-                                    border-radius: 8px 0px 8px 8px !important;
-                                    padding: 8px 12px !important;
-                                    box-shadow: 0 1px 2px rgba(0,0,0,0.15) !important;
-                                    max-width: 80% !important;
-                                    font-size: 14px !important;
-                                }
-
-                                /* Footer / Input area */
-                                .n8n-chat-footer {
-                                    background: #F0F0F0 !important;
-                                    border-top: 1px solid #ddd !important;
-                                    padding: 10px 12px !important;
-                                }
-
-                                .n8n-chat-input-container {
-                                    background: #fff !important;
-                                    border: none !important;
-                                    border-radius: 24px !important;
-                                    padding: 8px 8px 8px 16px !important;
-                                    display: flex !important;
-                                    align-items: center !important;
-                                    box-shadow: 0 1px 3px rgba(0,0,0,0.1) !important;
-                                }
-
-                                .n8n-chat-input {
-                                    background: transparent !important;
-                                    color: #111 !important;
-                                    font-size: 14px !important;
-                                }
-                                .n8n-chat-input::placeholder { color: #999 !important; }
-
-                                /* Send button — WhatsApp green */
-                                .n8n-chat-submit-button {
-                                    width: 38px !important;
-                                    height: 38px !important;
-                                    background: #25D366 !important;
-                                    border-radius: 50% !important;
-                                    display: flex !important;
-                                    align-items: center !important;
-                                    justify-content: center !important;
-                                    color: #fff !important;
-                                    border: none !important;
-                                    transition: background 0.2s !important;
-                                    margin-left: 8px !important;
-                                    flex-shrink: 0 !important;
-                                }
-                                .n8n-chat-submit-button:hover { background: #1ebe5d !important; }
-
-                                /* Hide n8n branding */
-                                .n8n-chat-powered-by { display: none !important; }
-                            `;
-                            doc.head.appendChild(s);
-                            clearInterval(styleInterval);
-                        }
-                    } catch (e) {
-                        // Cross-origin / still loading — keep trying
-                    }
-                }
-
-                if (attempts > 100) clearInterval(styleInterval);
-            }, 100);
+if (inner) {
+    const spinnerObserver = new MutationObserver(() => {
+        if (inner.querySelector('iframe') && spinner) {
+            spinner.style.display = 'none';
+            spinnerObserver.disconnect();
         }
     });
-} else {
-    console.error('Chat elements not found: #n8n-chat-btn or #n8n-chat-window missing');
+    spinnerObserver.observe(inner, { childList: true, subtree: true });
+}
+
+// ── Inject WhatsApp theme into the n8n iframe once it loads ───────────────
+function injectWATheme() {
+    if (!inner) return;
+    let attempts = 0;
+    const iv = setInterval(() => {
+        attempts++;
+        const iframe = inner.querySelector('iframe');
+        if (iframe) {
+            try {
+                const doc = iframe.contentWindow.document;
+                if (!doc.getElementById('wa-theme')) {
+                    const s = doc.createElement('style');
+                    s.id = 'wa-theme';
+                    s.textContent = `
+                        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+                        *, *::before, *::after {
+                            font-family: 'Inter', -apple-system, sans-serif !important;
+                            box-sizing: border-box !important;
+                        }
+
+                        /* Root & body */
+                        html, body { background: #EFE7DD !important; margin: 0 !important; height: 100% !important; }
+
+                        /* n8n wraps everything in these */
+                        .n8n-chat,
+                        .n8n-chat__layout,
+                        .chat-layout         { background: #EFE7DD !important; height: 100% !important; display: flex !important; flex-direction: column !important; }
+
+                        /* Hide the built-in header — we render our own outside the iframe */
+                        .chat-header,
+                        .n8n-chat__header    { display: none !important; }
+
+                        /* Messages area */
+                        .chat-messages-list,
+                        .n8n-chat__messages  { background: #EFE7DD !important; padding: 14px 12px !important; flex: 1 !important; overflow-y: auto !important; }
+
+                        /* Bot bubble */
+                        .chat-message--from-bot .chat-message__text,
+                        .n8n-chat__message--incoming .n8n-chat__message-text {
+                            background: #fff !important;
+                            color: #111 !important;
+                            border-radius: 0 10px 10px 10px !important;
+                            padding: 8px 12px !important;
+                            box-shadow: 0 1px 2px rgba(0,0,0,0.18) !important;
+                            max-width: 82% !important;
+                            font-size: 14px !important;
+                            line-height: 1.45 !important;
+                        }
+
+                        /* User bubble */
+                        .chat-message--from-user .chat-message__text,
+                        .n8n-chat__message--outgoing .n8n-chat__message-text {
+                            background: #DCF8C6 !important;
+                            color: #111 !important;
+                            border-radius: 10px 0 10px 10px !important;
+                            padding: 8px 12px !important;
+                            box-shadow: 0 1px 2px rgba(0,0,0,0.18) !important;
+                            max-width: 82% !important;
+                            font-size: 14px !important;
+                            line-height: 1.45 !important;
+                        }
+
+                        /* Input footer area */
+                        .chat-input,
+                        .n8n-chat__input     { background: #F0F0F0 !important; border-top: 1px solid #ddd !important; padding: 10px 12px !important; }
+
+                        /* Input field */
+                        .chat-input__input,
+                        .n8n-chat__input-field textarea,
+                        .n8n-chat__input-field input {
+                            background: #fff !important;
+                            color: #111 !important;
+                            border-radius: 22px !important;
+                            border: none !important;
+                            padding: 10px 16px !important;
+                            font-size: 14px !important;
+                            box-shadow: 0 1px 3px rgba(0,0,0,0.1) !important;
+                            width: 100% !important;
+                            resize: none !important;
+                        }
+                        .n8n-chat__input-field textarea::placeholder,
+                        .n8n-chat__input-field input::placeholder { color: #aaa !important; }
+
+                        /* Send button */
+                        .chat-input__send-button,
+                        .n8n-chat__send-button,
+                        button[type="submit"] {
+                            background: #25D366 !important;
+                            border-radius: 50% !important;
+                            width: 40px !important;
+                            height: 40px !important;
+                            flex-shrink: 0 !important;
+                            border: none !important;
+                            color: #fff !important;
+                            cursor: pointer !important;
+                            transition: background 0.2s !important;
+                        }
+                        .chat-input__send-button:hover,
+                        .n8n-chat__send-button:hover { background: #1db954 !important; }
+
+                        /* Hide n8n powered-by footer */
+                        .n8n-chat__powered-by,
+                        .chat-powered-by     { display: none !important; }
+                    `;
+                    doc.head.appendChild(s);
+                    clearInterval(iv);
+                }
+            } catch (_) { /* cross-origin or still loading */ }
+        }
+        if (attempts > 150) clearInterval(iv);
+    }, 100);
+}
+
+// Inject theme on first open and every subsequent open
+const chatWindow = document.getElementById('n8n-chat-window');
+if (chatWindow) {
+    const openObserver = new MutationObserver((mutations) => {
+        for (const m of mutations) {
+            if (m.type === 'attributes' && chatWindow.classList.contains('open')) {
+                injectWATheme();
+            }
+        }
+    });
+    openObserver.observe(chatWindow, { attributes: true, attributeFilter: ['class'] });
 }
