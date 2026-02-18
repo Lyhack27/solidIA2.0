@@ -901,6 +901,102 @@
             font-family: 'Inter', sans-serif;
             font-size: 1rem
         }
+
+        /* N8N CHAT WIDGET (Clean Rewrite from Index) */
+        #n8n-chat-btn {
+            position: fixed;
+            bottom: max(20px, env(safe-area-inset-bottom) + 20px);
+            right: 20px;
+            width: auto;
+            height: auto;
+            min-width: 60px;
+            padding: 12px 24px;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            cursor: pointer;
+            z-index: 2147483647;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            animation: pulse-chat 2s infinite;
+        }
+
+        #n8n-chat-btn span {
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        #n8n-chat-btn:hover span {
+            color: #000;
+        }
+
+        #n8n-chat-btn:hover {
+            transform: scale(1.1);
+            background: #fff;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+        }
+
+        #n8n-chat-btn img {
+            width: 30px;
+            height: 30px;
+            filter: invert(0);
+            transition: filter 0.3s;
+        }
+
+        #n8n-chat-btn:hover img {
+            filter: invert(1);
+        }
+
+        #n8n-chat-btn.open {
+            background: #fff;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+        }
+
+        #n8n-chat-btn.open img {
+            filter: invert(1);
+        }
+
+        #n8n-chat-btn.open span {
+            color: #000;
+        }
+
+        #n8n-chat-window {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            width: 380px;
+            height: 600px;
+            max-width: calc(100vw - 40px);
+            max-height: calc(100vh - 120px);
+            background: rgba(15, 15, 15, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            z-index: 2147483646;
+            transform-origin: bottom right;
+            transform: scale(0.9) translateY(20px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow: hidden;
+        }
+
+        #n8n-chat-window.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1) translateY(0);
+        }
     </style>
 </head>
 
@@ -1215,147 +1311,174 @@
         document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
     </script>
 
-    <!-- N8N CHAT WIDGET -->
-    <div class="n8n-chat-widget">
-        <div id="n8n-chat" class="n8n-chat-container"></div>
-        <div class="n8n-chat-toggle" id="n8n-chat-toggle-btn">
-            <img src="logo/logo.png" alt="Chat">
-            <span>Chat with us</span>
-        </div>
+    <!-- N8N CHAT WIDGET (New) -->
+    <div id="n8n-chat-window"></div>
+    <div id="n8n-chat-btn">
+        <img src="logo/logo.png" alt="Chat"
+            onerror="this.onerror=null;this.src='https://placehold.co/40x40?text=Chat';">
+        <span>Chat with us</span>
     </div>
+
     <script type="module">
         import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
 
+        const ul = navigator.language || navigator.userLanguage;
+        const isEs = ul.startsWith('es');
+        const lc = isEs ? 'es' : 'en';
+
         const i18n = {
-            en: {
-                title: 'Solid AI',
-                subtitle: 'AI Automation & Chatbots',
-                getStarted: 'Start Chat',
-                inputPlaceholder: 'Type a message...'
-            }
+            en: { title: 'Solid AI', subtitle: 'Detailed Automation & AI Solutions', getStarted: 'Start Chat', inputPlaceholder: 'Ask us anything...' },
+            es: { title: 'Solid AI', subtitle: 'Soluciones de IA y Automatización', getStarted: 'Iniciar Chat', inputPlaceholder: 'Pregúntanos...' }
         };
+
+        // WhatsApp style: Start empty
+        const msgs = [];
 
         createChat({
             webhookUrl: 'https://n8n.solidiaai.com/webhook/974f29f6-1eee-4e56-aabc-ccb9cccccaef/chat',
-            target: '#n8n-chat',
+            target: '#n8n-chat-window',
             mode: 'fullscreen',
             chatInputKey: 'chatInput',
             chatSessionKey: 'sessionId',
             metadata: {},
             showWelcomeScreen: false,
             defaultLanguage: 'en',
-            initialMessages: ['Hello 👋 I am the Solid AI Virtual Assistant.', 'How can I help you today?'],
-            i18n: i18n,
-            style: {
-                backgroundColor: '#0b141a',
-                tokenColor: '#4ecd97'
-            }
+            initialMessages: msgs,
+            i18n: { [lc]: i18n[lc] },
+            style: { backgroundColor: 'transparent', tokenColor: '#ffffff', secondaryColor: '#4ecd97' }
         });
 
-        const tBtn = document.getElementById('n8n-chat-toggle-btn');
-        const cC = document.getElementById('n8n-chat');
+        const btn = document.getElementById('n8n-chat-btn');
+        const win = document.getElementById('n8n-chat-window');
 
-        tBtn.addEventListener('click', () => {
-            cC.classList.toggle('open');
+        btn.addEventListener('click', () => {
+            win.classList.toggle('visible');
+            btn.classList.toggle('open');
+
+            // Fix input visibility & Add WhatsApp Animations
+            // Deep Customization: Inject CSS for Premium Look
             setTimeout(() => {
                 try {
-                    const f = cC.querySelector('iframe');
-                    if (f && !f.contentWindow.document.getElementById('chs')) {
-                        const s = f.contentWindow.document.createElement('style');
-                        s.id = 'chs';
-                        s.textContent = `
-                            /* Header Customization */
-                            .n8n-chat-header-title {
-                                color: transparent !important;
-                                background-image: url("logo/logo.png") !important;
-                                background-size: contain !important;
-                                background-repeat: no-repeat !important;
-                                background-position: center !important;
-                                height: 35px !important;
-                                width: 100% !important;
-                                display: block !important;
-                                margin-bottom: 5px !important;
-                            }
-                            .n8n-chat-header-subtitle {
-                                display: block !important;
-                                font-size: 13px !important;
-                                text-align: center !important;
-                                color: #8696a0 !important;
-                            }
-                            
-                            /* Body & Background */
-                            body {
-                                background-color: #0b141a !important;
-                                background-image: url("https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png") !important;
-                                background-blend-mode: overlay !important;
-                                background-size: 400px !important;
-                                opacity: 0.95 !important;
-                            }
+                    const iframe = win.querySelector('iframe');
+                    if (iframe) {
+                        iframe.style.width = '100%';
+                        iframe.style.height = '100%';
 
-                            /* Input Area - Fix White Box */
-                            .n8n-chat-input-container {
-                                background-color: #202c33 !important;
-                                border-top: 1px solid #2a3942 !important;
-                                padding: 10px !important;
-                                display: flex !important;
-                                visibility: visible !important;
-                            }
-                            
-                            /* Input Field */
-                            textarea, input[type="text"], .n8n-chat-input {
-                                background-color: #2a3942 !important;
-                                color: #d1d7db !important;
-                                border-radius: 8px !important;
-                                border: none !important;
-                                padding: 12px !important;
-                                font-family: 'Inter', sans-serif !important;
-                            }
-                            
-                            textarea::placeholder, input::placeholder {
-                                color: #8696a0 !important;
-                            }
+                        const doc = iframe.contentWindow.document;
+                        if (!doc.getElementById('custom-theme')) {
+                            const s = doc.createElement('style');
+                            s.id = 'custom-theme';
+                            s.textContent = `
+                                /* Global Reset & Font */
+                                * { font-family: 'Inter', sans-serif !important; box-sizing: border-box !important; }
+                                
+                                /* Main Container */
+                                .n8n-chat-container { background: transparent !important; }
+                                
+                                /* Header */
+                                .n8n-chat-header {
+                                    background: transparent !important;
+                                    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+                                    padding: 16px !important;
+                                }
+                                .n8n-chat-header-title { color: #fff !important; font-weight: 700 !important; font-size: 1.1rem !important; }
+                                .n8n-chat-header-subtitle { color: rgba(255, 255, 255, 0.6) !important; font-size: 0.85rem !important; }
 
-                            /* Message Bubbles - Generic Targeting */
-                            .chat-message-list, .n8n-chat-messages-list {
-                                padding: 20px 10px !important;
-                            }
-                            
-                            .chat-message, .n8n-chat-message {
-                                margin-bottom: 8px !important;
-                            }
+                                /* Messages Area */
+                                .n8n-chat-messages-list { padding: 20px !important; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.2) transparent; }
+                                
+                                /* Animations */
+                                @keyframes popIn { 0% { opacity: 0; transform: scale(0.9) translateY(10px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
+                                .n8n-chat-message-row { 
+                                    animation: popIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; 
+                                    opacity: 0; 
+                                    margin-bottom: 12px !important;
+                                }
 
-                            /* Approximate User Message Targeting */
-                            div[class*="right"], div[class*="user"] {
-                                justify-content: flex-end !important;
-                            }
-                            
-                            div[class*="right"] > div, div[class*="user"] > div {
-                                background-color: #005c4b !important;
-                                color: #e9edef !important;
-                                border-radius: 7.5px 0 7.5px 7.5px !important;
-                                padding: 8px 12px !important;
-                                box-shadow: 0 1px 0.5px rgba(0,0,0,0.13) !important;
-                            }
+                                /* Bot Message Bubbles */
+                                .n8n-chat-message-row.bot .n8n-chat-message-content {
+                                    background: rgba(40, 40, 40, 0.6) !important;
+                                    backdrop-filter: blur(10px) !important;
+                                    -webkit-backdrop-filter: blur(10px) !important;
+                                    color: #e0e0e0 !important;
+                                    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+                                    border-radius: 18px 18px 18px 4px !important;
+                                    box-shadow: 0 2px 10px rgba(0,0,0,0.2) !important;
+                                    padding: 12px 16px !important;
+                                }
 
-                            /* Approximate Bot Message Targeting */
-                            div[class*="left"], div[class*="bot"] {
-                                justify-content: flex-start !important;
-                            }
+                                /* User Message Bubbles */
+                                .n8n-chat-message-row.user .n8n-chat-message-content {
+                                    background: #4ecd97 !important;
+                                    color: #000 !important;
+                                    border-radius: 18px 18px 4px 18px !important;
+                                    box-shadow: 0 2px 10px rgba(78, 205, 151, 0.3) !important;
+                                    font-weight: 600 !important;
+                                    padding: 12px 16px !important;
+                                }
 
-                            div[class*="left"] > div, div[class*="bot"] > div {
-                                background-color: #202c33 !important;
-                                color: #e9edef !important;
-                                border-radius: 0 7.5px 7.5px 7.5px !important;
-                                padding: 8px 12px !important;
-                                box-shadow: 0 1px 0.5px rgba(0,0,0,0.13) !important;
-                            }
-                        `;
-                        f.contentWindow.document.head.appendChild(s);
+                                /* Input Area */
+                                .n8n-chat-footer {
+                                    background: transparent !important;
+                                    border-top: none !important;
+                                    padding: 16px !important;
+                                }
+                                
+                                .n8n-chat-input-container {
+                                    background: rgba(255, 255, 255, 0.08) !important;
+                                    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+                                    border-radius: 24px !important;
+                                    padding: 4px 6px 4px 16px !important;
+                                    display: flex !important;
+                                    align-items: center !important;
+                                    visibility: visible !important;
+                                    opacity: 1 !important;
+                                    pointer-events: auto !important;
+                                    transition: border-color 0.3s, background 0.3s;
+                                }
+                                
+                                .n8n-chat-input-container:focus-within {
+                                    background: rgba(255, 255, 255, 0.12) !important;
+                                    border-color: rgba(255, 255, 255, 0.3) !important;
+                                }
+
+                                .n8n-chat-input {
+                                    background: transparent !important;
+                                    color: #fff !important;
+                                    font-size: 0.95rem !important;
+                                    padding: 8px 0 !important;
+                                }
+                                
+                                .n8n-chat-input::placeholder { color: rgba(255, 255, 255, 0.4) !important; }
+
+                                /* Send Button */
+                                .n8n-chat-submit-button {
+                                    background: transparent !important;
+                                    border: none !important;
+                                    color: #4ecd97 !important;
+                                    width: 36px !important;
+                                    height: 36px !important;
+                                    display: flex !important;
+                                    align-items: center !important;
+                                    justify-content: center !important;
+                                    border-radius: 50% !important;
+                                    transition: all 0.2s !important;
+                                    margin-left: 8px !important;
+                                }
+                                
+                                .n8n-chat-submit-button:hover {
+                                    background: #4ecd97 !important;
+                                    color: #000 !important;
+                                    transform: scale(1.1);
+                                }
+                                
+                                .n8n-chat-powered-by { display: none !important; }
+                            `;
+                            doc.head.appendChild(s);
+                        }
                     }
-                } catch (e) {
-                    console.log('Error injecting styles:', e);
-                }
-            }, 200);
+                } catch (e) { console.error(e); }
+            }, 500);
         });
     </script>
 </body>
