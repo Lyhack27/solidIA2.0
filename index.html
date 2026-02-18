@@ -281,6 +281,7 @@
         .hero .container {
             position: relative;
             z-index: 2;
+            isolation: auto;
         }
 
         /* Frosted glass panel behind hero text */
@@ -995,7 +996,6 @@
         }
 
         /* Ensure all content is above blobs */
-        .nav,
         section,
         .final-cta,
         .footer,
@@ -1004,10 +1004,15 @@
             z-index: 1;
         }
 
-        /* Chat widget always on top of everything */
-        #n8n-chat-btn,
-        #n8n-chat-window {
-            isolation: isolate;
+        /* Nav must NOT be constrained by z-index:1 rule above */
+        .nav {
+            position: fixed !important;
+            z-index: 99999 !important;
+        }
+
+        /* Hero container must NOT create a stacking context that traps nav-links */
+        .hero .container {
+            isolation: auto !important;
         }
     </style>
 </head>

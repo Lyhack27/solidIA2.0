@@ -12,8 +12,8 @@ try {
         initialMessages: [],
         i18n: {
             en: {
-                title: 'Solid AI',
-                subtitle: 'Typically replies in minutes',
+                title: '',
+                subtitle: '',
                 getStarted: 'Start Chat',
                 inputPlaceholder: 'Type a message...'
             }
@@ -58,16 +58,36 @@ function injectWATheme() {
                         }
 
                         /* Root & body */
-                        html, body { background: #EFE7DD !important; margin: 0 !important; height: 100% !important; }
+                        html, body { background: #EFE7DD !important; margin: 0 !important; height: 100% !important; overflow: hidden !important; }
 
                         /* n8n wraps everything in these */
                         .n8n-chat,
                         .n8n-chat__layout,
                         .chat-layout         { background: #EFE7DD !important; height: 100% !important; display: flex !important; flex-direction: column !important; }
 
-                        /* Hide the built-in header — we render our own outside the iframe */
+                        /* ── HIDE everything n8n renders above the messages ── */
+                        /* Header bar */
                         .chat-header,
-                        .n8n-chat__header    { display: none !important; }
+                        .n8n-chat__header { display: none !important; }
+
+                        /* Welcome / intro screen with big title */
+                        .chat-welcome-screen,
+                        .n8n-chat__welcome,
+                        .chat-welcome,
+                        [class*="welcome"],
+                        [class*="Welcome"] { display: none !important; }
+
+                        /* Any stray heading n8n injects at top level */
+                        body > div > h1, body > div > h2, body > div > p,
+                        .n8n-chat > h1, .n8n-chat > h2, .n8n-chat > p,
+                        .n8n-chat__layout > h1,
+                        .n8n-chat__layout > h2,
+                        .n8n-chat__layout > p { display: none !important; }
+
+                        /* The "get started" button that shows before chat opens */
+                        [class*="getStarted"],
+                        [class*="get-started"],
+                        [class*="start-button"] { display: none !important; }
 
                         /* Messages area */
                         .chat-messages-list,
