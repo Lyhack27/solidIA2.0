@@ -1523,17 +1523,14 @@
     <script type="module">
         import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
 
-        const ul = navigator.language || navigator.userLanguage;
-        const isEs = ul.startsWith('es');
-        const lc = isEs ? 'es' : 'en';
-
         const i18n = {
-            en: { title: 'Solid AI', subtitle: 'Detailed Automation & AI Solutions', getStarted: 'Start Chat', inputPlaceholder: 'Ask us anything...' },
-            es: { title: 'Solid AI', subtitle: 'Soluciones de IA y Automatización', getStarted: 'Iniciar Chat', inputPlaceholder: 'Pregúntanos...' }
+            en: {
+                title: 'Solid AI',
+                subtitle: 'Detailed Automation & AI Solutions',
+                getStarted: 'Start Chat',
+                inputPlaceholder: 'Ask us anything...'
+            }
         };
-
-        // WhatsApp style: Start empty
-        const msgs = [];
 
         createChat({
             webhookUrl: 'https://n8n.solidiaai.com/webhook/974f29f6-1eee-4e56-aabc-ccb9cccccaef/chat',
@@ -1543,10 +1540,14 @@
             chatSessionKey: 'sessionId',
             metadata: {},
             showWelcomeScreen: false,
-            defaultLanguage: lc,
-            initialMessages: msgs,
-            i18n: { [lc]: i18n[lc] },
-            style: { backgroundColor: 'transparent', tokenColor: '#ffffff', secondaryColor: '#4ecd97' }
+            defaultLanguage: 'en',
+            initialMessages: [],
+            i18n: i18n,
+            style: {
+                backgroundColor: 'transparent',
+                tokenColor: '#ffffff',
+                secondaryColor: '#4ecd97'
+            }
         });
 
         const btn = document.getElementById('n8n-chat-btn');
@@ -1556,9 +1557,8 @@
             win.classList.toggle('visible');
             btn.classList.toggle('open');
 
-            // Fix input visibility & Add WhatsApp Animations
-            // Deep Customization: Inject CSS for Premium Look
-            setTimeout(() => {
+            // Robust CSS Injection: Check every 100ms until iframe is ready
+            const checkInterval = setInterval(() => {
                 try {
                     const iframe = win.querySelector('iframe');
                     if (iframe) {
@@ -1566,6 +1566,7 @@
                         iframe.style.height = '100%';
 
                         const doc = iframe.contentWindow.document;
+                        // Only inject if not already present
                         if (!doc.getElementById('custom-theme')) {
                             const s = doc.createElement('style');
                             s.id = 'custom-theme';
@@ -1676,10 +1677,17 @@
                                 .n8n-chat-powered-by { display: none !important; }
                             `;
                             doc.head.appendChild(s);
+                            clearInterval(checkInterval); // Stop checking once injected
                         }
                     }
-                } catch (e) { console.error(e); }
-            }, 500);
+                } catch (e) {
+                    console.error("Chat style injection error:", e);
+                    // Don't clear interval on error, retry
+                }
+            }, 100);
+
+            // Safety timeout: stop checking after 5 seconds to save resources
+            setTimeout(() => clearInterval(checkInterval), 5000);
         });
     </script>
 </body>
