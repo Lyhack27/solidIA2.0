@@ -1425,23 +1425,22 @@
     </script>
 
     <!-- ============================================================
-         CHAT WIDGET — WhatsApp style, always on top
+         CHAT WIDGET — WhatsApp identical style
          ============================================================ -->
     <style>
-        /* Force chat elements above ALL stacking contexts on the page */
-        #n8n-chat-btn,
-        #n8n-chat-window {
+        /* ── Always on top ── */
+        #n8n-chat-btn, #n8n-chat-window {
             position: fixed !important;
-            z-index: 2147483647 !important; /* max possible */
+            z-index: 2147483647 !important;
+            font-family: 'Inter', -apple-system, sans-serif;
         }
 
         /* ── Floating pill button ── */
         #n8n-chat-btn {
-            bottom: 24px;
-            right: 24px;
+            bottom: 24px; right: 24px;
             background: #25D366;
             color: #fff;
-            padding: 0 20px 0 12px;
+            padding: 0 20px 0 10px;
             height: 52px;
             border-radius: 52px;
             display: flex !important;
@@ -1450,153 +1449,192 @@
             cursor: pointer;
             border: none;
             box-shadow: 0 4px 24px rgba(37,211,102,0.5);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            font-family: 'Inter', sans-serif;
+            transition: transform 0.2s, box-shadow 0.2s;
             pointer-events: all !important;
         }
-        #n8n-chat-btn:hover {
-            transform: translateY(-3px) scale(1.04);
-            box-shadow: 0 8px 32px rgba(37,211,102,0.6);
-        }
-        #n8n-chat-btn .chat-logo {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            object-fit: contain;
-            background: #fff;
-            padding: 3px;
-            flex-shrink: 0;
-            display: block;
-        }
-        #n8n-chat-btn .chat-label {
-            font-weight: 700;
-            font-size: 14px;
-            white-space: nowrap;
-            color: #fff;
-        }
+        #n8n-chat-btn:hover { transform: translateY(-3px) scale(1.04); box-shadow: 0 8px 32px rgba(37,211,102,0.6); }
+        #n8n-chat-btn .chat-logo { width: 32px; height: 32px; border-radius: 50%; background: #fff; padding: 3px; object-fit: contain; flex-shrink: 0; }
+        #n8n-chat-btn .chat-label { font-weight: 700; font-size: 14px; white-space: nowrap; color: #fff; }
 
         /* ── Chat window ── */
         #n8n-chat-window {
-            bottom: 88px;
-            right: 24px;
-            width: 370px;
-            height: 560px;
+            bottom: 88px; right: 24px;
+            width: 370px; height: 580px;
             max-width: calc(100vw - 32px);
             max-height: calc(100vh - 110px);
-            border-radius: 16px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 16px 56px rgba(0,0,0,0.55);
-            opacity: 0;
-            visibility: hidden;
+            box-shadow: 0 16px 56px rgba(0,0,0,0.6);
+            opacity: 0; visibility: hidden;
             transform: translateY(20px) scale(0.96);
-            transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s linear 0.25s;
-            display: flex;
-            flex-direction: column;
+            transition: opacity 0.25s, transform 0.25s, visibility 0s linear 0.25s;
+            display: flex; flex-direction: column;
             pointer-events: none !important;
         }
         #n8n-chat-window.open {
-            opacity: 1;
-            visibility: visible;
+            opacity: 1; visibility: visible;
             transform: translateY(0) scale(1);
-            transition: opacity 0.25s ease, transform 0.25s ease;
+            transition: opacity 0.25s, transform 0.25s;
             pointer-events: all !important;
         }
 
-        /* ── WhatsApp header (rendered in our DOM, not the iframe) ── */
+        /* ── Header ── */
         #chat-wa-header {
             background: #075E54;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 11px 14px;
-            flex-shrink: 0;
+            display: flex; align-items: center; gap: 12px;
+            padding: 10px 14px; flex-shrink: 0;
         }
         #chat-wa-header .wa-avatar {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            background: #fff;
-            padding: 4px;
-            object-fit: contain;
-            flex-shrink: 0;
+            width: 40px; height: 40px; border-radius: 50%;
+            background: #fff; padding: 3px; object-fit: contain; flex-shrink: 0;
         }
-        #chat-wa-header .wa-info h4 {
-            color: #fff;
-            font-size: 15px;
-            font-weight: 700;
-            margin: 0;
-            font-family: 'Inter', sans-serif;
-            line-height: 1.2;
-        }
-        #chat-wa-header .wa-info p {
-            color: rgba(255,255,255,0.7);
-            font-size: 12px;
-            margin: 0;
-            font-family: 'Inter', sans-serif;
-        }
+        #chat-wa-header .wa-info h4 { color: #fff; font-size: 15px; font-weight: 700; margin: 0; line-height: 1.25; }
+        #chat-wa-header .wa-info p  { color: rgba(255,255,255,0.72); font-size: 11.5px; margin: 0; }
         #chat-wa-close {
-            margin-left: auto;
-            background: none;
-            border: none;
-            color: rgba(255,255,255,0.85);
-            font-size: 22px;
-            line-height: 1;
-            cursor: pointer;
-            padding: 2px 6px;
-            border-radius: 4px;
+            margin-left: auto; background: none; border: none;
+            color: rgba(255,255,255,0.8); font-size: 20px; cursor: pointer;
+            padding: 4px 6px; border-radius: 4px; line-height: 1;
             transition: background 0.15s;
         }
         #chat-wa-close:hover { background: rgba(255,255,255,0.15); color: #fff; }
 
-        /* ── n8n iframe container ── */
-        #n8n-chat-inner {
-            flex: 1;
-            overflow: hidden;
-            background: #EFE7DD;
-            position: relative;
+        /* ── Messages area — WhatsApp wallpaper ── */
+        #chat-messages {
+            flex: 1; overflow-y: auto;
+            padding: 12px 10px 8px;
+            background-color: #EFE7DD;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Ccircle cx='10' cy='10' r='1.5' fill='%23d4c5b5' opacity='0.4'/%3E%3Ccircle cx='50' cy='30' r='1.5' fill='%23d4c5b5' opacity='0.4'/%3E%3Ccircle cx='30' cy='60' r='1.5' fill='%23d4c5b5' opacity='0.4'/%3E%3C/svg%3E");
+            scroll-behavior: smooth;
         }
-        #n8n-chat-inner iframe {
-            width: 100% !important;
-            height: 100% !important;
-            border: none !important;
-            display: block;
+        #chat-messages::-webkit-scrollbar { width: 4px; }
+        #chat-messages::-webkit-scrollbar-track { background: transparent; }
+        #chat-messages::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 4px; }
+
+        /* ── Message rows ── */
+        .wa-row { display: flex; margin-bottom: 4px; }
+        .wa-row--bot  { justify-content: flex-start; }
+        .wa-row--user { justify-content: flex-end; }
+
+        /* ── Bubbles ── */
+        .wa-bubble {
+            max-width: 78%;
+            padding: 7px 10px 5px 10px;
+            border-radius: 8px;
+            position: relative;
+            word-wrap: break-word;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+        }
+        .wa-bubble--bot {
+            background: #fff;
+            border-top-left-radius: 0;
+        }
+        /* little tail for bot bubble */
+        .wa-bubble--bot::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -8px;
+            border: 8px solid transparent;
+            border-top-color: #fff;
+            border-right-color: #fff;
+            border-radius: 0 0 0 4px;
+        }
+        .wa-bubble--user {
+            background: #DCF8C6;
+            border-top-right-radius: 0;
+        }
+        /* little tail for user bubble */
+        .wa-bubble--user::after {
+            content: '';
+            position: absolute;
+            top: 0; right: -8px;
+            border: 8px solid transparent;
+            border-top-color: #DCF8C6;
+            border-left-color: #DCF8C6;
+            border-radius: 0 0 4px 0;
         }
 
-        /* Loading spinner inside inner */
-        #chat-spinner {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #EFE7DD;
-            pointer-events: none;
+        /* ── Bubble text & timestamp ── */
+        .wa-text {
+            display: block;
+            font-size: 14.2px;
+            color: #111;
+            line-height: 1.45;
+            padding-right: 44px; /* space for timestamp */
         }
-        #chat-spinner div {
-            width: 30px; height: 30px;
-            border: 3px solid rgba(0,0,0,0.1);
-            border-top-color: #25D366;
-            border-radius: 50%;
-            animation: wa-spin 0.8s linear infinite;
+        .wa-ts {
+            display: block;
+            font-size: 11px;
+            color: #999;
+            text-align: right;
+            margin-top: -4px;
+            float: right;
+            margin-left: 8px;
+            position: relative;
+            bottom: -2px;
+            clear: right;
+        }
+        .wa-bubble--user .wa-ts { color: #7abf8e; }
+
+        /* ── Typing indicator ── */
+        .wa-typing-bubble { display: flex; align-items: center; gap: 4px; padding: 10px 14px; }
+        .wa-typing-bubble span {
+            width: 7px; height: 7px; border-radius: 50%;
+            background: #b0b0b0;
+            animation: wa-typing 1.2s infinite ease-in-out;
+        }
+        .wa-typing-bubble span:nth-child(2) { animation-delay: 0.2s; }
+        .wa-typing-bubble span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes wa-typing {
+            0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
+            30%            { transform: translateY(-5px); opacity: 1; }
+        }
+
+        /* ── Input area ── */
+        #chat-input-area {
+            display: flex; align-items: flex-end; gap: 8px;
+            padding: 8px 10px 10px;
+            background: #F0F0F0;
+            border-top: 1px solid #e0e0e0;
+            flex-shrink: 0;
+        }
+        #chat-input {
+            flex: 1;
+            background: #fff;
+            border: none;
+            border-radius: 22px;
+            padding: 9px 16px;
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            color: #111;
+            resize: none;
+            outline: none;
+            line-height: 1.4;
+            max-height: 100px;
+            overflow-y: auto;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+        }
+        #chat-input::placeholder { color: #aaa; }
+        #chat-send-btn {
+            width: 42px; height: 42px; flex-shrink: 0;
+            background: #25D366; border: none; border-radius: 50%;
+            color: #fff; display: flex; align-items: center; justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(37,211,102,0.4);
+            transition: background 0.2s, transform 0.15s;
+        }
+        #chat-send-btn:hover { background: #1ebe5d; transform: scale(1.08); }
+
+        /* ── Mobile ── */
+        @media (max-width: 480px) {
+            #n8n-chat-window { right: 10px; width: calc(100vw - 20px); bottom: 80px; height: 72vh; }
+            #n8n-chat-btn    { right: 14px; bottom: 16px; }
         }
         @keyframes wa-spin { to { transform: rotate(360deg); } }
-
-        @media (max-width: 480px) {
-            #n8n-chat-window {
-                right: 10px;
-                width: calc(100vw - 20px);
-                bottom: 82px;
-                height: 70vh;
-            }
-            #n8n-chat-btn {
-                right: 16px;
-                bottom: 16px;
-            }
-        }
     </style>
 
     <!-- Chat window -->
     <div id="n8n-chat-window">
+        <!-- Header estilo WhatsApp -->
         <div id="chat-wa-header">
             <img class="wa-avatar" src="logo/logo.png" alt="Solid AI"
                  onerror="this.src='https://ui-avatars.com/api/?name=SA&background=25D366&color=fff&size=38'">
@@ -1606,8 +1644,18 @@
             </div>
             <button id="chat-wa-close" aria-label="Close chat">&#x2715;</button>
         </div>
-        <div id="n8n-chat-inner">
-            <div id="chat-spinner"><div></div></div>
+
+        <!-- Área de mensajes -->
+        <div id="chat-messages"></div>
+
+        <!-- Input area -->
+        <div id="chat-input-area">
+            <textarea id="chat-input" placeholder="Type a message..." rows="1"></textarea>
+            <button id="chat-send-btn" aria-label="Send">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                    <path d="M1.101 21.757L23.8 12.028 1.101 2.3l.011 7.912 13.623 1.816-13.623 1.817-.011 7.912z"/>
+                </svg>
+            </button>
         </div>
     </div>
 
@@ -1618,28 +1666,135 @@
         <span class="chat-label">Chat with us</span>
     </button>
 
-    <!-- n8n chat integration -->
-    <script type="module" src="chat-widget.js"></script>
-
-    <!-- Toggle logic (non-module so it's always available) -->
     <script>
     (function() {
-        var btn    = document.getElementById('n8n-chat-btn');
-        var win    = document.getElementById('n8n-chat-window');
-        var closeB = document.getElementById('chat-wa-close');
+        // ── Config ──────────────────────────────────────────────────
+        var WEBHOOK = 'https://n8n.solidiaai.com/webhook/974f29f6-1eee-4e56-aabc-ccb9cccccaef/chat';
+        var SESSION_KEY = 'solidai_session_' + Math.random().toString(36).slice(2);
+        var sessionId   = localStorage.getItem('solidai_sid') || (function(){
+            var id = 'sess_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+            localStorage.setItem('solidai_sid', id);
+            return id;
+        })();
 
-        function openChat()  { win.classList.add('open');    btn.style.display = 'none'; }
-        function closeChat() { win.classList.remove('open'); btn.style.display = ''; }
+        // ── DOM refs ─────────────────────────────────────────────────
+        var btn      = document.getElementById('n8n-chat-btn');
+        var win      = document.getElementById('n8n-chat-window');
+        var closeB   = document.getElementById('chat-wa-close');
+        var msgs     = document.getElementById('chat-messages');
+        var input    = document.getElementById('chat-input');
+        var sendBtn  = document.getElementById('chat-send-btn');
 
-        if (btn)    btn.addEventListener('click', openChat);
-        if (closeB) closeB.addEventListener('click', closeChat);
+        var welcomeSent = false;
 
-        // Also close if clicking outside
+        // ── Open / close ─────────────────────────────────────────────
+        function openChat() {
+            win.classList.add('open');
+            btn.style.display = 'none';
+            if (!welcomeSent) {
+                welcomeSent = true;
+                setTimeout(function() {
+                    addBotBubble('👋 ¡Hola! Welcome to Solid AI. How can we help you today?');
+                }, 400);
+            }
+            setTimeout(function(){ input.focus(); }, 300);
+        }
+        function closeChat() {
+            win.classList.remove('open');
+            btn.style.display = '';
+        }
+
+        btn.addEventListener('click', openChat);
+        closeB.addEventListener('click', closeChat);
         document.addEventListener('click', function(e) {
-            if (win && win.classList.contains('open') &&
-                !win.contains(e.target) && e.target !== btn && !btn.contains(e.target)) {
+            if (win.classList.contains('open') &&
+                !win.contains(e.target) && !btn.contains(e.target)) {
                 closeChat();
             }
+        });
+
+        // ── Helpers ──────────────────────────────────────────────────
+        function timeNow() {
+            var d = new Date();
+            return d.getHours().toString().padStart(2,'0') + ':' + d.getMinutes().toString().padStart(2,'0');
+        }
+
+        function addBubble(text, type) {
+            var row = document.createElement('div');
+            row.className = 'wa-row wa-row--' + type;
+
+            var bubble = document.createElement('div');
+            bubble.className = 'wa-bubble wa-bubble--' + type;
+
+            var txt = document.createElement('span');
+            txt.className = 'wa-text';
+            txt.textContent = text;
+
+            var ts = document.createElement('span');
+            ts.className = 'wa-ts';
+            ts.textContent = timeNow();
+            if (type === 'user') {
+                ts.innerHTML += ' <svg viewBox="0 0 18 18" width="14" height="14" style="vertical-align:middle;margin-left:2px"><path fill="#53bdeb" d="M17.394 5.035l-.57-.444a.434.434 0 00-.609.076L8.397 14.3l-4.171-3.52a.434.434 0 00-.609.076l-.444.57a.434.434 0 00.076.609l4.995 4.215a.434.434 0 00.609-.076l9.117-11.53a.434.434 0 00-.076-.609z"/></svg>';
+            }
+
+            bubble.appendChild(txt);
+            bubble.appendChild(ts);
+            row.appendChild(bubble);
+            msgs.appendChild(row);
+            msgs.scrollTop = msgs.scrollHeight;
+        }
+
+        function addBotBubble(text) { addBubble(text, 'bot'); }
+        function addUserBubble(text) { addBubble(text, 'user'); }
+
+        function showTyping() {
+            var row = document.createElement('div');
+            row.className = 'wa-row wa-row--bot';
+            row.id = 'wa-typing';
+            row.innerHTML = '<div class="wa-bubble wa-bubble--bot wa-typing-bubble"><span></span><span></span><span></span></div>';
+            msgs.appendChild(row);
+            msgs.scrollTop = msgs.scrollHeight;
+        }
+        function hideTyping() {
+            var el = document.getElementById('wa-typing');
+            if (el) el.remove();
+        }
+
+        // ── Send message ─────────────────────────────────────────────
+        function sendMessage() {
+            var text = input.value.trim();
+            if (!text) return;
+            addUserBubble(text);
+            input.value = '';
+            input.style.height = 'auto';
+            showTyping();
+
+            fetch(WEBHOOK, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ chatInput: text, sessionId: sessionId })
+            })
+            .then(function(r){ return r.json(); })
+            .then(function(data) {
+                hideTyping();
+                var reply = (data && (data.output || data.text || data.message ||
+                    (data[0] && (data[0].output || data[0].text)))) || '...';
+                addBotBubble(reply);
+            })
+            .catch(function() {
+                hideTyping();
+                addBotBubble('Sorry, something went wrong. Please try again.');
+            });
+        }
+
+        sendBtn.addEventListener('click', sendMessage);
+        input.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+        });
+        // Auto-resize textarea
+        input.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight, 100) + 'px';
         });
     })();
     </script>
