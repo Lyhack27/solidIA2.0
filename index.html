@@ -669,8 +669,8 @@
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--accent), var(--accent-green));
-            color: #fff;
+            background: #ffffff;
+            color: #000000;
             font-weight: 800;
             font-size: 1rem;
             margin-bottom: 1rem
@@ -1372,6 +1372,13 @@
             const spacing = 40;
             let t = 0;
 
+            function resize() {
+                w = canvas.width = window.innerWidth;
+                h = canvas.height = window.innerHeight;
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
             function val(x, y, t) {
                 // Simulating a moving "lump" (bat) + subtle general wave
                 // Bat movement: diagonal across screen
@@ -1389,8 +1396,6 @@
             }
 
             function frame() {
-                w = canvas.width = window.innerWidth;
-                h = canvas.height = window.innerHeight;
                 ctx.clearRect(0, 0, w, h);
 
                 t += 0.015; // Speed
