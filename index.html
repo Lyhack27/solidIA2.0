@@ -782,6 +782,226 @@
             }
         }
 
+        /* NEWS */
+        .news-section {
+            padding: 5rem 0;
+            background:
+                radial-gradient(circle at top left, rgba(37, 99, 235, 0.12), transparent 32%),
+                linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(37, 99, 235, 0.05));
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border)
+        }
+
+        .news-header {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 2rem;
+            margin-bottom: 2.5rem
+        }
+
+        .news-copy {
+            max-width: 620px
+        }
+
+        .news-brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1rem
+        }
+
+        .news-brand img {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 1px solid rgba(255, 255, 255, 0.08)
+        }
+
+        .news-brand strong {
+            display: block;
+            font-size: 1rem;
+            font-weight: 800;
+            letter-spacing: 0.02em
+        }
+
+        .news-brand span {
+            display: block;
+            color: var(--text-muted);
+            font-size: 0.78rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase
+        }
+
+        .news-copy p {
+            color: var(--text-secondary);
+            margin-top: 0.85rem;
+            font-size: 0.98rem
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr 1fr;
+            gap: 1.5rem
+        }
+
+        .news-card {
+            background: rgba(10, 10, 10, 0.78);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius);
+            overflow: hidden;
+            transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+            min-height: 100%
+        }
+
+        .news-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 255, 255, 0.18);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.28)
+        }
+
+        .news-media {
+            height: 220px;
+            overflow: hidden;
+            border-bottom: 1px solid var(--border);
+            position: relative
+        }
+
+        .news-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
+        }
+
+        .news-media-badge {
+            position: absolute;
+            top: 0.9rem;
+            left: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 0.5rem 0.4rem 0.42rem;
+            border-radius: 999px;
+            background: rgba(0, 0, 0, 0.62);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(10px)
+        }
+
+        .news-media-badge img {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            object-fit: cover
+        }
+
+        .news-media-badge span {
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.96)
+        }
+
+        .news-obsidian-art {
+            width: 100%;
+            height: 100%;
+            display: block;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(96, 165, 250, 0.16), transparent 28%),
+                radial-gradient(circle at 80% 30%, rgba(168, 85, 247, 0.18), transparent 24%),
+                linear-gradient(135deg, #050816, #0b1023 55%, #111827);
+        }
+
+        .news-body {
+            padding: 1.5rem
+        }
+
+        .news-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem
+        }
+
+        .news-pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.38rem 0.7rem;
+            border-radius: 999px;
+            background: rgba(37, 99, 235, 0.12);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            color: #93c5fd;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase
+        }
+
+        .news-date {
+            color: var(--text-muted);
+            font-size: 0.8rem
+        }
+
+        .news-card h3 {
+            font-size: 1.2rem;
+            line-height: 1.35;
+            margin-bottom: 0.8rem
+        }
+
+        .news-card p {
+            color: var(--text-secondary);
+            font-size: 0.94rem;
+            line-height: 1.75;
+            margin-bottom: 1.2rem
+        }
+
+        .news-link {
+            color: var(--text);
+            font-weight: 700;
+            font-size: 0.92rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem
+        }
+
+        .news-link:hover {
+            color: #dbeafe
+        }
+
+        .news-card.is-dynamic .news-media {
+            position: relative;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.2), rgba(15, 23, 42, 0.95))
+        }
+
+        .news-card.is-dynamic .news-media::after {
+            content: "LIVE FROM GITHUB";
+            position: absolute;
+            left: 1rem;
+            bottom: 1rem;
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            color: rgba(255, 255, 255, 0.92)
+        }
+
+        .news-card.is-dynamic .news-media img {
+            opacity: 0.28;
+            filter: saturate(0.7)
+        }
+
+        @media(max-width:900px) {
+            .news-header {
+                flex-direction: column;
+                align-items: start
+            }
+
+            .news-grid {
+                grid-template-columns: 1fr
+            }
+        }
+
         /* FINAL CTA */
         .final-cta {
             background: linear-gradient(135deg, rgba(6, 182, 212, 0.08), rgba(16, 185, 129, 0.08));
@@ -1293,6 +1513,158 @@
         </div>
     </section>
 
+    <!-- NEWS -->
+    <section id="news" class="news-section fade-up">
+        <div class="container">
+            <div class="news-header">
+                <div class="news-copy">
+                    <div class="news-brand">
+                        <img src="logo/logo.png" alt="Solid News logo">
+                        <div>
+                            <strong>Solid News</strong>
+                            <span>Latest Developments</span>
+                        </div>
+                    </div>
+                    <h2 class="section-title" style="text-align:left;margin-top:1rem">What We're Publishing Right Now</h2>
+                    <p>
+                        At Solid we are building a system where all your agents connect into a neural network from
+                        Obsidian, giving your whole company a shared memory so every team can stay coordinated
+                        under the project manager.
+                    </p>
+                </div>
+                <a href="latest-news.html" target="_blank" rel="noopener noreferrer" class="btn-secondary">Open Full Blog →</a>
+            </div>
+
+            <div class="news-grid">
+                <article class="news-card">
+                    <div class="news-media">
+                        <svg class="news-obsidian-art" viewBox="0 0 1200 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Obsidian-style neural network">
+                            <defs>
+                                <linearGradient id="obsLine" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#60a5fa"/>
+                                    <stop offset="50%" stop-color="#8b5cf6"/>
+                                    <stop offset="100%" stop-color="#22d3ee"/>
+                                </linearGradient>
+                                <radialGradient id="obsGlow" cx="50%" cy="50%" r="60%">
+                                    <stop offset="0%" stop-color="rgba(139,92,246,0.9)"/>
+                                    <stop offset="100%" stop-color="rgba(139,92,246,0)"/>
+                                </radialGradient>
+                                <filter id="softGlow">
+                                    <feGaussianBlur stdDeviation="6" result="blur"/>
+                                    <feMerge>
+                                        <feMergeNode in="blur"/>
+                                        <feMergeNode in="SourceGraphic"/>
+                                    </feMerge>
+                                </filter>
+                            </defs>
+                            <rect width="1200" height="520" fill="#070b17"/>
+                            <circle cx="250" cy="120" r="140" fill="url(#obsGlow)" opacity="0.35"/>
+                            <circle cx="910" cy="360" r="180" fill="url(#obsGlow)" opacity="0.25"/>
+                            <g stroke="url(#obsLine)" stroke-width="3" opacity="0.75" filter="url(#softGlow)">
+                                <line x1="110" y1="130" x2="280" y2="90"/>
+                                <line x1="280" y1="90" x2="430" y2="155"/>
+                                <line x1="430" y1="155" x2="615" y2="115"/>
+                                <line x1="615" y1="115" x2="790" y2="185"/>
+                                <line x1="790" y1="185" x2="1030" y2="120"/>
+                                <line x1="150" y1="280" x2="330" y2="230"/>
+                                <line x1="330" y1="230" x2="500" y2="295"/>
+                                <line x1="500" y1="295" x2="700" y2="255"/>
+                                <line x1="700" y1="255" x2="860" y2="320"/>
+                                <line x1="860" y1="320" x2="1080" y2="255"/>
+                                <line x1="260" y1="420" x2="420" y2="345"/>
+                                <line x1="420" y1="345" x2="620" y2="390"/>
+                                <line x1="620" y1="390" x2="820" y2="360"/>
+                                <line x1="820" y1="360" x2="1030" y2="405"/>
+                                <line x1="280" y1="90" x2="330" y2="230"/>
+                                <line x1="430" y1="155" x2="500" y2="295"/>
+                                <line x1="615" y1="115" x2="700" y2="255"/>
+                                <line x1="790" y1="185" x2="860" y2="320"/>
+                                <line x1="330" y1="230" x2="420" y2="345"/>
+                                <line x1="500" y1="295" x2="620" y2="390"/>
+                                <line x1="700" y1="255" x2="820" y2="360"/>
+                            </g>
+                            <g fill="#dbeafe" filter="url(#softGlow)">
+                                <circle cx="110" cy="130" r="9"/>
+                                <circle cx="280" cy="90" r="10"/>
+                                <circle cx="430" cy="155" r="11"/>
+                                <circle cx="615" cy="115" r="11"/>
+                                <circle cx="790" cy="185" r="10"/>
+                                <circle cx="1030" cy="120" r="9"/>
+                                <circle cx="150" cy="280" r="9"/>
+                                <circle cx="330" cy="230" r="11"/>
+                                <circle cx="500" cy="295" r="12"/>
+                                <circle cx="700" cy="255" r="11"/>
+                                <circle cx="860" cy="320" r="10"/>
+                                <circle cx="1080" cy="255" r="9"/>
+                                <circle cx="260" cy="420" r="9"/>
+                                <circle cx="420" cy="345" r="10"/>
+                                <circle cx="620" cy="390" r="12"/>
+                                <circle cx="820" cy="360" r="10"/>
+                                <circle cx="1030" cy="405" r="9"/>
+                            </g>
+                            <g transform="translate(460 160)">
+                                <rect x="0" y="0" rx="36" ry="36" width="280" height="180" fill="rgba(9,12,24,0.78)" stroke="rgba(255,255,255,0.12)"/>
+                                <image href="logo/logo.png" x="92" y="24" width="96" height="96" preserveAspectRatio="xMidYMid slice"/>
+                                <text x="140" y="144" fill="#ffffff" font-size="30" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-weight="800">SOLID NEWS</text>
+                            </g>
+                        </svg>
+                        <div class="news-media-badge">
+                            <img src="logo/logo.png" alt="Solid AI logo">
+                            <span>Solid News</span>
+                        </div>
+                    </div>
+                    <div class="news-body">
+                        <div class="news-meta">
+                            <span class="news-pill">Featured Story</span>
+                            <span class="news-date">Dec 10, 2025</span>
+                        </div>
+                        <h3>Autonomous Agents That Save Businesses Thousands of Dollars Every Year</h3>
+                        <p>
+                            We are building autonomous-agent solutions designed for companies that want every team,
+                            workflow, and decision path connected through shared intelligence while cutting admin
+                            overhead and saving thousands of dollars in yearly operating costs.
+                        </p>
+                        <a href="latest-news.html" target="_blank" rel="noopener noreferrer" class="news-link">Read article →</a>
+                    </div>
+                </article>
+
+                <article class="news-card is-dynamic" id="github-issue-card-1">
+                    <div class="news-media">
+                        <img src="images/hero_ai_calendar.png" alt="Latest GitHub security news">
+                    </div>
+                    <div class="news-body">
+                        <div class="news-meta">
+                            <span class="news-pill">GitHub Issue</span>
+                            <span class="news-date">Loading...</span>
+                        </div>
+                        <h3>Loading the latest automated security news...</h3>
+                        <p>
+                            This card will pull the latest automated issue from the GitHub news repository.
+                        </p>
+                        <a href="https://github.com/Lyhack27/marketing-solidiaai/issues" target="_blank" rel="noopener noreferrer" class="news-link">Open repository news →</a>
+                    </div>
+                </article>
+
+                <article class="news-card is-dynamic" id="github-issue-card-2">
+                    <div class="news-media">
+                        <img src="images/hero_dashboard.png" alt="More GitHub issue news">
+                    </div>
+                    <div class="news-body">
+                        <div class="news-meta">
+                            <span class="news-pill">GitHub Issue</span>
+                            <span class="news-date">Loading...</span>
+                        </div>
+                        <h3>Loading the second latest automated issue...</h3>
+                        <p>
+                            This card will show the next most recent automated news issue from GitHub.
+                        </p>
+                        <a href="https://github.com/Lyhack27/marketing-solidiaai/issues" target="_blank" rel="noopener noreferrer" class="news-link">Open repository news →</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
     <!-- FINAL CTA -->
     <section class="final-cta fade-up" id="contact">
         <div class="container">
@@ -1675,6 +2047,66 @@
 
     <script>
     (function() {
+        var repoIssuesUrl = 'https://api.github.com/repos/Lyhack27/marketing-solidiaai/issues?state=open&per_page=2';
+
+        function formatIssueDate(value) {
+            var date = new Date(value);
+            return date.toLocaleDateString('en-AU', {
+                day: '2-digit',
+                month: 'short',
+                year: 'numeric'
+            });
+        }
+
+        function cleanIssueBody(body) {
+            var text = (body || '')
+                .replace(/[#>*`_\[\]\(\)]/g, ' ')
+                .replace(/\s+/g, ' ')
+                .trim();
+
+            if (!text) {
+                return 'Open the GitHub issue to read the full automated news report.';
+            }
+
+            return text.length > 165 ? text.slice(0, 162) + '...' : text;
+        }
+
+        function updateIssueCard(cardId, issue) {
+            var card = document.getElementById(cardId);
+            if (!card || !issue) return;
+
+            var dateNode = card.querySelector('.news-date');
+            var titleNode = card.querySelector('h3');
+            var bodyNode = card.querySelector('p');
+            var linkNode = card.querySelector('.news-link');
+
+            if (dateNode) dateNode.textContent = formatIssueDate(issue.created_at || issue.updated_at);
+            if (titleNode) titleNode.textContent = issue.title;
+            if (bodyNode) bodyNode.textContent = cleanIssueBody(issue.body);
+            if (linkNode) {
+                linkNode.href = issue.html_url;
+                linkNode.textContent = 'Read GitHub issue →';
+            }
+        }
+
+        fetch(repoIssuesUrl)
+            .then(function(response) {
+                if (!response.ok) throw new Error('GitHub issues fetch failed');
+                return response.json();
+            })
+            .then(function(items) {
+                var issues = items.filter(function(item) { return !item.pull_request; });
+                updateIssueCard('github-issue-card-1', issues[0]);
+                updateIssueCard('github-issue-card-2', issues[1]);
+            })
+            .catch(function() {
+                // Keep placeholder content if GitHub is unavailable.
+            });
+    })();
+    </script>
+
+    <script>
+    (function() {
         // ── Config ──────────────────────────────────────────────────
         var WEBHOOK = 'https://n8n.solidiaai.com/webhook/974f29f6-1eee-4e56-aabc-ccb9cccccaef/chat';
         var SESSION_KEY = 'solidai_session_' + Math.random().toString(36).slice(2);
@@ -1803,6 +2235,83 @@
             this.style.height = 'auto';
             this.style.height = Math.min(this.scrollHeight, 100) + 'px';
         });
+    })();
+    </script>
+    <script>
+    (function() {
+        var style = document.createElement('style');
+        style.textContent = '.news-scroll{max-height:140px;overflow-y:auto;padding-right:.35rem;margin-bottom:1.15rem;scrollbar-width:thin;scrollbar-color:rgba(96,165,250,.5) transparent}.news-scroll::-webkit-scrollbar{width:6px}.news-scroll::-webkit-scrollbar-thumb{background:rgba(96,165,250,.45);border-radius:999px}.news-summary{color:var(--text-secondary);font-size:.94rem;line-height:1.72;margin-bottom:.9rem}.news-points{display:grid;gap:.55rem}.news-point{color:#dbeafe;font-size:.83rem;line-height:1.55;padding-left:.95rem;position:relative}.news-point::before{content:\"\";position:absolute;left:0;top:.55rem;width:6px;height:6px;border-radius:50%;background:#60a5fa}';
+        document.head.appendChild(style);
+
+        document.querySelectorAll('a[href=\"latest-news.html\"]').forEach(function(link) {
+            link.href = 'solid-news.html';
+            if (link.classList.contains('btn-secondary')) link.textContent = 'Open Solid News →';
+            if (link.classList.contains('news-link')) link.textContent = 'Read article →';
+        });
+
+        function ensureScroll(card) {
+            if (!card || card.querySelector('.news-scroll')) return;
+            var oldParagraph = card.querySelector('.news-body p');
+            if (!oldParagraph) return;
+            var wrap = document.createElement('div');
+            wrap.className = 'news-scroll';
+            var summary = document.createElement('p');
+            summary.className = 'news-summary';
+            summary.textContent = oldParagraph.textContent.trim();
+            var points = document.createElement('div');
+            points.className = 'news-points';
+            wrap.appendChild(summary);
+            wrap.appendChild(points);
+            oldParagraph.replaceWith(wrap);
+        }
+
+        function getDigest(issue) {
+            var normalized = (((issue && issue.title) || '') + ' ' + ((issue && issue.body) || '')).toLowerCase();
+            if (normalized.indexOf('vercel') !== -1 || normalized.indexOf('context.ai') !== -1) {
+                return { badge:'Supply Chain', title:'AI Supply-Chain Breach Reaches Vercel Through Context.AI', summary:'A compromised AI productivity tool appears to have become the entry point for a broader supply-chain incident that impacted Vercel and exposed customer-linked data.', bullets:['AI-connected tools are becoming real attack surfaces inside company systems.','Vendor access and identity controls matter even more in agent-based operations.','Open GitHub to read the full Spanish report and all original sources.'] };
+            }
+            if (normalized.indexOf('microsoft defender') !== -1 || normalized.indexOf('redsun') !== -1 || normalized.indexOf('undefend') !== -1) {
+                return { badge:'Endpoint Security', title:'Microsoft Defender Zero-Day Cluster Still Under Active Exploitation', summary:'Multiple Microsoft Defender zero-days are being actively exploited, with critical exposure still present for teams relying on Defender as a primary security layer.', bullets:['High-impact endpoint risk for business environments and internal IT teams.','Shows how unpatched chains can turn defensive software into an attack vector.','Use the GitHub link for the complete Spanish write-up and source list.'] };
+            }
+            if (normalized.indexOf('claude mythos') !== -1) {
+                return { badge:'AI Security', title:'Claude Mythos Raises the Bar for Autonomous Offensive AI', summary:'This briefing highlights a new class of AI systems capable of discovering and exploiting long-standing vulnerabilities at scale.', bullets:['Signals faster vulnerability discovery and exploitation cycles.','Makes coordination, memory, and governance more important for every AI team.','The full Spanish version stays available through the linked GitHub issue.'] };
+            }
+            if (normalized.indexOf('chrome') !== -1 && normalized.indexOf('cve-2026-5281') !== -1) {
+                return { badge:'Browser Security', title:'Chrome Zero-Day Added to KEV After Active Exploitation', summary:'A Chrome WebGPU zero-day has been confirmed under active exploitation, reinforcing how quickly browser-layer threats become operational risk.', bullets:['Important for teams running browser-heavy workflows and internal portals.','Shows how fast proof-of-concept exploits can become production threats.','Read the GitHub issue to access the full Spanish report and sources.'] };
+            }
+            return { badge:'GitHub Brief', title:'Latest Automated AI and Security Briefing', summary:'This homepage card presents an English digest of the latest item from our Spanish-language GitHub newsroom.', bullets:['Short English digest on the homepage for quick reading.','Full Spanish report stays on GitHub for detailed review.','Cards continue updating as new automated issues are published.'] };
+        }
+
+        function fillCard(cardId, issue) {
+            var card = document.getElementById(cardId);
+            if (!card || !issue) return;
+            ensureScroll(card);
+            var digest = getDigest(issue);
+            var date = new Date(issue.created_at || issue.updated_at).toLocaleDateString('en-AU', { day:'2-digit', month:'short', year:'numeric' });
+            var badgeNode = card.querySelector('.news-pill');
+            var dateNode = card.querySelector('.news-date');
+            var titleNode = card.querySelector('h3');
+            var summaryNode = card.querySelector('.news-summary');
+            var pointsNode = card.querySelector('.news-points');
+            var linkNode = card.querySelector('.news-link');
+            if (badgeNode) badgeNode.textContent = digest.badge;
+            if (dateNode) dateNode.textContent = date;
+            if (titleNode) titleNode.textContent = digest.title;
+            if (summaryNode) summaryNode.textContent = digest.summary;
+            if (pointsNode) pointsNode.innerHTML = digest.bullets.map(function(point) { return '<div class=\"news-point\">' + point + '</div>'; }).join('');
+            if (linkNode) {
+                linkNode.href = issue.html_url;
+                linkNode.textContent = 'Read full Spanish report →';
+            }
+        }
+
+        fetch('https://api.github.com/repos/Lyhack27/marketing-solidiaai/issues?state=open&per_page=2')
+            .then(function(response) { return response.ok ? response.json() : []; })
+            .then(function(items) {
+                var issues = items.filter(function(item) { return !item.pull_request; });
+                fillCard('github-issue-card-1', issues[0]);
+                fillCard('github-issue-card-2', issues[1]);
+            });
     })();
     </script>
 </body>

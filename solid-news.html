@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solid News | Obsidian Agent Network</title>
+    <link rel="icon" type="image/png" href="logo/logo.png">
+    <style>
+        :root { --bg:#040714; --panel:rgba(11,16,35,.88); --line:rgba(255,255,255,.08); --text:#f8fafc; --muted:#9ca3af; }
+        * { box-sizing:border-box; }
+        body { margin:0; font-family:Inter,Arial,sans-serif; color:var(--text); background:radial-gradient(circle at top left, rgba(96,165,250,.12), transparent 26%),radial-gradient(circle at top right, rgba(167,139,250,.14), transparent 22%),linear-gradient(180deg,#030612 0%,#070b17 60%,#02040b 100%); }
+        .wrap { max-width:1180px; margin:0 auto; padding:48px 24px 80px; }
+        .hero { display:grid; grid-template-columns:1.1fr .9fr; gap:28px; align-items:center; margin-bottom:48px; }
+        .eyebrow { display:inline-flex; align-items:center; gap:12px; padding:10px 14px; border:1px solid var(--line); border-radius:999px; background:rgba(255,255,255,.03); }
+        .eyebrow img { width:42px; height:42px; border-radius:12px; }
+        .eyebrow strong { display:block; font-size:1rem; }
+        .eyebrow span { display:block; color:var(--muted); font-size:.78rem; letter-spacing:.08em; text-transform:uppercase; }
+        h1 { font-size:clamp(2.8rem,6vw,5rem); line-height:.96; margin:18px 0; }
+        .lead { max-width:760px; color:#dbeafe; font-size:1.08rem; line-height:1.8; }
+        .hero-art { min-height:380px; border:1px solid var(--line); border-radius:28px; overflow:hidden; background:var(--panel); box-shadow:0 20px 50px rgba(0,0,0,.28); }
+        .hero-art svg { width:100%; height:100%; display:block; }
+        .matrix { display:grid; gap:18px; margin-top:20px; }
+        .matrix-row { display:grid; grid-template-columns:260px 1fr 1fr 1fr; gap:16px; }
+        .cell { padding:20px; border:1px solid var(--line); border-radius:20px; background:var(--panel); min-height:132px; }
+        .cell h3, .cell h4 { margin:0 0 10px; }
+        .cell p { margin:0; color:var(--muted); line-height:1.7; font-size:.95rem; }
+        .cell.label { background:linear-gradient(135deg, rgba(96,165,250,.12), rgba(167,139,250,.12)); }
+        .pill { display:inline-block; margin-bottom:10px; padding:7px 11px; border-radius:999px; background:rgba(96,165,250,.12); color:#bfdbfe; font-size:.72rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
+        .cta { margin-top:34px; }
+        .cta a { display:inline-flex; padding:13px 18px; border-radius:999px; border:1px solid var(--line); color:var(--text); text-decoration:none; background:rgba(255,255,255,.03); }
+        @media (max-width:980px) { .hero{grid-template-columns:1fr;} .matrix-row{grid-template-columns:1fr;} }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <section class="hero">
+            <div>
+                <div class="eyebrow">
+                    <img src="logo/logo.png" alt="Solid News logo">
+                    <div><strong>Solid News</strong><span>Latest Developments</span></div>
+                </div>
+                <h1>One Neural Memory for Every Agent, Team, and Workflow</h1>
+                <p class="lead">At Solid we are building a model where your agents, staff, and project manager are connected through a shared neural memory powered from Obsidian. The goal is simple: tighter coordination, stronger execution, and thousands of dollars saved every year through lower admin drag, better handoffs, and less duplicated work.</p>
+                <div class="cta"><a href="index.html#news">Back to Homepage News →</a></div>
+            </div>
+            <div class="hero-art">
+                <svg viewBox="0 0 820 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Neural network connected from Obsidian">
+                    <defs>
+                        <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#60a5fa"/><stop offset="50%" stop-color="#a78bfa"/><stop offset="100%" stop-color="#22d3ee"/></linearGradient>
+                        <filter id="glow"><feGaussianBlur stdDeviation="8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                    </defs>
+                    <rect width="820" height="520" fill="#070b17"/>
+                    <g stroke="url(#g1)" stroke-width="3" opacity="0.8" filter="url(#glow)">
+                        <line x1="88" y1="112" x2="220" y2="90"/><line x1="220" y1="90" x2="380" y2="150"/><line x1="380" y1="150" x2="530" y2="112"/><line x1="530" y1="112" x2="700" y2="154"/><line x1="120" y1="260" x2="250" y2="226"/><line x1="250" y1="226" x2="420" y2="284"/><line x1="420" y1="284" x2="596" y2="236"/><line x1="596" y1="236" x2="732" y2="286"/><line x1="170" y1="410" x2="320" y2="348"/><line x1="320" y1="348" x2="492" y2="394"/><line x1="492" y1="394" x2="650" y2="360"/><line x1="220" y1="90" x2="250" y2="226"/><line x1="380" y1="150" x2="420" y2="284"/><line x1="530" y1="112" x2="596" y2="236"/><line x1="250" y1="226" x2="320" y2="348"/><line x1="420" y1="284" x2="492" y2="394"/></g>
+                    <g fill="#e0f2fe" filter="url(#glow)">
+                        <circle cx="88" cy="112" r="9"/><circle cx="220" cy="90" r="10"/><circle cx="380" cy="150" r="11"/><circle cx="530" cy="112" r="10"/><circle cx="700" cy="154" r="9"/><circle cx="120" cy="260" r="9"/><circle cx="250" cy="226" r="10"/><circle cx="420" cy="284" r="12"/><circle cx="596" cy="236" r="10"/><circle cx="732" cy="286" r="9"/><circle cx="170" cy="410" r="9"/><circle cx="320" cy="348" r="10"/><circle cx="492" cy="394" r="11"/><circle cx="650" cy="360" r="10"/></g>
+                    <g transform="translate(286 160)">
+                        <rect x="0" y="0" width="248" height="174" rx="34" fill="rgba(9,12,24,0.82)" stroke="rgba(255,255,255,0.14)"/>
+                        <image href="logo/logo.png" x="76" y="24" width="96" height="96" preserveAspectRatio="xMidYMid slice"/>
+                        <text x="124" y="146" text-anchor="middle" font-size="28" font-weight="800" fill="#ffffff" font-family="Inter, Arial, sans-serif">SOLID NEWS</text>
+                    </g>
+                </svg>
+            </div>
+        </section>
+        <section>
+            <div class="matrix">
+                <div class="matrix-row">
+                    <div class="cell label"><span class="pill">Shared Memory</span><h3>Why This System Matters</h3><p>A single knowledge layer in Obsidian lets teams, agents, and managers work from the same operational memory.</p></div>
+                    <div class="cell"><span class="pill">Coordination</span><h4>Every agent sees the latest context</h4><p>No more broken handoffs, duplicated tasks, or disconnected assistant logic between departments.</p></div>
+                    <div class="cell"><span class="pill">Execution</span><h4>Project manager stays in control</h4><p>The PM can orchestrate priorities, approve flows, and keep all autonomous systems aligned to one plan.</p></div>
+                    <div class="cell"><span class="pill">Savings</span><h4>Thousands saved every year</h4><p>Lower admin hours, fewer miscommunications, faster delivery, and less overhead across operations.</p></div>
+                </div>
+                <div class="matrix-row">
+                    <div class="cell label"><span class="pill">Departments</span><h3>Rows and Columns of Value</h3><p>The same memory layer supports sales, operations, support, and leadership without forcing each team into separate silos.</p></div>
+                    <div class="cell"><span class="pill">Sales</span><h4>Connected lead memory</h4><p>Agents know the latest customer context, proposal stage, objections, and follow-up requirements.</p></div>
+                    <div class="cell"><span class="pill">Operations</span><h4>Shared delivery state</h4><p>Internal workflows stay updated across tasks, automations, and service milestones with less manual tracking.</p></div>
+                    <div class="cell"><span class="pill">Support</span><h4>Faster, better responses</h4><p>Teams and support agents can answer with better context because the company memory is centralized and current.</p></div>
+                </div>
+                <div class="matrix-row">
+                    <div class="cell label"><span class="pill">Business Impact</span><h3>What Companies Gain</h3><p>This is not just an AI feature. It becomes an operating system for coordination, visibility, and controlled autonomy.</p></div>
+                    <div class="cell"><span class="pill">Visibility</span><h4>One source of truth</h4><p>Leadership sees what agents are doing, what teams changed, and what decisions were made across the company.</p></div>
+                    <div class="cell"><span class="pill">Scalability</span><h4>Grow without chaos</h4><p>New staff and new agents plug into an existing memory structure instead of creating more disconnected processes.</p></div>
+                    <div class="cell"><span class="pill">Governance</span><h4>Control with autonomy</h4><p>Teams move faster while the project manager still defines guardrails, priorities, and approval pathways.</p></div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
