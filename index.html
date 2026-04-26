@@ -842,8 +842,9 @@
 
         .news-grid {
             display: grid;
-            grid-template-columns: 1.2fr 1fr 1fr;
-            gap: 1.5rem
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1.5rem;
+            align-items: start
         }
 
         .news-card {
@@ -915,6 +916,34 @@
 
         .news-body {
             padding: 1.5rem
+        }
+
+        .news-card.is-featured .news-media {
+            height: 190px
+        }
+
+        .news-card.is-featured .news-body {
+            padding: 1.2rem
+        }
+
+        .news-card.is-featured h3 {
+            font-size: 1.06rem
+        }
+
+        .featured-story-label {
+            display: inline-flex;
+            align-items: center;
+            width: fit-content;
+            margin: 1rem 1rem 0;
+            padding: 0.3rem 0.62rem;
+            border-radius: 999px;
+            background: rgba(37, 99, 235, 0.14);
+            border: 1px solid rgba(147, 197, 253, 0.24);
+            color: #bfdbfe;
+            font-size: 0.66rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase
         }
 
         .news-meta {
@@ -1546,7 +1575,7 @@
             </div>
 
             <div class="news-grid">
-                <article class="news-card">
+                <article class="news-card is-featured">
                     <div class="news-media">
                         <svg class="news-obsidian-art" viewBox="0 0 1200 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Obsidian-style neural network">
                             <defs>
@@ -1623,9 +1652,9 @@
                             <span>Solid News</span>
                         </div>
                     </div>
+                    <div class="featured-story-label">Featured Story</div>
                     <div class="news-body">
                         <div class="news-meta">
-                            <span class="news-pill">Featured Story</span>
                             <span class="news-date">Dec 10, 2025</span>
                         </div>
                         <h3>Autonomous Agents That Save Businesses Thousands of Dollars Every Year</h3>
@@ -2176,6 +2205,7 @@
 
     <script>
     (function() {
+        return;
         var repoIssuesUrl = 'https://api.github.com/repos/Lyhack27/marketing-solidiaai/issues?state=open&per_page=2';
 
         function formatIssueDate(value) {
@@ -2394,6 +2424,52 @@
             oldParagraph.replaceWith(wrap);
         }
 
+        function stripIssueText(value) {
+            return (value || '')
+                .replace(/https?:\/\/\S+/g, '')
+                .replace(/[#>*`_\[\]\(\)]/g, ' ')
+                .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+                .replace(/\s+/g, ' ')
+                .trim();
+        }
+
+        function translateIssueTitle(title) {
+            var text = stripIssueText(title)
+                .replace(/\bNoticias criticas de AI\s*&\s*Seguridad\b/i, 'Critical AI & Security News')
+                .replace(/\bSeguridad critica\b/ig, 'Critical Security')
+                .replace(/\bAlerta seguridad\b/ig, 'Security Alert')
+                .replace(/\bIA revolucionaria\b/ig, 'Breakthrough AI')
+                .replace(/\bAI critico\b/ig, 'Critical AI')
+                .replace(/\bexplotacion activa\b/ig, 'active exploitation')
+                .replace(/\bsin parche activos\b/ig, 'still unpatched')
+                .replace(/\bsin parche activo\b/ig, 'still unpatched')
+                .replace(/\bfalla arquitectonica\b/ig, 'architectural flaw')
+                .replace(/\blanza\b/ig, 'launches')
+                .replace(/\bmodelo que encuentra\b/ig, 'model that finds')
+                .replace(/\bmiles de\b/ig, 'thousands of')
+                .replace(/\ben todos los\b/ig, 'across all')
+                .replace(/\bdescubre\b/ig, 'discovers')
+                .replace(/\bexpone\b/ig, 'exposes');
+
+            return text || 'Latest Automated AI and Security Briefing';
+        }
+
+        function detectIssueBadge(issue) {
+            var title = ((issue && issue.title) || '').toLowerCase();
+            if (title.indexOf('zero-day') !== -1 || title.indexOf('0-day') !== -1) return 'Zero-Day';
+            if (title.indexOf('cve') !== -1) return 'CVE Alert';
+            if (title.indexOf('seguridad') !== -1 || title.indexOf('security') !== -1) return 'Security Brief';
+            if (title.indexOf('claude') !== -1 || title.indexOf('anthropic') !== -1) return 'AI Security';
+            if (title.indexOf('microsoft') !== -1 || title.indexOf('defender') !== -1) return 'Endpoint Security';
+            if (title.indexOf('chrome') !== -1) return 'Browser Security';
+            return 'Solid News';
+        }
+
+        function issueSummary(issue) {
+            var title = translateIssueTitle(issue && issue.title);
+            return 'Automated Solid News is tracking ' + title.toLowerCase() + '. This homepage version keeps the insight short in English while the GitHub issue keeps the full Spanish report, context, and source links.';
+        }
+
         function getDigest(issue) {
             var normalized = (((issue && issue.title) || '') + ' ' + ((issue && issue.body) || '')).toLowerCase();
             if (normalized.indexOf('vercel') !== -1 || normalized.indexOf('context.ai') !== -1) {
@@ -2408,7 +2484,16 @@
             if (normalized.indexOf('chrome') !== -1 && normalized.indexOf('cve-2026-5281') !== -1) {
                 return { badge:'Browser Security', title:'Chrome Zero-Day Added to KEV After Active Exploitation', summary:'A Chrome WebGPU zero-day has been confirmed under active exploitation, reinforcing how quickly browser-layer threats become operational risk.', bullets:['Important for teams running browser-heavy workflows and internal portals.','Shows how fast proof-of-concept exploits can become production threats.','Read the GitHub issue to access the full Spanish report and sources.'] };
             }
-            return { badge:'GitHub Brief', title:'Latest Automated AI and Security Briefing', summary:'This homepage card presents an English digest of the latest item from our Spanish-language GitHub newsroom.', bullets:['Short English digest on the homepage for quick reading.','Full Spanish report stays on GitHub for detailed review.','Cards continue updating as new automated issues are published.'] };
+            return {
+                badge: detectIssueBadge(issue),
+                title: translateIssueTitle(issue && issue.title),
+                summary: issueSummary(issue),
+                bullets: [
+                    'This card is generated from the real GitHub issue, not a static placeholder.',
+                    'The homepage keeps the briefing short in English for quick reading.',
+                    'Open GitHub for the full Spanish report, context, and source links.'
+                ]
+            };
         }
 
         function fillCard(cardId, issue) {
