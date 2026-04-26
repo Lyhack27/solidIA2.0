@@ -1838,6 +1838,73 @@
         #n8n-chat-btn .chat-logo { width: 32px; height: 32px; border-radius: 50%; background: #fff; padding: 3px; object-fit: contain; flex-shrink: 0; }
         #n8n-chat-btn .chat-label { font-weight: 700; font-size: 14px; white-space: nowrap; color: #fff; }
 
+        .quick-contact-bubbles {
+            position: fixed !important;
+            right: 24px;
+            bottom: 88px;
+            z-index: 2147483646 !important;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-family: 'Inter', -apple-system, sans-serif;
+        }
+
+        .quick-contact-bubble {
+            width: 52px;
+            height: 52px;
+            border-radius: 999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-decoration: none;
+            border: 1px solid rgba(255,255,255,0.16);
+            box-shadow: 0 8px 28px rgba(0,0,0,0.38);
+            transition: transform 0.2s, box-shadow 0.2s, width 0.2s;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .quick-contact-bubble:hover {
+            width: 138px;
+            justify-content: flex-start;
+            padding: 0 15px;
+            gap: 10px;
+            transform: translateY(-3px);
+        }
+
+        .quick-contact-bubble svg {
+            width: 22px;
+            height: 22px;
+            flex: 0 0 auto;
+        }
+
+        .quick-contact-bubble span {
+            opacity: 0;
+            max-width: 0;
+            overflow: hidden;
+            font-size: 13px;
+            font-weight: 800;
+            transition: opacity 0.18s, max-width 0.18s;
+        }
+
+        .quick-contact-bubble:hover span {
+            opacity: 1;
+            max-width: 80px;
+        }
+
+        .quick-contact-bubble.whatsapp {
+            background: #25D366;
+        }
+
+        .quick-contact-bubble.sms {
+            background: #2563eb;
+        }
+
+        .quick-contact-bubble.call {
+            background: #111827;
+        }
+
         /* ── Chat window ── */
         #n8n-chat-window {
             bottom: 88px; right: 24px;
@@ -2017,6 +2084,23 @@
                 max-height: 55vh;
             }
             #n8n-chat-btn { right: 14px; bottom: 16px; }
+            .quick-contact-bubbles {
+                right: 14px;
+                bottom: 78px;
+                gap: 8px;
+            }
+            .quick-contact-bubble {
+                width: 46px;
+                height: 46px;
+            }
+            .quick-contact-bubble:hover {
+                width: 46px;
+                padding: 0;
+                justify-content: center;
+            }
+            .quick-contact-bubble span {
+                display: none;
+            }
         }
         @keyframes wa-spin { to { transform: rotate(360deg); } }
     </style>
@@ -2049,6 +2133,20 @@
     </div>
 
     <!-- Floating button -->
+    <div class="quick-contact-bubbles" aria-label="Quick contact options">
+        <a class="quick-contact-bubble whatsapp" href="https://wa.me/61424840127?text=Hi%20Solid%20AI%2C%20I'd%20like%20to%20talk%20about%20automation" target="_blank" rel="noopener noreferrer" aria-label="Message us on WhatsApp" title="WhatsApp">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19.05 4.91A9.86 9.86 0 0 0 12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.91-7.02Z" fill="currentColor" opacity=".22"/><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.95 1.17-.17.2-.35.22-.65.07-.3-.15-1.27-.47-2.42-1.49-.9-.8-1.5-1.78-1.67-2.08-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.05 1.02-1.05 2.5s1.07 2.9 1.22 3.1c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2.01-1.42.25-.7.25-1.3.17-1.42-.07-.13-.27-.2-.57-.35Z" fill="currentColor"/></svg>
+            <span>WhatsApp</span>
+        </a>
+        <a class="quick-contact-bubble sms" href="sms:+61424840127" aria-label="Send an SMS" title="SMS">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4.5 5.5A3.5 3.5 0 0 1 8 2h8a3.5 3.5 0 0 1 3.5 3.5v7A3.5 3.5 0 0 1 16 16H9.2L5 20.2V16H4.5A3.5 3.5 0 0 1 1 12.5v-7Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M7 7.5h10M7 11h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <span>SMS</span>
+        </a>
+        <a class="quick-contact-bubble call" href="tel:+61424840127" aria-label="Call Solid AI" title="Call">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.11.37 2.31.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.27.2 2.47.57 3.58a1 1 0 0 1-.24 1.01l-2.21 2.2Z" fill="currentColor"/></svg>
+            <span>Call</span>
+        </a>
+    </div>
     <button id="n8n-chat-btn" aria-label="Open chat">
         <img class="chat-logo" src="logo/logo.png" alt="Solid AI"
              onerror="this.src='https://ui-avatars.com/api/?name=SA&background=fff&color=25D366&size=30'">
