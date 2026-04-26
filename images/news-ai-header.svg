@@ -1,0 +1,34 @@
+<svg width="800" height="440" viewBox="0 0 800 440" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">News AI by Solid AI</title>
+  <desc id="desc">Black editorial news banner with orange border, Solid AI mark, and News AI title.</desc>
+  <rect width="800" height="440" fill="#050505"/>
+  <rect x="5" y="5" width="790" height="430" stroke="#D66B00" stroke-width="10"/>
+  <g opacity="0.42" stroke="#1F1F1F" stroke-width="2">
+    <line x1="308" y1="32" x2="308" y2="408"/>
+    <line x1="620" y1="32" x2="620" y2="408"/>
+    <line x1="32" y1="146" x2="768" y2="146"/>
+    <line x1="32" y1="292" x2="768" y2="292"/>
+    <line x1="402" y1="32" x2="402" y2="408"/>
+  </g>
+  <g transform="translate(106 118)">
+    <path d="M46 0L91 70L58 51L46 0Z" fill="#6E7076"/>
+    <path d="M91 70L46 0L122 91L91 70Z" fill="#00AEEF"/>
+    <path d="M58 51L91 70L0 87L58 51Z" fill="#1C1F24"/>
+  </g>
+  <text x="34" y="333" fill="#FFFFFF" font-family="Georgia, 'Times New Roman', serif" font-size="19" font-weight="700" letter-spacing="10">SOLIDAI</text>
+  <g transform="translate(330 56)">
+    <circle cx="20" cy="14" r="19" fill="#331600"/>
+    <circle cx="20" cy="14" r="10" fill="#D66B00"/>
+    <text x="52" y="22" fill="#D66B00" font-family="Arial, sans-serif" font-size="14" font-weight="700" letter-spacing="7">LIVE · AI</text>
+  </g>
+  <text x="330" y="206" fill="#FFFFFF" font-family="Georgia, 'Times New Roman', serif" font-size="92" font-weight="700">News</text>
+  <text x="330" y="300" fill="#FFFFFF" font-family="Georgia, 'Times New Roman', serif" font-size="92" font-weight="700">AI</text>
+  <g opacity="0.78">
+    <text x="644" y="122" fill="#565656" font-family="Georgia, 'Times New Roman', serif" font-size="20" font-style="italic">Curated</text>
+    <text x="644" y="154" fill="#565656" font-family="Georgia, 'Times New Roman', serif" font-size="20" font-style="italic">by</text>
+    <text x="644" y="220" fill="#D66B00" font-family="Georgia, 'Times New Roman', serif" font-size="23" font-weight="700" letter-spacing="2">Solid</text>
+    <text x="644" y="254" fill="#D66B00" font-family="Georgia, 'Times New Roman', serif" font-size="23" font-weight="700" letter-spacing="2">AI</text>
+    <text x="644" y="350" fill="#242424" font-family="Arial, sans-serif" font-size="14" font-weight="700" letter-spacing="4">solidiaai</text>
+    <text x="644" y="382" fill="#242424" font-family="Arial, sans-serif" font-size="14" font-weight="700" letter-spacing="4">.com</text>
+  </g>
+</svg>
